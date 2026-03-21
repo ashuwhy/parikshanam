@@ -1,0 +1,24 @@
+{
+  "name": "parikshanam",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:api": "turbo dev --filter=@parikshanam/api",
+    "dev:mobile": "turbo dev --filter=@parikshanam/mobile",
+    "dev:web": "turbo dev --filter=@parikshanam/web",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.30.1"
+    }
+  }
+}

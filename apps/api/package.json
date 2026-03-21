@@ -1,0 +1,9 @@
+{
+  "name": "@parikshanam/api",
+  "private": true,
+  "scripts": {
+    "dev": "bash -c 'if [ -x .venv/bin/python ]; then exec .venv/bin/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000; else exec python3 -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000; fi'",
+    "lint": "bash -c 'if [ -x .venv/bin/python ]; then exec .venv/bin/python -m ruff check .; else exec python3 -m ruff check .; fi'",
+    "build": "echo 'Python package has no turbo build output; use pip/uv install.'"
+  }
+}
