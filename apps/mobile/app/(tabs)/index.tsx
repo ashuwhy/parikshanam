@@ -38,7 +38,7 @@ export default function HomeScreen() {
         <Text className="mt-1 text-neutral-600 dark:text-neutral-400">Ready to ace your Olympiad?</Text>
 
         {error ? (
-          <Text className="mt-8 text-red-600">{error.message}</Text>
+          <Text className="mt-8 text-error">{error.message}</Text>
         ) : null}
 
         {course ? (

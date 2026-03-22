@@ -23,7 +23,7 @@ export function CourseCard({ course, onPress }: Props) {
       {course.thumbnail_url ? (
         <Image source={{ uri: course.thumbnail_url }} className="h-36 w-full" contentFit="cover" />
       ) : (
-        <View className="h-36 w-full bg-indigo-100 dark:bg-indigo-950" />
+        <View className="h-36 w-full bg-brand-primaryLight dark:bg-brand-primaryDark" />
       )}
       <View className="p-4">
         {olympiad ? (
@@ -38,7 +38,7 @@ export function CourseCard({ course, onPress }: Props) {
           </Text>
         ) : null}
         <View className="mt-3 flex-row items-center gap-2">
-          <Text className="text-lg font-bold text-indigo-600 dark:text-indigo-400">{formatRupeePaise(course.price)}</Text>
+          <Text className="text-lg font-bold text-brand-primary dark:text-brand-primary-light">{formatRupeePaise(course.price)}</Text>
           {course.mrp != null && course.mrp > course.price ? (
             <Text className="text-sm text-neutral-400 line-through">{formatRupeePaise(course.mrp)}</Text>
           ) : null}

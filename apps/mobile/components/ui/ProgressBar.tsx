@@ -12,11 +12,11 @@ export function ProgressBar({ progress, label }: ProgressBarProps) {
     <View className="w-full">
       <View className="flex-row justify-between items-center mb-1.5">
         {label && <Text className="text-xs font-medium text-neutral-500 dark:text-neutral-400">{label}</Text>}
-        <Text className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{Math.round(percentage)}%</Text>
+        <Text className="text-xs font-bold text-brand-primary dark:text-brand-primary-light">{Math.round(percentage)}%</Text>
       </View>
       <View className="h-2 w-full bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
         <View 
-          className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full" 
+          className="h-full bg-brand-primary dark:bg-brand-primary-light rounded-full" 
           style={{ width: `${percentage}%` }} 
         />
       </View>

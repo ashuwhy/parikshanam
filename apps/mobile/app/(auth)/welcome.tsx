@@ -10,7 +10,7 @@ export default function WelcomeScreen() {
 
         {/* Hero */}
         <View className="flex-1 items-center justify-center gap-3">
-          <View className="h-20 w-20 items-center justify-center rounded-3xl bg-indigo-600">
+          <View className="h-20 w-20 items-center justify-center rounded-3xl bg-brand-primary">
             <Text className="text-4xl font-black text-white">P</Text>
           </View>
           <Text className="text-4xl font-black tracking-tight text-neutral-900 dark:text-neutral-100">

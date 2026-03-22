@@ -100,11 +100,11 @@ export default function ClassSelectScreen() {
                     onPress={() => setSelected(cl.id)}
                     className={`h-16 min-w-[28%] items-center justify-center rounded-xl border-2 px-4 ${
                       active
-                        ? 'border-indigo-600 bg-indigo-50 dark:border-indigo-400 dark:bg-indigo-950'
+                        ? 'border-brand-primary bg-brand-primaryLight dark:border-brand-primary-light dark:bg-brand-primaryDark'
                         : 'border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900'
                     }`}>
                     <Text
-                      className={`text-lg font-semibold ${active ? 'text-indigo-700 dark:text-indigo-200' : 'text-neutral-800 dark:text-neutral-200'}`}>
+                      className={`text-lg font-semibold ${active ? 'text-brand-primaryDark dark:text-brand-primary-light' : 'text-neutral-800 dark:text-neutral-200'}`}>
                       {cl.label}
                     </Text>
                   </Pressable>

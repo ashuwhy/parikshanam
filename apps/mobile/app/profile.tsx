@@ -56,7 +56,7 @@ export default function ProfileScreen() {
     <SafeAreaView className="flex-1 bg-neutral-50 dark:bg-neutral-950">
       <View className="flex-row items-center justify-between border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
         <Pressable accessibilityRole="button" accessibilityLabel="Close profile" onPress={() => router.back()}>
-          <Text className="text-base text-indigo-600">Close</Text>
+          <Text className="text-base text-brand-primary">Close</Text>
         </Pressable>
         <Text className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Profile</Text>
         <View className="w-12" />

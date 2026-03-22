@@ -85,8 +85,8 @@ export function QuizRunner({ quizId, onComplete, onExit }: QuizRunnerProps) {
             const isWrong = submitted && isSelected && idx !== currentQ.correct_option_index;
 
             if (isSelected && !submitted) {
-              bgColor = 'bg-indigo-50 dark:bg-indigo-950/40';
-              borderColor = 'border-indigo-600 dark:border-indigo-400';
+              bgColor = 'bg-brand-primaryLight dark:bg-brand-primaryDark/40';
+              borderColor = 'border-brand-primary dark:border-brand-primary-light';
             } else if (isCorrect) {
               bgColor = 'bg-green-50 dark:bg-green-950/40';
               borderColor = 'border-green-600 dark:border-green-400';
@@ -101,7 +101,7 @@ export function QuizRunner({ quizId, onComplete, onExit }: QuizRunnerProps) {
                 onPress={() => handleSelect(idx)}
                 className={`p-4 rounded-xl border-2 ${bgColor} ${borderColor} flex-row items-center justify-between`}
               >
-                <Text className={`flex-1 text-base ${isSelected ? 'text-indigo-900 dark:text-indigo-100 font-medium' : 'text-neutral-700 dark:text-neutral-300'}`}>
+                <Text className={`flex-1 text-base ${isSelected ? 'text-brand-primaryDark dark:text-brand-primary-light font-medium' : 'text-neutral-700 dark:text-neutral-300'}`}>
                   {opt}
                 </Text>
                 {submitted && isCorrect && <Ionicons name="checkmark-circle" size={24} color="#16a34a" />}

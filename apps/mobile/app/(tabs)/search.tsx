@@ -75,7 +75,7 @@ export default function SearchScreen() {
             accessibilityState={{ selected: filters.olympiadTypeId === null }}
             onPress={() => onPickOlympiad(null)}
             className={`mr-2 rounded-full px-4 py-2 ${
-              filters.olympiadTypeId === null ? 'bg-indigo-600' : 'bg-neutral-200 dark:bg-neutral-800'
+              filters.olympiadTypeId === null ? 'bg-brand-primary' : 'bg-neutral-200 dark:bg-neutral-800'
             }`}>
             <Text
               className={`text-sm font-medium ${
@@ -93,7 +93,7 @@ export default function SearchScreen() {
                 accessibilityState={{ selected: active }}
                 onPress={() => onPickOlympiad(o.id)}
                 className={`mr-2 rounded-full px-4 py-2 ${
-                  active ? 'bg-indigo-600' : 'bg-neutral-200 dark:bg-neutral-800'
+                  active ? 'bg-brand-primary' : 'bg-neutral-200 dark:bg-neutral-800'
                 }`}>
                 <Text
                   className={`text-sm font-medium ${

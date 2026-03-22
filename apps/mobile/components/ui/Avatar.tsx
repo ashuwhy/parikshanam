@@ -28,8 +28,8 @@ export function Avatar() {
       accessibilityLabel="Open profile"
       hitSlop={12}
       onPress={() => router.push(href('/profile'))}
-      className="mr-3 h-9 w-9 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900">
-      <Text className="text-sm font-semibold text-indigo-700 dark:text-indigo-200">{label}</Text>
+      className="mr-3 h-9 w-9 items-center justify-center rounded-full bg-brand-primaryLight dark:bg-brand-primaryDark">
+      <Text className="text-sm font-semibold text-brand-primary dark:text-brand-primary-light">{label}</Text>
     </Pressable>
   );
 }
@@ -42,8 +42,8 @@ export function AvatarCircle({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
   const text = size === 'lg' ? 'text-2xl' : 'text-sm';
 
   return (
-    <View className={`${dim} items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900`}>
-      <Text className={`font-semibold text-indigo-700 dark:text-indigo-200 ${text}`}>{label}</Text>
+    <View className={`${dim} items-center justify-center rounded-full bg-brand-primaryLight dark:bg-brand-primaryDark`}>
+      <Text className={`font-semibold text-brand-primary dark:text-brand-primary-light ${text}`}>{label}</Text>
     </View>
   );
 }

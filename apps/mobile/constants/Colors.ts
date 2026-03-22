@@ -1,31 +1,31 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+/**
+ * CENTRALIZED THEME CONFIGURATION
+ * All colors and styling for the Parikshanam mobile app
+ * 
+ * For detailed theme options, see @/constants/theme
+ */
 
-export const brand = {
-  primary: '#4F46E5',
-  primaryLight: '#EEF2FF',
-  accent: '#F59E0B',
-  success: '#10B981',
-  error: '#EF4444',
-  text: '#111827',
-  muted: '#6B7280',
-  border: '#E5E7EB',
-  card: '#FFFFFF',
-} as const;
+import { brand, colors, darkColors } from './theme';
+
+export { brand, colors, darkColors } from './theme';
+
+// Re-export brand for backward compatibility
+const tintColorLight = brand.primary;
+const tintColorDark = '#fff';
 
 export default {
   light: {
-    text: '#000',
-    background: '#fff',
+    text: colors.text.primary,
+    background: colors.background.primary,
     tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
+    tabIconDefault: colors.text.tertiary,
+    tabIconSelected: brand.primary,
   },
   dark: {
-    text: '#fff',
-    background: '#000',
+    text: darkColors.text.primary,
+    background: darkColors.background.primary,
     tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    tabIconDefault: darkColors.text.tertiary,
+    tabIconSelected: darkColors.interactive.primary,
   },
 };

@@ -1,5 +1,167 @@
+/**
+ * NATIVEWIND CONFIGURATION
+ * Custom Tailwind CSS utilities for Parikshanam mobile app
+ */
+
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css";
-
 @import "nativewind/theme";
+
+@theme {
+  --color-brand-primary: #4F46E5;
+  --color-brand-primary-light: #EEF2FF;
+  --color-brand-primaryLight: #EEF2FF;
+  --color-brand-primary-dark: #4338CA;
+  --color-brand-primaryDark: #4338CA;
+  --color-brand-accent: #F59E0B;
+}
+
+/**
+ * CUSTOM UTILITIES
+ * Commonly used utility classes for consistent styling
+ */
+
+/* Text Styles */
+@layer utilities {
+  .text-heading-1 {
+    @apply text-4xl font-black tracking-tight;
+  }
+  
+  .text-heading-2 {
+    @apply text-3xl font-bold;
+  }
+  
+  .text-heading-3 {
+    @apply text-2xl font-bold;
+  }
+  
+  .text-body-large {
+    @apply text-lg leading-7;
+  }
+  
+  .text-body {
+    @apply text-base leading-6;
+  }
+  
+  .text-body-small {
+    @apply text-sm leading-5;
+  }
+  
+  .text-caption {
+    @apply text-xs font-medium uppercase tracking-wider;
+  }
+}
+
+/* Button Variants */
+@layer utilities {
+  .btn-primary {
+    @apply min-h-[48px] items-center justify-center rounded-xl px-5 py-3 bg-brand-primary active:bg-brand-primaryDark;
+    @apply text-white font-semibold text-base;
+  }
+  
+  .btn-outline {
+    @apply min-h-[48px] items-center justify-center rounded-xl px-5 py-3 border border-neutral-200 bg-transparent;
+    @apply text-brand-primary font-semibold text-base;
+    @apply dark:border-neutral-700;
+  }
+  
+  .btn-ghost {
+    @apply min-h-[48px] items-center justify-center rounded-xl px-5 py-3 bg-transparent;
+    @apply text-brand-primary font-semibold text-base;
+  }
+}
+
+/* Input Fields */
+@layer utilities {
+  .input-default {
+    @apply h-14 rounded-xl border border-neutral-200 bg-neutral-50 px-4 text-base;
+    @apply text-neutral-900 placeholder:text-neutral-400;
+    @apply dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100;
+  }
+}
+
+/* Cards */
+@layer utilities {
+  .card-default {
+    @apply overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-sm;
+    @apply dark:border-neutral-800 dark:bg-neutral-900;
+  }
+}
+
+/* Surfaces */
+@layer utilities {
+  .surface-primary {
+    @apply bg-white;
+    @apply dark:bg-neutral-950;
+  }
+  
+  .surface-secondary {
+    @apply bg-neutral-50;
+    @apply dark:bg-neutral-900;
+  }
+  
+  .surface-tertiary {
+    @apply bg-neutral-100;
+    @apply dark:bg-neutral-800;
+  }
+}
+
+/* Status Colors */
+@layer utilities {
+  .text-success {
+    @apply text-green-600;
+    @apply dark:text-green-400;
+  }
+  
+  .text-error {
+    @apply text-red-600;
+    @apply dark:text-red-400;
+  }
+  
+  .text-warning {
+    @apply text-amber-600;
+    @apply dark:text-amber-400;
+  }
+  
+  .bg-success-light {
+    @apply bg-green-50;
+    @apply dark:bg-green-950;
+  }
+  
+  .bg-error-light {
+    @apply bg-red-50;
+    @apply dark:bg-red-950;
+  }
+  
+  .bg-warning-light {
+    @apply bg-amber-50;
+    @apply dark:bg-amber-950;
+  }
+}
+
+/* Spacing Utilities */
+@layer utilities {
+  .section-padding {
+    @apply px-6 py-4;
+  }
+  
+  .screen-padding {
+    @apply px-4;
+  }
+}
+
+/* Border Radius Presets */
+@layer utilities {
+  .rounded-button {
+    @apply rounded-xl;
+  }
+  
+  .rounded-card {
+    @apply rounded-2xl;
+  }
+  
+  .rounded-avatar {
+    @apply rounded-full;
+  }
+}

@@ -53,8 +53,8 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
                       className="flex-row items-center px-3 py-3 rounded-lg active:bg-neutral-100 dark:active:bg-neutral-800"
                       onPress={() => canAccess ? onLessonPress(lesson.id) : null}
                     >
-                      <View className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/50 items-center justify-center mr-3">
-                        <Ionicons name="play" size={14} color="#4f46e5" className="ml-0.5" />
+                      <View className="w-8 h-8 rounded-full bg-brand-primaryLight dark:bg-brand-primaryDark/50 items-center justify-center mr-3">
+                        <Ionicons name="play" size={14} color="#4F46E5" className="ml-0.5" />
                       </View>
                       <View className="flex-1">
                         <Text className={`text-sm ${canAccess ? 'text-neutral-900 dark:text-neutral-100 font-medium' : 'text-neutral-500 dark:text-neutral-400'}`}>

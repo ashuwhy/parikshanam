@@ -129,7 +129,7 @@ export default function CourseDetailScreen() {
           ) : null}
 
           <View className="mt-4 flex-row items-baseline gap-3">
-            <Text className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+            <Text className="text-2xl font-bold text-brand-primary dark:text-brand-primary-light">
               {formatRupeePaise(course.price)}
             </Text>
             {course.mrp != null && course.mrp > course.price ? (
