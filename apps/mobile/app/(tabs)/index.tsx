@@ -30,15 +30,17 @@ export default function HomeScreen() {
   const name = profile?.full_name?.trim() || 'there';
 
   return (
-    <SafeAreaView className="flex-1 bg-neutral-50 dark:bg-neutral-950" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
       <ScrollView className="flex-1 px-4 pt-2" contentContainerStyle={{ paddingBottom: 32 }}>
-        <Text className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+        <Text className="text-2xl font-black text-neutral-900 dark:text-neutral-100 tracking-tight leading-tight">
           {greeting()}, {name} 👋
         </Text>
-        <Text className="mt-1 text-neutral-600 dark:text-neutral-400">Ready to ace your Olympiad?</Text>
+        <Text className="mt-1 text-base font-medium text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Ready to ace your Olympiad?
+        </Text>
 
         {error ? (
-          <Text className="mt-8 text-error">{error.message}</Text>
+          <Text className="mt-8 text-status-error font-bold">{error.message}</Text>
         ) : null}
 
         {course ? (
@@ -51,7 +53,7 @@ export default function HomeScreen() {
             />
           </View>
         ) : (
-          <Text className="mt-8 text-neutral-500">No featured course yet.</Text>
+          <Text className="mt-8 text-neutral-500 dark:text-neutral-400 font-medium">No featured course yet.</Text>
         )}
       </ScrollView>
     </SafeAreaView>

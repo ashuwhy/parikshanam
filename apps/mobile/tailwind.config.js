@@ -1,53 +1,27 @@
 export default {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   presets: [require('nativewind/preset')],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        // Brand colors
         brand: {
-          primary: '#4F46E5',
-          primaryLight: '#EEF2FF',
-          primaryDark: '#4338CA',
-          accent: '#F59E0B',
-          success: '#10B981',
-          error: '#EF4444',
-          warning: '#F59E0B',
-          info: '#3B82F6',
+          primary: '#58CC02',
+          secondary: '#84fb42',
+          dark: '#2a6900',
         },
-        
-        // Neutral palette
-        neutral: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EB',
-          300: '#D1D5DB',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937',
-          900: '#111827',
-          950: '#030712',
+        ui: {
+          bg: '#f8f6f6',
+          card: '#FFFFFF',
+          border: '#dddddc',
+          accent: '#a3d8ff',
         },
-        
-        // Semantic colors - Light mode
-        background: '#FFFFFF',
-        surface: '#FFFFFF',
-        'text-primary': '#111827',
-        'text-secondary': '#374151',
-        'text-tertiary': '#6B7280',
-        'border-default': '#E5E7EB',
-        
-        // Status colors
-        success: '#10B981',
-        'success-light': '#D1FAE5',
-        error: '#EF4444',
-        'error-light': '#FEE2E2',
-        warning: '#F59E0B',
-        'warning-light': '#FEF3C7',
-        info: '#3B82F6',
-        'info-light': '#DBEAFE',
+        status: {
+          success: '#58CC02',
+          warning: '#FFC800',
+          error: '#FF4B4B',
+          locked: '#afafaf',
+        }
       },
       
       fontFamily: {
@@ -101,7 +75,7 @@ export default {
         lg: '16px',
         xl: '20px',
         '2xl': '24px',
-        '3xl': '32px',
+        '3xl': '1.5rem',
         full: '9999px',
       },
       
@@ -112,6 +86,8 @@ export default {
         lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        'dimensional': '0 4px 0 0 #dddddc',
+        'active': '0 2px 0 0 #dddddc',
       },
       
       zIndex: {

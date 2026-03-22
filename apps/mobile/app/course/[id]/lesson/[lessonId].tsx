@@ -46,7 +46,7 @@ export default function LessonScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg" edges={['top']}>
       <View className="flex-row items-center px-4 py-3 border-b border-neutral-100 dark:border-neutral-800">
         <Pressable onPress={() => router.back()} className="p-2 -ml-2">
           <Ionicons name="chevron-back" size={24} color="#737373" />

@@ -25,10 +25,10 @@ The visual identity is rooted in three non-negotiable principles. Every componen
 | Token | Value | Usage |
 |---|---|---|
 | `brand.primary` | `#58CC02` | Primary buttons, active states, progress fills, success |
-| `brand.secondary` | `#84fb42` | Hover glows, light accents, active indicator fills |
+| `brand.secondary` | `#84fb42` | Hover glows, light accents, active indicator fills, dark mode text |
 | `brand.dark` | `#2a6900` | Button bottom-border (3D shadow), dark text on green |
 
-### UI Neutrals
+### UI Neutrals (Light Mode)
 
 | Token | Value | Usage |
 |---|---|---|
@@ -36,6 +36,15 @@ The visual identity is rooted in three non-negotiable principles. Every componen
 | `ui.card` | `#FFFFFF` | Card surfaces, modals, bottom sheets |
 | `ui.border` | `#dddddc` | Card borders, dividers, shadow base |
 | `ui.accent` | `#a3d8ff` | Secondary highlights, info states, focus rings |
+
+### UI Neutrals (Dark Mode)
+
+| Token | Value | Usage |
+|---|---|---|
+| `ui.bg` | `#111827` | Page/screen background (dark) |
+| `ui.card` | `#1F2937` | Card surfaces, modals (dark) |
+| `ui.border` | `#374151` | Card borders, dividers (dark) |
+| `ui.accent` | `#a3d8ff` | Secondary highlights (same in dark) |
 
 ### Status Colors
 
@@ -46,10 +55,20 @@ The visual identity is rooted in three non-negotiable principles. Every componen
 | `status.error` | `#FF4B4B` | Wrong answers, missed days |
 | `status.locked` | `#afafaf` | Locked content, disabled states |
 
+### Dark Mode Guidelines
+
+The design system maintains the vibrant, tactile feel in dark mode by:
+- Keeping brand colors (`#58CC02`, `#84fb42`) unchanged for consistency
+- Using darker backgrounds (`#111827`, `#1F2937`) instead of pure black
+- Adjusting borders to `#374151` for subtle definition
+- Using lighter brand color (`#84fb42`) for text in dark mode
+- Maintaining the dimensional shadow effect with adjusted opacity
+
 ### `tailwind.config.js`
 
 ```js
 module.exports = {
+  darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
       colors: {
@@ -82,6 +101,21 @@ module.exports = {
     },
   },
 }
+```
+
+### Dark Mode Usage
+
+Apply dark mode styles using the `dark:` prefix:
+
+```tsx
+// Light: white background, Dark: dark gray background
+className="bg-white dark:bg-neutral-800"
+
+// Light: dark text, Dark: light text
+className="text-neutral-900 dark:text-neutral-100"
+
+// Light: light border, Dark: darker border
+className="border-ui-border dark:border-neutral-700"
 ```
 
 ---
@@ -323,4 +357,65 @@ Avoid these patterns — they break the design language.
 
 ---
 
-*Dimensional Joy Design System · v1.0 · Expo + NativeWind · Grades 6–10*
+## 10. Theme Management
+
+### ThemeProvider
+
+The app uses a custom `ThemeProvider` to manage light/dark mode preferences:
+
+```tsx
+import { ThemeProvider, useTheme } from '@/components/providers/ThemeProvider';
+
+// Wrap your app
+<ThemeProvider>
+  <App />
+</ThemeProvider>
+
+// Use in components
+function MyComponent() {
+  const { colorScheme, isDark, themePreference, setThemePreference } = useTheme();
+  
+  return (
+    <View className={isDark ? 'bg-neutral-900' : 'bg-white'}>
+      <Button onPress={() => setThemePreference('dark')}>
+        Switch to Dark Mode
+      </Button>
+    </View>
+  );
+}
+```
+
+### Theme Preferences
+
+Users can choose from three options:
+- `'light'` - Always use light mode
+- `'dark'` - Always use dark mode
+- `'system'` - Follow device settings (default)
+
+The preference is persisted in AsyncStorage and automatically applied on app launch.
+
+### Implementing Dark Mode in Components
+
+Always use Tailwind's `dark:` prefix for dark mode styles:
+
+```tsx
+// ✅ Good - Supports both modes
+<View className="bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700">
+  <Text className="text-neutral-900 dark:text-neutral-100">Hello</Text>
+</View>
+
+// ❌ Bad - Only works in light mode
+<View className="bg-white border border-ui-border">
+  <Text className="text-neutral-900">Hello</Text>
+</View>
+```
+
+### Testing Dark Mode
+
+1. Change device settings to dark mode
+2. Or use the theme switcher in the app (if implemented)
+3. All components should automatically adapt
+
+---
+
+*Dimensional Joy Design System · v1.1 · Expo + NativeWind · Grades 6–10 · Dark Mode Support*

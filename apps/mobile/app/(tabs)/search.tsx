@@ -58,15 +58,15 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-neutral-50 dark:bg-neutral-950" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg" edges={['bottom']}>
       <View className="px-4 pt-2">
         <TextInput
           accessibilityLabel="Search courses"
           placeholder="Search courses..."
-          placeholderTextColor="#9ca3af"
+          placeholderTextColor="#afafaf"
           value={query}
           onChangeText={setQuery}
-          className="rounded-xl border border-neutral-200 bg-white px-4 py-3 text-base text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
+          className="input-default"
         />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 flex-row">
@@ -75,11 +75,11 @@ export default function SearchScreen() {
             accessibilityState={{ selected: filters.olympiadTypeId === null }}
             onPress={() => onPickOlympiad(null)}
             className={`mr-2 rounded-full px-4 py-2 ${
-              filters.olympiadTypeId === null ? 'bg-brand-primary' : 'bg-neutral-200 dark:bg-neutral-800'
+              filters.olympiadTypeId === null ? 'bg-brand-primary' : 'bg-ui-border'
             }`}>
             <Text
-              className={`text-sm font-medium ${
-                filters.olympiadTypeId === null ? 'text-white' : 'text-neutral-800 dark:text-neutral-200'
+              className={`text-sm font-bold tracking-wider ${
+                filters.olympiadTypeId === null ? 'text-white' : 'text-neutral-800'
               }`}>
               All
             </Text>
@@ -93,11 +93,11 @@ export default function SearchScreen() {
                 accessibilityState={{ selected: active }}
                 onPress={() => onPickOlympiad(o.id)}
                 className={`mr-2 rounded-full px-4 py-2 ${
-                  active ? 'bg-brand-primary' : 'bg-neutral-200 dark:bg-neutral-800'
+                  active ? 'bg-brand-primary' : 'bg-ui-border'
                 }`}>
                 <Text
-                  className={`text-sm font-medium ${
-                    active ? 'text-white' : 'text-neutral-800 dark:text-neutral-200'
+                  className={`text-sm font-bold tracking-wider ${
+                    active ? 'text-white' : 'text-neutral-800'
                   }`}>
                   {o.label}
                 </Text>

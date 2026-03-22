@@ -35,7 +35,7 @@ export default function QuizScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-neutral-950">
+    <SafeAreaView className="flex-1 bg-ui-bg">
       <QuizRunner 
         quizId={quizId!} 
         onComplete={handleComplete} 

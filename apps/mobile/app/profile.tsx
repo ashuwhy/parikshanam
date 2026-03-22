@@ -53,7 +53,7 @@ export default function ProfileScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-neutral-50 dark:bg-neutral-950">
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950">
       <View className="flex-row items-center justify-between border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
         <Pressable accessibilityRole="button" accessibilityLabel="Close profile" onPress={() => router.back()}>
           <Text className="text-base text-brand-primary">Close</Text>

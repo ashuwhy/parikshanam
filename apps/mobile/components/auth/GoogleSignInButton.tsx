@@ -60,8 +60,8 @@ export function GoogleSignInButton() {
     <Pressable
       accessibilityRole="button"
       onPress={() => void onPress()}
-      className="min-h-[48px] flex-row items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-white px-5 py-3 active:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:active:bg-neutral-800">
-      <Text className="text-base font-semibold text-neutral-900 dark:text-neutral-100">Continue with Google</Text>
+      className="bg-white rounded-2xl border-2 border-ui-border border-b-4 px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active items-center justify-center flex-row gap-2">
+      <Text className="text-base font-bold text-brand-dark">Continue with Google</Text>
     </Pressable>
   );
 }

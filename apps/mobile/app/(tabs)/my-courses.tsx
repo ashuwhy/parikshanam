@@ -23,7 +23,7 @@ export default function MyCoursesScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-neutral-50 dark:bg-neutral-950" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['bottom']}>
       <ScrollView 
         className="flex-1 px-4 pt-4" 
         contentContainerStyle={{ paddingBottom: 32 }}

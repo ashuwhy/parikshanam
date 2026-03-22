@@ -5,14 +5,15 @@ import { CSSProperties } from 'react';
  * Primary brand identity colors
  */
 export const brand = {
-  primary: '#4F46E5', // Indigo 600
-  primaryLight: '#EEF2FF', // Indigo 50
-  primaryDark: '#4338CA', // Indigo 700
-  accent: '#F59E0B', // Amber 500
-  success: '#10B981', // Emerald 500
-  error: '#EF4444', // Red 500
-  warning: '#F59E0B', // Amber 500
-  info: '#3B82F6', // Blue 500
+  primary: '#58CC02', // Green
+  secondary: '#84fb42', // Light/Active Green
+  dark: '#2a6900', // Dark Green for borders/shadows
+  accent: '#a3d8ff', // Soft blue
+  success: '#58CC02',
+  error: '#FF4B4B',
+  warning: '#FFC800',
+  info: '#a3d8ff',
+  locked: '#afafaf',
 } as const;
 
 /**
@@ -40,27 +41,27 @@ export const neutral = {
 export const colors = {
   // Backgrounds
   background: {
-    primary: '#FFFFFF',
-    secondary: '#F9FAFB', // neutral-50
-    tertiary: '#F3F4F6', // neutral-100
-    inverse: '#111827', // neutral-900
+    primary: '#f8f6f6', // ui.bg
+    secondary: '#FFFFFF', // ui.card
+    tertiary: '#f8f6f6', 
+    inverse: '#111827', 
   },
   
   // Text
   text: {
-    primary: '#111827', // neutral-900
-    secondary: '#374151', // neutral-700
-    tertiary: '#6B7280', // neutral-500
-    quaternary: '#9CA3AF', // neutral-400
+    primary: '#111827', 
+    secondary: '#374151', 
+    tertiary: '#6B7280', 
+    quaternary: '#9CA3AF', 
     inverse: '#FFFFFF',
-    link: '#4F46E5', // brand primary
+    link: '#58CC02', // brand primary
   },
   
   // Borders
   border: {
-    default: '#E5E7EB', // neutral-200
-    strong: '#D1D5DB', // neutral-300
-    subtle: '#F3F4F6', // neutral-100
+    default: '#dddddc', // ui.border
+    strong: '#2a6900', // brand.dark
+    subtle: '#dddddc',
   },
   
   // Surfaces
@@ -73,63 +74,81 @@ export const colors = {
   // Interactive
   interactive: {
     primary: brand.primary,
-    primaryHover: '#4338CA', // indigo-700
-    primaryActive: '#3730A3', // indigo-800
+    primaryHover: brand.secondary,
+    primaryActive: brand.dark,
     secondary: '#FFFFFF',
-    secondaryHover: '#F9FAFB',
+    secondaryHover: '#f8f6f6',
   },
   
   // Status
   status: {
-    success: '#10B981',
+    success: '#58CC02',
     successLight: '#D1FAE5',
-    error: '#EF4444',
+    error: '#FF4B4B',
     errorLight: '#FEE2E2',
-    warning: '#F59E0B',
+    warning: '#FFC800',
     warningLight: '#FEF3C7',
-    info: '#3B82F6',
+    info: '#a3d8ff',
     infoLight: '#DBEAFE',
   },
 } as const;
 
 /**
  * DARK MODE COLORS
+ * Adapted for dark theme while maintaining the Dimensional Joy design language
  */
 export const darkColors = {
+  // Backgrounds
   background: {
-    primary: '#030712', // neutral-950
-    secondary: '#111827', // neutral-900
-    tertiary: '#1F2937', // neutral-800
-    inverse: '#FFFFFF',
+    primary: '#111827', // Dark background
+    secondary: '#1F2937', // Dark card background
+    tertiary: '#374151', 
+    inverse: '#f8f6f6', 
   },
   
+  // Text
   text: {
-    primary: '#FFFFFF',
-    secondary: '#F3F4F6', // neutral-100
-    tertiary: '#9CA3AF', // neutral-400
-    quaternary: '#6B7280', // neutral-500
+    primary: '#F9FAFB', // Light text on dark
+    secondary: '#E5E7EB', 
+    tertiary: '#9CA3AF', 
+    quaternary: '#6B7280', 
     inverse: '#111827',
-    link: '#818CF8', // indigo-400
+    link: '#84fb42', // Lighter brand color for dark mode
   },
   
+  // Borders
   border: {
-    default: '#374151', // neutral-700
-    strong: '#4B5563', // neutral-600
-    subtle: '#1F2937', // neutral-800
+    default: '#374151', // Darker border
+    strong: '#84fb42', // Lighter brand for visibility
+    subtle: '#4B5563',
   },
   
+  // Surfaces
   surface: {
-    card: '#1F2937', // neutral-800
-    elevated: '#1F2937',
+    card: '#1F2937',
+    elevated: '#374151',
     overlay: 'rgba(0, 0, 0, 0.7)',
   },
   
+  // Interactive
   interactive: {
-    primary: '#6366F1', // indigo-500
-    primaryHover: '#818CF8', // indigo-400
-    primaryActive: '#A5B4FC', // indigo-300
-    secondary: '#1F2937',
-    secondaryHover: '#374151',
+    primary: brand.primary,
+    primaryHover: brand.secondary,
+    primaryActive: brand.dark,
+    secondary: '#374151',
+    secondaryHover: '#4B5563',
+  },
+  
+  // Status (keep vibrant for visibility)
+  status: {
+    success: '#58CC02',
+    successLight: '#2a6900',
+    error: '#FF4B4B',
+    errorLight: '#7F1D1D',
+    warning: '#FFC800',
+    warningLight: '#78350F',
+    info: '#a3d8ff',
+    infoLight: '#1E3A8A',
   },
 } as const;
 
@@ -291,7 +310,7 @@ export const buttonVariants = {
   primary: {
     backgroundColor: brand.primary,
     textColor: '#FFFFFF',
-    hoverBackgroundColor: brand.primaryDark,
+    hoverBackgroundColor: brand.dark,
   },
   outline: {
     backgroundColor: 'transparent',

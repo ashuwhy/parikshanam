@@ -34,14 +34,15 @@ export const Button = forwardRef<ComponentRef<typeof Pressable>, ButtonProps>(fu
       accessibilityRole="button"
       disabled={isDisabled}
       className={cn(
-        'min-h-[48px] items-center justify-center rounded-xl px-5 py-3',
-        // Primary variant - uses brand.primary
-        variant === 'primary' && 'bg-brand-primary active:bg-brand-primaryDark dark:bg-brand-primary dark:active:bg-brand-primary-light',
-        // Outline variant
-        variant === 'outline' && 'border border-neutral-200 bg-transparent active:bg-neutral-50 dark:border-neutral-700 dark:active:bg-neutral-900',
-        // Ghost variant
-        variant === 'ghost' && 'bg-transparent active:bg-neutral-100 dark:active:bg-neutral-800',
-        isDisabled && 'opacity-60',
+        'items-center justify-center',
+        // Primary variant - dimensional button with 3D effect
+        variant === 'primary' && 'bg-brand-primary rounded-2xl border-b-4 border-brand-dark px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active',
+        // Secondary/Outline variant - white/dark card with border
+        variant === 'outline' && 'bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 border-b-4 px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active',
+        // Ghost variant - minimal style
+        variant === 'ghost' && 'bg-transparent rounded-2xl px-6 py-3 active:bg-neutral-100 dark:active:bg-neutral-800',
+        // Disabled state
+        isDisabled && (variant === 'primary' || variant === 'outline' ? 'bg-ui-border dark:bg-neutral-700 border-b-4 border-status-locked opacity-60' : 'opacity-60'),
         className,
       )}
       {...rest}>
@@ -50,10 +51,10 @@ export const Button = forwardRef<ComponentRef<typeof Pressable>, ButtonProps>(fu
       ) : (
         <Text
           className={cn(
-            'text-center text-base font-semibold',
+            'text-center text-base font-bold',
             variant === 'primary' && 'text-white',
-            variant === 'outline' && 'text-brand-primary dark:text-brand-primary-light',
-            variant === 'ghost' && 'text-brand-primary',
+            variant === 'outline' && 'text-brand-dark dark:text-brand-secondary',
+            variant === 'ghost' && 'text-brand-primary dark:text-brand-secondary',
             textClassName,
           )}>
           {title}

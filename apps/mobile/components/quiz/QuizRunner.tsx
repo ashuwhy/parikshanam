@@ -60,66 +60,65 @@ export function QuizRunner({ quizId, onComplete, onExit }: QuizRunnerProps) {
   };
 
   return (
-    <View className="flex-1">
-      <View className="flex-row items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
+    <View className="flex-1 bg-ui-bg">
+      <View className="flex-row items-center justify-between p-4 border-b border-ui-border bg-white">
         <Pressable onPress={onExit} className="p-2 -ml-2">
           <Ionicons name="close" size={24} color="#737373" />
         </Pressable>
-        <Text className="font-semibold text-neutral-900 dark:text-neutral-100">
+        <Text className="font-bold text-neutral-900">
           Question {currentIndex + 1} of {questions.length}
         </Text>
         <View className="w-10" />
       </View>
 
-      <ScrollView contentContainerStyle={{ padding: 16 }} className="flex-1 px-4 pt-6">
-        <Text className="text-xl font-bold text-neutral-900 dark:text-neutral-100 mb-6">
+      <ScrollView contentContainerStyle={{ padding: 16 }} className="flex-1">
+        <Text className="text-xl font-bold text-neutral-900 mb-6">
           {currentQ.question_text}
         </Text>
 
         <View className="gap-3">
           {currentQ.options.map((opt: string, idx: number) => {
             const isSelected = currentAnswer === idx;
-            let bgColor = 'bg-white dark:bg-neutral-900';
-            let borderColor = 'border-neutral-200 dark:border-neutral-700';
+            let borderColor = 'border-ui-border';
+            let extraClass = 'active:border-ui-accent';
             const isCorrect = submitted && idx === currentQ.correct_option_index;
             const isWrong = submitted && isSelected && idx !== currentQ.correct_option_index;
 
             if (isSelected && !submitted) {
-              bgColor = 'bg-brand-primaryLight dark:bg-brand-primaryDark/40';
-              borderColor = 'border-brand-primary dark:border-brand-primary-light';
+              borderColor = 'border-ui-accent';
+              extraClass = 'bg-ui-accent/10';
             } else if (isCorrect) {
-              bgColor = 'bg-green-50 dark:bg-green-950/40';
-              borderColor = 'border-green-600 dark:border-green-400';
+              borderColor = 'border-status-success';
+              extraClass = 'bg-status-success/10';
             } else if (isWrong) {
-              bgColor = 'bg-red-50 dark:bg-red-950/40';
-              borderColor = 'border-red-600 dark:border-red-400';
+              borderColor = 'border-status-error';
+              extraClass = 'bg-status-error/10';
             }
 
             return (
               <Pressable
                 key={idx}
                 onPress={() => handleSelect(idx)}
-                className={`p-4 rounded-xl border-2 ${bgColor} ${borderColor} flex-row items-center justify-between`}
+                className={`bg-white rounded-2xl border-2 p-4 flex-row items-center ${borderColor} ${extraClass}`}
               >
-                <Text className={`flex-1 text-base ${isSelected ? 'text-brand-primaryDark dark:text-brand-primary-light font-medium' : 'text-neutral-700 dark:text-neutral-300'}`}>
-                  {opt}
-                </Text>
-                {submitted && isCorrect && <Ionicons name="checkmark-circle" size={24} color="#16a34a" />}
-                {submitted && isWrong && <Ionicons name="close-circle" size={24} color="#dc2626" />}
+                <View className={`w-6 h-6 rounded-full border-2 mr-3 items-center justify-center ${isSelected ? borderColor : 'border-ui-border'}`}>
+                  {isSelected && <View className={`w-3 h-3 rounded-full ${isCorrect ? 'bg-status-success' : isWrong ? 'bg-status-error' : 'bg-ui-accent'}`} />}
+                </View>
+                <Text className="flex-1 text-base font-medium text-neutral-900">{opt}</Text>
               </Pressable>
             );
           })}
         </View>
 
         {submitted && currentQ.explanation && (
-          <View className="mt-6 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-200 dark:border-blue-900">
-            <Text className="text-sm font-semibold text-blue-800 dark:text-blue-200 mb-1">Explanation</Text>
-            <Text className="text-sm text-blue-700 dark:text-blue-300">{currentQ.explanation}</Text>
+          <View className="mt-6 p-4 bg-ui-accent/20 rounded-2xl border-2 border-ui-accent">
+            <Text className="text-sm font-bold text-brand-dark mb-1 uppercase tracking-wider">Explanation</Text>
+            <Text className="text-base font-medium text-neutral-800">{currentQ.explanation}</Text>
           </View>
         )}
       </ScrollView>
 
-      <View className="p-4 border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+      <View className="p-4 border-t border-ui-border bg-white">
         <Button 
           title={submitted ? (isLast ? "Finish" : "Next Question") : (isLast ? "Submit Quiz" : "Next")} 
           disabled={!submitted && currentAnswer === undefined}

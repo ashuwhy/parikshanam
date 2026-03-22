@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,6 +11,7 @@ import '../global.css';
 
 import { DataSync } from '@/components/DataSync';
 import { QueryProvider } from '@/components/providers/QueryProvider';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { AuthProvider } from '@/context/AuthContext';
 import { useColorScheme } from '@/components/useColorScheme';
@@ -77,7 +78,7 @@ function RootLayoutNav() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <NavigationThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <NavigationGuard>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(auth)" />
@@ -88,7 +89,7 @@ function RootLayoutNav() {
         </Stack>
       </NavigationGuard>
       <Toast />
-    </ThemeProvider>
+    </NavigationThemeProvider>
   );
 }
 
@@ -108,10 +109,12 @@ export default function RootLayout() {
   return (
     <View style={{ flex: 1 }}>
       <QueryProvider>
-        <AuthProvider>
-          <DataSync />
-          <RootLayoutNav />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <DataSync />
+            <RootLayoutNav />
+          </AuthProvider>
+        </ThemeProvider>
       </QueryProvider>
     </View>
   );

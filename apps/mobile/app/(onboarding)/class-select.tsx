@@ -53,7 +53,7 @@ export default function ClassSelectScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-neutral-950">
+    <SafeAreaView className="flex-1 bg-ui-bg">
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
@@ -62,33 +62,33 @@ export default function ClassSelectScreen() {
           contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 24, paddingTop: 32, paddingBottom: 32 }}
           keyboardShouldPersistTaps="handled"
         >
-          <Text className="text-3xl font-black text-neutral-900 dark:text-neutral-100">Welcome!</Text>
-          <Text className="mt-2 text-base text-neutral-600 dark:text-neutral-400">Please provide your details to get started.</Text>
+          <Text className="text-2xl font-black text-neutral-900">Welcome!</Text>
+          <Text className="mt-2 text-base font-medium text-neutral-600">Please provide your details to get started.</Text>
 
           <View className="mt-8 gap-5">
             <View>
-              <Text className="mb-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Full Name</Text>
+              <Text className="mb-2 text-xs font-bold uppercase tracking-wider text-neutral-500">Full Name</Text>
               <TextInput
                 value={name}
                 onChangeText={setName}
                 placeholder="Your full name"
-                className="h-14 rounded-xl border border-neutral-200 bg-neutral-50 px-4 text-base text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+                className="input-default"
               />
             </View>
             <View>
-              <Text className="mb-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Phone Number (Optional)</Text>
+              <Text className="mb-2 text-xs font-bold uppercase tracking-wider text-neutral-500">Phone Number (Optional)</Text>
               <TextInput
                 value={phone}
                 onChangeText={setPhone}
                 placeholder="10-digit phone number"
                 keyboardType="phone-pad"
-                className="h-14 rounded-xl border border-neutral-200 bg-neutral-50 px-4 text-base text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+                className="input-default"
               />
             </View>
           </View>
 
           <View className="mt-10">
-            <Text className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Select Your Class</Text>
+            <Text className="mb-4 text-xs font-bold uppercase tracking-wider text-neutral-500">Select Your Class</Text>
             <View className="flex-row flex-wrap justify-center gap-3">
               {classLevels.map((cl) => {
                 const active = selected === cl.id;
@@ -98,13 +98,11 @@ export default function ClassSelectScreen() {
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}
                     onPress={() => setSelected(cl.id)}
-                    className={`h-16 min-w-[28%] items-center justify-center rounded-xl border-2 px-4 ${
-                      active
-                        ? 'border-brand-primary bg-brand-primaryLight dark:border-brand-primary-light dark:bg-brand-primaryDark'
-                        : 'border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900'
+                    className={`h-14 min-w-[80px] items-center justify-center rounded-2xl border-2 px-6 ${
+                      active ? 'border-brand-primary bg-brand-primary/10' : 'border-ui-border bg-white active:border-ui-accent'
                     }`}>
                     <Text
-                      className={`text-lg font-semibold ${active ? 'text-brand-primaryDark dark:text-brand-primary-light' : 'text-neutral-800 dark:text-neutral-200'}`}>
+                      className={`text-base font-bold ${active ? 'text-brand-dark' : 'text-neutral-800'}`}>
                       {cl.label}
                     </Text>
                   </Pressable>

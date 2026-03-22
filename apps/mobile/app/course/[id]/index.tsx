@@ -119,7 +119,7 @@ export default function CourseDetailScreen() {
   }
 
   return (
-    <View className="flex-1 bg-white dark:bg-neutral-950">
+    <View className="flex-1 bg-ui-bg">
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }}>
         <CourseHero course={course} />
         <View className="px-4 pt-4">
