@@ -9,7 +9,9 @@
     "dev:web": "turbo dev --filter=@parikshanam/web",
     "build": "turbo build",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "supabase:push": "supabase db push",
+    "supabase:link": "supabase link"
   },
   "devDependencies": {
     "prettier": "^3.4.2",

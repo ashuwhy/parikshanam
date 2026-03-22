@@ -1,58 +1,118 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import * as WebBrowser from 'expo-web-browser';
 import { useEffect } from 'react';
+import { View } from 'react-native';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
 import '../global.css';
 
+import { DataSync } from '@/components/DataSync';
+import { QueryProvider } from '@/components/providers/QueryProvider';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { AuthProvider } from '@/context/AuthContext';
 import { useColorScheme } from '@/components/useColorScheme';
+import { useAuth } from '@/hooks/useAuth';
+import { href } from '@/lib/href';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(auth)',
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+WebBrowser.maybeCompleteAuthSession();
+
 SplashScreen.preventAutoHideAsync();
+
+function NavigationGuard({ children }: { children: React.ReactNode }) {
+  const { session, profile, loading } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+
+    const root = segments[0] as string | undefined;
+    const inAuthGroup = root === '(auth)';
+    const inOnboardingGroup = root === '(onboarding)';
+
+    if (!session) {
+      if (!inAuthGroup) {
+        router.replace(href('/(auth)/welcome'));
+      }
+      return;
+    }
+
+    const done = profile?.onboarding_completed === true;
+    if (!done) {
+      if (!inOnboardingGroup) {
+        router.replace(href('/(onboarding)/class-select'));
+      }
+      return;
+    }
+
+    if (inAuthGroup || inOnboardingGroup) {
+      router.replace(href('/(tabs)'));
+    }
+  }, [session, profile, loading, segments, router]);
+
+  return <>{children}</>;
+}
+
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+  const { loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) {
+      SplashScreen.hideAsync();
+    }
+  }, [loading]);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NavigationGuard>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(onboarding)" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="course/[id]" />
+          <Stack.Screen name="profile" options={{ presentation: 'modal' }} />
+        </Stack>
+      </NavigationGuard>
+      <Toast />
+    </ThemeProvider>
+  );
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
 
   if (!loaded) {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <View style={{ flex: 1 }}>
+      <QueryProvider>
+        <AuthProvider>
+          <DataSync />
+          <RootLayoutNav />
+        </AuthProvider>
+      </QueryProvider>
+    </View>
   );
 }
