@@ -5,11 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import { CourseHero } from '@/components/course/CourseHero';
+import { SyllabusView } from '@/components/course/SyllabusView';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
-import { useCourseById } from '@/hooks/useCourses';
-import { useHasPurchased } from '@/hooks/usePurchases';
+import { useCourseById, useSyllabus } from '@/hooks/useCourses';
+import { useHasPurchased, useUserProgress } from '@/hooks/usePurchases';
 import { href } from '@/lib/href';
 import { queryClient } from '@/lib/queryClient';
 import { openRazorpayCheckout } from '@/lib/razorpay';
@@ -25,6 +26,8 @@ export default function CourseDetailScreen() {
   const { session, profile } = useAuth();
   const { course, loading, error } = useCourseById(id);
   const { purchased, loading: pLoading, refresh: refreshPurchase } = useHasPurchased(id);
+  const { modules } = useSyllabus(id);
+  const { progress } = useUserProgress(id);
   const [buying, setBuying] = useState(false);
 
   const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID ?? '';
@@ -88,7 +91,11 @@ export default function CourseDetailScreen() {
       Toast.show({ type: 'success', text1: 'Purchase successful' });
       await queryClient.invalidateQueries({ queryKey: ['purchases', session.user.id] });
       await refreshPurchase();
-      router.back();
+      
+      // Auto redirect to first lesson after purchase if available
+      if (modules.length > 0 && modules[0].lessons.length > 0) {
+         router.push(href(`/course/${id}/lesson/${modules[0].lessons[0].id}`));
+      }
     } catch (e: unknown) {
       const err = e as { description?: string; code?: string };
       Toast.show({
@@ -110,12 +117,6 @@ export default function CourseDetailScreen() {
       </SafeAreaView>
     );
   }
-
-  const learnings = [
-    'Structured lessons aligned with Olympiad syllabus',
-    'Practice tests and problem-solving strategies',
-    'Track progress and revisit tough topics',
-  ];
 
   return (
     <View className="flex-1 bg-white dark:bg-neutral-950">
@@ -140,13 +141,13 @@ export default function CourseDetailScreen() {
             <Text className="mt-6 leading-6 text-neutral-700 dark:text-neutral-300">{course.description}</Text>
           ) : null}
 
-          <Text className="mt-8 text-lg font-semibold text-neutral-900 dark:text-neutral-100">What you&apos;ll learn</Text>
-          <View className="mt-3 gap-2">
-            {learnings.map((line) => (
-              <Text key={line} className="text-neutral-700 dark:text-neutral-300">
-                • {line}
-              </Text>
-            ))}
+          <View className="mt-4">
+            <SyllabusView 
+              courseId={course.id} 
+              hasPurchased={purchased}
+              onLessonPress={(lessonId) => router.push(href(`/course/${course.id}/lesson/${lessonId}`))}
+              onQuizPress={(quizId) => router.push(href(`/course/${course.id}/quiz/${quizId}`))}
+            />
           </View>
         </View>
       </ScrollView>
@@ -155,9 +156,43 @@ export default function CourseDetailScreen() {
         <Button
           title={purchased ? 'Continue Learning' : `Buy Course — ${formatRupeePaise(course.price)}`}
           loading={!purchased && buying}
-          onPress={() =>
-            purchased ? router.push(href('/(tabs)/my-courses')) : void onBuy()
-          }
+          onPress={() => {
+            if (purchased) {
+              // Find first uncompleted lesson or quiz
+              let nextItem: { type: 'lesson' | 'quiz', id: string } | null = null;
+              
+              for (const mod of modules) {
+                for (const lesson of mod.lessons) {
+                  const isDone = progress.some(p => p.lesson_id === lesson.id);
+                  if (!isDone) {
+                    nextItem = { type: 'lesson', id: lesson.id };
+                    break;
+                  }
+                }
+                if (nextItem) break;
+                
+                for (const quiz of mod.quizzes) {
+                  const isDone = progress.some(p => p.quiz_id === quiz.id);
+                  if (!isDone) {
+                    nextItem = { type: 'quiz', id: quiz.id };
+                    break;
+                  }
+                }
+                if (nextItem) break;
+              }
+
+              if (nextItem) {
+                router.push(href(`/course/${course.id}/${nextItem.type}/${nextItem.id}`));
+              } else if (modules.length > 0 && modules[0].lessons.length > 0) {
+                 // All complete? Just go to the first one again or show finished
+                 router.push(href(`/course/${course.id}/lesson/${modules[0].lessons[0].id}`));
+              } else {
+                 Toast.show({ type: 'info', text1: 'No content available yet.' });
+              }
+            } else {
+              void onBuy();
+            }
+          }}
         />
       </SafeAreaView>
     </View>

@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
 import { queryClient } from "@/lib/queryClient";
 import { usePurchasesStore } from "@/lib/stores/usePurchasesStore";
@@ -41,4 +43,32 @@ export function useMyPurchases() {
   }, [session?.user?.id]);
 
   return { purchases, loading, error, refresh, total };
+}
+
+export function useUserProgress(courseId?: string) {
+  const { session } = useAuth();
+  
+  const q = useQuery({
+    queryKey: ["progress", session?.user?.id, courseId],
+    enabled: !!session?.user?.id,
+    queryFn: async () => {
+      // Fetch all progress for this user
+      let query = supabase.from("user_progress").select("*").eq("user_id", session!.user.id);
+      
+      const { data, error } = await query;
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const refresh = useCallback(async () => {
+    await q.refetch();
+  }, [q]);
+
+  return { 
+    progress: q.data ?? [], 
+    loading: q.isLoading, 
+    error: q.error,
+    refresh
+  };
 }

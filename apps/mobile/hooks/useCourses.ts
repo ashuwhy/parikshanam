@@ -63,3 +63,59 @@ export function useCourseById(id: string | undefined) {
     refresh,
   };
 }
+
+export function useSyllabus(courseId: string | undefined) {
+  const q = useQuery({
+    queryKey: ["syllabus", courseId],
+    enabled: !!courseId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("modules")
+        .select(`
+          id, title, order_index,
+          lessons ( id, title, duration_minutes, is_preview, order_index ),
+          quizzes ( id, title, order_index )
+        `)
+        .eq("course_id", courseId!)
+        .order("order_index", { ascending: true });
+        
+      if (error) throw error;
+      
+      // Sort lessons and quizzes within modules
+      return data?.map((mod: any) => ({
+        ...mod,
+        lessons: mod.lessons?.sort((a: any, b: any) => a.order_index - b.order_index) || [],
+        quizzes: mod.quizzes?.sort((a: any, b: any) => a.order_index - b.order_index) || [],
+      })) ?? [];
+    },
+  });
+
+  return {
+    modules: q.data ?? [],
+    loading: q.isLoading,
+    error: q.error,
+    refresh: q.refetch,
+  };
+}
+
+export function useLessonById(lessonId: string | undefined) {
+  const q = useQuery({
+    queryKey: ["lesson", lessonId],
+    enabled: !!lessonId,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("lessons")
+        .select("*")
+        .eq("id", lessonId!)
+        .single();
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  return {
+    lesson: q.data,
+    loading: q.isLoading,
+    error: q.error,
+  };
+}
