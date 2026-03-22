@@ -1,24 +1,34 @@
-import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
-import { Button } from '@/components/ui/Button';
-import { href } from '@/lib/href';
 
 export default function WelcomeScreen() {
-  const router = useRouter();
-
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-neutral-950">
-      <View className="flex-1 justify-center px-6">
-        <Text className="text-center text-3xl font-bold text-indigo-600 dark:text-indigo-400">Parikshanam</Text>
-        <Text className="mt-2 text-center text-lg text-neutral-600 dark:text-neutral-400">Ace Every Olympiad</Text>
+      <View className="flex-1 justify-between px-6 pb-10 pt-16">
 
-        <View className="mt-12 gap-4">
-          <Button title="Sign in with Phone" onPress={() => router.push(href('/(auth)/phone'))} />
-          <GoogleSignInButton />
+        {/* Hero */}
+        <View className="flex-1 items-center justify-center gap-3">
+          <View className="h-20 w-20 items-center justify-center rounded-3xl bg-indigo-600">
+            <Text className="text-4xl font-black text-white">P</Text>
+          </View>
+          <Text className="text-4xl font-black tracking-tight text-neutral-900 dark:text-neutral-100">
+            Parikshanam
+          </Text>
+          <Text className="text-center text-lg text-neutral-500 dark:text-neutral-400">
+            Ace every Olympiad.{'\n'}Learn smart, compete hard.
+          </Text>
         </View>
+
+        {/* Sign-in */}
+        <View className="gap-3">
+          <GoogleSignInButton />
+          <Text className="text-center text-xs text-neutral-400">
+            By continuing you agree to our Terms & Privacy Policy
+          </Text>
+        </View>
+
       </View>
     </SafeAreaView>
   );
