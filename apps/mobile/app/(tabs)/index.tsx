@@ -29,10 +29,10 @@ function greeting() {
 }
 
 const SUBJECT_TILES = [
-  { Icon: Calculator, label: 'Math',      color: '#EFF6FF', border: '#BFDBFE', iconColor: '#3B82F6' },
+  { Icon: Calculator, label: 'Math', color: '#EFF6FF', border: '#BFDBFE', iconColor: '#3B82F6' },
   { Icon: FlaskConical, label: 'Science', color: '#F0FDF4', border: '#BBF7D0', iconColor: '#22C55E' },
-  { Icon: Globe, label: 'Geography',      color: '#FFFBEB', border: '#FDE68A', iconColor: '#F59E0B' },
-  { Icon: Laptop, label: 'Computing',     color: '#F5F3FF', border: '#DDD6FE', iconColor: '#8B5CF6' },
+  { Icon: Globe, label: 'Geography', color: '#FFFBEB', border: '#FDE68A', iconColor: '#F59E0B' },
+  { Icon: Laptop, label: 'Computing', color: '#F5F3FF', border: '#DDD6FE', iconColor: '#8B5CF6' },
 ];
 
 export default function HomeScreen() {
@@ -126,19 +126,24 @@ export default function HomeScreen() {
               Browse Topics
             </Text>
           </View>
-          <View className="flex-row flex-wrap gap-3">
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ gap: 10, paddingRight: 20 }}
+            className="mt-0"
+          >
             {SUBJECT_TILES.map(({ Icon, label, color, border, iconColor }) => (
               <Pressable
                 key={label}
                 onPress={() => router.push(href('/(tabs)/search'))}
-                className="flex-row items-center gap-2 rounded-2xl border px-4 py-3"
+                className="flex-row items-center gap-1.5 rounded-2xl border px-3 py-2"
                 style={{ backgroundColor: color, borderColor: border }}
               >
-                <Icon size={18} color={iconColor} strokeWidth={2} />
-                <Text className="text-sm font-sans-bold text-neutral-700">{label}</Text>
+                <Icon size={16} color={iconColor} strokeWidth={2.2} />
+                <Text className="text-xs font-sans-bold text-neutral-700 dark:text-neutral-200">{label}</Text>
               </Pressable>
             ))}
-          </View>
+          </ScrollView>
         </View>
 
         {/* Resume CTA */}

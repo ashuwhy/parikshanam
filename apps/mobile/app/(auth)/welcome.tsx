@@ -54,7 +54,7 @@ export default function WelcomeScreen() {
               {[0, 1, 2].map((i) => (
                 <View
                   key={i}
-                  className="h-7 w-7 items-center justify-center rounded-full bg-ui-accent border-2 border-white"
+                  className="h-7 w-7 items-center justify-center rounded-full bg-brand-primary border-2 border-white"
                   style={{ marginLeft: i === 0 ? 0 : -8 }}
                 >
                   <User size={14} color={iconColors.onBrand} strokeWidth={2.5} />

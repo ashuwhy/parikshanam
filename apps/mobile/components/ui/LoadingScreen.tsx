@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 
-import { brand, dimensionalShadows } from '@/constants/Colors';
-
 /**
  * Full-screen branded loading screen with pulsing animation.
  * Uses StyleSheet.absoluteFill so it always covers the entire screen
@@ -38,7 +36,6 @@ export function LoadingScreen() {
       >
         <View
           className="h-16 w-16 items-center justify-center rounded-[1.25rem] bg-brand-primary"
-          style={dimensionalShadows.brand.md}
         >
           <Text className="text-2xl font-black text-white">P</Text>
         </View>
@@ -81,7 +78,7 @@ export function SkeletonCard() {
   }, [shimmer]);
 
   return (
-    <View className="mb-4 overflow-hidden rounded-[2rem] border border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800">
+    <View className="mb-4 overflow-hidden rounded-2xl border border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800">
       {/* Thumbnail skeleton */}
       <Animated.View
         style={{ opacity: shimmer }}

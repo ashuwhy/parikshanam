@@ -73,9 +73,9 @@ export default function TabLayout() {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 44,
-                height: 28,
-                borderRadius: 14,
+                width: 56,
+                height: 30,
+                borderRadius: 15,
                 backgroundColor: focused ? brand.primary + '18' : 'transparent',
               }}
             >
@@ -98,9 +98,9 @@ export default function TabLayout() {
               style={{
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 44,
-                height: 28,
-                borderRadius: 14,
+                width: 56,
+                height: 30,
+                borderRadius: 15,
                 backgroundColor: focused ? brand.primary + '18' : 'transparent',
               }}
             >

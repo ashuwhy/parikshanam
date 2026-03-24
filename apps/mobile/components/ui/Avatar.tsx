@@ -5,7 +5,6 @@ import { Animated, Pressable, Text, View } from 'react-native';
 
 import { useAuth } from '@/hooks/useAuth';
 import { href } from '@/lib/href';
-import { dimensionalShadows } from '@/constants/Colors';
 
 function initials(name: string | null | undefined, phone: string | null | undefined) {
   if (name?.trim()) {
@@ -76,8 +75,7 @@ export function Avatar({ size = 'sm' }: { size?: AvatarSize }) {
           {avatarUrl ? (
             <Image
               source={{ uri: avatarUrl }}
-              style={{ width: s.imgSize, height: s.imgSize }}
-              className="rounded-full"
+              style={{ width: s.imgSize, height: s.imgSize, borderRadius: s.imgSize / 2 }}
               contentFit="cover"
             />
           ) : (
@@ -103,13 +101,11 @@ export function AvatarCircle({ size = 'lg' }: { size?: AvatarSize }) {
   return (
     <View
       className={`${s.dim} items-center justify-center rounded-full border-2 border-brand-primary dark:border-brand-secondary overflow-hidden`}
-      style={dimensionalShadows.brandGlow}
     >
       {avatarUrl ? (
         <Image
           source={{ uri: avatarUrl }}
-          style={{ width: s.imgSize, height: s.imgSize }}
-          className="rounded-full"
+          style={{ width: s.imgSize, height: s.imgSize, borderRadius: s.imgSize / 2 }}
           contentFit="cover"
         />
       ) : (
