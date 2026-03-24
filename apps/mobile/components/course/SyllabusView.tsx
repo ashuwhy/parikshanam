@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { BookOpen, ChevronDown, ChevronUp, HelpCircle, Lock, Play } from 'lucide-react-native';
 import { useSyllabus } from '@/hooks/useCourses';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
-import { brand, colors } from '@/constants/Colors';
+import { iconColors } from '@/constants/Colors';
 
 interface SyllabusViewProps {
   courseId: string;
@@ -17,62 +17,102 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
   const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({});
 
   if (loading) return <View className="py-8"><LoadingScreen /></View>;
-  if (error) return <Text className="text-red-500 py-4 text-center">Failed to load syllabus.</Text>;
-  if (modules.length === 0) return <Text className="py-6 text-center text-neutral-500">Syllabus coming soon.</Text>;
+
+  if (error) {
+    return (
+      <View className="rounded-2xl bg-red-50 dark:bg-red-950 px-4 py-3">
+        <Text className="text-sm font-sans-medium text-red-600 dark:text-red-400 text-center">
+          Failed to load syllabus.
+        </Text>
+      </View>
+    );
+  }
+
+  if (modules.length === 0) {
+    return (
+      <View className="items-center py-10 px-4">
+        <BookOpen size={40} color={iconColors.empty} strokeWidth={1.5} />
+        <Text className="mt-3 text-base font-display-black text-neutral-700 dark:text-neutral-300">
+          Syllabus coming soon
+        </Text>
+        <Text className="mt-1 text-sm font-sans-medium text-neutral-400 text-center">
+          Content is being prepared for this course
+        </Text>
+      </View>
+    );
+  }
 
   const toggleModule = (id: string) => {
     setExpandedModules((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   return (
-    <View className="mt-4 gap-3">
-      <Text className="text-xl font-bold text-neutral-900 mb-2">Course Syllabus</Text>
-      
+    <View className="gap-3">
+      <View className="flex-row items-center gap-1.5 mb-1">
+        <BookOpen size={14} color={iconColors.structural} strokeWidth={2.5} />
+        <Text className="text-base font-display uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
+          Syllabus
+        </Text>
+      </View>
+
       {modules.map((module, mIndex) => {
-        const isExpanded = expandedModules[module.id] ?? (mIndex === 0); // Open first module by default
-        
+        const isExpanded = expandedModules[module.id] ?? (mIndex === 0);
+
         return (
-          <View key={module.id} className="overflow-hidden rounded-2xl border-2 border-ui-border bg-white">
-            <Pressable 
-              className="flex-row items-center justify-between p-4 bg-ui-bg"
+          <View key={module.id} className="overflow-hidden rounded-2xl border border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800">
+            <Pressable
+              className="flex-row items-center justify-between px-4 py-3.5 bg-white dark:bg-neutral-800"
               onPress={() => toggleModule(module.id)}
             >
-              <View className="flex-1 mr-4">
-                <Text className="text-sm font-medium text-neutral-500">Module {mIndex + 1}</Text>
-                <Text className="text-base font-bold text-neutral-900 mt-0.5">{module.title}</Text>
+              <View className="flex-1 mr-3">
+                <Text className="text-xs font-display uppercase tracking-wider text-neutral-400">
+                  Module {mIndex + 1}
+                </Text>
+                <Text className="text-sm font-display-extra text-neutral-900 dark:text-neutral-100 mt-0.5">
+                  {module.title}
+                </Text>
               </View>
-              <Ionicons name={isExpanded ? 'chevron-up' : 'chevron-down'} size={20} color="#737373" />
+              {isExpanded
+                ? <ChevronUp size={16} color={iconColors.muted} strokeWidth={2.5} />
+                : <ChevronDown size={16} color={iconColors.muted} strokeWidth={2.5} />
+              }
             </Pressable>
 
             {isExpanded && (
-              <View className="p-2">
+              <View className="border-t border-ui-border dark:border-neutral-700 px-2 py-1.5">
                 {module.lessons.map((lesson: any, lIndex: number) => {
                   const canAccess = hasPurchased || lesson.is_preview;
                   return (
                     <Pressable
                       key={lesson.id}
-                      className="flex-row items-center px-3 py-3 rounded-xl active:bg-ui-bg"
-                      onPress={() => canAccess ? onLessonPress(lesson.id) : null}
+                      className="flex-row items-center px-3 py-2.5 rounded-xl active:bg-ui-bg dark:active:bg-neutral-700"
+                      onPress={() => canAccess ? onLessonPress(lesson.id) : undefined}
                     >
-                      <View className="w-8 h-8 rounded-full bg-brand-primary/20 items-center justify-center mr-3">
-                        <Ionicons name="play" size={14} color={brand.primary} className="ml-0.5" />
+                      <View className="w-7 h-7 rounded-full bg-brand-primary/15 items-center justify-center mr-3">
+                        <Play size={12} color={iconColors.primary} strokeWidth={2.5} />
                       </View>
                       <View className="flex-1">
-                        <Text className={`text-sm ${canAccess ? 'text-neutral-900 font-bold' : 'text-status-locked font-medium'}`}>
+                        <Text className={`text-sm font-sans-medium ${canAccess ? 'text-neutral-900 dark:text-neutral-100' : 'text-neutral-400'}`}>
                           {lIndex + 1}. {lesson.title}
                         </Text>
                         {lesson.duration_minutes > 0 && (
-                          <Text className="text-xs text-neutral-500 mt-0.5">{lesson.duration_minutes} mins</Text>
+                          <Text className="text-xs font-sans-medium text-neutral-400 mt-0.5">
+                            {lesson.duration_minutes} min
+                          </Text>
                         )}
                       </View>
-                      {!canAccess && (
-                        <Ionicons name="lock-closed" size={16} color="#afafaf" />
-                      )}
-                      {canAccess && !hasPurchased && lesson.is_preview && (
-                        <View className="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/40">
-                          <Text className="text-[10px] font-bold text-status-success uppercase tracking-wider">Preview</Text>
-                        </View>
-                      )}
+                      {!canAccess
+                        ? <Lock size={14} color={iconColors.empty} strokeWidth={2} />
+                        : !hasPurchased && lesson.is_preview
+                          ? (
+                            <View className="rounded-full bg-green-100 dark:bg-green-900/40 px-2 py-0.5">
+                              <Text className="text-[10px] font-display uppercase tracking-wider text-green-700 dark:text-green-300">
+                                Free
+                              </Text>
+                            </View>
+                          )
+                          : null
+                      }
                     </Pressable>
                   );
                 })}
@@ -80,20 +120,18 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
                 {module.quizzes.map((quiz: any) => (
                   <Pressable
                     key={quiz.id}
-                    className="flex-row items-center px-3 py-3 rounded-xl active:bg-ui-bg"
-                    onPress={() => hasPurchased ? onQuizPress(quiz.id) : null}
+                    className="flex-row items-center px-3 py-2.5 rounded-xl active:bg-ui-bg dark:active:bg-neutral-700"
+                    onPress={() => hasPurchased ? onQuizPress(quiz.id) : undefined}
                   >
-                    <View className="w-8 h-8 rounded-full bg-status-warning/20 items-center justify-center mr-3">
-                      <Ionicons name="help" size={18} color={brand.warning} />
+                    <View className="w-7 h-7 rounded-full bg-status-warning/20 items-center justify-center mr-3">
+                      <HelpCircle size={14} color={iconColors.onWarning} strokeWidth={2.5} />
                     </View>
                     <View className="flex-1">
-                      <Text className={`text-sm ${hasPurchased ? 'text-neutral-900 font-bold' : 'text-status-locked font-medium'}`}>
+                      <Text className={`text-sm font-sans-medium ${hasPurchased ? 'text-neutral-900 dark:text-neutral-100' : 'text-neutral-400'}`}>
                         Quiz: {quiz.title}
                       </Text>
                     </View>
-                    {!hasPurchased && (
-                      <Ionicons name="lock-closed" size={16} color="#afafaf" />
-                    )}
+                    {!hasPurchased && <Lock size={14} color={iconColors.empty} strokeWidth={2} />}
                   </Pressable>
                 ))}
               </View>

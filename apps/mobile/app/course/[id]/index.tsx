@@ -91,10 +91,10 @@ export default function CourseDetailScreen() {
       Toast.show({ type: 'success', text1: 'Purchase successful' });
       await queryClient.invalidateQueries({ queryKey: ['purchases', session.user.id] });
       await refreshPurchase();
-      
+
       // Auto redirect to first lesson after purchase if available
       if (modules.length > 0 && modules[0].lessons.length > 0) {
-         router.push(href(`/course/${id}/lesson/${modules[0].lessons[0].id}`));
+        router.push(href(`/course/${id}/lesson/${modules[0].lessons[0].id}`));
       }
     } catch (e: unknown) {
       const err = e as { description?: string; code?: string };
@@ -118,32 +118,57 @@ export default function CourseDetailScreen() {
     );
   }
 
+  const hasDiscount = course.mrp != null && course.mrp > course.price;
+  const discountPct = hasDiscount ? Math.round(((course.mrp! - course.price) / course.mrp!) * 100) : 0;
+
   return (
-    <View className="flex-1 bg-ui-bg">
-      <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }}>
+    <View className="flex-1 bg-ui-bg dark:bg-neutral-900">
+      <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
         <CourseHero course={course} />
-        <View className="px-4 pt-4">
-          <Text className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">{course.title}</Text>
+
+        <View className="rounded-t-3xl bg-ui-bg dark:bg-neutral-900 px-5 pt-6">
+          {/* Title */}
+          <Text className="text-2xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">
+            {course.title}
+          </Text>
           {course.subtitle ? (
-            <Text className="mt-2 text-base text-neutral-600 dark:text-neutral-400">{course.subtitle}</Text>
+            <Text className="mt-1.5 text-base font-sans-medium text-neutral-500 dark:text-neutral-400">
+              {course.subtitle}
+            </Text>
           ) : null}
 
-          <View className="mt-4 flex-row items-baseline gap-3">
-            <Text className="text-2xl font-bold text-brand-primary dark:text-brand-primary-light">
+          {/* Price row */}
+          <View className="mt-4 flex-row items-center gap-3">
+            <Text className="text-2xl font-display-black text-brand-primary">
               {formatRupeePaise(course.price)}
             </Text>
-            {course.mrp != null && course.mrp > course.price ? (
-              <Text className="text-lg text-neutral-400 line-through">{formatRupeePaise(course.mrp)}</Text>
+            {hasDiscount ? (
+              <>
+                <Text className="text-base font-sans-medium text-neutral-400 line-through">
+                  {formatRupeePaise(course.mrp!)}
+                </Text>
+                <View className="rounded-full bg-red-100 dark:bg-red-900/40 px-2.5 py-0.5">
+                  <Text className="text-xs font-display-black text-red-600 dark:text-red-400">
+                    {discountPct}% off
+                  </Text>
+                </View>
+              </>
             ) : null}
           </View>
 
+          {/* Description */}
           {course.description ? (
-            <Text className="mt-6 leading-6 text-neutral-700 dark:text-neutral-300">{course.description}</Text>
+            <View className="mt-5 rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700 p-4">
+              <Text className="text-sm font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300">
+                {course.description}
+              </Text>
+            </View>
           ) : null}
 
-          <View className="mt-4">
-            <SyllabusView 
-              courseId={course.id} 
+          {/* Syllabus */}
+          <View className="mt-5">
+            <SyllabusView
+              courseId={course.id}
               hasPurchased={purchased}
               onLessonPress={(lessonId) => router.push(href(`/course/${course.id}/lesson/${lessonId}`))}
               onQuizPress={(quizId) => router.push(href(`/course/${course.id}/quiz/${quizId}`))}
@@ -160,7 +185,7 @@ export default function CourseDetailScreen() {
             if (purchased) {
               // Find first uncompleted lesson or quiz
               let nextItem: { type: 'lesson' | 'quiz', id: string } | null = null;
-              
+
               for (const mod of modules) {
                 for (const lesson of mod.lessons) {
                   const isDone = progress.some(p => p.lesson_id === lesson.id);
@@ -170,7 +195,7 @@ export default function CourseDetailScreen() {
                   }
                 }
                 if (nextItem) break;
-                
+
                 for (const quiz of mod.quizzes) {
                   const isDone = progress.some(p => p.quiz_id === quiz.id);
                   if (!isDone) {
@@ -184,10 +209,10 @@ export default function CourseDetailScreen() {
               if (nextItem) {
                 router.push(href(`/course/${course.id}/${nextItem.type}/${nextItem.id}`));
               } else if (modules.length > 0 && modules[0].lessons.length > 0) {
-                 // All complete? Just go to the first one again or show finished
-                 router.push(href(`/course/${course.id}/lesson/${modules[0].lessons[0].id}`));
+                // All complete? Just go to the first one again or show finished
+                router.push(href(`/course/${course.id}/lesson/${modules[0].lessons[0].id}`));
               } else {
-                 Toast.show({ type: 'info', text1: 'No content available yet.' });
+                Toast.show({ type: 'info', text1: 'No content available yet.' });
               }
             } else {
               void onBuy();

@@ -20,6 +20,7 @@ export function useRemoteData() {
 
   const classLevelsQuery = useQuery({
     queryKey: ["classLevels"],
+    staleTime: Infinity, // class levels never change at runtime
     queryFn: async () => {
       const { data, error } = await supabase
         .from("class_levels")
@@ -32,6 +33,7 @@ export function useRemoteData() {
 
   const olympiadTypesQuery = useQuery({
     queryKey: ["olympiadTypes"],
+    staleTime: Infinity, // olympiad types never change at runtime
     queryFn: async () => {
       const { data, error } = await supabase.from("olympiad_types").select("*").order("id");
       if (error) throw error;

@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { BookOpen, Search, X } from 'lucide-react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CourseCard } from '@/components/course/CourseCard';
@@ -176,15 +176,16 @@ export default function SearchScreen() {
           )}
         </View>
       ) : (
-        <ScrollView
-          className="flex-1 px-5 pt-2"
-          contentContainerStyle={{ paddingBottom: 32 }}
+        <FlatList
+          data={filteredCourses}
+          keyExtractor={(c) => c.id}
+          renderItem={({ item }) => (
+            <CourseCard course={item} onPress={() => router.push(href(`/course/${item.id}`))} />
+          )}
+          contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 8, paddingBottom: 32 }}
           showsVerticalScrollIndicator={false}
-        >
-          {filteredCourses.map((c) => (
-            <CourseCard key={c.id} course={c} onPress={() => router.push(href(`/course/${c.id}`))} />
-          ))}
-        </ScrollView>
+          removeClippedSubviews
+        />
       )}
 
     </SafeAreaView>

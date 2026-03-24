@@ -52,15 +52,11 @@ export function useCourseById(id: string | undefined) {
 
   const course = useMemo(() => fromStore ?? q.data ?? null, [fromStore, q.data]);
 
-  const refresh = useCallback(async () => {
-    await q.refetch();
-  }, [q]);
-
   return {
     course,
     loading: !fromStore && q.isLoading,
     error: localError,
-    refresh,
+    refresh: q.refetch,
   };
 }
 

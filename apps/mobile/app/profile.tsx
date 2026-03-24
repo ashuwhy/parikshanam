@@ -1,10 +1,11 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, Text, TextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import { AvatarCircle } from '@/components/ui/Avatar';
+import { isValidIndianPhone, PhoneInput } from '@/components/ui/PhoneInput';
 import { useAuth } from '@/hooks/useAuth';
 import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
 import { href } from '@/lib/href';
@@ -14,8 +15,8 @@ import { useProfileStore } from '@/lib/stores/useProfileStore';
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <View className="flex-row items-center justify-between py-3.5 border-b border-neutral-100 dark:border-neutral-800 last:border-0">
-      <Text className="text-sm font-medium text-neutral-500 dark:text-neutral-400">{label}</Text>
-      <Text className="text-sm font-bold text-neutral-900 dark:text-neutral-100 max-w-[60%] text-right">{value}</Text>
+      <Text className="text-sm font-sans-medium text-neutral-500 dark:text-neutral-400">{label}</Text>
+      <Text className="text-sm font-sans-bold text-neutral-900 dark:text-neutral-100 max-w-[60%] text-right">{value}</Text>
     </View>
   );
 }
@@ -33,21 +34,31 @@ export default function ProfileScreen() {
 
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(profile?.full_name ?? '');
+  const [phone, setPhone] = useState(profile?.phone ?? session?.user?.phone ?? '');
   const [saving, setSaving] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     setName(profile?.full_name ?? '');
-  }, [profile?.full_name]);
+    setPhone(profile?.phone ?? session?.user?.phone ?? '');
+  }, [profile?.full_name, profile?.phone, session?.user?.phone]);
 
   const email = session?.user?.email ?? null;
-  const phone = profile?.phone ?? session?.user?.phone ?? null;
+  const displayPhone = profile?.phone ?? session?.user?.phone ?? null;
 
-  const onSaveName = async () => {
+  const onSaveProfile = async () => {
     if (!session?.user) return;
+    setSubmitted(true);
+    if (phone && !isValidIndianPhone(phone)) {
+      return;
+    }
     setSaving(true);
     const { error } = await supabase
       .from('profiles')
-      .update({ full_name: name.trim() || null })
+      .update({
+        full_name: name.trim() || null,
+        phone: phone.trim() || null,
+      })
       .eq('id', session.user.id);
     setSaving(false);
     if (error) {
@@ -57,6 +68,13 @@ export default function ProfileScreen() {
     await refreshProfile();
     setEditing(false);
     Toast.show({ type: 'success', text1: 'Profile updated' });
+  };
+
+  const onCancel = () => {
+    setEditing(false);
+    setSubmitted(false);
+    setName(profile?.full_name ?? '');
+    setPhone(profile?.phone ?? session?.user?.phone ?? '');
   };
 
   const onSignOut = async () => {
@@ -75,9 +93,9 @@ export default function ProfileScreen() {
           hitSlop={12}
           onPress={() => router.back()}
         >
-          <Text className="text-base font-bold text-brand-primary">Close</Text>
+          <Text className="text-base font-sans-bold text-brand-primary">Close</Text>
         </Pressable>
-        <Text className="text-base font-black text-neutral-900 dark:text-neutral-100">Profile</Text>
+        <Text className="text-base font-display-black text-neutral-900 dark:text-neutral-100">Profile</Text>
         <View className="w-12" />
       </View>
 
@@ -93,40 +111,55 @@ export default function ProfileScreen() {
           <View className="mt-4 items-center px-6 w-full">
             {editing ? (
               <View className="w-full gap-3">
-                <TextInput
-                  accessibilityLabel="Full name"
-                  value={name}
-                  onChangeText={setName}
-                  placeholder="Your name"
-                  autoFocus
-                  className="rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-bold text-neutral-900 dark:text-neutral-100 text-center"
-                />
-                <View className="flex-row gap-3">
+                <View>
+                  <Text className="mb-1.5 text-xs font-display uppercase tracking-wider text-neutral-400">Full Name</Text>
+                  <TextInput
+                    accessibilityLabel="Full name"
+                    value={name}
+                    onChangeText={setName}
+                    placeholder="Your name"
+                    placeholderTextColor="#9CA3AF"
+                    autoFocus
+                    autoCapitalize="words"
+                    className="rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 text-center"
+                  />
+                </View>
+                <View>
+                  <Text className="mb-1.5 text-xs font-display uppercase tracking-wider text-neutral-400">Phone Number</Text>
+                  <PhoneInput
+                    value={phone}
+                    onChangeText={setPhone}
+                    showValidation={submitted}
+                  />
+                </View>
+                <View className="flex-row gap-3 mt-1">
                   <Pressable
-                    onPress={() => void onSaveName()}
+                    onPress={() => void onSaveProfile()}
                     disabled={saving}
                     className="flex-1 items-center rounded-2xl bg-brand-primary py-3"
                   >
-                    <Text className="text-sm font-black text-white">{saving ? 'Saving…' : 'Save'}</Text>
+                    <Text className="text-sm font-display-black text-white">{saving ? 'Saving…' : 'Save'}</Text>
                   </Pressable>
                   <Pressable
-                    onPress={() => { setEditing(false); setName(profile?.full_name ?? ''); }}
+                    onPress={onCancel}
                     className="flex-1 items-center rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800 py-3"
                   >
-                    <Text className="text-sm font-black text-neutral-700 dark:text-neutral-300">Cancel</Text>
+                    <Text className="text-sm font-display-black text-neutral-700 dark:text-neutral-300">Cancel</Text>
                   </Pressable>
                 </View>
               </View>
             ) : (
               <>
-                <Text className="text-xl font-black text-neutral-900 dark:text-neutral-100">
+                <Text className="text-xl font-display-black text-neutral-900 dark:text-neutral-100">
                   {profile?.full_name?.trim() || 'Add your name'}
                 </Text>
                 {email && (
-                  <Text className="mt-1 text-sm font-medium text-neutral-500">{email}</Text>
+                  <Text className="mt-1 text-sm font-sans-medium text-neutral-500">{email}</Text>
                 )}
                 <Pressable onPress={() => setEditing(true)} className="mt-3 rounded-full border border-ui-border dark:border-neutral-700 px-5 py-1.5">
-                  <Text className="text-xs font-black uppercase tracking-wider text-neutral-600 dark:text-neutral-300">Edit name</Text>
+                  <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-600 dark:text-neutral-300">
+                    Edit profile
+                  </Text>
                 </Pressable>
               </>
             )}
@@ -143,8 +176,8 @@ export default function ProfileScreen() {
               key={s.label}
               className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
             >
-              <Text className="text-2xl font-black text-brand-primary">{s.value}</Text>
-              <Text className="mt-1 text-xs font-bold uppercase tracking-wider text-neutral-500">{s.label}</Text>
+              <Text className="text-2xl font-display-black text-brand-primary">{s.value}</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">{s.label}</Text>
             </View>
           ))}
         </View>
@@ -152,7 +185,7 @@ export default function ProfileScreen() {
         {/* Account info */}
         <View className="mx-5 mt-5 rounded-2xl bg-white dark:bg-neutral-800 px-4 border border-ui-border dark:border-neutral-700">
           {email && <InfoRow label="Email" value={email} />}
-          {phone && <InfoRow label="Phone" value={phone} />}
+          {displayPhone && <InfoRow label="Phone" value={displayPhone} />}
           {classLabel && <InfoRow label="Class" value={classLabel} />}
         </View>
 
@@ -161,7 +194,7 @@ export default function ProfileScreen() {
           onPress={() => void onSignOut()}
           className="mx-5 mt-5 items-center rounded-2xl border-2 border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 py-4"
         >
-          <Text className="text-sm font-black text-red-600 dark:text-red-400">Sign Out</Text>
+          <Text className="text-sm font-display-black text-red-600 dark:text-red-400">Sign Out</Text>
         </Pressable>
 
       </ScrollView>
