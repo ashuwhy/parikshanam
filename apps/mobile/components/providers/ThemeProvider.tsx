@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useColorScheme as useDeviceColorScheme } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
 
 type ColorScheme = 'light' | 'dark' | 'system';
 
@@ -13,24 +12,9 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = 'parikshanam_theme';
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const deviceColorScheme = useDeviceColorScheme();
   const [themePreference, setThemePreferenceState] = useState<ColorScheme>('system');
-  const [isReady, setIsReady] = useState(false);
-
-  // Load saved theme preference
-  useEffect(() => {
-    SecureStore.getItemAsync(THEME_STORAGE_KEY).then((value) => {
-      if (value === 'light' || value === 'dark' || value === 'system') {
-        setThemePreferenceState(value);
-      }
-      setIsReady(true);
-    }).catch(() => {
-      setIsReady(true);
-    });
-  }, []);
 
   // Determine actual color scheme
   const colorScheme: 'light' | 'dark' =
@@ -42,18 +26,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const isDark = colorScheme === 'dark';
 
-  const setThemePreference = async (scheme: ColorScheme) => {
+  const setThemePreference = (scheme: ColorScheme) => {
     setThemePreferenceState(scheme);
-    try {
-      await SecureStore.setItemAsync(THEME_STORAGE_KEY, scheme);
-    } catch (error) {
-      console.error('Failed to save theme preference:', error);
-    }
+    // Note: Persistence removed for now - can be added back with AsyncStorage if needed
   };
-
-  if (!isReady) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider

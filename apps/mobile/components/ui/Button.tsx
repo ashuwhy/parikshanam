@@ -1,12 +1,13 @@
 import { forwardRef, type ComponentRef } from 'react';
-import { ActivityIndicator, Pressable, Text, type PressableProps } from 'react-native';
+import { ActivityIndicator, Pressable, Text, type PressableProps, type ViewStyle } from 'react-native';
 
-import { brand } from '@/constants/Colors';
+import { brand, dimensionalShadows } from '@/constants/Colors';
 import { cn } from '@/lib/cn';
+import { useColorScheme } from '@/components/useColorScheme';
 
 type Variant = 'primary' | 'outline' | 'ghost';
 
-export type ButtonProps = PressableProps & {
+export type ButtonProps = Omit<PressableProps, 'style'> & {
   title: string;
   variant?: Variant;
   loading?: boolean;
@@ -27,18 +28,43 @@ export const Button = forwardRef<ComponentRef<typeof Pressable>, ButtonProps>(fu
   ref,
 ) {
   const isDisabled = disabled || loading;
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  // Dimensional shadow styles — sourced from centralized theme
+  const getDimensionalStyle = (pressed: boolean): ViewStyle => {
+    if (variant === 'ghost' || isDisabled) return {};
+
+    if (variant === 'primary') {
+      const base = dimensionalShadows.brand.md;
+      return {
+        ...base,
+        shadowOffset: { width: 0, height: pressed ? 2 : base.shadowOffset.height },
+        elevation: pressed ? 2 : base.elevation,
+      };
+    }
+
+    // outline
+    const base = isDark ? dimensionalShadows.sm.dark : dimensionalShadows.sm.light;
+    return {
+      ...base,
+      shadowOffset: { width: 0, height: pressed ? 1 : base.shadowOffset.height },
+      elevation: pressed ? 1 : base.elevation,
+    };
+  };
 
   return (
     <Pressable
       ref={ref}
       accessibilityRole="button"
       disabled={isDisabled}
+      style={({ pressed }) => getDimensionalStyle(pressed)}
       className={cn(
         'items-center justify-center',
         // Primary variant - dimensional button with 3D effect
-        variant === 'primary' && 'bg-brand-primary rounded-2xl border-b-4 border-brand-dark px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active',
+        variant === 'primary' && 'bg-brand-primary rounded-2xl border-b-4 border-brand-dark px-6 py-3 active:translate-y-0.5 active:border-b-2',
         // Secondary/Outline variant - white/dark card with border
-        variant === 'outline' && 'bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 border-b-4 px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active',
+        variant === 'outline' && 'bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 border-b-4 px-6 py-3 active:translate-y-0.5 active:border-b-2',
         // Ghost variant - minimal style
         variant === 'ghost' && 'bg-transparent rounded-2xl px-6 py-3 active:bg-neutral-100 dark:active:bg-neutral-800',
         // Disabled state

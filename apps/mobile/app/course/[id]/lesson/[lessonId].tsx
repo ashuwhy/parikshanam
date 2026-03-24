@@ -46,8 +46,8 @@ export default function LessonScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg" edges={['top']}>
-      <View className="flex-row items-center px-4 py-3 border-b border-neutral-100 dark:border-neutral-800">
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
+      <View className="flex-row items-center px-4 py-3 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-800">
         <Pressable onPress={() => router.back()} className="p-2 -ml-2">
           <Ionicons name="chevron-back" size={24} color="#737373" />
         </Pressable>
@@ -62,7 +62,7 @@ export default function LessonScreen() {
         ) : (
           <View className="aspect-video bg-neutral-100 dark:bg-neutral-900 items-center justify-center">
             <Ionicons name="videocam-off" size={48} color="#a3a3a3" />
-            <Text className="text-neutral-500 mt-2">No video for this lesson</Text>
+            <Text className="text-neutral-500 dark:text-neutral-400 mt-2">No video for this lesson</Text>
           </View>
         )}
 

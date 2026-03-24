@@ -3,6 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { Pressable, Text } from 'react-native';
 
 import { supabase } from '@/lib/supabase';
+import { dimensionalShadows } from '@/constants/Colors';
 
 function parseHashParams(url: string): Record<string, string> {
   const hashIndex = url.indexOf('#');
@@ -60,8 +61,13 @@ export function GoogleSignInButton() {
     <Pressable
       accessibilityRole="button"
       onPress={() => void onPress()}
-      className="bg-white rounded-2xl border-2 border-ui-border border-b-4 px-6 py-3 shadow-dimensional active:translate-y-0.5 active:border-b-2 active:shadow-active items-center justify-center flex-row gap-2">
-      <Text className="text-base font-bold text-brand-dark">Continue with Google</Text>
+      style={({ pressed }) => ({
+        ...dimensionalShadows.sm.light,
+        shadowOffset: { width: 0, height: pressed ? 1 : dimensionalShadows.sm.light.shadowOffset.height },
+        elevation: pressed ? 1 : dimensionalShadows.sm.light.elevation,
+      })}
+      className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 border-b-4 px-6 py-3 active:translate-y-0.5 active:border-b-2 items-center justify-center flex-row gap-2">
+      <Text className="text-base font-bold text-brand-dark dark:text-brand-secondary">Continue with Google</Text>
     </Pressable>
   );
 }

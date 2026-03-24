@@ -7,7 +7,7 @@
 
 import { brand, colors, darkColors } from './theme';
 
-export { brand, colors, darkColors } from './theme';
+export { brand, colors, darkColors, dimensionalShadows } from './theme';
 
 // Re-export brand for backward compatibility
 const tintColorLight = brand.primary;

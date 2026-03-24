@@ -303,6 +303,85 @@ export const shadows = {
 } as const;
 
 /**
+ * DIMENSIONAL SHADOWS
+ * The app's signature "flat/dimensional" shadow style (shadowRadius: 0, shadowOpacity: 1).
+ * Use these instead of inline style objects for the card-raised look.
+ *
+ * Light mode: uses border color (#dddddc) as shadow
+ * Dark mode: uses near-black (#1a1a2e) as shadow
+ * Brand: uses brand.dark (#2a6900) for primary/CTA elements
+ */
+export const dimensionalShadows = {
+  /** Subtle lift — stat cards, subject pills */
+  sm: {
+    light: {
+      shadowColor: '#dddddc',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 2,
+    } as const,
+    dark: {
+      shadowColor: '#1a1a2e',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 2,
+    } as const,
+  },
+  /** Standard card lift — course cards, course list items */
+  md: {
+    light: {
+      shadowColor: '#dddddc',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 3,
+    } as const,
+    dark: {
+      shadowColor: '#1a1a2e',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 3,
+    } as const,
+  },
+  /** CTA/primary button — uses brand.dark (#2a6900) as shadow */
+  brand: {
+    sm: {
+      shadowColor: '#2a6900',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 3,
+    } as const,
+    md: {
+      shadowColor: '#2a6900',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 1,
+      shadowRadius: 0,
+      elevation: 4,
+    } as const,
+  },
+  /** Overlay badge — black, subtle (e.g. olympiad badge on thumbnail) */
+  badge: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+  } as const,
+  /** Brand glow — diffused green glow for avatar rings and accent elements */
+  brandGlow: {
+    shadowColor: '#58CC02',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 4,
+  } as const,
+} as const;
+
+/**
  * BUTTON VARIANTS
  * Predefined button styles
  */
@@ -392,6 +471,7 @@ export const theme = {
   borderRadius,
   typography,
   shadows,
+  dimensionalShadows,
   buttonVariants,
   inputVariants,
   getColor,

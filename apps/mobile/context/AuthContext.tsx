@@ -53,17 +53,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
+    let timeoutId: NodeJS.Timeout;
 
     const init = async () => {
-      const {
-        data: { session: initial },
-      } = await supabase.auth.getSession();
-      if (cancelled) return;
-      setSession(initial);
-      if (initial?.user) {
-        await fetchProfile(initial.user.id);
+      try {
+        // Add timeout to prevent infinite loading
+        timeoutId = setTimeout(() => {
+          if (!cancelled) {
+            console.warn('Auth initialization timeout - continuing without auth');
+            setLoading(false);
+          }
+        }, 5000); // 5 second timeout
+
+        const {
+          data: { session: initial },
+        } = await supabase.auth.getSession();
+        
+        clearTimeout(timeoutId);
+        
+        if (cancelled) return;
+        setSession(initial);
+        if (initial?.user) {
+          await fetchProfile(initial.user.id);
+        }
+        if (!cancelled) setLoading(false);
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        if (!cancelled) setLoading(false);
       }
-      if (!cancelled) setLoading(false);
     };
 
     void init();
@@ -85,6 +102,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       cancelled = true;
+      clearTimeout(timeoutId);
       subscription.unsubscribe();
     };
   }, [fetchProfile]);

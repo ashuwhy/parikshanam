@@ -1,5 +1,5 @@
-import { useVideoPlayer, VideoView } from 'expo-video';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface VideoPlayerProps {
   url: string;
@@ -7,21 +7,15 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ url, onEnded }: VideoPlayerProps) {
-  const player = useVideoPlayer(url, (p) => {
-    p.loop = false;
-    p.play();
-  });
-
-  // Since expo-video event listener API hooks are still maturing, we can simply provide the standard player.
-  // In a real production app we would listen for natural end events.
-
+  // Temporary placeholder until expo-video is properly configured
+  // To fix: Run `npx expo install expo-video` and rebuild the app
+  
   return (
-    <View className="w-full aspect-video bg-black rounded-xl overflow-hidden">
-      <VideoView
-        player={player}
-        style={StyleSheet.absoluteFill}
-        nativeControls
-      />
+    <View className="w-full aspect-video bg-neutral-900 rounded-xl overflow-hidden items-center justify-center">
+      <Ionicons name="play-circle-outline" size={64} color="#58CC02" />
+      <Text className="text-white mt-4 text-base font-medium">Video Player</Text>
+      <Text className="text-neutral-400 text-sm mt-1">expo-video needs to be configured</Text>
     </View>
   );
 }
+

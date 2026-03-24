@@ -20,6 +20,7 @@
   },
   "pnpm": {
     "overrides": {
+      "react-native-reanimated": "^4.2.1",
       "lightningcss": "1.30.1"
     }
   }

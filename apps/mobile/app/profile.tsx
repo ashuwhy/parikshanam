@@ -1,24 +1,37 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import { AvatarCircle } from '@/components/ui/Avatar';
-import { Button } from '@/components/ui/Button';
 import { useAuth } from '@/hooks/useAuth';
+import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
 import { href } from '@/lib/href';
 import { supabase } from '@/lib/supabase';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
+import { dimensionalShadows } from '@/constants/Colors';
+
+function InfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <View className="flex-row items-center justify-between py-3.5 border-b border-neutral-100 dark:border-neutral-800 last:border-0">
+      <Text className="text-sm font-medium text-neutral-500 dark:text-neutral-400">{label}</Text>
+      <Text className="text-sm font-bold text-neutral-900 dark:text-neutral-100 max-w-[60%] text-right">{value}</Text>
+    </View>
+  );
+}
 
 export default function ProfileScreen() {
   const router = useRouter();
   const { session, profile, signOut, refreshProfile } = useAuth();
   const classLevels = useProfileStore((s) => s.classLevels);
-  const classLabel =
-    profile?.class_level_id != null
-      ? classLevels.find((c) => c.id === profile.class_level_id)?.label
-      : null;
+  const classLabel = profile?.class_level_id != null
+    ? classLevels.find((c) => c.id === profile.class_level_id)?.label
+    : null;
+
+  const { purchases } = useMyPurchases();
+  const { progress } = useUserProgress();
+
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(profile?.full_name ?? '');
   const [saving, setSaving] = useState(false);
@@ -53,57 +66,108 @@ export default function ProfileScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950">
-      <View className="flex-row items-center justify-between border-b border-neutral-200 px-4 py-3 dark:border-neutral-800">
-        <Pressable accessibilityRole="button" accessibilityLabel="Close profile" onPress={() => router.back()}>
-          <Text className="text-base text-brand-primary">Close</Text>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900">
+
+      {/* Header */}
+      <View className="flex-row items-center justify-between border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Close"
+          hitSlop={12}
+          onPress={() => router.back()}
+        >
+          <Text className="text-base font-bold text-brand-primary">Close</Text>
         </Pressable>
-        <Text className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Profile</Text>
+        <Text className="text-base font-black text-neutral-900 dark:text-neutral-100">Profile</Text>
         <View className="w-12" />
       </View>
 
-      <View className="items-center px-6 pt-8">
-        <AvatarCircle size="lg" />
-        <View className="mt-6 w-full">
-          {editing ? (
-            <View>
-              <TextInput
-                accessibilityLabel="Full name"
-                value={name}
-                onChangeText={setName}
-                placeholder="Your name"
-                className="rounded-xl border border-neutral-200 bg-white px-4 py-3 text-base text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
-              />
-              <View className="mt-3 flex-row gap-3">
-                <Button title="Save" loading={saving} className="flex-1" onPress={() => void onSaveName()} />
-                <Button title="Cancel" variant="outline" className="flex-1" onPress={() => setEditing(false)} />
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      >
+
+        {/* Avatar + name block */}
+        <View className="items-center bg-white dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-800">
+          <AvatarCircle size="lg" />
+          <View className="mt-4 items-center px-6 w-full">
+            {editing ? (
+              <View className="w-full gap-3">
+                <TextInput
+                  accessibilityLabel="Full name"
+                  value={name}
+                  onChangeText={setName}
+                  placeholder="Your name"
+                  autoFocus
+                  className="rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-bold text-neutral-900 dark:text-neutral-100 text-center"
+                />
+                <View className="flex-row gap-3">
+                  <Pressable
+                    onPress={() => void onSaveName()}
+                    disabled={saving}
+                    className="flex-1 items-center rounded-2xl bg-brand-primary py-3"
+                    style={dimensionalShadows.brand.sm}
+                  >
+                    <Text className="text-sm font-black text-white">{saving ? 'Saving…' : 'Save'}</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => { setEditing(false); setName(profile?.full_name ?? ''); }}
+                    className="flex-1 items-center rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800 py-3"
+                  >
+                    <Text className="text-sm font-black text-neutral-700 dark:text-neutral-300">Cancel</Text>
+                  </Pressable>
+                </View>
               </View>
-            </View>
-          ) : (
-            <View className="items-center">
-              <Text className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
-                {profile?.full_name?.trim() || 'Add your name'}
-              </Text>
-              <Button title="Edit name" variant="outline" className="mt-3" onPress={() => setEditing(true)} />
-            </View>
-          )}
+            ) : (
+              <>
+                <Text className="text-xl font-black text-neutral-900 dark:text-neutral-100">
+                  {profile?.full_name?.trim() || 'Add your name'}
+                </Text>
+                {email && (
+                  <Text className="mt-1 text-sm font-medium text-neutral-500">{email}</Text>
+                )}
+                <Pressable onPress={() => setEditing(true)} className="mt-3 rounded-full border border-ui-border dark:border-neutral-700 px-5 py-1.5">
+                  <Text className="text-xs font-black uppercase tracking-wider text-neutral-600 dark:text-neutral-300">Edit name</Text>
+                </Pressable>
+              </>
+            )}
+          </View>
         </View>
 
-        <View className="mt-10 w-full rounded-2xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
-          <Text className="text-xs font-medium uppercase text-neutral-500">Phone</Text>
-          <Text className="mt-1 text-base text-neutral-900 dark:text-neutral-100">{phone ?? '—'}</Text>
-          <Text className="mt-4 text-xs font-medium uppercase text-neutral-500">Email</Text>
-          <Text className="mt-1 text-base text-neutral-900 dark:text-neutral-100">{email ?? '—'}</Text>
-          {classLabel ? (
-            <>
-              <Text className="mt-4 text-xs font-medium uppercase text-neutral-500">Class</Text>
-              <Text className="mt-1 text-base text-neutral-900 dark:text-neutral-100">{classLabel}</Text>
-            </>
-          ) : null}
+        {/* Stats row */}
+        <View className="mx-5 mt-5 flex-row gap-3">
+          {[
+            { value: purchases.length, label: 'Courses' },
+            { value: progress.filter((p) => p.lesson_id).length, label: 'Lessons' },
+          ].map((s) => (
+            <View
+              key={s.label}
+              className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
+              style={dimensionalShadows.sm.light}
+            >
+              <Text className="text-2xl font-black text-brand-primary">{s.value}</Text>
+              <Text className="mt-1 text-xs font-bold uppercase tracking-wider text-neutral-500">{s.label}</Text>
+            </View>
+          ))}
         </View>
 
-        <Button title="Sign out" variant="outline" className="mt-10 w-full" onPress={() => void onSignOut()} />
-      </View>
+        {/* Account info */}
+        <View className="mx-5 mt-5 rounded-2xl bg-white dark:bg-neutral-800 px-4 border border-ui-border dark:border-neutral-700">
+          {email && <InfoRow label="Email" value={email} />}
+          {phone && <InfoRow label="Phone" value={phone} />}
+          {classLabel && <InfoRow label="Class" value={classLabel} />}
+        </View>
+
+        {/* Sign out */}
+        <Pressable
+          onPress={() => void onSignOut()}
+          className="mx-5 mt-5 items-center rounded-2xl border-2 border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 py-4"
+        >
+          <Text className="text-sm font-black text-red-600 dark:text-red-400">Sign Out</Text>
+        </Pressable>
+
+      </ScrollView>
     </SafeAreaView>
   );
 }

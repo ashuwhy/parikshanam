@@ -8,9 +8,13 @@ import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { href } from '@/lib/href';
 import { useCoursesStore } from '@/lib/stores/useCoursesStore';
 import type { Course } from '@/types';
+import { useColorScheme } from '@/components/useColorScheme';
 
 export default function SearchScreen() {
   const router = useRouter();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
   const allCourses = useCoursesStore((s) => s.allCourses);
   const olympiadTypes = useCoursesStore((s) => s.olympiadTypes);
   const filters = useCoursesStore((s) => s.filters);
@@ -46,80 +50,133 @@ export default function SearchScreen() {
   }, [allCourses, debounced, filters.olympiadTypeId]);
 
   const onPickOlympiad = useCallback(
-    (id: string | null) => {
-      setFilters({ olympiadTypeId: id });
-    },
+    (id: string | null) => setFilters({ olympiadTypeId: id }),
     [setFilters],
   );
 
-  const empty = useMemo(
-    () => !loading && filteredCourses.length === 0,
-    [loading, filteredCourses.length],
-  );
+  const empty = !loading && filteredCourses.length === 0;
+  const hasQuery = debounced.trim().length > 0 || filters.olympiadTypeId !== null;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg" edges={['bottom']}>
-      <View className="px-4 pt-2">
-        <TextInput
-          accessibilityLabel="Search courses"
-          placeholder="Search courses..."
-          placeholderTextColor="#afafaf"
-          value={query}
-          onChangeText={setQuery}
-          className="input-default"
-        />
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 flex-row">
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{ selected: filters.olympiadTypeId === null }}
-            onPress={() => onPickOlympiad(null)}
-            className={`mr-2 rounded-full px-4 py-2 ${
-              filters.olympiadTypeId === null ? 'bg-brand-primary' : 'bg-ui-border'
-            }`}>
-            <Text
-              className={`text-sm font-bold tracking-wider ${
-                filters.olympiadTypeId === null ? 'text-white' : 'text-neutral-800'
-              }`}>
-              All
-            </Text>
-          </Pressable>
-          {olympiadTypes.map((o) => {
-            const active = filters.olympiadTypeId === o.id;
-            return (
-              <Pressable
-                key={o.id}
-                accessibilityRole="button"
-                accessibilityState={{ selected: active }}
-                onPress={() => onPickOlympiad(o.id)}
-                className={`mr-2 rounded-full px-4 py-2 ${
-                  active ? 'bg-brand-primary' : 'bg-ui-border'
-                }`}>
-                <Text
-                  className={`text-sm font-bold tracking-wider ${
-                    active ? 'text-white' : 'text-neutral-800'
-                  }`}>
-                  {o.label}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
+      {/* Search bar */}
+      <View className="border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 pt-3 pb-3">
+        <View className="flex-row items-center rounded-2xl border-2 border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800 px-4 h-12">
+          <Text className="text-neutral-400 mr-2 text-base">🔍</Text>
+          <TextInput
+            accessibilityLabel="Search courses"
+            placeholder="Search courses, topics..."
+            placeholderTextColor={isDark ? '#6B7280' : '#9CA3AF'}
+            value={query}
+            onChangeText={setQuery}
+            className="flex-1 text-base font-medium text-neutral-900 dark:text-neutral-100"
+            returnKeyType="search"
+          />
+          {query.length > 0 && (
+            <Pressable onPress={() => setQuery('')} hitSlop={8}>
+              <Text className="text-neutral-400 text-lg">✕</Text>
+            </Pressable>
+          )}
+        </View>
+
+        {/* Filter chips */}
+        {olympiadTypes.length > 0 && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-3"
+            contentContainerStyle={{ gap: 8 }}
+          >
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => onPickOlympiad(null)}
+              className={`rounded-full px-4 py-1.5 border ${
+                filters.olympiadTypeId === null
+                  ? 'bg-brand-primary border-brand-dark'
+                  : 'bg-white dark:bg-neutral-800 border-ui-border dark:border-neutral-700'
+              }`}
+            >
+              <Text
+                className={`text-xs font-black uppercase tracking-wider ${
+                  filters.olympiadTypeId === null ? 'text-white' : 'text-neutral-600 dark:text-neutral-300'
+                }`}
+              >
+                All
+              </Text>
+            </Pressable>
+
+            {olympiadTypes.map((o) => {
+              const active = filters.olympiadTypeId === o.id;
+              return (
+                <Pressable
+                  key={o.id}
+                  accessibilityRole="button"
+                  onPress={() => onPickOlympiad(o.id)}
+                  className={`rounded-full px-4 py-1.5 border ${
+                    active
+                      ? 'bg-brand-primary border-brand-dark'
+                      : 'bg-white dark:bg-neutral-800 border-ui-border dark:border-neutral-700'
+                  }`}
+                >
+                  <Text
+                    className={`text-xs font-black uppercase tracking-wider ${
+                      active ? 'text-white' : 'text-neutral-600 dark:text-neutral-300'
+                    }`}
+                  >
+                    {o.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        )}
       </View>
+
+      {/* Results count */}
+      {!loading && !empty && (
+        <View className="px-5 pt-3 pb-1">
+          <Text className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
+            {filteredCourses.length} {filteredCourses.length === 1 ? 'course' : 'courses'}
+            {hasQuery ? ' found' : ' available'}
+          </Text>
+        </View>
+      )}
 
       {loading ? (
         <LoadingScreen />
-      ) : (
-        <ScrollView className="flex-1 px-4 pt-4" contentContainerStyle={{ paddingBottom: 32 }}>
-          {empty ? (
-            <Text className="text-center text-neutral-500">No courses found</Text>
-          ) : (
-            filteredCourses.map((c) => (
-              <CourseCard key={c.id} course={c} onPress={() => router.push(href(`/course/${c.id}`))} />
-            ))
+      ) : empty ? (
+        <View className="flex-1 items-center justify-center px-8">
+          <Text className="text-5xl">{hasQuery ? '🔍' : '📚'}</Text>
+          <Text className="mt-4 text-xl font-black text-neutral-900 dark:text-neutral-100 text-center">
+            {hasQuery ? 'No courses found' : 'No courses yet'}
+          </Text>
+          <Text className="mt-2 text-sm font-medium text-neutral-500 text-center">
+            {hasQuery
+              ? 'Try a different search or clear the filters'
+              : 'Check back soon — new content is on the way'}
+          </Text>
+          {hasQuery && (
+            <Pressable
+              onPress={() => { setQuery(''); onPickOlympiad(null); }}
+              className="mt-5 rounded-2xl border-2 border-brand-primary px-6 py-2.5"
+            >
+              <Text className="text-sm font-black text-brand-primary">Clear filters</Text>
+            </Pressable>
           )}
+        </View>
+      ) : (
+        <ScrollView
+          className="flex-1 px-5 pt-2"
+          contentContainerStyle={{ paddingBottom: 32 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {filteredCourses.map((c) => (
+            <CourseCard key={c.id} course={c} onPress={() => router.push(href(`/course/${c.id}`))} />
+          ))}
         </ScrollView>
       )}
+
     </SafeAreaView>
   );
 }
