@@ -1,102 +1,117 @@
-import { SymbolView } from 'expo-symbols';
 import { Tabs } from 'expo-router';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BookOpen, Compass, House } from 'lucide-react-native';
 
-import { Avatar } from '@/components/ui/Avatar';
-import Colors from '@/constants/Colors';
-import { colors, darkColors } from '@/constants/Colors';
+import { brand, colors, darkColors } from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
+  const insets = useSafeAreaInsets();
 
-  const c = isDark ? darkColors : colors;
+  const activeTint = brand.primary;
+  const inactiveTint = isDark ? darkColors.text.tertiary : colors.text.quaternary;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[isDark ? 'dark' : 'light'].tint,
-        tabBarInactiveTintColor: isDark ? darkColors.text.tertiary : colors.text.quaternary,
-        headerShown: true,
+        headerShown: false,
+        tabBarActiveTintColor: activeTint,
+        tabBarInactiveTintColor: inactiveTint,
         tabBarStyle: {
           backgroundColor: isDark ? darkColors.background.primary : colors.surface.card,
-          borderTopColor: isDark ? darkColors.background.secondary : colors.background.primary,
           borderTopWidth: 1,
-          height: Platform.OS === 'ios' ? 88 : 64,
-          paddingTop: 8,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 8,
+          borderTopColor: isDark ? darkColors.border.default : colors.border.default,
+          height: 64 + insets.bottom,
+          paddingTop: 6,
+          paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
+          paddingHorizontal: 8,
           elevation: 0,
           shadowOpacity: 0,
         },
         tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '700',
+          fontFamily: 'Nunito_700Bold',
+          fontSize: 12,
           marginTop: 2,
-        },
-        headerStyle: {
-          backgroundColor: isDark ? darkColors.background.primary : colors.surface.card,
-          shadowColor: 'transparent',
-          elevation: 0,
-          borderBottomWidth: 1,
-          borderBottomColor: isDark ? darkColors.background.secondary : colors.background.primary,
-        },
-        headerTitleStyle: {
-          fontWeight: '800',
-          fontSize: 18,
-          color: isDark ? darkColors.text.primary : colors.text.primary,
         },
       }}>
 
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <View style={{ alignItems: 'center' }}>
-              <SymbolView
-                name={{ ios: focused ? 'house.fill' : 'house', android: 'home', web: 'home' }}
-                tintColor={color}
-                size={24}
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 56,
+                height: 30,
+                borderRadius: 15,
+                backgroundColor: focused ? brand.primary + '18' : 'transparent',
+              }}
+            >
+              <House
+                size={21}
+                color={color}
+                strokeWidth={focused ? 2.5 : 1.8}
+                fill={focused ? brand.primary + '22' : 'transparent'}
               />
             </View>
           ),
-          headerTitle: 'Parikshanam',
-          headerRight: () => <Avatar />,
         }}
       />
 
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Explore',
           tabBarLabel: 'Explore',
           tabBarIcon: ({ color, focused }) => (
-            <SymbolView
-              name={{ ios: focused ? 'magnifyingglass.circle.fill' : 'magnifyingglass', android: 'search', web: 'search' }}
-              tintColor={color}
-              size={24}
-            />
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 44,
+                height: 28,
+                borderRadius: 14,
+                backgroundColor: focused ? brand.primary + '18' : 'transparent',
+              }}
+            >
+              <Compass
+                size={21}
+                color={color}
+                strokeWidth={focused ? 2.5 : 1.8}
+              />
+            </View>
           ),
-          headerTitle: 'Explore Courses',
         }}
       />
 
       <Tabs.Screen
         name="my-courses"
         options={{
-          title: 'My Learning',
           tabBarLabel: 'My Learning',
           tabBarIcon: ({ color, focused }) => (
-            <SymbolView
-              name={{ ios: focused ? 'book.fill' : 'book', android: 'menu_book', web: 'menu_book' }}
-              tintColor={color}
-              size={24}
-            />
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 44,
+                height: 28,
+                borderRadius: 14,
+                backgroundColor: focused ? brand.primary + '18' : 'transparent',
+              }}
+            >
+              <BookOpen
+                size={21}
+                color={color}
+                strokeWidth={focused ? 2.5 : 1.8}
+                fill={focused ? brand.primary + '22' : 'transparent'}
+              />
+            </View>
           ),
-          headerTitle: 'My Learning',
-          headerRight: () => <Avatar />,
         }}
       />
     </Tabs>

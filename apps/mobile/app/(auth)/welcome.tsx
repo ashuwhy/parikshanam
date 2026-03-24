@@ -1,15 +1,17 @@
 import { Image } from 'expo-image';
+import { Calculator, FlaskConical, Globe, Laptop, User } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
-import { dimensionalShadows } from '@/constants/Colors';
+import { iconColors } from '@/constants/Colors';
+import Logo from '../../assets/images/icon.png';
 
 const SUBJECTS = [
-  { emoji: '🔢', label: 'Math' },
-  { emoji: '⚗️', label: 'Science' },
-  { emoji: '🌍', label: 'Geography' },
-  { emoji: '💻', label: 'Computing' },
+  { Icon: Calculator, label: 'Math' },
+  { Icon: FlaskConical, label: 'Science' },
+  { Icon: Globe, label: 'Geography' },
+  { Icon: Laptop, label: 'Computing' },
 ];
 
 export default function WelcomeScreen() {
@@ -21,26 +23,27 @@ export default function WelcomeScreen() {
         <View className="flex-1 items-center justify-center">
 
           {/* Logo */}
-          <Image source={require('../../assets/images/icon.png')} className="h-24 w-24" />
+          <Image source={Logo} style={{ width: 140, height: 140 }} contentFit="contain" />
 
           {/* Wordmark */}
-          <Text className="mt-5 text-3xl font-black tracking-tight text-neutral-900">
+          <Text className="mt-5 text-4xl font-display-black tracking-tight text-brand-primary">
             Parikshanam
           </Text>
-          <Text className="mt-2 text-base font-medium text-neutral-500 text-center leading-relaxed">
+          <Text className="mt-0 text-base font-sans-medium text-neutral-500 text-center leading-relaxed">
             The Olympiad learning app.{'\n'}Learn smart. Compete hard. Win big.
           </Text>
 
           {/* Subject pills */}
-          <View className="mt-8 flex-row gap-2">
-            {SUBJECTS.map((s) => (
+          <View className="mt-8 flex-row justify-center gap-2 px-6">
+            {SUBJECTS.map(({ Icon, label }) => (
               <View
-                key={s.label}
-                className="items-center rounded-2xl border border-ui-border bg-white px-3 py-2"
-                style={dimensionalShadows.sm.light}
+                key={label}
+                className="w-[78px] items-center justify-center rounded-2xl border border-ui-border bg-white py-2.5"
               >
-                <Text className="text-xl">{s.emoji}</Text>
-                <Text className="mt-0.5 text-xs font-bold text-neutral-600">{s.label}</Text>
+                <Icon size={20} color={iconColors.secondary} strokeWidth={2} />
+                <Text className="mt-1 text-[10px] font-display uppercase tracking-tight text-neutral-600">
+                  {label}
+                </Text>
               </View>
             ))}
           </View>
@@ -48,18 +51,18 @@ export default function WelcomeScreen() {
           {/* Social proof */}
           <View className="mt-8 flex-row items-center gap-2">
             <View className="flex-row">
-              {['🧑', '👧', '🧒'].map((e, i) => (
+              {[0, 1, 2].map((i) => (
                 <View
                   key={i}
                   className="h-7 w-7 items-center justify-center rounded-full bg-ui-accent border-2 border-white"
                   style={{ marginLeft: i === 0 ? 0 : -8 }}
                 >
-                  <Text className="text-xs">{e}</Text>
+                  <User size={14} color={iconColors.onBrand} strokeWidth={2.5} />
                 </View>
               ))}
             </View>
-            <Text className="text-sm font-semibold text-neutral-600">
-              Join <Text className="text-brand-dark font-black">10,000+</Text> students
+            <Text className="text-sm font-sans-medium text-neutral-600">
+              Join <Text className="text-brand-primary font-display-black">10,000+</Text> students
             </Text>
           </View>
         </View>
@@ -67,9 +70,9 @@ export default function WelcomeScreen() {
         {/* CTA */}
         <View className="gap-4">
           <GoogleSignInButton />
-          <Text className="text-center text-xs font-medium text-neutral-400">
+          <Text className="text-center text-xs font-sans-medium text-neutral-400">
             By continuing you agree to our{' '}
-            <Text className="font-bold text-neutral-500">Terms &amp; Privacy Policy</Text>
+            <Text className="font-sans-bold text-neutral-500">Terms &amp; Privacy Policy</Text>
           </Text>
         </View>
 

@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import { BookOpen, Search, X } from 'lucide-react-native';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +10,7 @@ import { href } from '@/lib/href';
 import { useCoursesStore } from '@/lib/stores/useCoursesStore';
 import type { Course } from '@/types';
 import { useColorScheme } from '@/components/useColorScheme';
+import { iconColors } from '@/constants/Colors';
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -58,24 +60,27 @@ export default function SearchScreen() {
   const hasQuery = debounced.trim().length > 0 || filters.olympiadTypeId !== null;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top', 'bottom']}>
 
-      {/* Search bar */}
-      <View className="border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 pt-3 pb-3">
-        <View className="flex-row items-center rounded-2xl border-2 border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800 px-4 h-12">
-          <Text className="text-neutral-400 mr-2 text-base">🔍</Text>
+      {/* Inline title + search bar */}
+      <View className="bg-white dark:bg-neutral-900 px-5 pt-4 pb-3">
+        <Text className="text-2xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-50 mb-3">
+          Explore
+        </Text>
+        <View className="flex-row items-center rounded-2xl border-2 border-ui-border dark:border-neutral-700 bg-ui-bg dark:bg-neutral-800 px-4 h-12">
+          <Search size={16} color={isDark ? iconColors.muted : iconColors.subtle} strokeWidth={2.5} style={{ marginRight: 8 }} />
           <TextInput
             accessibilityLabel="Search courses"
             placeholder="Search courses, topics..."
-            placeholderTextColor={isDark ? '#6B7280' : '#9CA3AF'}
+            placeholderTextColor={isDark ? iconColors.muted : iconColors.subtle}
             value={query}
             onChangeText={setQuery}
-            className="flex-1 text-base font-medium text-neutral-900 dark:text-neutral-100"
+            className="flex-1 text-base font-sans-medium text-neutral-900 dark:text-neutral-100"
             returnKeyType="search"
           />
           {query.length > 0 && (
             <Pressable onPress={() => setQuery('')} hitSlop={8}>
-              <Text className="text-neutral-400 text-lg">✕</Text>
+              <X size={16} color={iconColors.subtle} strokeWidth={2.5} />
             </Pressable>
           )}
         </View>
@@ -91,14 +96,15 @@ export default function SearchScreen() {
             <Pressable
               accessibilityRole="button"
               onPress={() => onPickOlympiad(null)}
-              className={`rounded-full px-4 py-1.5 border ${
+              className={`flex-row items-center rounded-full px-5 py-2 border ${
                 filters.olympiadTypeId === null
                   ? 'bg-brand-primary border-brand-dark'
                   : 'bg-white dark:bg-neutral-800 border-ui-border dark:border-neutral-700'
               }`}
             >
               <Text
-                className={`text-xs font-black uppercase tracking-wider ${
+                numberOfLines={1}
+                className={`text-xs font-display uppercase tracking-wider ${
                   filters.olympiadTypeId === null ? 'text-white' : 'text-neutral-600 dark:text-neutral-300'
                 }`}
               >
@@ -113,14 +119,15 @@ export default function SearchScreen() {
                   key={o.id}
                   accessibilityRole="button"
                   onPress={() => onPickOlympiad(o.id)}
-                  className={`rounded-full px-4 py-1.5 border ${
+                  className={`flex-row items-center rounded-full px-5 py-2 border ${
                     active
                       ? 'bg-brand-primary border-brand-dark'
                       : 'bg-white dark:bg-neutral-800 border-ui-border dark:border-neutral-700'
                   }`}
                 >
                   <Text
-                    className={`text-xs font-black uppercase tracking-wider ${
+                    numberOfLines={1}
+                    className={`text-xs font-display uppercase tracking-wider ${
                       active ? 'text-white' : 'text-neutral-600 dark:text-neutral-300'
                     }`}
                   >
@@ -136,7 +143,7 @@ export default function SearchScreen() {
       {/* Results count */}
       {!loading && !empty && (
         <View className="px-5 pt-3 pb-1">
-          <Text className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
+          <Text className="text-xs font-display text-neutral-400 uppercase tracking-wider">
             {filteredCourses.length} {filteredCourses.length === 1 ? 'course' : 'courses'}
             {hasQuery ? ' found' : ' available'}
           </Text>
@@ -147,11 +154,14 @@ export default function SearchScreen() {
         <LoadingScreen />
       ) : empty ? (
         <View className="flex-1 items-center justify-center px-8">
-          <Text className="text-5xl">{hasQuery ? '🔍' : '📚'}</Text>
-          <Text className="mt-4 text-xl font-black text-neutral-900 dark:text-neutral-100 text-center">
+          {hasQuery
+            ? <Search size={48} color={iconColors.empty} strokeWidth={1.5} />
+            : <BookOpen size={48} color={iconColors.empty} strokeWidth={1.5} />
+          }
+          <Text className="mt-4 text-xl font-display-black text-neutral-900 dark:text-neutral-100 text-center">
             {hasQuery ? 'No courses found' : 'No courses yet'}
           </Text>
-          <Text className="mt-2 text-sm font-medium text-neutral-500 text-center">
+          <Text className="mt-2 text-sm font-sans-medium text-neutral-500 text-center">
             {hasQuery
               ? 'Try a different search or clear the filters'
               : 'Check back soon — new content is on the way'}
@@ -161,7 +171,7 @@ export default function SearchScreen() {
               onPress={() => { setQuery(''); onPickOlympiad(null); }}
               className="mt-5 rounded-2xl border-2 border-brand-primary px-6 py-2.5"
             >
-              <Text className="text-sm font-black text-brand-primary">Clear filters</Text>
+              <Text className="text-sm font-display text-brand-primary">Clear filters</Text>
             </Pressable>
           )}
         </View>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 
-import { brand } from '@/constants/Colors';
+import { brand, dimensionalShadows } from '@/constants/Colors';
 
 /**
  * Full-screen branded loading screen with pulsing animation.
@@ -38,13 +38,7 @@ export function LoadingScreen() {
       >
         <View
           className="h-16 w-16 items-center justify-center rounded-[1.25rem] bg-brand-primary"
-          style={{
-            shadowColor: brand.dark,
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 1,
-            shadowRadius: 0,
-            elevation: 4,
-          }}
+          style={dimensionalShadows.brand.md}
         >
           <Text className="text-2xl font-black text-white">P</Text>
         </View>

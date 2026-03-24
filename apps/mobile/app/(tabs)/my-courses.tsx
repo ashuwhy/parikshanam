@@ -1,18 +1,16 @@
 import { useRouter } from 'expo-router';
+import { BookOpen, CheckCircle, Play } from 'lucide-react-native';
 import { ScrollView, Text, View, RefreshControl, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Avatar } from '@/components/ui/Avatar';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
 import { href } from '@/lib/href';
 import { Image } from 'expo-image';
 import { olympiadLabel } from '@/types';
-import { dimensionalShadows } from '@/constants/Colors';
-
-function formatRupeePaise(paise: number) {
-  return `₹${(paise / 100).toFixed(0)}`;
-}
+import { iconColors } from '@/constants/Colors';
 
 export default function MyCoursesScreen() {
   const router = useRouter();
@@ -28,7 +26,7 @@ export default function MyCoursesScreen() {
   const totalLessons = progress.filter((p) => p.lesson_id).length;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top', 'bottom']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 40 }}
@@ -38,49 +36,50 @@ export default function MyCoursesScreen() {
         }
       >
 
+        {/* Inline header */}
+        <View className="flex-row items-center justify-between px-5 pt-4 pb-3">
+          <Text className="text-2xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-100">
+            My Learning
+          </Text>
+          <Avatar size="md" />
+        </View>
+
         {/* Stats bar */}
         {purchases.length > 0 && (
-          <View className="mx-5 mt-5 flex-row gap-3">
-            <View
-              className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
-              style={dimensionalShadows.sm.light}
-            >
-              <Text className="text-2xl font-black text-brand-primary">{purchases.length}</Text>
-              <Text className="mt-1 text-xs font-bold uppercase tracking-wider text-neutral-500">Enrolled</Text>
+          <View className="mx-5 mb-2 flex-row gap-3">
+            <View className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700">
+              <Text className="text-2xl font-display-black text-brand-primary">{purchases.length}</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">Enrolled</Text>
             </View>
-            <View
-              className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
-              style={dimensionalShadows.sm.light}
-            >
-              <Text className="text-2xl font-black text-brand-primary">{totalLessons}</Text>
-              <Text className="mt-1 text-xs font-bold uppercase tracking-wider text-neutral-500">Completed</Text>
+            <View className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700">
+              <Text className="text-2xl font-display-black text-brand-primary">{totalLessons}</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">Completed</Text>
             </View>
           </View>
         )}
 
         {error ? (
           <View className="mx-5 mt-4 rounded-2xl bg-red-50 px-4 py-3">
-            <Text className="text-sm font-bold text-red-600">{error.message}</Text>
+            <Text className="text-sm font-sans-bold text-red-600">{error.message}</Text>
           </View>
         ) : null}
 
         {/* Course list */}
-        <View className="mt-5 px-5">
+        <View className="mt-4 px-5">
           {purchases.length === 0 ? (
             <View className="mt-16 items-center px-4">
-              <Text className="text-5xl">📚</Text>
-              <Text className="mt-4 text-xl font-black text-neutral-900 dark:text-neutral-100">
+              <BookOpen size={56} color={iconColors.empty} strokeWidth={1.5} />
+              <Text className="mt-4 text-xl font-display-black text-neutral-900 dark:text-neutral-100">
                 No courses yet
               </Text>
-              <Text className="mt-2 text-center text-sm font-medium text-neutral-500">
+              <Text className="mt-2 text-center text-sm font-sans-medium text-neutral-500">
                 Explore our catalog and enroll in your first Olympiad course
               </Text>
               <Pressable
                 onPress={() => router.push(href('/(tabs)/search'))}
                 className="mt-6 rounded-2xl bg-brand-primary px-8 py-3"
-                style={dimensionalShadows.brand.md}
               >
-                <Text className="text-base font-black text-white">Browse Courses</Text>
+                <Text className="text-base font-display-black text-white">Browse Courses</Text>
               </Pressable>
             </View>
           ) : (
@@ -97,49 +96,48 @@ export default function MyCoursesScreen() {
                 <Pressable
                   key={p.id}
                   onPress={() => router.push(href(`/course/${p.course_id}`))}
-                  className="mb-4 overflow-hidden rounded-[2rem] bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
-                  style={dimensionalShadows.md.light}
+                  className="mb-4 overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
                 >
-                  {/* Thumbnail */}
                   {course.thumbnail_url ? (
                     <Image
                       source={{ uri: course.thumbnail_url }}
-                      className="h-32 w-full"
+                      style={{ height: 128, width: '100%' }}
                       contentFit="cover"
                     />
                   ) : (
                     <View className="h-32 w-full items-center justify-center bg-brand-primary/10">
-                      <Text className="text-4xl">📖</Text>
+                      <BookOpen size={40} color={iconColors.primary} strokeWidth={1.5} />
                     </View>
                   )}
 
                   <View className="p-4">
-                    {/* Badge + title */}
                     {olympiad ? (
                       <View className="mb-2 self-start rounded-full bg-status-warning/20 px-3 py-1">
-                        <Text className="text-xs font-black uppercase tracking-wider text-brand-dark">{olympiad}</Text>
+                        <Text className="text-xs font-display uppercase tracking-wider text-brand-dark">{olympiad}</Text>
                       </View>
                     ) : null}
-                    <Text className="text-base font-black text-neutral-900 dark:text-neutral-100" numberOfLines={2}>
+                    <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100" numberOfLines={2}>
                       {course.title}
                     </Text>
 
-                    {/* Progress section */}
                     <View className="mt-3">
                       <View className="mb-1.5 flex-row items-center justify-between">
-                        <Text className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Progress</Text>
-                        <Text className="text-xs font-black text-brand-primary">{pct}%</Text>
+                        <Text className="text-xs font-display text-neutral-500 uppercase tracking-wider">Progress</Text>
+                        <Text className="text-xs font-display-black text-brand-primary">{pct}%</Text>
                       </View>
                       <ProgressBar progress={ratio} />
                     </View>
 
-                    {/* Resume button */}
                     <Pressable
                       onPress={() => router.push(href(`/course/${p.course_id}`))}
-                      className="mt-3 items-center rounded-xl bg-brand-primary/10 py-2.5"
+                      className="mt-3 flex-row items-center justify-center gap-1.5 rounded-xl bg-brand-primary/10 py-2.5"
                     >
-                      <Text className="text-sm font-black text-brand-dark">
-                        {pct >= 100 ? '🎉 Review Course' : '▶ Resume'}
+                      {pct >= 100
+                        ? <CheckCircle size={14} color={iconColors.onWarning} strokeWidth={2.5} />
+                        : <Play size={14} color={iconColors.onWarning} strokeWidth={2.5} />
+                      }
+                      <Text className="text-sm font-display text-brand-dark">
+                        {pct >= 100 ? 'Review Course' : 'Resume'}
                       </Text>
                     </Pressable>
                   </View>

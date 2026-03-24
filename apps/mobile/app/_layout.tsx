@@ -1,10 +1,14 @@
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { Nunito_700Bold, Nunito_800ExtraBold, Nunito_900Black } from '@expo-google-fonts/nunito';
+import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect } from 'react';
 import { View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import '../global.css';
@@ -88,6 +92,7 @@ function RootLayoutNav() {
           <Stack.Screen name="profile" options={{ presentation: 'modal' }} />
         </Stack>
       </NavigationGuard>
+      <StatusBar style="auto" />
       <Toast />
     </NavigationThemeProvider>
   );
@@ -95,7 +100,12 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+    Nunito_700Bold,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
   });
 
   useEffect(() => {
@@ -108,14 +118,16 @@ export default function RootLayout() {
 
   return (
     <View style={{ flex: 1 }}>
-      <QueryProvider>
-        <ThemeProvider>
-          <AuthProvider>
-            <DataSync />
-            <RootLayoutNav />
-          </AuthProvider>
-        </ThemeProvider>
-      </QueryProvider>
+      <SafeAreaProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <AuthProvider>
+              <DataSync />
+              <RootLayoutNav />
+            </AuthProvider>
+          </ThemeProvider>
+        </QueryProvider>
+      </SafeAreaProvider>
     </View>
   );
 }

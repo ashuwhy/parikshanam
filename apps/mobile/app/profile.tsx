@@ -10,7 +10,6 @@ import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
 import { href } from '@/lib/href';
 import { supabase } from '@/lib/supabase';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
-import { dimensionalShadows } from '@/constants/Colors';
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
@@ -107,7 +106,6 @@ export default function ProfileScreen() {
                     onPress={() => void onSaveName()}
                     disabled={saving}
                     className="flex-1 items-center rounded-2xl bg-brand-primary py-3"
-                    style={dimensionalShadows.brand.sm}
                   >
                     <Text className="text-sm font-black text-white">{saving ? 'Saving…' : 'Save'}</Text>
                   </Pressable>
@@ -144,7 +142,6 @@ export default function ProfileScreen() {
             <View
               key={s.label}
               className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
-              style={dimensionalShadows.sm.light}
             >
               <Text className="text-2xl font-black text-brand-primary">{s.value}</Text>
               <Text className="mt-1 text-xs font-bold uppercase tracking-wider text-neutral-500">{s.label}</Text>

@@ -27,7 +27,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProfile = useCallback(async (userId: string) => {
+  const fetchProfile = useCallback(async (
+    userId: string,
+    userMeta?: Record<string, string | undefined>,
+  ) => {
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -37,6 +40,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setProfile(null);
       return;
     }
+
+    // Backfill Google avatar / name into profiles row on first sign-in
+    if (data && userMeta) {
+      const googleAvatar = userMeta.avatar_url ?? userMeta.picture;
+      const googleName   = userMeta.full_name ?? userMeta.name;
+      const updates: Record<string, string> = {};
+      if (!data.avatar_url && googleAvatar) updates.avatar_url = googleAvatar;
+      if (!data.full_name  && googleName)   updates.full_name  = googleName;
+
+      if (Object.keys(updates).length > 0) {
+        const { data: updated } = await supabase
+          .from('profiles')
+          .update(updates)
+          .eq('id', userId)
+          .select('*')
+          .single();
+        setProfile((updated ?? data) as Profile | null);
+        return;
+      }
+    }
+
     setProfile(data as Profile | null);
   }, []);
 
@@ -48,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setProfile(null);
       return;
     }
-    await fetchProfile(s.user.id);
+    await fetchProfile(s.user.id, s.user.user_metadata as Record<string, string | undefined>);
   }, [fetchProfile]);
 
   useEffect(() => {
@@ -74,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (cancelled) return;
         setSession(initial);
         if (initial?.user) {
-          await fetchProfile(initial.user.id);
+          await fetchProfile(initial.user.id, initial.user.user_metadata as Record<string, string | undefined>);
         }
         if (!cancelled) setLoading(false);
       } catch (error) {
@@ -91,7 +115,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(nextSession);
       if (nextSession?.user) {
         setLoading(true);
-        void fetchProfile(nextSession.user.id).finally(() => {
+        void fetchProfile(
+          nextSession.user.id,
+          nextSession.user.user_metadata as Record<string, string | undefined>,
+        ).finally(() => {
           if (!cancelled) setLoading(false);
         });
       } else {

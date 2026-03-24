@@ -2,18 +2,27 @@ import { CSSProperties } from 'react';
 
 /**
  * BRAND COLORS
- * Primary brand identity colors
+ * Primary brand identity colors — derived from the Parikshanam app icon.
+ *
+ * Icon palette:
+ *   Orange  #E8720C — open book pages, arrow accent, body stick (hero action color)
+ *   Navy    #1B3A6E — arrow shaft, book spine, structural depth
+ *   Teal    #1B8A7A — yin-yang accent half
+ *   Gold    #F5C842 — sun rays, warmth accent
  */
 export const brand = {
-  primary: '#58CC02', // Green
-  secondary: '#84fb42', // Light/Active Green
-  dark: '#2a6900', // Dark Green for borders/shadows
-  accent: '#a3d8ff', // Soft blue
-  success: '#58CC02',
-  error: '#FF4B4B',
-  warning: '#FFC800',
-  info: '#a3d8ff',
-  locked: '#afafaf',
+  primary: '#E8720C',   // Vivid Orange — primary buttons, active states, progress fills
+  secondary: '#F5A623', // Warm Amber — hover glows, light accents, dark mode text
+  dark: '#A04F08',      // Burnt Orange — button bottom-border, shadow base
+  navy: '#1B3A6E',      // Deep Navy — structural text, depth accents
+  navyLight: '#2A5298', // Navy mid — secondary actions, links in dark mode
+  teal: '#1B8A7A',      // Teal — accent highlights, info states, focus rings
+  gold: '#F5C842',      // Gold — streak/warning accents, sun/energy motif
+  success: '#22C55E',   // Green — correct answers, completed lessons
+  error: '#EF4444',     // Red — wrong answers, errors
+  warning: '#F5C842',   // Gold — streak at risk, partial progress
+  info: '#1B8A7A',      // Teal — informational states
+  locked: '#9CA3AF',    // Gray — locked content, disabled states
 } as const;
 
 /**
@@ -54,13 +63,13 @@ export const colors = {
     tertiary: '#6B7280', 
     quaternary: '#9CA3AF', 
     inverse: '#FFFFFF',
-    link: '#58CC02', // brand primary
+    link: '#E8720C', // brand.primary orange
   },
   
   // Borders
   border: {
     default: '#dddddc', // ui.border
-    strong: '#2a6900', // brand.dark
+    strong: '#A04F08', // brand.dark (burnt orange)
     subtle: '#dddddc',
   },
   
@@ -82,14 +91,14 @@ export const colors = {
   
   // Status
   status: {
-    success: '#58CC02',
-    successLight: '#D1FAE5',
-    error: '#FF4B4B',
+    success: '#22C55E',
+    successLight: '#DCFCE7',
+    error: '#EF4444',
     errorLight: '#FEE2E2',
-    warning: '#FFC800',
-    warningLight: '#FEF3C7',
-    info: '#a3d8ff',
-    infoLight: '#DBEAFE',
+    warning: '#F5C842',
+    warningLight: '#FEF9C3',
+    info: '#1B8A7A',
+    infoLight: '#CCFBF1',
   },
 } as const;
 
@@ -109,17 +118,17 @@ export const darkColors = {
   // Text
   text: {
     primary: '#F9FAFB', // Light text on dark
-    secondary: '#E5E7EB', 
-    tertiary: '#9CA3AF', 
-    quaternary: '#6B7280', 
+    secondary: '#E5E7EB',
+    tertiary: '#9CA3AF',
+    quaternary: '#6B7280',
     inverse: '#111827',
-    link: '#84fb42', // Lighter brand color for dark mode
+    link: '#F5A623', // brand.secondary amber — lighter for dark mode
   },
   
   // Borders
   border: {
     default: '#374151', // Darker border
-    strong: '#84fb42', // Lighter brand for visibility
+    strong: '#F5A623',  // brand.secondary amber — visible on dark
     subtle: '#4B5563',
   },
   
@@ -141,14 +150,14 @@ export const darkColors = {
   
   // Status (keep vibrant for visibility)
   status: {
-    success: '#58CC02',
-    successLight: '#2a6900',
-    error: '#FF4B4B',
+    success: '#22C55E',
+    successLight: '#14532D',
+    error: '#EF4444',
     errorLight: '#7F1D1D',
-    warning: '#FFC800',
+    warning: '#F5C842',
     warningLight: '#78350F',
-    info: '#a3d8ff',
-    infoLight: '#1E3A8A',
+    info: '#1B8A7A',
+    infoLight: '#134E4A',
   },
 } as const;
 
@@ -199,10 +208,46 @@ export const borderRadius = {
 } as const;
 
 /**
+ * FONT FAMILIES
+ * Roboto = primary/body · Nunito = secondary/display (headings, labels, CTAs)
+ *
+ * In React Native, fontWeight doesn't compose with fontFamily — each weight
+ * must be a separate named font. Use these constants for inline styles, and
+ * the matching `font-{variant}` Tailwind class for className usage.
+ */
+export const fonts = {
+  // Roboto — body & interface text
+  sans: 'Roboto_400Regular',
+  sansMedium: 'Roboto_500Medium',
+  sansBold: 'Roboto_700Bold',
+  // Nunito — headings, display, labels
+  display: 'Nunito_700Bold',
+  displayExtra: 'Nunito_800ExtraBold',
+  displayBlack: 'Nunito_900Black',
+} as const;
+
+/**
+ * ICON COLORS
+ * Semantic icon color tokens aligned to the brand palette.
+ * Always import these instead of hardcoding hex values.
+ */
+export const iconColors = {
+  primary: '#E8720C',   // brand.primary — featured, CTAs, active states
+  secondary: '#1B8A7A', // brand.teal — UI accent, avatars, highlights
+  structural: '#1B3A6E', // brand.navy — section headers, structural icons
+  muted: '#6B7280',     // neutral-500 — placeholders, disabled
+  subtle: '#9CA3AF',    // neutral-400 — decorative, search, clear
+  empty: '#D1D5DB',     // neutral-300 — empty states
+  onBrand: '#FFFFFF',   // white — icons on colored backgrounds
+  onWarning: '#A04F08', // brand.dark — icons on warning/gold backgrounds
+} as const;
+
+/**
  * TYPOGRAPHY
  * Font sizes, weights, and line heights
  */
 export const typography = {
+  fontFamily: fonts,
   fontSize: {
     xs: 12,
     sm: 14,
@@ -309,7 +354,7 @@ export const shadows = {
  *
  * Light mode: uses border color (#dddddc) as shadow
  * Dark mode: uses near-black (#1a1a2e) as shadow
- * Brand: uses brand.dark (#2a6900) for primary/CTA elements
+ * Brand: uses brand.dark (#A04F08) for primary/CTA elements
  */
 export const dimensionalShadows = {
   /** Subtle lift — stat cards, subject pills */
@@ -346,17 +391,17 @@ export const dimensionalShadows = {
       elevation: 3,
     } as const,
   },
-  /** CTA/primary button — uses brand.dark (#2a6900) as shadow */
+  /** CTA/primary button — uses brand.dark (#A04F08) as shadow */
   brand: {
     sm: {
-      shadowColor: '#2a6900',
+      shadowColor: '#A04F08',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 1,
       shadowRadius: 0,
       elevation: 3,
     } as const,
     md: {
-      shadowColor: '#2a6900',
+      shadowColor: '#A04F08',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 1,
       shadowRadius: 0,
@@ -371,9 +416,9 @@ export const dimensionalShadows = {
     shadowRadius: 2,
     elevation: 2,
   } as const,
-  /** Brand glow — diffused green glow for avatar rings and accent elements */
+  /** Brand glow — diffused orange glow for avatar rings and accent elements */
   brandGlow: {
-    shadowColor: '#58CC02',
+    shadowColor: '#E8720C',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.25,
     shadowRadius: 8,
@@ -467,6 +512,8 @@ export const theme = {
   neutral,
   colors,
   darkColors,
+  fonts,
+  iconColors,
   spacing,
   borderRadius,
   typography,

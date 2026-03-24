@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSyllabus } from '@/hooks/useCourses';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { brand, colors } from '@/constants/Colors';
 
 interface SyllabusViewProps {
   courseId: string;
@@ -54,7 +55,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
                       onPress={() => canAccess ? onLessonPress(lesson.id) : null}
                     >
                       <View className="w-8 h-8 rounded-full bg-brand-primary/20 items-center justify-center mr-3">
-                        <Ionicons name="play" size={14} color="#58CC02" className="ml-0.5" />
+                        <Ionicons name="play" size={14} color={brand.primary} className="ml-0.5" />
                       </View>
                       <View className="flex-1">
                         <Text className={`text-sm ${canAccess ? 'text-neutral-900 font-bold' : 'text-status-locked font-medium'}`}>
@@ -68,7 +69,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
                         <Ionicons name="lock-closed" size={16} color="#afafaf" />
                       )}
                       {canAccess && !hasPurchased && lesson.is_preview && (
-                        <View className="px-2 py-0.5 rounded-full bg-green-100">
+                        <View className="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/40">
                           <Text className="text-[10px] font-bold text-status-success uppercase tracking-wider">Preview</Text>
                         </View>
                       )}
@@ -83,7 +84,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
                     onPress={() => hasPurchased ? onQuizPress(quiz.id) : null}
                   >
                     <View className="w-8 h-8 rounded-full bg-status-warning/20 items-center justify-center mr-3">
-                      <Ionicons name="help" size={18} color="#FFC800" />
+                      <Ionicons name="help" size={18} color={brand.warning} />
                     </View>
                     <View className="flex-1">
                       <Text className={`text-sm ${hasPurchased ? 'text-neutral-900 font-bold' : 'text-status-locked font-medium'}`}>

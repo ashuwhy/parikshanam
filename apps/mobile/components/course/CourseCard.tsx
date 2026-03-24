@@ -1,9 +1,9 @@
 import { Image } from 'expo-image';
+import { BookOpen } from 'lucide-react-native';
 import { useRef } from 'react';
 import { Animated, Pressable, Text, View } from 'react-native';
 
-import { useColorScheme } from '@/components/useColorScheme';
-import { dimensionalShadows } from '@/constants/Colors';
+import { iconColors } from '@/constants/Colors';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
 
@@ -34,32 +34,15 @@ export function CourseCard({ course, onPress, purchased }: Props) {
   const olympiad = olympiadLabel(course);
   const hasDiscount = course.mrp != null && course.mrp > course.price;
   const classLabel = classRange(course);
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
 
-  // Animated press scale
   const scale = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
-    Animated.spring(scale, {
-      toValue: 0.97,
-      useNativeDriver: true,
-      speed: 50,
-      bounciness: 4,
-    }).start();
+    Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
   };
-
   const onPressOut = () => {
-    Animated.spring(scale, {
-      toValue: 1,
-      useNativeDriver: true,
-      speed: 50,
-      bounciness: 6,
-    }).start();
+    Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 6 }).start();
   };
-
-  // Pick dimensional shadow based on color scheme
-  const cardShadow = isDark ? dimensionalShadows.md.dark : dimensionalShadows.md.light;
 
   return (
     <Animated.View style={{ transform: [{ scale }], marginBottom: 16 }}>
@@ -68,12 +51,7 @@ export function CourseCard({ course, onPress, purchased }: Props) {
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
-        style={({ pressed }) => ({
-          ...cardShadow,
-          shadowOffset: { width: 0, height: pressed ? 2 : cardShadow.shadowOffset.height },
-          elevation: pressed ? 2 : cardShadow.elevation,
-        })}
-        className="overflow-hidden rounded-[2rem] bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
+        className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
       >
         {/* Thumbnail */}
         <View className="relative">
@@ -81,16 +59,15 @@ export function CourseCard({ course, onPress, purchased }: Props) {
             <>
               <Image
                 source={{ uri: course.thumbnail_url }}
-                className="h-40 w-full"
+                style={{ height: 160, width: '100%' }}
                 contentFit="cover"
               />
-              {/* Bottom scrim for badge legibility */}
               <View className="absolute bottom-0 left-0 right-0 h-16 bg-black/20" />
             </>
           ) : (
             <View className="h-40 w-full items-center justify-center bg-brand-primary/10 dark:bg-brand-primary/5">
-              <Text className="text-5xl">📖</Text>
-              <Text className="mt-2 text-xs font-bold uppercase tracking-wider text-brand-primary/60">
+              <BookOpen size={40} color={iconColors.primary} strokeWidth={1.5} />
+              <Text className="mt-2 text-xs font-display uppercase tracking-wider text-brand-primary/60">
                 Course
               </Text>
             </View>
@@ -99,40 +76,34 @@ export function CourseCard({ course, onPress, purchased }: Props) {
           {/* Overlaid badges */}
           <View className="absolute left-3 top-3 flex-row gap-2">
             {olympiad ? (
-              <View
-                className="rounded-full bg-status-warning px-3 py-1"
-                style={dimensionalShadows.badge}
-              >
-                <Text className="text-xs font-black uppercase tracking-wider text-brand-dark">
+              <View className="flex-row items-center rounded-full bg-status-warning px-3 py-1">
+                <Text numberOfLines={1} className="text-xs font-display uppercase tracking-wider text-brand-dark">
                   {olympiad}
                 </Text>
               </View>
             ) : null}
             {classLabel ? (
-              <View className="rounded-full bg-white/90 dark:bg-neutral-800/90 px-3 py-1">
-                <Text className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+              <View className="flex-row items-center rounded-full bg-white/90 dark:bg-neutral-800/90 px-3 py-1">
+                <Text numberOfLines={1} className="text-xs font-sans-bold text-neutral-700 dark:text-neutral-300">
                   {classLabel}
                 </Text>
               </View>
             ) : null}
           </View>
 
-          {/* Purchased badge (top-right) */}
+          {/* Purchased badge */}
           {purchased && (
-            <View
-              className="absolute right-3 top-3 rounded-full bg-brand-primary px-3 py-1"
-              style={dimensionalShadows.brand.sm}
-            >
-              <Text className="text-xs font-black uppercase tracking-wider text-white">
+            <View className="absolute right-3 top-3 flex-row items-center rounded-full bg-brand-primary px-3 py-1">
+              <Text numberOfLines={1} className="text-xs font-display uppercase tracking-wider text-white">
                 ✓ Enrolled
               </Text>
             </View>
           )}
 
-          {/* Discount badge (bottom-right, overlapping scrim) */}
+          {/* Discount badge */}
           {hasDiscount && (
             <View className="absolute right-3 bottom-3 rounded-xl bg-red-500 px-2.5 py-1">
-              <Text className="text-xs font-black text-white">
+              <Text className="text-xs font-display text-white">
                 -{discountPct(course.price, course.mrp!)}%
               </Text>
             </View>
@@ -141,35 +112,29 @@ export function CourseCard({ course, onPress, purchased }: Props) {
 
         {/* Content */}
         <View className="p-5">
-          <Text
-            className="text-base font-black leading-tight text-neutral-900 dark:text-neutral-100"
-            numberOfLines={2}
-          >
+          <Text className="text-base font-display-extra leading-tight text-neutral-900 dark:text-neutral-100" numberOfLines={2}>
             {course.title}
           </Text>
 
           {course.subtitle ? (
-            <Text
-              className="mt-1 text-sm font-medium leading-relaxed text-neutral-500 dark:text-neutral-400"
-              numberOfLines={2}
-            >
+            <Text className="mt-1 text-sm font-sans-medium leading-relaxed text-neutral-500 dark:text-neutral-400" numberOfLines={2}>
               {course.subtitle}
             </Text>
           ) : null}
 
           {/* Price row */}
           <View className="mt-3 flex-row items-center gap-3">
-            <Text className="text-lg font-black text-brand-primary">
+            <Text className="text-lg font-display-black text-brand-primary">
               {formatRupeePaise(course.price)}
             </Text>
             {hasDiscount && (
-              <Text className="text-sm font-medium text-neutral-400 line-through">
+              <Text className="text-sm font-sans-medium text-neutral-400 line-through">
                 {formatRupeePaise(course.mrp!)}
               </Text>
             )}
             {hasDiscount && (
               <View className="rounded-full bg-green-100 dark:bg-green-900 px-2 py-0.5">
-                <Text className="text-xs font-black text-green-700 dark:text-green-200">
+                <Text className="text-xs font-display text-green-700 dark:text-green-200">
                   Save {formatRupeePaise(course.mrp! - course.price)}
                 </Text>
               </View>
@@ -178,10 +143,10 @@ export function CourseCard({ course, onPress, purchased }: Props) {
 
           {/* CTA hint */}
           <View className="mt-3 flex-row items-center justify-between">
-            <Text className="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-              {course.total_lessons ? `📖 ${course.total_lessons} lessons` : 'View course'}
+            <Text className="text-xs font-display uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+              {course.total_lessons ? `${course.total_lessons} lessons` : 'View course'}
             </Text>
-            <Text className="text-xs font-black text-brand-primary dark:text-brand-secondary">
+            <Text className="text-xs font-display-black text-brand-primary dark:text-brand-secondary">
               View →
             </Text>
           </View>
