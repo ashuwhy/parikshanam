@@ -175,3 +175,12 @@ CREATE POLICY "Teachers can manage own quiz options"
 CREATE POLICY "Teachers can view progress for own course students"
   ON public.user_progress FOR SELECT
   USING (public.teacher_owns_course(course_id));
+
+-- ── 8. admin_user_emails view ─────────────────────────────────
+-- Exposes auth.users email to service-role only.
+-- Must be queried via admin API routes — never from client.
+CREATE OR REPLACE VIEW public.admin_user_emails
+  WITH (security_barrier = true) AS
+  SELECT id, email FROM auth.users;
+
+REVOKE SELECT ON public.admin_user_emails FROM anon, authenticated;
