@@ -14,7 +14,7 @@ ALTER TABLE public.profiles
 CREATE TABLE IF NOT EXISTS public.teacher_invites (
   id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   email       text NOT NULL,
-  token       text NOT NULL UNIQUE DEFAULT encode(gen_random_bytes(32), 'hex'),
+  token       text NOT NULL UNIQUE DEFAULT encode(extensions.gen_random_bytes(32), 'hex'),
   invited_by  uuid REFERENCES auth.users(id) NOT NULL,
   expires_at  timestamptz NOT NULL DEFAULT now() + interval '7 days',
   accepted_at timestamptz,
