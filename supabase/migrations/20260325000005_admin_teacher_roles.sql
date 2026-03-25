@@ -36,3 +36,42 @@ ALTER TABLE public.course_teachers ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Teachers can view their own course assignments"
   ON public.course_teachers FOR SELECT
   USING (auth.uid() = teacher_id);
+
+-- ── 4. courses: status + created_by ───────────────────────────
+ALTER TABLE public.courses
+  ADD COLUMN IF NOT EXISTS status text NOT NULL DEFAULT 'draft'
+    CHECK (status IN ('draft', 'pending_review', 'active', 'archived')),
+  ADD COLUMN IF NOT EXISTS created_by uuid REFERENCES auth.users(id);
+
+-- Sync is_active with status (mobile app reads is_active)
+CREATE OR REPLACE FUNCTION public.sync_course_is_active()
+RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.is_active := (NEW.status = 'active');
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER on_course_status_change
+  BEFORE INSERT OR UPDATE OF status ON public.courses
+  FOR EACH ROW EXECUTE FUNCTION public.sync_course_is_active();
+
+-- Set created_by automatically on INSERT if not provided
+CREATE OR REPLACE FUNCTION public.set_course_created_by()
+RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  IF NEW.created_by IS NULL THEN
+    NEW.created_by := auth.uid();
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER on_course_insert_set_created_by
+  BEFORE INSERT ON public.courses
+  FOR EACH ROW EXECUTE FUNCTION public.set_course_created_by();
+
+-- Backfill: existing active courses get status = 'active'
+UPDATE public.courses
+SET status = 'active'
+WHERE is_active = true AND status = 'draft';
