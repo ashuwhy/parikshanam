@@ -1,4 +1,5 @@
 import Image from "next/image";
+import InfoSection from "@/components/InfoSection";
 
 export default function Home() {
   return (
@@ -39,11 +40,13 @@ export default function Home() {
 
       {/* Tagline */}
       <p
-        className="text-lg text-[#6B7280] text-center max-w-xs"
+        className="text-lg text-[#6B7280] text-center max-w-xs mb-20"
         style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
       >
         Exam prep for Grades 6–10
       </p>
+
+      <InfoSection />
     </main>
   );
 }

@@ -14,6 +14,8 @@ const roboto = Roboto({
   weight: ["400", "500", "700"],
 });
 
+import Footer from "@/components/Footer";
+
 export const metadata: Metadata = {
   title: "Parikshanam — Coming Soon",
   description: "Exam prep for Grades 6–10. Coming soon.",
@@ -29,7 +31,10 @@ export default function RootLayout({
       lang="en"
       className={`${nunito.variable} ${roboto.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <main className="flex-1 flex flex-col">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
