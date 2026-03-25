@@ -75,3 +75,24 @@ CREATE TRIGGER on_course_insert_set_created_by
 UPDATE public.courses
 SET status = 'active'
 WHERE is_active = true AND status = 'draft';
+
+-- ── 5. quiz_questions + quiz_options ──────────────────────────
+CREATE TABLE IF NOT EXISTS public.quiz_questions (
+  id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  quiz_id     uuid REFERENCES public.quizzes(id) ON DELETE CASCADE NOT NULL,
+  question    text NOT NULL,
+  order_index integer NOT NULL DEFAULT 0,
+  created_at  timestamptz DEFAULT now()
+);
+ALTER TABLE public.quiz_questions ENABLE ROW LEVEL SECURITY;
+CREATE INDEX IF NOT EXISTS quiz_questions_quiz_id_idx ON public.quiz_questions(quiz_id);
+
+CREATE TABLE IF NOT EXISTS public.quiz_options (
+  id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  question_id  uuid REFERENCES public.quiz_questions(id) ON DELETE CASCADE NOT NULL,
+  option_text  text NOT NULL,
+  is_correct   boolean NOT NULL DEFAULT false,
+  order_index  integer NOT NULL DEFAULT 0
+);
+ALTER TABLE public.quiz_options ENABLE ROW LEVEL SECURITY;
+CREATE INDEX IF NOT EXISTS quiz_options_question_id_idx ON public.quiz_options(question_id);
