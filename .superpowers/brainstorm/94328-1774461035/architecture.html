@@ -1,0 +1,46 @@
+<h2>Architecture Approach</h2>
+<p class="subtitle">How should the admin and teacher portals be structured in the monorepo?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Two Separate Apps</h3>
+      <p><strong>apps/admin</strong> → admin.parikshanam.com<br>
+      <strong>apps/teacher</strong> → teach.parikshanam.com</p>
+      <p>Each is its own Next.js app. Shared UI lives in <code>packages/ui</code>. Independent deploys, clean separation.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Clear role separation</li><li>Independent deployments</li><li>Easier to scale teams</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>More initial setup</li><li>Need shared package for UI</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>One App, Two Portals</h3>
+      <p><strong>apps/admin</strong> with middleware-based subdomain routing</p>
+      <p>Single Next.js app serves both subdomains. <code>/admin/*</code> for admins, <code>/teacher/*</code> for teachers. Middleware checks subdomain + role and redirects.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Single codebase to maintain</li><li>Shared auth logic</li><li>One deployment</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Slightly more complex routing</li><li>Admin/teacher code mixed</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Extend Existing Web App</h3>
+      <p>Add <code>(admin)/</code> and <code>(teacher)/</code> route groups to <strong>apps/web</strong></p>
+      <p>All three subdomains served by one app via Next.js middleware.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Minimal setup — one app total</li><li>Shared fonts, theme, components</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Mixes public site with internal tools</li><li>Bundle size bloat</li><li>Harder to access-control</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:24px">My recommendation: <strong>B — One App, Two Portals</strong>. Simpler than two separate apps, cleaner than mixing with the public site. Admin and teacher share auth, DB access, and UI patterns — they belong together.</p>

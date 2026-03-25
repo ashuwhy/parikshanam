@@ -1,0 +1,124 @@
+<h2>Full Platform Design</h2>
+<p class="subtitle">Two new apps — here's everything we're building. Review and confirm before I write the spec.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+
+  <!-- Admin Portal -->
+  <div style="background:#fff;border:2px solid #1B3A6E;border-radius:16px;overflow:hidden">
+    <div style="background:#1B3A6E;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px">
+      <div style="background:#E8720C;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700">⬡ ADMIN</div>
+      <div style="font-size:13px;font-weight:700">admin.parikshanam.com</div>
+      <div style="font-size:11px;opacity:.6;margin-left:auto">apps/admin</div>
+    </div>
+    <div style="padding:14px">
+      <div style="font-size:11px;text-transform:uppercase;color:#6B7280;letter-spacing:.08em;margin-bottom:10px">Sidebar Sections</div>
+
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">📊 Dashboard</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Total students, teachers, courses, revenue. Pending course approvals. Recent purchases.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">📚 Courses</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Create/edit courses. Approve teacher-submitted courses. Manage modules, lessons, videos, quizzes. Assign teachers.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">👨‍🎓 Students</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Browse all students. Search by name/phone. Edit email. View purchases & progress. Deactivate account.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">👨‍🏫 Teachers</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">List teachers. Invite new via email. View their courses. Edit email. Deactivate.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">💳 Purchases</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">All transactions. Filter by date/course/status. Razorpay payment IDs. Revenue totals.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #E8720C">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">⚙️ Settings</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Manage class levels, olympiad types. Platform config.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;padding:10px;background:#FFF7ED;border-radius:8px;border:1px solid #FED7AA">
+        <div style="font-size:11px;font-weight:700;color:#A04F08">Auth</div>
+        <div style="font-size:11px;color:#78350F;margin-top:2px">Email + password via Supabase. Role check: <code>profiles.role = 'admin'</code>. Service-role client for all DB writes (bypasses RLS).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teacher Portal -->
+  <div style="background:#fff;border:2px solid #1B8A7A;border-radius:16px;overflow:hidden">
+    <div style="background:#1B8A7A;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px">
+      <div style="background:#E8720C;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700">📖 TEACHER</div>
+      <div style="font-size:13px;font-weight:700">teach.parikshanam.com</div>
+      <div style="font-size:11px;opacity:.6;margin-left:auto">apps/teacher</div>
+    </div>
+    <div style="padding:14px">
+      <div style="font-size:11px;text-transform:uppercase;color:#6B7280;letter-spacing:.08em;margin-bottom:10px">Sidebar Sections</div>
+
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #1B8A7A">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">📊 Dashboard</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">My course stats, enrolled students, pending approvals, recent activity.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #1B8A7A">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">📚 My Courses</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Create new courses (submitted for admin approval). Manage modules, lessons, video uploads, quizzes. See approval status.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #1B8A7A">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">👨‍🎓 My Students</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Students enrolled in their courses. Progress per lesson/quiz. Read-only.</div>
+        </div>
+        <div style="background:#F9F7F5;border-radius:8px;padding:10px 12px;border-left:3px solid #1B8A7A">
+          <div style="font-size:12px;font-weight:700;color:#1B3A6E">👤 Profile</div>
+          <div style="font-size:11px;color:#6B7280;margin-top:2px">Update name, email, avatar, bio.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;padding:10px;background:#F0FDF4;border-radius:8px;border:1px solid #86EFAC">
+        <div style="font-size:11px;font-weight:700;color:#166534">Auth — Invite-Only Flow</div>
+        <div style="font-size:11px;color:#166534;margin-top:4px;line-height:1.5">
+          1. Admin invites teacher by email →<br>
+          2. Email sent with secure token link →<br>
+          3. Teacher sets password at <code>/invite?token=xxx</code> →<br>
+          4. Supabase user created with <code>role='teacher'</code> →<br>
+          5. Lands in teacher dashboard
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DB changes -->
+<div style="background:#fff;border:1px solid #E5E0D8;border-radius:12px;padding:14px;margin-bottom:16px">
+  <div style="font-size:12px;font-weight:700;color:#1B3A6E;margin-bottom:10px">🗄️ Database Changes (new migration)</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">profiles (update)</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">+ role: 'student' | 'teacher' | 'admin'<br>+ bio text<br>+ is_active boolean</div>
+    </div>
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">teacher_invites (new)</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">id, email, token (unique)<br>invited_by (admin uuid)<br>expires_at, accepted_at</div>
+    </div>
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">course_teachers (new)</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">course_id + teacher_id (PK)<br>Links teachers to courses<br>assigned_by (admin uuid)</div>
+    </div>
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">courses (update)</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">+ status: 'draft' | 'pending_review' | 'active' | 'archived'<br>+ created_by (uuid)</div>
+    </div>
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">RLS Policies (update)</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">Admin: service-role bypasses all<br>Teacher: manage own courses<br>Teacher: view enrolled students</div>
+    </div>
+    <div style="background:#F9F7F5;padding:10px;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;color:#E8720C">Tech Stack</div>
+      <div style="font-size:10px;color:#6B7280;margin-top:4px;line-height:1.6">Next.js 16 + Tailwind v4<br>Supabase JS + service role<br>Resend (email invites)<br>React Hook Form + Zod</div>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="text-align:center">Does this look right? Any sections to add, remove, or change?</p>
