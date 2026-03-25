@@ -1,89 +1,148 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScrollView, Text, View, Pressable } from 'react-native';
+import { CheckCircle, VideoOff } from 'lucide-react-native';
+import { useCallback, useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import { VideoPlayer } from '@/components/course/VideoPlayer';
-import { LoadingScreen } from '@/components/ui/LoadingScreen';
-import { useLessonById } from '@/hooks/useCourses';
-import { Button } from '@/components/ui/Button';
-import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/hooks/useAuth';
 import Toast from 'react-native-toast-message';
 
+import { VideoPlayer } from '@/components/course/VideoPlayer';
+import { BackButton } from '@/components/ui/BackButton';
+import { Button } from '@/components/ui/Button';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { iconColors } from '@/constants/Colors';
+import { useLessonById } from '@/hooks/useCourses';
+import { useVideoUrl } from '@/hooks/useVideoUrl';
+import { useAuth } from '@/hooks/useAuth';
+import { queryClient } from '@/lib/queryClient';
+import { supabase } from '@/lib/supabase';
+
 export default function LessonScreen() {
-  const { id: courseId, lessonId } = useLocalSearchParams<{ id: string, lessonId: string }>();
+  const { id: courseId, lessonId } = useLocalSearchParams<{ id: string; lessonId: string }>();
   const router = useRouter();
   const { session } = useAuth();
   const { lesson, loading, error } = useLessonById(lessonId);
+  const { url: videoUrl, loading: urlLoading, error: urlError, refetch } = useVideoUrl(
+    lesson?.video_storage_path ? lessonId : undefined,
+  );
+  const [completed, setCompleted] = useState(false);
+  const [marking, setMarking] = useState(false);
 
-  const onMarkComplete = async () => {
-    if (!session?.user || !lessonId) return;
-    
+  const markComplete = useCallback(async () => {
+    if (!session?.user || !lessonId || completed || marking) return;
+    setMarking(true);
     const { error: pgError } = await supabase
       .from('user_progress')
-      .upsert({
-        user_id: session.user.id,
-        lesson_id: lessonId,
-        completed_at: new Date().toISOString(),
-      }, { onConflict: 'user_id,lesson_id' });
-
+      .upsert(
+        { user_id: session.user.id, lesson_id: lessonId, course_id: courseId, completed_at: new Date().toISOString() },
+        { onConflict: 'user_id,lesson_id' },
+      );
+    setMarking(false);
     if (pgError) {
       Toast.show({ type: 'error', text1: 'Failed to save progress' });
     } else {
+      setCompleted(true);
+      // Invalidate progress cache so tabs update instantly
+      void queryClient.invalidateQueries({ queryKey: ['progress', session.user.id] });
       Toast.show({ type: 'success', text1: 'Lesson completed!' });
-      router.back();
     }
-  };
+  }, [session?.user, lessonId, courseId, completed, marking]);
+
+  // Auto-mark complete when video finishes
+  const onVideoEnded = useCallback(() => {
+    void markComplete();
+  }, [markComplete]);
 
   if (loading) return <LoadingScreen />;
+
   if (error || !lesson) {
     return (
-      <View className="flex-1 items-center justify-center p-6">
-        <Text className="text-neutral-500">Lesson not found</Text>
-        <Button title="Go Back" onPress={() => router.back()} className="mt-4" />
-      </View>
+      <SafeAreaView className="flex-1 items-center justify-center bg-ui-bg px-6">
+        <Text className="text-center font-sans-medium text-neutral-500">Lesson not found</Text>
+        <Button title="Go Back" onPress={() => router.back()} className="mt-4" variant="outline" />
+      </SafeAreaView>
     );
   }
 
+  const hasVideo = !!lesson.video_storage_path;
+
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
-      <View className="flex-row items-center px-4 py-3 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-800">
-        <Pressable onPress={() => router.back()} className="p-2 -ml-2">
-          <Ionicons name="chevron-back" size={24} color="#737373" />
-        </Pressable>
-        <Text className="flex-1 text-lg font-semibold text-neutral-900 dark:text-neutral-100 ml-2" numberOfLines={1}>
-          {lesson.title}
-        </Text>
-      </View>
+    <SafeAreaView className="flex-1 bg-neutral-950" edges={['top']}>
 
-      <ScrollView className="flex-1">
-        {lesson.video_url ? (
-          <VideoPlayer url={lesson.video_url} />
-        ) : (
-          <View className="aspect-video bg-neutral-100 dark:bg-neutral-900 items-center justify-center">
-            <Ionicons name="videocam-off" size={48} color="#a3a3a3" />
-            <Text className="text-neutral-500 dark:text-neutral-400 mt-2">No video for this lesson</Text>
-          </View>
-        )}
-
-        <View className="p-6">
-          <Text className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
-            {lesson.title}
-          </Text>
-          
-          {lesson.content_text ? (
-            <Text className="mt-4 text-base leading-6 text-neutral-700 dark:text-neutral-300">
-              {lesson.content_text}
-            </Text>
-          ) : null}
-
-          <Button 
-            title="Mark as Completed" 
-            className="mt-10" 
-            onPress={() => void onMarkComplete()} 
-          />
+      {/* Video area — full width, dark background */}
+      {hasVideo ? (
+        <VideoPlayer
+          url={urlLoading ? null : (videoUrl ?? null)}
+          onEnded={onVideoEnded}
+        />
+      ) : (
+        <View className="w-full items-center justify-center bg-neutral-900" style={{ aspectRatio: 16 / 9 }}>
+          <VideoOff size={40} color={iconColors.muted} strokeWidth={1.5} />
+          <Text className="mt-2 text-xs font-sans-medium text-neutral-500">No video for this lesson</Text>
         </View>
-      </ScrollView>
+      )}
+
+      {/* Content area — white sheet below video */}
+      <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Header row */}
+          <View className="flex-row items-center gap-3 px-4 pt-4 pb-3 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900">
+            <BackButton variant="light" />
+            <Text className="flex-1 text-base font-display-extra text-neutral-900 dark:text-neutral-100" numberOfLines={1}>
+              {lesson.title}
+            </Text>
+          </View>
+
+          {/* Signed URL error banner */}
+          {urlError && (
+            <View className="mx-5 mt-4 rounded-2xl bg-red-50 dark:bg-red-950 px-4 py-3 flex-row items-center gap-3">
+              <Text className="flex-1 text-sm font-sans-medium text-red-600 dark:text-red-400">
+                Could not load video. Check your connection.
+              </Text>
+              <Text
+                className="text-sm font-sans-bold text-red-600 dark:text-red-400"
+                onPress={() => void refetch()}
+              >
+                Retry
+              </Text>
+            </View>
+          )}
+
+          {/* Lesson body */}
+          <View className="px-5 pt-5">
+            <Text className="text-xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">
+              {lesson.title}
+            </Text>
+
+            {lesson.content_text ? (
+              <Text className="mt-4 text-base font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300">
+                {lesson.content_text}
+              </Text>
+            ) : null}
+
+            {/* Complete button */}
+            <View className="mt-8">
+              {completed ? (
+                <View className="flex-row items-center justify-center gap-2 rounded-2xl bg-green-100 dark:bg-green-900/30 py-4">
+                  <CheckCircle size={18} color="#22C55E" strokeWidth={2.5} />
+                  <Text className="text-sm font-display-black text-green-700 dark:text-green-400">
+                    Lesson completed
+                  </Text>
+                </View>
+              ) : (
+                <Button
+                  title="Mark as Completed"
+                  loading={marking}
+                  onPress={() => void markComplete()}
+                />
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     </SafeAreaView>
   );
 }
