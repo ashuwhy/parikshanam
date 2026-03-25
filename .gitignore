@@ -48,3 +48,6 @@ pnpm-debug.log*
 
 # Testing
 coverage
+
+# Git worktrees
+.worktrees/
