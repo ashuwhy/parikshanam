@@ -1,0 +1,4 @@
+-- ─────────────────────────────────────────────────────────────
+-- Admin & Teacher Roles, Invites, Quiz Content, RLS
+-- Order: (1) table DDL → (2) triggers/functions → (3) RLS policies → (4) views
+-- ─────────────────────────────────────────────────────────────
