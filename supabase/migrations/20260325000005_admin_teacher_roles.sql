@@ -96,3 +96,82 @@ CREATE TABLE IF NOT EXISTS public.quiz_options (
 );
 ALTER TABLE public.quiz_options ENABLE ROW LEVEL SECURITY;
 CREATE INDEX IF NOT EXISTS quiz_options_question_id_idx ON public.quiz_options(question_id);
+
+-- ── 6. RLS helper ─────────────────────────────────────────────
+CREATE OR REPLACE FUNCTION public.teacher_owns_course(cid uuid)
+RETURNS boolean LANGUAGE sql SECURITY DEFINER STABLE
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.courses c
+    WHERE c.id = cid AND (
+      c.created_by = auth.uid() OR
+      EXISTS (
+        SELECT 1 FROM public.course_teachers ct
+        WHERE ct.course_id = c.id AND ct.teacher_id = auth.uid()
+      )
+    )
+  );
+$$;
+
+-- ── 7. Teacher RLS policies ───────────────────────────────────
+
+-- courses
+CREATE POLICY "Teachers can select own courses"
+  ON public.courses FOR SELECT
+  USING (
+    auth.uid() = created_by OR
+    EXISTS (SELECT 1 FROM public.course_teachers ct WHERE ct.course_id = id AND ct.teacher_id = auth.uid())
+  );
+
+CREATE POLICY "Teachers can insert courses"
+  ON public.courses FOR INSERT
+  WITH CHECK (auth.uid() = created_by);
+
+CREATE POLICY "Teachers can update own courses"
+  ON public.courses FOR UPDATE
+  USING (
+    auth.uid() = created_by OR
+    EXISTS (SELECT 1 FROM public.course_teachers ct WHERE ct.course_id = id AND ct.teacher_id = auth.uid())
+  );
+
+-- modules
+CREATE POLICY "Teachers can manage own modules"
+  ON public.modules FOR ALL
+  USING (public.teacher_owns_course(course_id));
+
+-- lessons
+CREATE POLICY "Teachers can manage own lessons"
+  ON public.lessons FOR ALL
+  USING (public.teacher_owns_course(course_id));
+
+-- quizzes
+CREATE POLICY "Teachers can manage own quizzes"
+  ON public.quizzes FOR ALL
+  USING (public.teacher_owns_course(course_id));
+
+-- quiz_questions
+CREATE POLICY "Teachers can manage own quiz questions"
+  ON public.quiz_questions FOR ALL
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.quizzes q
+      WHERE q.id = quiz_id AND public.teacher_owns_course(q.course_id)
+    )
+  );
+
+-- quiz_options
+CREATE POLICY "Teachers can manage own quiz options"
+  ON public.quiz_options FOR ALL
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.quiz_questions qq
+      JOIN public.quizzes q ON q.id = qq.quiz_id
+      WHERE qq.id = question_id AND public.teacher_owns_course(q.course_id)
+    )
+  );
+
+-- user_progress (teachers can view progress for their course students)
+CREATE POLICY "Teachers can view progress for own course students"
+  ON public.user_progress FOR SELECT
+  USING (public.teacher_owns_course(course_id));
