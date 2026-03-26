@@ -8,6 +8,7 @@
     "dev:mobile": "turbo dev --filter=@parikshanam/mobile",
     "dev:web": "turbo dev --filter=@parikshanam/web",
     "dev:admin": "turbo dev --filter=@parikshanam/admin",
+    "dev:teacher": "turbo dev --filter=@parikshanam/teacher",
     "build": "turbo build",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
