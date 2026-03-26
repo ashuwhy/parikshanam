@@ -1,6 +1,11 @@
 import { describe, it, expect, vi } from 'vitest'
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: vi.fn() }))
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: vi.fn().mockResolvedValue({
+    auth: { getUser: vi.fn().mockResolvedValue({ data: { user: { id: 'user-1' } }, error: null }) },
+  }),
+}))
 
 describe('POST /api/upload-url', () => {
   it('returns 400 when courseId is missing', async () => {
