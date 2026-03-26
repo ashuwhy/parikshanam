@@ -1,20 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/admin'
-import { DataTable } from '@/components/DataTable'
-import { createColumnHelper } from '@tanstack/react-table'
-
-const col = createColumnHelper<any>()
-const columns = [
-  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('amount', { header: 'Amount', cell: (i) => `₹${i.getValue()}` }),
-  col.accessor('status', { header: 'Status', cell: (i) => (
-    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-      i.getValue() === 'completed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
-    }`}>{i.getValue()}</span>
-  )}),
-  col.accessor('razorpay_payment_id', { header: 'Razorpay ID', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('created_at', { header: 'Date', cell: (i) => new Date(i.getValue()).toLocaleDateString('en-IN') }),
-]
+import { PurchasesTable } from '@/components/PurchasesTable'
 
 export default async function PurchasesPage() {
   const admin = createAdminClient()
@@ -36,7 +21,7 @@ export default async function PurchasesPage() {
           </span>
         </div>
       </div>
-      <DataTable columns={columns} data={purchases ?? []} />
+      <PurchasesTable purchases={purchases ?? []} />
     </div>
   )
 }

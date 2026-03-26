@@ -1,20 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
-import { DataTable } from '@/components/DataTable'
-import { createColumnHelper } from '@tanstack/react-table'
-
-const col = createColumnHelper<any>()
-const columns = [
-  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('status', { header: 'Payment', cell: (i) => i.getValue() }),
-  col.accessor('created_at', { header: 'Enrolled', cell: (i) => new Date(i.getValue()).toLocaleDateString('en-IN') }),
-]
+import { StudentsTable } from '@/components/StudentsTable'
 
 export default async function MyStudentsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Get courses owned (created_by) or assigned (course_teachers)
   const { data: assignedRows } = await supabase
     .from('course_teachers')
     .select('course_id')
@@ -32,7 +22,7 @@ export default async function MyStudentsPage() {
   const purchases = courseIds.length
     ? (await supabase
         .from('purchases')
-        .select('*, profile:profiles(full_name), course:courses(title)')
+        .select('id, status, created_at, profile:profiles(full_name), course:courses(title)')
         .in('course_id', courseIds)
         .order('created_at', { ascending: false })).data
     : []
@@ -42,7 +32,7 @@ export default async function MyStudentsPage() {
       <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-6">
         My Students ({purchases?.length ?? 0})
       </h1>
-      <DataTable columns={columns} data={purchases ?? []} />
+      <StudentsTable purchases={purchases ?? []} />
     </div>
   )
 }
