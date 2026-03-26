@@ -51,7 +51,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
             {purchases?.map((p) => (
               <li key={p.id} className="py-2 flex justify-between">
                 <span>{p.course?.title ?? '—'}</span>
-                <span className="text-gray-400">₹{p.amount}</span>
+                <span className="text-gray-400">₹{(p.amount / 100).toLocaleString('en-IN')}</span>
               </li>
             ))}
           </ul>

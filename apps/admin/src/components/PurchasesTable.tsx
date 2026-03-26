@@ -17,7 +17,7 @@ const col = createColumnHelper<PurchaseRow>()
 const columns = [
   col.accessor((r) => r.profile?.full_name, { id: 'student', header: 'Student', cell: (i) => i.getValue() ?? '—' }),
   col.accessor((r) => r.course?.title, { id: 'course', header: 'Course', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('amount', { header: 'Amount', cell: (i) => `₹${i.getValue()}` }),
+  col.accessor('amount', { header: 'Amount', cell: (i) => `₹${(i.getValue() / 100).toLocaleString('en-IN')}` }),
   col.accessor('status', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
       i.getValue() === 'completed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'

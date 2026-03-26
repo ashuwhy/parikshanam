@@ -25,7 +25,7 @@ const columns = [
       'bg-gray-100 text-gray-600'
     }`}>{i.getValue()}</span>
   )}),
-  col.accessor('price', { header: 'Price', cell: (i) => `₹${i.getValue()}` }),
+  col.accessor('price', { header: 'Price', cell: (i) => `₹${(i.getValue() / 100).toLocaleString('en-IN')}` }),
 ]
 
 export function CoursesTable({ courses }: { courses: CourseRow[] }) {

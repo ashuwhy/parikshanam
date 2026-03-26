@@ -20,10 +20,10 @@ export default async function DashboardPage() {
     supabase.from('courses').select('id, title, status').eq('status', 'pending_review').limit(10),
   ])
 
-  const revenue = purchases?.reduce((sum, p) => sum + p.amount, 0) ?? 0
-  const revenueDisplay = revenue >= 100000
-    ? `₹${(revenue / 100000).toFixed(1)}L`
-    : `₹${(revenue / 100).toFixed(0)}`
+  const revenueRupees = (purchases?.reduce((sum, p) => sum + p.amount, 0) ?? 0) / 100
+  const revenueDisplay = revenueRupees >= 100000
+    ? `₹${(revenueRupees / 100000).toFixed(1)}L`
+    : `₹${revenueRupees.toLocaleString('en-IN')}`
 
   return (
     <div>
