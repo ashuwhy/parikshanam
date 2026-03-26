@@ -21,11 +21,11 @@ export async function GET(request: Request) {
   }
 
   if (invite.accepted_at) {
-    return NextResponse.json({ valid: false, reason: 'already used' })
+    return NextResponse.json({ valid: false, reason: 'already used' }, { status: 410 })
   }
 
   if (new Date(invite.expires_at) < new Date()) {
-    return NextResponse.json({ valid: false, reason: 'expired' })
+    return NextResponse.json({ valid: false, reason: 'expired' }, { status: 410 })
   }
 
   return NextResponse.json({ valid: true, email: invite.email })

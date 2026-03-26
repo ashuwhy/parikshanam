@@ -21,7 +21,7 @@ export default function InvitePage() {
 
   useEffect(() => {
     if (!token) { setState('invalid'); setReason('No token provided'); return }
-    fetch(`/api/invites/verify?token=${token}`)
+    fetch(`/api/invites/verify?token=${encodeURIComponent(token)}`)
       .then((r) => r.json())
       .then((data) => {
         if (data.valid) { setEmail(data.email); setState('valid') }
@@ -48,7 +48,12 @@ export default function InvitePage() {
     }
 
     // Sign in the new teacher
-    await supabase.auth.signInWithPassword({ email, password })
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+    if (signInError) {
+      setError('Account created. Please sign in at /login.')
+      setState('valid')
+      return
+    }
     setState('done')
     router.push('/dashboard')
   }

@@ -22,6 +22,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'invalid or expired token' }, { status: 400 })
   }
 
+  // Atomically claim the invite (only one request wins)
+  const { data: claimed, error: claimError } = await admin
+    .from('teacher_invites')
+    .update({ accepted_at: new Date().toISOString() })
+    .eq('id', invite.id)
+    .is('accepted_at', null)
+    .select('id')
+    .single()
+
+  if (claimError || !claimed) {
+    return NextResponse.json({ error: 'invite already used' }, { status: 409 })
+  }
+
   // Create the Supabase auth user
   const { data: authData, error: createError } = await admin.auth.admin.createUser({
     email: invite.email,
@@ -37,16 +50,14 @@ export async function POST(request: Request) {
 
   // The handle_new_user trigger already created a profiles row with role='student'
   // Update it to teacher and set the name
-  await admin
+  const { error: profileError } = await admin
     .from('profiles')
     .update({ role: 'teacher', full_name: fullName ?? null })
     .eq('id', userId)
 
-  // Mark invite as accepted
-  await admin
-    .from('teacher_invites')
-    .update({ accepted_at: new Date().toISOString() })
-    .eq('id', invite.id)
+  if (profileError) {
+    return NextResponse.json({ error: 'Account created but role assignment failed' }, { status: 500 })
+  }
 
   return NextResponse.json({ ok: true, email: invite.email })
 }
