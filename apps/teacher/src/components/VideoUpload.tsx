@@ -40,13 +40,10 @@ export function VideoUpload({ courseId, lessonId, onUploaded }: VideoUploadProps
     }
     const { token, path } = await res.json()
 
+    setProgress(50) // indeterminate during upload
     const { error: uploadError } = await supabase.storage
       .from('course-videos')
-      .uploadToSignedUrl(path, token, file, {
-        onUploadProgress: ({ loaded, total }) => {
-          if (total) setProgress(Math.round((loaded / total) * 100))
-        },
-      })
+      .uploadToSignedUrl(path, token, file)
 
     if (uploadError) {
       setError(uploadError.message)
