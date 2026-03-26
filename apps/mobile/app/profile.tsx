@@ -5,9 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import { AvatarCircle } from '@/components/ui/Avatar';
+import { BackButton } from '@/components/ui/BackButton';
 import { isValidIndianPhone, PhoneInput } from '@/components/ui/PhoneInput';
 import { useAuth } from '@/hooks/useAuth';
 import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
+import { useColorScheme } from '@/components/useColorScheme';
 import { href } from '@/lib/href';
 import { supabase } from '@/lib/supabase';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
@@ -24,6 +26,8 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 export default function ProfileScreen() {
   const router = useRouter();
   const { session, profile, signOut, refreshProfile } = useAuth();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
   const classLevels = useProfileStore((s) => s.classLevels);
   const classLabel = profile?.class_level_id != null
     ? classLevels.find((c) => c.id === profile.class_level_id)?.label
@@ -87,14 +91,7 @@ export default function ProfileScreen() {
 
       {/* Header */}
       <View className="flex-row items-center justify-between border-b border-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 px-4 py-3">
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Close"
-          hitSlop={12}
-          onPress={() => router.back()}
-        >
-          <Text className="text-base font-sans-bold text-brand-primary">Close</Text>
-        </Pressable>
+        <BackButton variant={isDark ? 'dark' : 'light'} onPress={() => router.back()} />
         <Text className="text-base font-display-black text-neutral-900 dark:text-neutral-100">Profile</Text>
         <View className="w-12" />
       </View>
