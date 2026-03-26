@@ -53,11 +53,11 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-1">Price (₹) *</label>
-          <input type="number" {...register('price')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+          <input type="number" {...register('price')} placeholder="e.g. 499" className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">MRP (₹)</label>
-          <input type="number" {...register('mrp')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+          <input type="number" {...register('mrp')} placeholder="e.g. 999" className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
         </div>
       </div>
 

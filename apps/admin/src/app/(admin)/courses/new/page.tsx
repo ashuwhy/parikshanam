@@ -16,6 +16,8 @@ export default async function NewCoursePage() {
     const admin = createAdminClient()
     const { data: course, error } = await admin.from('courses').insert({
       ...data,
+      price: data.price * 100,
+      mrp: data.mrp ? data.mrp * 100 : null,
       status: 'active',
     }).select('id').single()
     if (error) throw new Error(error.message)

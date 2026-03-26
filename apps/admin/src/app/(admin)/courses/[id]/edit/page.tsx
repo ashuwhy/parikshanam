@@ -18,7 +18,11 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
   async function updateCourse(data: CourseFormData) {
     'use server'
     const admin = createAdminClient()
-    await admin.from('courses').update(data).eq('id', id)
+    await admin.from('courses').update({
+      ...data,
+      price: data.price * 100,
+      mrp: data.mrp ? data.mrp * 100 : null,
+    }).eq('id', id)
     redirect(`/courses/${id}`)
   }
 
@@ -28,7 +32,7 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
         Edit: {course.title}
       </h1>
       <CourseForm
-        defaultValues={course}
+        defaultValues={{ ...course, price: course.price / 100, mrp: course.mrp ? course.mrp / 100 : undefined }}
         olympiadTypes={olympiadTypes ?? []}
         classLevels={classLevels ?? []}
         onSubmit={updateCourse}

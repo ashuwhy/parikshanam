@@ -16,6 +16,8 @@ export default async function NewCoursePage() {
     const { data: { user } } = await supabase.auth.getUser()
     const { data: course, error } = await supabase.from('courses').insert({
       ...data,
+      price: data.price * 100,
+      mrp: data.mrp ? data.mrp * 100 : null,
       status: 'pending_review',
       created_by: user!.id,
     }).select('id').single()
