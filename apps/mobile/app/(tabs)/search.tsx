@@ -5,6 +5,7 @@ import { FlatList, Pressable, ScrollView, Text, TextInput, View } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CourseCard } from '@/components/course/CourseCard';
+import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { href } from '@/lib/href';
 import { useCoursesStore } from '@/lib/stores/useCoursesStore';
@@ -63,11 +64,11 @@ export default function SearchScreen() {
     <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top', 'bottom']}>
 
       {/* Inline title + search bar */}
-      <View className="bg-white dark:bg-neutral-900 px-5 pt-4 pb-3">
+      <View className="dark:bg-neutral-900 px-5 pt-4 pb-3">
         <Text className="text-2xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-50 mb-3">
           Explore
         </Text>
-        <View className="flex-row items-center rounded-2xl border-2 border-ui-border dark:border-neutral-700 bg-ui-bg dark:bg-neutral-800 px-4 h-12">
+        <View className="bg-white flex-row items-center rounded-2xl border-2 border-ui-border dark:border-neutral-700 bg-ui-bg dark:bg-neutral-800 px-4 h-12">
           <Search size={16} color={isDark ? iconColors.muted : iconColors.subtle} strokeWidth={2.5} style={{ marginRight: 8 }} />
           <TextInput
             accessibilityLabel="Search courses"
@@ -167,12 +168,16 @@ export default function SearchScreen() {
               : 'Check back soon — new content is on the way'}
           </Text>
           {hasQuery && (
-            <Pressable
-              onPress={() => { setQuery(''); onPickOlympiad(null); }}
-              className="mt-5 rounded-2xl border-2 border-brand-primary px-6 py-2.5"
-            >
-              <Text className="text-sm font-display text-brand-primary">Clear filters</Text>
-            </Pressable>
+            <Button
+              title="Clear filters"
+              variant="outline"
+              onPress={() => {
+                setQuery('');
+                onPickOlympiad(null);
+              }}
+              className="mt-5 border-brand-primary dark:border-brand-primary"
+              textClassName="text-brand-primary dark:text-brand-primary"
+            />
           )}
         </View>
       ) : (

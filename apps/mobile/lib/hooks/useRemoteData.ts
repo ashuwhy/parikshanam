@@ -1,6 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
+function matchesClass(course: Course, classLevelId: string | null | undefined): boolean {
+  if (!classLevelId) return true;
+  const n = parseInt(classLevelId, 10);
+  if (isNaN(n)) return true;
+  const min = course.min_class_id ? parseInt(course.min_class_id, 10) : null;
+  const max = course.max_class_id ? parseInt(course.max_class_id, 10) : null;
+  if (min !== null && n < min) return false;
+  if (max !== null && n > max) return false;
+  return true;
+}
+
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase";
 import { COURSE_LIST_SELECT, PURCHASE_LIST_SELECT } from "@/lib/supabase/selects";
@@ -94,8 +105,10 @@ export function useRemoteData() {
     }
     if (coursesQuery.data) {
       const list = coursesQuery.data;
+      const classId = profile?.class_level_id ?? null;
+      const forClass = list.filter((c) => matchesClass(c, classId));
       actions.setAllCourses(list);
-      actions.setFeaturedCourse(list.find((c) => c.is_featured) ?? null);
+      actions.setFeaturedCourse(forClass.find((c) => c.is_featured) ?? forClass[0] ?? null);
       actions.setLoading(false);
       actions.setError(null);
     }
@@ -103,7 +116,7 @@ export function useRemoteData() {
       actions.setLoading(false);
       actions.setError(coursesQuery.error as Error);
     }
-  }, [coursesQuery.data, coursesQuery.isLoading, coursesQuery.isError, coursesQuery.error]);
+  }, [coursesQuery.data, coursesQuery.isLoading, coursesQuery.isError, coursesQuery.error, profile?.class_level_id]);
 
   useEffect(() => {
     const { actions } = usePurchasesStore.getState();

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
@@ -33,20 +33,20 @@ export default function ClassSelectScreen() {
       Toast.show({ type: 'error', text1: 'Please enter your full name' });
       return;
     }
-    if (phone && !isValidIndianPhone(phone)) {
-      Toast.show({ type: 'error', text1: 'Enter a valid 10-digit Indian mobile number' });
+    if (!isValidIndianPhone(phone)) {
+      Toast.show({ type: 'error', text1: 'Enter a valid 10-digit mobile number' });
       return;
     }
     setLoading(true);
     const { error } = await supabase
       .from('profiles')
-      .update({
+      .upsert({
+        id: session.user.id,
         full_name: name.trim(),
         phone: phone.trim() || null,
         class_level_id: selected,
         onboarding_completed: true,
-      })
-      .eq('id', session.user.id);
+      });
     setLoading(false);
     if (error) {
       Toast.show({ type: 'error', text1: error.message });
@@ -108,14 +108,16 @@ export default function ClassSelectScreen() {
 
             <View>
               <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500">
-                Phone Number
-                <Text className="text-neutral-400"> (optional)</Text>
+                Phone Number *
               </Text>
               <PhoneInput
                 value={phone}
                 onChangeText={setPhone}
                 showValidation={submitted}
               />
+              {submitted && !isValidIndianPhone(phone) && (
+                <Text className="mt-1 text-xs text-red-500">Enter a valid 10-digit Indian mobile number</Text>
+              )}
             </View>
           </View>
 
@@ -157,7 +159,7 @@ export default function ClassSelectScreen() {
             <Button
               title="Continue"
               loading={loading}
-              disabled={!selected || !name.trim()}
+              disabled={!selected || !name.trim() || !isValidIndianPhone(phone)}
               onPress={() => void onContinue()}
             />
           </View>

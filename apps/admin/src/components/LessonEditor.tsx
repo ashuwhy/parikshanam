@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { VideoUpload } from './VideoUpload'
 
 interface Lesson {
@@ -28,37 +27,45 @@ interface LessonEditorProps {
 
 export function LessonEditor({ courseId, modules: initialModules }: LessonEditorProps) {
   const [modules, setModules] = useState(initialModules)
-  const supabase = createClient()
+  const [error, setError] = useState<string | null>(null)
 
   async function addModule() {
     const title = prompt('Module title:')
     if (!title) return
-    const { data } = await supabase
-      .from('modules')
-      .insert({ course_id: courseId, title, order_index: modules.length })
-      .select()
-      .single()
-    if (data) setModules([...modules, { ...data, lessons: [] }])
+    setError(null)
+    const res = await fetch('/api/modules', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ course_id: courseId, title, order_index: modules.length }),
+    })
+    const data = await res.json()
+    if (!res.ok) { setError(data.error ?? 'Failed to add module'); return }
+    setModules([...modules, { ...data, lessons: [] }])
   }
 
   async function addLesson(moduleId: string) {
     const title = prompt('Lesson title:')
     if (!title) return
+    setError(null)
     const mod = modules.find((m) => m.id === moduleId)!
-    const { data } = await supabase
-      .from('lessons')
-      .insert({ module_id: moduleId, course_id: courseId, title, order_index: mod.lessons.length })
-      .select()
-      .single()
-    if (data) {
-      setModules(modules.map((m) =>
-        m.id === moduleId ? { ...m, lessons: [...m.lessons, data] } : m,
-      ))
-    }
+    const res = await fetch('/api/lessons', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ module_id: moduleId, course_id: courseId, title, order_index: mod.lessons.length }),
+    })
+    const data = await res.json()
+    if (!res.ok) { setError(data.error ?? 'Failed to add lesson'); return }
+    setModules(modules.map((m) =>
+      m.id === moduleId ? { ...m, lessons: [...m.lessons, data] } : m,
+    ))
   }
 
   return (
     <div className="space-y-4">
+      {error && (
+        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2">{error}</p>
+      )}
+
       {modules.map((mod) => (
         <div key={mod.id} className="bg-white border border-ui-border rounded-2xl p-4">
           <div className="flex items-center justify-between mb-3">

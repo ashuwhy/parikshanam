@@ -24,7 +24,7 @@ export function LoadingScreen() {
   });
 
   return (
-    <View style={StyleSheet.absoluteFill} className="items-center justify-center bg-ui-bg dark:bg-neutral-900">
+    <View style={[StyleSheet.absoluteFill, { backgroundColor: '#F9F9F6' }]} className="items-center justify-center dark:bg-neutral-900">
       {/* Spinner ring + logo, stacked */}
       <View style={{ width: RING_SIZE, height: RING_SIZE, alignItems: 'center', justifyContent: 'center' }}>
         {/* Rotating arc */}

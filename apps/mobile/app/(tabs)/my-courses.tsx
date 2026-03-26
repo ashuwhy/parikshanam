@@ -4,6 +4,7 @@ import { ScrollView, Text, View, RefreshControl, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Avatar } from '@/components/ui/Avatar';
+import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
@@ -75,12 +76,12 @@ export default function MyCoursesScreen() {
               <Text className="mt-2 text-center text-sm font-sans-medium text-neutral-500">
                 Explore our catalog and enroll in your first Olympiad course
               </Text>
-              <Pressable
+              <Button
+                title="Browse Courses"
+                variant="primary"
+                className="mt-6 px-8 py-3"
                 onPress={() => router.push(href('/(tabs)/search'))}
-                className="mt-6 rounded-2xl bg-brand-primary px-8 py-3"
-              >
-                <Text className="text-base font-display-black text-white">Browse Courses</Text>
-              </Pressable>
+              />
             </View>
           ) : (
             purchases.map((p) => {
@@ -128,18 +129,20 @@ export default function MyCoursesScreen() {
                       <ProgressBar progress={ratio} />
                     </View>
 
-                    <Pressable
-                      onPress={() => router.push(href(`/course/${p.course_id}`))}
-                      className="mt-3 flex-row items-center justify-center gap-1.5 rounded-xl bg-brand-primary/10 py-2.5"
-                    >
-                      {pct >= 100
-                        ? <CheckCircle size={14} color={iconColors.onWarning} strokeWidth={2.5} />
-                        : <Play size={14} color={iconColors.onWarning} strokeWidth={2.5} />
+                    <Button
+                      title={pct >= 100 ? 'Review Course' : 'Resume'}
+                      variant="ghost"
+                      className="mt-3 rounded-xl bg-brand-primary/10 px-4 py-2.5"
+                      textClassName="text-brand-dark"
+                      leftIcon={
+                        pct >= 100 ? (
+                          <CheckCircle size={14} color={iconColors.onWarning} strokeWidth={2.5} />
+                        ) : (
+                          <Play size={14} color={iconColors.onWarning} strokeWidth={2.5} />
+                        )
                       }
-                      <Text className="text-sm font-display text-brand-dark">
-                        {pct >= 100 ? 'Review Course' : 'Resume'}
-                      </Text>
-                    </Pressable>
+                      onPress={() => router.push(href(`/course/${p.course_id}`))}
+                    />
                   </View>
                 </Pressable>
               );

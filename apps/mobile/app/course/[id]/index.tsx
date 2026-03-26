@@ -1,16 +1,19 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
 import { CourseHero } from '@/components/course/CourseHero';
 import { SyllabusView } from '@/components/course/SyllabusView';
+import { VideoPlayer } from '@/components/course/VideoPlayer';
+import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
 import { useCourseById, useSyllabus } from '@/hooks/useCourses';
 import { useHasPurchased, useUserProgress } from '@/hooks/usePurchases';
+import { useStorageUrl } from '@/hooks/useStorageUrl';
 import { href } from '@/lib/href';
 import { queryClient } from '@/lib/queryClient';
 import { openRazorpayCheckout } from '@/lib/razorpay';
@@ -28,6 +31,8 @@ export default function CourseDetailScreen() {
   const { purchased, loading: pLoading, refresh: refreshPurchase } = useHasPurchased(id);
   const { modules } = useSyllabus(id);
   const { progress } = useUserProgress(id);
+  const { url: introVideoUrl, loading: introUrlLoading } = useStorageUrl(course?.intro_video_path);
+  const insets = useSafeAreaInsets();
   const [buying, setBuying] = useState(false);
 
   const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID ?? '';
@@ -124,7 +129,18 @@ export default function CourseDetailScreen() {
   return (
     <View className="flex-1 bg-ui-bg dark:bg-neutral-900">
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
-        <CourseHero course={course} />
+        {course.intro_video_path ? (
+          <View className="relative bg-neutral-950">
+            <View style={{ paddingTop: insets.top }}>
+              <VideoPlayer url={introUrlLoading ? null : introVideoUrl} />
+            </View>
+            <View style={{ position: 'absolute', top: insets.top + 10, left: 16 }}>
+              <BackButton variant="dark" />
+            </View>
+          </View>
+        ) : (
+          <CourseHero course={course} />
+        )}
 
         <View className="rounded-t-3xl bg-ui-bg dark:bg-neutral-900 px-5 pt-6">
           {/* Title */}

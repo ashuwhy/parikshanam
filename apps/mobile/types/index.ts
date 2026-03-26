@@ -31,6 +31,7 @@ export interface Course {
   price: number;
   mrp: number | null;
   thumbnail_url: string | null;
+  intro_video_path: string | null;
   total_lessons: number;
   duration_hours: number;
   is_featured: boolean;

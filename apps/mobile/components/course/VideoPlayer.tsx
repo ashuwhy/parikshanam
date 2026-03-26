@@ -13,9 +13,8 @@ type Props = {
 };
 
 export function VideoPlayer({ url, onEnded }: Props) {
-  const player = useVideoPlayer(url ?? '', (p) => {
+  const player = useVideoPlayer(url, (p) => {
     p.loop = false;
-    // Don't autoplay until we have a real URL
     if (url) p.play();
   });
 

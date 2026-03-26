@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { LessonEditor } from '@/components/LessonEditor'
+import { IntroVideoUpload } from '@/components/IntroVideoUpload'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -33,6 +34,9 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
             Edit details
           </Link>
         </div>
+      </div>
+      <div className="mb-6">
+        <IntroVideoUpload courseId={id} currentPath={course.intro_video_path ?? null} />
       </div>
       <LessonEditor courseId={id} modules={modules ?? []} />
     </div>

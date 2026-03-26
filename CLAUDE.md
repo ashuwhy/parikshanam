@@ -10,19 +10,19 @@ Parikshanam is a Turborepo monorepo with three apps:
 - `apps/web` — Next.js (App Router) web app
 - `packages/typescript-config` — Shared TypeScript base configs
 
-Package manager: **pnpm 9+**. Task runner: **Turborepo**.
+Package manager: **npm**. Task runner: **Turborepo**.
 
 ## Commands
 
 ### Root (runs across all workspaces via Turborepo)
 ```bash
-pnpm dev           # Run all apps in parallel
-pnpm dev:api       # FastAPI at http://localhost:8000
-pnpm dev:mobile    # Expo / Metro bundler
-pnpm dev:web       # Next.js at http://localhost:3000
-pnpm build         # Production builds (JS apps)
-pnpm lint          # Lint all workspaces
-pnpm format        # Prettier across all files
+npm run dev           # Run all apps in parallel
+npm run dev:api       # FastAPI at http://localhost:8000
+npm run dev:mobile    # Expo / Metro bundler
+npm run dev:web       # Next.js at http://localhost:3000
+npm run build         # Production builds (JS apps)
+npm run lint          # Lint all workspaces
+npm run format        # Prettier across all files
 ```
 
 ### API (Python)
@@ -30,7 +30,7 @@ pnpm format        # Prettier across all files
 cd apps/api
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-python -m uvicorn app.main:app --reload   # or: pnpm dev:api from root
+python -m uvicorn app.main:app --reload   # or: npm run dev:api from root
 python -m ruff check .                    # lint
 python -m pytest                          # tests
 ```
@@ -39,15 +39,15 @@ python -m pytest                          # tests
 ```bash
 cd apps/mobile
 cp .env.example .env   # add Supabase URL + anon key
-pnpm dev               # expo start
-pnpm ios / pnpm android
-tsc --noEmit           # type-check (also runs as pnpm lint)
+npm run dev            # expo start
+npm run ios / npm run android
+tsc --noEmit           # type-check (also runs as npm run lint)
 ```
 
 ### Supabase
 ```bash
-pnpm supabase:link     # link to remote project
-pnpm supabase:push     # push local migrations to remote
+npm run supabase:link     # link to remote project
+npm run supabase:push     # push local migrations to remote
 ```
 
 ## Architecture

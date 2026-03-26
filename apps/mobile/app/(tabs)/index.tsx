@@ -92,7 +92,7 @@ export default function HomeScreen() {
           </View>
         )}
 
-        {/* Featured Course */}
+        {/* Featured Course / Empty State */}
         {error ? (
           <View className="mx-5 rounded-2xl bg-red-50 px-4 py-3">
             <Text className="text-sm font-sans-bold text-red-600">{error.message}</Text>
@@ -116,7 +116,30 @@ export default function HomeScreen() {
               purchased={purchased}
             />
           </View>
-        ) : null}
+        ) : (
+          <Pressable
+            onPress={() => router.push(href('/(tabs)/search'))}
+            className="mx-5 rounded-3xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700 overflow-hidden"
+          >
+            {/* Top accent bar */}
+            <View className="h-1 bg-brand-primary" />
+            <View className="px-5 py-6 items-center">
+              <View className="w-16 h-16 rounded-2xl bg-brand-primary/10 items-center justify-center mb-4">
+                <Sparkles size={28} color={iconColors.primary} strokeWidth={2} />
+              </View>
+              <Text className="text-lg font-display-black text-neutral-900 dark:text-neutral-50 text-center">
+                Courses coming soon
+              </Text>
+              <Text className="mt-1.5 text-sm font-sans-medium text-neutral-500 dark:text-neutral-400 text-center leading-relaxed">
+                We're adding content for your class.{'\n'}Explore all courses in the meantime.
+              </Text>
+              <View className="mt-5 flex-row items-center gap-1.5 bg-brand-primary/10 rounded-full px-4 py-2">
+                <Text className="text-sm font-sans-bold text-brand-primary">Browse all courses</Text>
+                <ChevronRight size={14} color={iconColors.primary} strokeWidth={2.5} />
+              </View>
+            </View>
+          </Pressable>
+        )}
 
         {/* Browse by subject */}
         <View className="mt-6 px-5">

@@ -86,7 +86,7 @@ export default function ProfileScreen() {
     <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900">
 
       {/* Header */}
-      <View className="flex-row items-center justify-between border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-4 py-3">
+      <View className="flex-row items-center justify-between border-b border-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 px-4 py-3">
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Close"
@@ -106,7 +106,7 @@ export default function ProfileScreen() {
       >
 
         {/* Avatar + name block */}
-        <View className="items-center bg-white dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-800">
+        <View className="items-center dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-800">
           <AvatarCircle size="lg" />
           <View className="mt-4 items-center px-6 w-full">
             {editing ? (

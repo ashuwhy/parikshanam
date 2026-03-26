@@ -63,7 +63,8 @@ export function GoogleSignInButton() {
     <Pressable
       accessibilityRole="button"
       onPress={() => void onPress()}
-      className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 border-b-4 px-6 py-3.5 active:translate-y-1 items-center justify-center flex-row gap-3">
+      style={({ pressed }: { pressed: boolean }) => pressed ? { transform: [{ translateY: 3 }] } : undefined}
+      className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-b-4 border-ui-border dark:border-neutral-600 px-6 py-4 items-center justify-center flex-row gap-3">
       <Image source={GoogleIcon} style={{ width: 20, height: 20 }} contentFit="contain" />
       <Text className="text-base font-sans-bold text-brand-primary">Continue with Google</Text>
     </Pressable>
