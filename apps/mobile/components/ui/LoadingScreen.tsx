@@ -1,52 +1,53 @@
 import { useEffect, useRef } from 'react';
-import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
+import { Animated, Easing, Image, StyleSheet, View } from 'react-native';
 
-/**
- * Full-screen branded loading screen with pulsing animation.
- * Uses StyleSheet.absoluteFill so it always covers the entire screen
- * regardless of parent flex context.
- */
+const LOGO_SIZE = 72;
+const RING_SIZE = LOGO_SIZE + 32; // 8px gap on each side
+
 export function LoadingScreen() {
-  const opacity = useRef(new Animated.Value(0.4)).current;
+  const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(opacity, {
-          toValue: 1,
-          duration: 800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(opacity, {
-          toValue: 0.4,
-          duration: 800,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]),
+      Animated.timing(rotation, {
+        toValue: 1,
+        duration: 1100,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
     ).start();
-  }, [opacity]);
+  }, [rotation]);
+
+  const spin = rotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   return (
     <View style={StyleSheet.absoluteFill} className="items-center justify-center bg-ui-bg dark:bg-neutral-900">
-      <Animated.View
-        style={{ opacity }}
-        className="items-center"
-      >
-        <View
-          className="h-16 w-16 items-center justify-center rounded-[1.25rem] bg-brand-primary"
-        >
-          <Text className="text-2xl font-black text-white">P</Text>
-        </View>
-      </Animated.View>
-
-      <Animated.Text
-        style={{ opacity }}
-        className="mt-4 text-sm font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500"
-      >
-        Loading…
-      </Animated.Text>
+      {/* Spinner ring + logo, stacked */}
+      <View style={{ width: RING_SIZE, height: RING_SIZE, alignItems: 'center', justifyContent: 'center' }}>
+        {/* Rotating arc */}
+        <Animated.View
+          style={{
+            position: 'absolute',
+            width: RING_SIZE,
+            height: RING_SIZE,
+            borderRadius: RING_SIZE / 2,
+            borderWidth: 3,
+            borderColor: 'transparent',
+            borderTopColor: '#E8720C',
+            borderRightColor: '#E8720C33',
+            transform: [{ rotate: spin }],
+          }}
+        />
+        {/* Logo */}
+        <Image
+          source={require('@/assets/images/splash-icon.png')}
+          style={{ width: LOGO_SIZE, height: LOGO_SIZE, borderRadius: LOGO_SIZE / 4 }}
+          resizeMode="contain"
+        />
+      </View>
     </View>
   );
 }
