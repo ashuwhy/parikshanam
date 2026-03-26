@@ -1,115 +1,48 @@
-'use server'
-
 import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import { DataTable } from '@/components/data-table'
-import { ColumnDef } from '@tanstack/react-table'
+import { DataTable } from '@/components/DataTable'
+import { createColumnHelper } from '@tanstack/react-table'
 
-interface StudentRow {
-  id: string
-  name: string
-  courseTitle: string
-  paymentStatus: string
-  enrollmentDate: string
-}
-
-const columns: ColumnDef<StudentRow>[] = [
-  {
-    accessorKey: 'name',
-    header: 'Student Name',
-  },
-  {
-    accessorKey: 'courseTitle',
-    header: 'Course',
-  },
-  {
-    accessorKey: 'paymentStatus',
-    header: 'Payment Status',
-  },
-  {
-    accessorKey: 'enrollmentDate',
-    header: 'Enrollment Date',
-  },
+const col = createColumnHelper<any>()
+const columns = [
+  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('status', { header: 'Payment', cell: (i) => i.getValue() }),
+  col.accessor('created_at', { header: 'Enrolled', cell: (i) => new Date(i.getValue()).toLocaleDateString('en-IN') }),
 ]
 
-export default async function StudentsPage() {
+export default async function MyStudentsPage() {
   const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Get courses owned (created_by) or assigned (course_teachers)
+  const { data: assignedRows } = await supabase
+    .from('course_teachers')
+    .select('course_id')
+    .eq('teacher_id', user!.id)
 
-  if (!user) {
-    redirect('/auth/login')
-  }
+  const assignedIds = assignedRows?.map((r) => r.course_id) ?? []
 
-  // Get teacher's courses
-  const { data: courses, error: coursesError } = await supabase
+  const { data: myCourses } = await supabase
     .from('courses')
     .select('id')
-    .eq('teacher_id', user.id)
+    .or(`created_by.eq.${user!.id}${assignedIds.length ? `,id.in.(${assignedIds.join(',')})` : ''}`)
 
-  if (coursesError) {
-    console.error('Error fetching courses:', coursesError)
-    return (
-      <div>
-        <h1 className="text-2xl font-bold text-brand-navy">My Students</h1>
-        <p className="text-red-600">Error loading students</p>
-      </div>
-    )
-  }
+  const courseIds = myCourses?.map((c) => c.id) ?? []
 
-  const courseIds = courses?.map((c) => c.id) || []
-
-  // Guard: if no courses, return empty state
-  if (courseIds.length === 0) {
-    return (
-      <div>
-        <h1 className="text-2xl font-bold text-brand-navy">My Students</h1>
-        <p className="text-gray-600">No students yet</p>
-      </div>
-    )
-  }
-
-  // Get student purchases with related data
-  const { data: purchases, error: purchasesError } = await supabase
-    .from('purchases')
-    .select(
-      `
-      id,
-      course_id,
-      user_id,
-      payment_status,
-      created_at,
-      courses(title),
-      profiles(full_name)
-    `
-    )
-    .in('course_id', courseIds)
-
-  if (purchasesError) {
-    console.error('Error fetching purchases:', purchasesError)
-    return (
-      <div>
-        <h1 className="text-2xl font-bold text-brand-navy">My Students</h1>
-        <p className="text-red-600">Error loading students</p>
-      </div>
-    )
-  }
-
-  // Transform data for table
-  const students: StudentRow[] = (purchases || []).map((purchase: any) => ({
-    id: purchase.user_id,
-    name: purchase.profiles?.full_name || 'Unknown',
-    courseTitle: purchase.courses?.title || 'Unknown',
-    paymentStatus: purchase.payment_status || 'pending',
-    enrollmentDate: new Date(purchase.created_at).toLocaleDateString(),
-  }))
+  const purchases = courseIds.length
+    ? (await supabase
+        .from('purchases')
+        .select('*, profile:profiles(full_name), course:courses(title)')
+        .in('course_id', courseIds)
+        .order('created_at', { ascending: false })).data
+    : []
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-brand-navy mb-6">My Students</h1>
-      <DataTable columns={columns} data={students} />
+      <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-6">
+        My Students ({purchases?.length ?? 0})
+      </h1>
+      <DataTable columns={columns} data={purchases ?? []} />
     </div>
   )
 }

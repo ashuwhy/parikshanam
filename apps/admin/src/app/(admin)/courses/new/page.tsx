@@ -17,7 +17,6 @@ export default async function NewCoursePage() {
     const { data: course, error } = await admin.from('courses').insert({
       ...data,
       status: 'active',
-      is_active: true,
     }).select('id').single()
     if (error) throw new Error(error.message)
     redirect(`/courses/${course.id}`)
