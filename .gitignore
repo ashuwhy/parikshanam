@@ -51,3 +51,4 @@ coverage
 
 # Git worktrees
 .worktrees/
+commands.txt
