@@ -16,6 +16,7 @@ import { AppFooter } from '@/components/ui/AppFooter';
 import { Avatar } from '@/components/ui/Avatar';
 import { FeaturedCourseCard } from '@/components/course/FeaturedCourseCard';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { useColorScheme } from '@/components/useColorScheme';
 import { useAuth } from '@/hooks/useAuth';
 import { useFeaturedCourse } from '@/hooks/useCourses';
 import { useHasPurchased, useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
@@ -30,14 +31,15 @@ function greeting() {
 }
 
 const SUBJECT_TILES = [
-  { Icon: Calculator, label: 'Math', color: '#EFF6FF', border: '#BFDBFE', iconColor: '#3B82F6' },
-  { Icon: FlaskConical, label: 'Science', color: '#F0FDF4', border: '#BBF7D0', iconColor: '#22C55E' },
-  { Icon: Globe, label: 'Geography', color: '#FFFBEB', border: '#FDE68A', iconColor: '#F59E0B' },
-  { Icon: Laptop, label: 'Computing', color: '#F5F3FF', border: '#DDD6FE', iconColor: '#8B5CF6' },
+  { Icon: Calculator, label: 'Math',      color: '#EFF6FF', border: '#BFDBFE', darkColor: 'rgba(59,130,246,0.12)',  darkBorder: 'rgba(59,130,246,0.25)',  iconColor: '#3B82F6' },
+  { Icon: FlaskConical, label: 'Science', color: '#F0FDF4', border: '#BBF7D0', darkColor: 'rgba(34,197,94,0.12)',   darkBorder: 'rgba(34,197,94,0.25)',   iconColor: '#22C55E' },
+  { Icon: Globe, label: 'Geography',      color: '#FFFBEB', border: '#FDE68A', darkColor: 'rgba(245,158,11,0.12)', darkBorder: 'rgba(245,158,11,0.25)', iconColor: '#F59E0B' },
+  { Icon: Laptop, label: 'Computing',     color: '#F5F3FF', border: '#DDD6FE', darkColor: 'rgba(139,92,246,0.12)', darkBorder: 'rgba(139,92,246,0.25)', iconColor: '#8B5CF6' },
 ];
 
 export default function HomeScreen() {
   const router = useRouter();
+  const isDark = useColorScheme() === 'dark';
   const { profile } = useAuth();
   const { course, loading, error } = useFeaturedCourse();
   const { purchased } = useHasPurchased(course?.id);
@@ -102,7 +104,7 @@ export default function HomeScreen() {
           <View className="px-5">
             <View className="mb-3 flex-row items-center justify-between">
               <View className="flex-row items-center gap-1.5">
-                <Sparkles size={14} color={iconColors.primary} strokeWidth={2.5} />
+                <Sparkles size={14} color={isDark ? iconColors.secondary : iconColors.primary} strokeWidth={2.5} />
                 <Text className="text-base font-display uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
                   Featured
                 </Text>
@@ -144,7 +146,7 @@ export default function HomeScreen() {
         {/* Browse by subject */}
         <View className="mt-6 px-5">
           <View className="mb-3 flex-row items-center gap-1.5">
-            <BookOpen size={14} color={iconColors.structural} strokeWidth={2.5} />
+            <BookOpen size={14} color={isDark ? iconColors.muted : iconColors.structural} strokeWidth={2.5} />
             <Text className="text-base font-display uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
               Browse Topics
             </Text>
@@ -155,12 +157,12 @@ export default function HomeScreen() {
             contentContainerStyle={{ gap: 10, paddingRight: 20 }}
             className="mt-0"
           >
-            {SUBJECT_TILES.map(({ Icon, label, color, border, iconColor }) => (
+            {SUBJECT_TILES.map(({ Icon, label, color, border, darkColor, darkBorder, iconColor }) => (
               <Pressable
                 key={label}
                 onPress={() => router.push(href('/(tabs)/search'))}
                 className="flex-row items-center gap-1.5 rounded-2xl border px-3 py-2"
-                style={{ backgroundColor: color, borderColor: border }}
+                style={{ backgroundColor: isDark ? darkColor : color, borderColor: isDark ? darkBorder : border }}
               >
                 <Icon size={16} color={iconColor} strokeWidth={2.2} />
                 <Text className="text-xs font-sans-bold text-neutral-700 dark:text-neutral-200">{label}</Text>

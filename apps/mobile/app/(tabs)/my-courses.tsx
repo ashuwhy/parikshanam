@@ -60,7 +60,7 @@ export default function MyCoursesScreen() {
         )}
 
         {error ? (
-          <View className="mx-5 mt-4 rounded-2xl bg-red-50 px-4 py-3">
+          <View className="mx-5 mt-4 rounded-2xl bg-red-50 dark:bg-red-950 px-4 py-3">
             <Text className="text-sm font-sans-bold text-red-600">{error.message}</Text>
           </View>
         ) : null}

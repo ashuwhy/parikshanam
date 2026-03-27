@@ -1,7 +1,9 @@
 import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import { Pressable } from 'react-native';
-import { colors, iconColors } from '@/constants/Colors';
+
+import { useColorScheme } from '@/components/useColorScheme';
+import { colors, darkColors, iconColors } from '@/constants/Colors';
 
 type Props = {
   onPress?: () => void;
@@ -11,6 +13,7 @@ type Props = {
 
 export function BackButton({ onPress, variant = 'dark' }: Props) {
   const router = useRouter();
+  const isDark = useColorScheme() === 'dark';
 
   return (
     <Pressable
@@ -19,12 +22,14 @@ export function BackButton({ onPress, variant = 'dark' }: Props) {
       hitSlop={12}
       onPress={onPress ?? (() => router.back())}
       className={`h-9 w-9 items-center justify-center rounded-full ${
-        variant === 'dark' ? 'bg-black/30' : 'bg-white border border-ui-border'
+        variant === 'dark'
+          ? 'bg-black/30'
+          : 'bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-600'
       }`}
     >
       <ChevronLeft
         size={20}
-        color={variant === 'dark' ? iconColors.onBrand : colors.text.secondary}
+        color={variant === 'dark' ? iconColors.onBrand : isDark ? darkColors.text.secondary : colors.text.secondary}
         strokeWidth={2.5}
       />
     </Pressable>

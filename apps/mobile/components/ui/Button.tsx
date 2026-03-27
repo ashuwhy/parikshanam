@@ -27,12 +27,12 @@ export type ButtonProps = Omit<PressableProps, 'style'> & {
 const BAR_HEIGHT = 4;
 const RADIUS = 16;
 
-// Colors for the bottom shadow bar
-const BAR_COLOR: Record<Variant, string> = {
-  primary: brand.dark,
-  outline: colors.border.default,
-  ghost:   'transparent',
-};
+// Colors for the bottom shadow bar (dark-mode aware)
+function barColor(variant: Variant, isDark: boolean): string {
+  if (variant === 'primary') return brand.dark;
+  if (variant === 'outline') return isDark ? '#374151' : colors.border.default;
+  return 'transparent';
+}
 
 export function Button({
   title,
@@ -88,7 +88,7 @@ export function Button({
           left: 0,
           right: 0,
           height: BAR_HEIGHT + RADIUS, // extends up behind button so top of bar is hidden
-          backgroundColor: BAR_COLOR[variant],
+          backgroundColor: barColor(variant, isDark),
           borderBottomLeftRadius: RADIUS,
           borderBottomRightRadius: RADIUS,
         }}

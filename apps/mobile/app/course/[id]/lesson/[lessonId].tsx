@@ -57,7 +57,7 @@ export default function LessonScreen() {
 
   if (error || !lesson) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-ui-bg px-6">
+      <SafeAreaView className="flex-1 items-center justify-center bg-ui-bg dark:bg-neutral-900 px-6">
         <Text className="text-center font-sans-medium text-neutral-500">Lesson not found</Text>
         <Button title="Go Back" onPress={() => router.back()} className="mt-4" variant="outline" />
       </SafeAreaView>

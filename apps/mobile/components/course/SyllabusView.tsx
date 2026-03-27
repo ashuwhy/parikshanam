@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { BookOpen, ChevronDown, ChevronUp, HelpCircle, Lock, Play } from 'lucide-react-native';
 import { useSyllabus } from '@/hooks/useCourses';
+import { useColorScheme } from '@/components/useColorScheme';
 import { iconColors } from '@/constants/Colors';
 
 interface SyllabusViewProps {
@@ -13,6 +14,7 @@ interface SyllabusViewProps {
 
 export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPress }: SyllabusViewProps) {
   const { modules, loading, error } = useSyllabus(courseId);
+  const isDark = useColorScheme() === 'dark';
   const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({});
 
   if (loading) return null;
@@ -48,7 +50,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
   return (
     <View className="gap-3">
       <View className="flex-row items-center gap-1.5 mb-1">
-        <BookOpen size={14} color={iconColors.structural} strokeWidth={2.5} />
+        <BookOpen size={14} color={isDark ? iconColors.muted : iconColors.structural} strokeWidth={2.5} />
         <Text className="text-base font-display uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
           Syllabus
         </Text>

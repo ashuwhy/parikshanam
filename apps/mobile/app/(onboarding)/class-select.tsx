@@ -66,7 +66,7 @@ export default function ClassSelectScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg">
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
@@ -83,10 +83,10 @@ export default function ClassSelectScreen() {
 
           {/* Title */}
           <View className="px-5 pt-4 pb-6">
-            <Text className="text-3xl font-display-black tracking-tight text-neutral-900">
+            <Text className="text-3xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-100">
               Let's get you set up
             </Text>
-            <Text className="mt-1.5 text-base font-sans-medium text-neutral-500">
+            <Text className="mt-1.5 text-base font-sans-medium text-neutral-500 dark:text-neutral-400">
               Tell us a little about yourself to personalise your learning.
             </Text>
           </View>
@@ -94,7 +94,7 @@ export default function ClassSelectScreen() {
           {/* Form fields */}
           <View className="px-5 gap-4">
             <View>
-              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500">
+              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 Full Name *
               </Text>
               <TextInput
@@ -103,12 +103,12 @@ export default function ClassSelectScreen() {
                 placeholder="Your full name"
                 placeholderTextColor={iconColors.subtle}
                 autoCapitalize="words"
-                className="h-14 rounded-2xl border-2 border-ui-border bg-white px-4 text-base font-sans-medium text-neutral-900"
+                className="h-14 rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800 px-4 text-base font-sans-medium text-neutral-900 dark:text-neutral-100"
               />
             </View>
 
             <View>
-              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500">
+              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 Phone Number *
               </Text>
               <PhoneInput
@@ -124,7 +124,7 @@ export default function ClassSelectScreen() {
 
           {/* Class selector */}
           <View className="px-5 mt-8">
-            <Text className="mb-3 text-xs font-display uppercase tracking-wider text-neutral-500">
+            <Text className="mb-3 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
               Your Class *
             </Text>
             <View className="flex-row flex-wrap gap-3">
@@ -139,12 +139,12 @@ export default function ClassSelectScreen() {
                     className={`h-14 min-w-[76px] items-center justify-center rounded-2xl border-2 px-5 ${
                       active
                         ? 'border-brand-primary bg-brand-primary/10'
-                        : 'border-ui-border bg-white'
+                        : 'border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800'
                     }`}
                   >
                     <Text
                       className={`text-base font-display-black ${
-                        active ? 'text-brand-dark' : 'text-neutral-700'
+                        active ? 'text-brand-dark dark:text-brand-secondary' : 'text-neutral-700 dark:text-neutral-200'
                       }`}
                     >
                       {cl.label}
