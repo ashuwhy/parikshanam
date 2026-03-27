@@ -6,7 +6,20 @@ import { createClient } from '@/lib/supabase/client'
 interface VideoUploadProps {
   courseId: string
   lessonId: string
-  onUploaded: (path: string) => void
+  onUploaded: (path: string, durationMinutes: number) => void
+}
+
+function readVideoDuration(file: File): Promise<number> {
+  return new Promise((resolve) => {
+    const video = document.createElement('video')
+    video.preload = 'metadata'
+    video.onloadedmetadata = () => {
+      URL.revokeObjectURL(video.src)
+      resolve(Math.max(1, Math.round(video.duration / 60)))
+    }
+    video.onerror = () => resolve(1)  // fallback — at least 1 min
+    video.src = URL.createObjectURL(file)
+  })
 }
 
 export function VideoUpload({ courseId, lessonId, onUploaded }: VideoUploadProps) {
@@ -27,6 +40,9 @@ export function VideoUpload({ courseId, lessonId, onUploaded }: VideoUploadProps
 
     setError(null)
     setProgress(0)
+
+    // Read duration from file metadata before uploading
+    const durationMinutes = await readVideoDuration(file)
 
     const res = await fetch('/api/upload-url', {
       method: 'POST',
@@ -54,11 +70,11 @@ export function VideoUpload({ courseId, lessonId, onUploaded }: VideoUploadProps
     await fetch(`/api/lessons/${lessonId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ video_storage_path: path }),
+      body: JSON.stringify({ video_storage_path: path, duration_minutes: durationMinutes }),
     })
 
     setProgress(null)
-    onUploaded(path)
+    onUploaded(path, durationMinutes)
   }
 
   return (

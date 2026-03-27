@@ -18,10 +18,16 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
   async function updateCourse(data: CourseFormData) {
     'use server'
     const admin = createAdminClient()
+    // thumbnail_url is managed separately via ThumbnailUpload — never overwrite it here
     await admin.from('courses').update({
-      ...data,
+      title: data.title,
+      subtitle: data.subtitle ?? null,
+      description: data.description ?? null,
       price: data.price * 100,
       mrp: data.mrp ? data.mrp * 100 : null,
+      olympiad_type_id: data.olympiad_type_id ?? null,
+      min_class_id: data.min_class_id ?? null,
+      max_class_id: data.max_class_id ?? null,
     }).eq('id', id)
     redirect(`/courses/${id}`)
   }
@@ -32,7 +38,16 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
         Edit: {course.title}
       </h1>
       <CourseForm
-        defaultValues={{ ...course, price: course.price / 100, mrp: course.mrp ? course.mrp / 100 : undefined }}
+        defaultValues={{
+          title: course.title,
+          subtitle: course.subtitle ?? undefined,
+          description: course.description ?? undefined,
+          price: course.price / 100,
+          mrp: course.mrp ? course.mrp / 100 : undefined,
+          olympiad_type_id: course.olympiad_type_id ?? undefined,
+          min_class_id: course.min_class_id ?? undefined,
+          max_class_id: course.max_class_id ?? undefined,
+        }}
         olympiadTypes={olympiadTypes ?? []}
         classLevels={classLevels ?? []}
         onSubmit={updateCourse}

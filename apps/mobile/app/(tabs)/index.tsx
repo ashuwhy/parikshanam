@@ -13,7 +13,7 @@ import { ScrollView, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Avatar } from '@/components/ui/Avatar';
-import { CourseCard } from '@/components/course/CourseCard';
+import { FeaturedCourseCard } from '@/components/course/FeaturedCourseCard';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useAuth } from '@/hooks/useAuth';
 import { useFeaturedCourse } from '@/hooks/useCourses';
@@ -110,9 +110,8 @@ export default function HomeScreen() {
                 <Text className="text-sm font-sans-bold text-brand-primary">See all →</Text>
               </Pressable>
             </View>
-            <CourseCard
+            <FeaturedCourseCard
               course={course}
-              onPress={() => router.push(href(`/course/${course.id}`))}
               purchased={purchased}
             />
           </View>

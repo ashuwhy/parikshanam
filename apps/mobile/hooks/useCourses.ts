@@ -69,7 +69,7 @@ export function useSyllabus(courseId: string | undefined) {
         .from("modules")
         .select(`
           id, title, order_index,
-          lessons ( id, title, duration_minutes, is_preview, order_index ),
+          lessons ( id, title, duration_minutes, is_preview, order_index, thumbnail_url ),
           quizzes ( id, title, order_index )
         `)
         .eq("course_id", courseId!)

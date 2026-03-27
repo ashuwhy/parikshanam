@@ -65,7 +65,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
               onPress={() => toggleModule(module.id)}
             >
               <View className="flex-1 mr-3">
-                <Text className="text-xs font-display uppercase tracking-wider text-neutral-400">
+                <Text className="text-[10px] font-display uppercase tracking-widest text-neutral-300 dark:text-neutral-600">
                   Module {mIndex + 1}
                 </Text>
                 <Text className="text-sm font-display-extra text-neutral-900 dark:text-neutral-100 mt-0.5">

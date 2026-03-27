@@ -30,7 +30,13 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!user) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    const redirectResponse = NextResponse.redirect(new URL('/login', request.url))
+
+    supabaseResponse.headers.getSetCookie().forEach((cookieStr) => {
+      redirectResponse.headers.append('Set-Cookie', cookieStr)
+    })
+
+    return redirectResponse
   }
 
   // Check admin role
@@ -41,7 +47,13 @@ export async function middleware(request: NextRequest) {
     .single()
 
   if (profile?.role !== 'admin') {
-    return NextResponse.redirect(new URL('/login', request.url))
+    const redirectResponse = NextResponse.redirect(new URL('/login', request.url))
+
+    supabaseResponse.headers.getSetCookie().forEach((cookieStr) => {
+      redirectResponse.headers.append('Set-Cookie', cookieStr)
+    })
+
+    return redirectResponse
   }
 
   return supabaseResponse

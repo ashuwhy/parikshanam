@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { LessonThumbnailUpload } from './LessonThumbnailUpload'
 import { VideoUpload } from './VideoUpload'
 
 interface Lesson {
@@ -11,6 +12,7 @@ interface Lesson {
   is_preview: boolean
   video_storage_path: string | null
   content_text: string | null
+  thumbnail_url: string | null
 }
 
 interface Module {
@@ -28,6 +30,7 @@ interface LessonEditorProps {
 export function LessonEditor({ courseId, modules: initialModules }: LessonEditorProps) {
   const [modules, setModules] = useState(initialModules)
   const [error, setError] = useState<string | null>(null)
+  const [replacingVideo, setReplacingVideo] = useState<Set<string>>(new Set())
 
   async function addModule() {
     const title = prompt('Module title:')
@@ -77,29 +80,67 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
           <div className="space-y-2 ml-4">
             {mod.lessons.map((lesson) => (
               <div key={lesson.id} className="border border-ui-border rounded-xl p-3 bg-background">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{lesson.title}</span>
-                  <span className="text-xs text-gray-400">{lesson.duration_minutes}min</span>
-                </div>
-                {!lesson.video_storage_path && (
-                  <div className="mt-2">
-                    <VideoUpload
-                      courseId={courseId}
-                      lessonId={lesson.id}
-                      onUploaded={(path) => {
-                        setModules(modules.map((m) => ({
-                          ...m,
-                          lessons: m.lessons.map((l) =>
-                            l.id === lesson.id ? { ...l, video_storage_path: path } : l,
-                          ),
-                        })))
-                      }}
-                    />
+                <div className="flex items-start gap-3">
+                  {/* Thumbnail */}
+                  <LessonThumbnailUpload
+                    courseId={courseId}
+                    lessonId={lesson.id}
+                    currentUrl={lesson.thumbnail_url ?? null}
+                    onUploaded={(url) => {
+                      setModules(modules.map((m) => ({
+                        ...m,
+                        lessons: m.lessons.map((l) =>
+                          l.id === lesson.id ? { ...l, thumbnail_url: url } : l,
+                        ),
+                      })))
+                    }}
+                  />
+
+                  {/* Title + duration + video */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-medium truncate">{lesson.title}</span>
+                      <span className="text-xs text-gray-400 shrink-0">
+                        {lesson.duration_minutes > 0 ? `${lesson.duration_minutes} min` : '—'}
+                      </span>
+                    </div>
+
+                    {!lesson.video_storage_path || replacingVideo.has(lesson.id) ? (
+                      <div className="mt-2">
+                        <VideoUpload
+                          courseId={courseId}
+                          lessonId={lesson.id}
+                          onUploaded={(path, durationMinutes) => {
+                            setReplacingVideo((prev) => {
+                              const next = new Set(prev)
+                              next.delete(lesson.id)
+                              return next
+                            })
+                            setModules(modules.map((m) => ({
+                              ...m,
+                              lessons: m.lessons.map((l) =>
+                                l.id === lesson.id
+                                  ? { ...l, video_storage_path: path, duration_minutes: durationMinutes }
+                                  : l,
+                              ),
+                            })))
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-xs text-green-600">✓ Video uploaded</p>
+                        <button
+                          type="button"
+                          onClick={() => setReplacingVideo((prev) => new Set([...prev, lesson.id]))}
+                          className="text-xs text-brand-primary hover:underline"
+                        >
+                          Replace
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
-                {lesson.video_storage_path && (
-                  <p className="text-xs text-green-600 mt-1">✓ Video uploaded</p>
-                )}
+                </div>
               </div>
             ))}
           </div>

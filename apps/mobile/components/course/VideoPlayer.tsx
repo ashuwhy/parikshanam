@@ -1,4 +1,4 @@
-import { useEvent } from 'expo';
+import { useEvent, useEventListener } from 'expo';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { AlertCircle, Loader } from 'lucide-react-native';
 import { useEffect, useRef } from 'react';
@@ -22,14 +22,13 @@ export function VideoPlayer({ url, onEnded }: Props) {
   const prevUrl = useRef<string | null>(null);
   useEffect(() => {
     if (url && url !== prevUrl.current) {
-      player.replace(url);
-      player.play();
+      player.replaceAsync(url).then(() => player.play());
       prevUrl.current = url;
     }
   }, [url, player]);
 
   // Fire onEnded callback when video reaches the end
-  useEvent(player, 'playToEnd', () => {
+  useEventListener(player, 'playToEnd', () => {
     onEnded?.();
   });
 
@@ -44,8 +43,6 @@ export function VideoPlayer({ url, onEnded }: Props) {
           player={player}
           style={{ width: '100%', height: '100%' }}
           contentFit="contain"
-          allowsFullscreen
-          allowsPictureInPicture
           nativeControls
         />
       ) : null}

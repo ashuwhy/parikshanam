@@ -1,5 +1,6 @@
+import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { CheckCircle, VideoOff } from 'lucide-react-native';
+import { CheckCircle, Clock, VideoOff } from 'lucide-react-native';
 import { useCallback, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -74,6 +75,17 @@ export default function LessonScreen() {
           url={urlLoading ? null : (videoUrl ?? null)}
           onEnded={onVideoEnded}
         />
+      ) : lesson.thumbnail_url ? (
+        <View className="w-full bg-neutral-950" style={{ aspectRatio: 16 / 9 }}>
+          <Image
+            source={{ uri: lesson.thumbnail_url }}
+            style={{ width: '100%', height: '100%' }}
+            contentFit="cover"
+          />
+          <View className="absolute inset-0 items-center justify-center bg-black/30">
+            <VideoOff size={32} color="rgba(255,255,255,0.7)" strokeWidth={1.5} />
+          </View>
+        </View>
       ) : (
         <View className="w-full items-center justify-center bg-neutral-900" style={{ aspectRatio: 16 / 9 }}>
           <VideoOff size={40} color={iconColors.muted} strokeWidth={1.5} />
@@ -116,6 +128,14 @@ export default function LessonScreen() {
             <Text className="text-xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">
               {lesson.title}
             </Text>
+            {lesson.duration_minutes > 0 && (
+              <View className="mt-2 flex-row items-center gap-1.5">
+                <Clock size={12} color={iconColors.muted} strokeWidth={2.5} />
+                <Text className="text-xs font-sans-medium text-neutral-400 dark:text-neutral-500">
+                  {lesson.duration_minutes} min
+                </Text>
+              </View>
+            )}
 
             {lesson.content_text ? (
               <Text className="mt-4 text-base font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300">

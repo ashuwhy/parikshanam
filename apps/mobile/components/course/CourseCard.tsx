@@ -1,28 +1,15 @@
 import { Image } from 'expo-image';
-import { BookOpen } from 'lucide-react-native';
+import { BookOpen, CheckCircle } from 'lucide-react-native';
 import { useRef } from 'react';
 import { Animated, Pressable, Text, View } from 'react-native';
 
+import { CourseBadge } from '@/components/course/CourseBadge';
+import { Button } from '@/components/ui/Button';
 import { iconColors } from '@/constants/Colors';
+import { useBuyCourse } from '@/hooks/useBuyCourse';
+import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
-
-function formatRupeePaise(paise: number) {
-  return `₹${(paise / 100).toFixed(0)}`;
-}
-
-function discountPct(price: number, mrp: number) {
-  return Math.round(((mrp - price) / mrp) * 100);
-}
-
-function classRange(course: Course): string | null {
-  const min = course.min_class?.label;
-  const max = course.max_class?.label;
-  if (min && max && min !== max) return `${min}–${max}`;
-  if (min) return min;
-  if (max) return max;
-  return null;
-}
 
 type Props = {
   course: Course;
@@ -31,18 +18,17 @@ type Props = {
 };
 
 export function CourseCard({ course, onPress, purchased }: Props) {
+  const { buy, buying } = useBuyCourse(course);
   const olympiad = olympiadLabel(course);
+  const cls = classRange(course);
   const hasDiscount = course.mrp != null && course.mrp > course.price;
-  const classLabel = classRange(course);
+  const metaLine = [olympiad, cls].filter(Boolean).join(' • ');
 
   const scale = useRef(new Animated.Value(1)).current;
-
-  const onPressIn = () => {
+  const onPressIn = () =>
     Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
-  };
-  const onPressOut = () => {
+  const onPressOut = () =>
     Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 6 }).start();
-  };
 
   return (
     <Animated.View style={{ transform: [{ scale }], marginBottom: 16 }}>
@@ -59,97 +45,88 @@ export function CourseCard({ course, onPress, purchased }: Props) {
             <>
               <Image
                 source={{ uri: course.thumbnail_url }}
-                style={{ height: 160, width: '100%' }}
+                style={{ height: 156, width: '100%' }}
                 contentFit="cover"
               />
-              <View className="absolute bottom-0 left-0 right-0 h-16 bg-black/20" />
+              <View className="absolute bottom-0 left-0 right-0 h-12 bg-black/20" />
             </>
           ) : (
-            <View className="h-40 w-full items-center justify-center bg-brand-primary/10 dark:bg-brand-primary/5">
-              <BookOpen size={40} color={iconColors.primary} strokeWidth={1.5} />
-              <Text className="mt-2 text-xs font-display uppercase tracking-wider text-brand-primary/60">
-                Course
-              </Text>
+            <View className="h-36 w-full items-center justify-center bg-brand-primary/8 dark:bg-brand-primary/5">
+              <BookOpen size={36} color={iconColors.primary} strokeWidth={1.5} />
             </View>
           )}
 
-          {/* Overlaid badges */}
-          <View className="absolute left-3 top-3 flex-row gap-2">
-            {olympiad ? (
-              <View className="flex-row items-center rounded-full bg-status-warning px-3 py-1">
-                <Text numberOfLines={1} className="text-xs font-display uppercase tracking-wider text-brand-dark">
-                  {olympiad}
-                </Text>
-              </View>
-            ) : null}
-            {classLabel ? (
-              <View className="flex-row items-center rounded-full bg-white/90 dark:bg-neutral-800/90 px-3 py-1">
-                <Text numberOfLines={1} className="text-xs font-sans-bold text-neutral-700 dark:text-neutral-300">
-                  {classLabel}
-                </Text>
-              </View>
-            ) : null}
-          </View>
-
-          {/* Purchased badge */}
-          {purchased && (
-            <View className="absolute right-3 top-3 flex-row items-center rounded-full bg-brand-primary px-3 py-1">
-              <Text numberOfLines={1} className="text-xs font-display uppercase tracking-wider text-white">
-                ✓ Enrolled
-              </Text>
+          {/* Single olympiad badge — top-left */}
+          {olympiad ? (
+            <View className="absolute left-3 top-3">
+              <CourseBadge label={olympiad} variant="olympiad" />
             </View>
-          )}
+          ) : null}
 
-          {/* Discount badge */}
-          {hasDiscount && (
-            <View className="absolute right-3 bottom-3 rounded-xl bg-red-500 px-2.5 py-1">
-              <Text className="text-xs font-display text-white">
-                -{discountPct(course.price, course.mrp!)}%
-              </Text>
+          {/* Enrolled — top-right */}
+          {purchased ? (
+            <View className="absolute right-3 top-3">
+              <CourseBadge
+                label="Enrolled"
+                variant="enrolled"
+                className="bg-white/90 dark:bg-neutral-800/90"
+                textClassName="text-green-700 dark:text-green-300"
+                icon={<CheckCircle size={10} color="#16A34A" strokeWidth={2.5} />}
+              />
             </View>
-          )}
+          ) : null}
         </View>
 
         {/* Content */}
-        <View className="p-5">
-          <Text className="text-base font-display-extra leading-tight text-neutral-900 dark:text-neutral-100" numberOfLines={2}>
-            {course.title}
-          </Text>
-
-          {course.subtitle ? (
-            <Text className="mt-1 text-sm font-sans-medium leading-relaxed text-neutral-500 dark:text-neutral-400" numberOfLines={2}>
-              {course.subtitle}
+        <View className="px-4 pt-3 pb-4">
+          {/* Meta line */}
+          {metaLine ? (
+            <Text className="mb-1.5 text-xs font-display uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+              {metaLine}
             </Text>
           ) : null}
 
-          {/* Price row */}
-          <View className="mt-3 flex-row items-center gap-3">
+          <Text
+            className="text-base font-display-extra leading-snug text-neutral-900 dark:text-neutral-100"
+            numberOfLines={2}
+          >
+            {course.title}
+          </Text>
+
+          {/* Price */}
+          <View className="mt-2.5 flex-row items-center gap-2">
             <Text className="text-lg font-display-black text-brand-primary">
-              {formatRupeePaise(course.price)}
+              {formatPrice(course.price)}
             </Text>
             {hasDiscount && (
-              <Text className="text-sm font-sans-medium text-neutral-400 line-through">
-                {formatRupeePaise(course.mrp!)}
-              </Text>
-            )}
-            {hasDiscount && (
-              <View className="rounded-full bg-green-100 dark:bg-green-900 px-2 py-0.5">
-                <Text className="text-xs font-display text-green-700 dark:text-green-200">
-                  Save {formatRupeePaise(course.mrp! - course.price)}
+              <>
+                <Text className="text-sm font-sans-medium text-neutral-400 line-through">
+                  {formatPrice(course.mrp!)}
                 </Text>
-              </View>
+                <Text className="text-xs font-display-black text-green-600 dark:text-green-400">
+                  -{discountPercent(course.price, course.mrp!)}%
+                </Text>
+              </>
             )}
           </View>
 
-          {/* CTA hint */}
-          <View className="mt-3 flex-row items-center justify-between">
-            <Text className="text-xs font-display uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-              {course.total_lessons ? `${course.total_lessons} lessons` : 'View course'}
-            </Text>
-            <Text className="text-xs font-display-black text-brand-primary dark:text-brand-secondary">
-              View →
-            </Text>
-          </View>
+          {/* CTA */}
+          {purchased ? (
+            <View className="mt-3 flex-row items-center gap-1.5">
+              <CheckCircle size={13} color="#16A34A" strokeWidth={2.5} />
+              <Text className="text-xs font-display-black text-green-600 dark:text-green-400">
+                Enrolled — tap to continue
+              </Text>
+            </View>
+          ) : (
+            <Button
+              title={`Enroll — ${formatPrice(course.price)}`}
+              variant="primary"
+              className="mt-3 py-3"
+              loading={buying}
+              onPress={() => void buy()}
+            />
+          )}
         </View>
       </Pressable>
     </Animated.View>

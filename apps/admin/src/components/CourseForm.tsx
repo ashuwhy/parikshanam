@@ -10,7 +10,6 @@ const schema = z.object({
   description: z.string().optional(),
   price: z.coerce.number().min(0),
   mrp: z.coerce.number().min(0).optional(),
-  thumbnail_url: z.string().url().optional().or(z.literal('')),
   olympiad_type_id: z.string().optional(),
   min_class_id: z.string().optional(),
   max_class_id: z.string().optional(),
@@ -84,11 +83,6 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-1">Thumbnail URL</label>
-        <input {...register('thumbnail_url')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" placeholder="https://..." />
       </div>
 
       <button

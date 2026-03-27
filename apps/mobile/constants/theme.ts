@@ -478,7 +478,7 @@ export function getColor<K extends keyof typeof colors>(
   isDark: boolean = false
 ): typeof colors[K] {
   if (isDark && darkColors[colorKey]) {
-    return darkColors[colorKey] as typeof colors[K];
+    return darkColors[colorKey] as unknown as typeof colors[K];
   }
   return colors[colorKey];
 }

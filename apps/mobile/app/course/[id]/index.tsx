@@ -1,27 +1,28 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { BookOpen, CheckCircle, Clock, Star } from 'lucide-react-native';
 import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
+import { CourseBadge } from '@/components/course/CourseBadge';
 import { CourseHero } from '@/components/course/CourseHero';
 import { SyllabusView } from '@/components/course/SyllabusView';
 import { VideoPlayer } from '@/components/course/VideoPlayer';
 import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { iconColors } from '@/constants/Colors';
 import { useAuth } from '@/hooks/useAuth';
 import { useCourseById, useSyllabus } from '@/hooks/useCourses';
 import { useHasPurchased, useUserProgress } from '@/hooks/usePurchases';
 import { useStorageUrl } from '@/hooks/useStorageUrl';
 import { href } from '@/lib/href';
+import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
 import { queryClient } from '@/lib/queryClient';
 import { openRazorpayCheckout } from '@/lib/razorpay';
 import { supabase } from '@/lib/supabase';
-
-function formatRupeePaise(paise: number) {
-  return `₹${(paise / 100).toFixed(0)}`;
-}
+import { olympiadLabel } from '@/types';
 
 export default function CourseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -34,12 +35,12 @@ export default function CourseDetailScreen() {
   const { url: introVideoUrl, loading: introUrlLoading } = useStorageUrl(course?.intro_video_path);
   const insets = useSafeAreaInsets();
   const [buying, setBuying] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
 
   const keyId = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID ?? '';
 
   const onBuy = async () => {
     if (!session?.user || !course) {
-      Toast.show({ type: 'error', text1: 'Sign in to purchase' });
       router.replace(href('/(auth)/welcome'));
       return;
     }
@@ -53,16 +54,11 @@ export default function CourseDetailScreen() {
       order_id: string;
       amount: number;
       currency: string;
-    }>('create-razorpay-order', {
-      body: { course_id: course.id },
-    });
+    }>('create-razorpay-order', { body: { course_id: course.id } });
     setBuying(false);
 
     if (fnError || !fnData?.order_id) {
-      Toast.show({
-        type: 'error',
-        text1: fnError?.message ?? 'Could not start payment',
-      });
+      Toast.show({ type: 'error', text1: fnError?.message ?? 'Could not start payment' });
       return;
     }
 
@@ -97,22 +93,18 @@ export default function CourseDetailScreen() {
       await queryClient.invalidateQueries({ queryKey: ['purchases', session.user.id] });
       await refreshPurchase();
 
-      // Auto redirect to first lesson after purchase if available
       if (modules.length > 0 && modules[0].lessons.length > 0) {
         router.push(href(`/course/${id}/lesson/${modules[0].lessons[0].id}`));
       }
     } catch (e: unknown) {
       const err = e as { description?: string; code?: string };
-      Toast.show({
-        type: 'error',
-        text1: err?.description ?? err?.code ?? 'Payment failed',
-      });
+      if (err?.code !== 'PAYMENT_CANCELLED') {
+        Toast.show({ type: 'error', text1: err?.description ?? err?.code ?? 'Payment failed' });
+      }
     }
   };
 
-  if (loading || pLoading) {
-    return <LoadingScreen />;
-  }
+  if (loading || pLoading) return <LoadingScreen />;
 
   if (error || !course) {
     return (
@@ -124,65 +116,122 @@ export default function CourseDetailScreen() {
   }
 
   const hasDiscount = course.mrp != null && course.mrp > course.price;
-  const discountPct = hasDiscount ? Math.round(((course.mrp! - course.price) / course.mrp!) * 100) : 0;
+  const olympiad = olympiadLabel(course);
+  const cls = classRange(course);
+  const metaLine = [olympiad, cls].filter(Boolean).join(' • ');
+  const n = course.total_lessons;
 
   return (
     <View className="flex-1 bg-ui-bg dark:bg-neutral-900">
-      <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
+
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Hero: 16:9 video or thumbnail, edge-to-edge */}
         {course.intro_video_path ? (
-          <View className="relative bg-neutral-950">
-            <View style={{ paddingTop: insets.top }}>
-              <VideoPlayer url={introUrlLoading ? null : introVideoUrl} />
-            </View>
-            <View style={{ position: 'absolute', top: insets.top + 10, left: 16 }}>
-              <BackButton variant="dark" />
-            </View>
-          </View>
+          <VideoPlayer url={introUrlLoading ? null : introVideoUrl} />
         ) : (
           <CourseHero course={course} />
         )}
 
+        {/* Content sheet */}
         <View className="rounded-t-3xl bg-ui-bg dark:bg-neutral-900 px-5 pt-6">
-          {/* Title */}
-          <Text className="text-2xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">
-            {course.title}
-          </Text>
-          {course.subtitle ? (
-            <Text className="mt-1.5 text-base font-sans-medium text-neutral-500 dark:text-neutral-400">
-              {course.subtitle}
-            </Text>
-          ) : null}
 
-          {/* Price row */}
-          <View className="mt-4 flex-row items-center gap-3">
-            <Text className="text-2xl font-display-black text-brand-primary">
-              {formatRupeePaise(course.price)}
-            </Text>
-            {hasDiscount ? (
-              <>
-                <Text className="text-base font-sans-medium text-neutral-400 line-through">
-                  {formatRupeePaise(course.mrp!)}
-                </Text>
-                <View className="rounded-full bg-red-100 dark:bg-red-900/40 px-2.5 py-0.5">
-                  <Text className="text-xs font-display-black text-red-600 dark:text-red-400">
-                    {discountPct}% off
-                  </Text>
-                </View>
-              </>
+          {/* Meta + status badge */}
+          <View className="flex-row items-center justify-between">
+            {metaLine ? (
+              <Text className="text-xs font-display uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+                {metaLine}
+              </Text>
+            ) : (
+              <View />
+            )}
+            {purchased ? (
+              <CourseBadge
+                label="Enrolled"
+                variant="enrolled"
+                icon={<CheckCircle size={10} color="#16A34A" strokeWidth={2.5} />}
+              />
+            ) : course.is_featured ? (
+              <CourseBadge
+                label="Featured"
+                variant="featured"
+                icon={<Star size={9} color="#fff" strokeWidth={2.5} />}
+              />
             ) : null}
           </View>
 
-          {/* Description */}
+          {/* Title */}
+          <Text className="mt-2 text-2xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">
+            {course.title}
+          </Text>
+
+          {/* Stats row */}
+          {(n > 0 || course.duration_hours > 0) && (
+            <View className="mt-3 flex-row items-center gap-4">
+              {n > 0 && (
+                <View className="flex-row items-center gap-1.5">
+                  <BookOpen size={12} color={iconColors.muted} strokeWidth={2.5} />
+                  <Text className="text-xs font-sans-medium text-neutral-400 dark:text-neutral-500">
+                    {n} {n === 1 ? 'lesson' : 'lessons'}
+                  </Text>
+                </View>
+              )}
+              {course.duration_hours > 0 && (
+                <View className="flex-row items-center gap-1.5">
+                  <Clock size={12} color={iconColors.muted} strokeWidth={2.5} />
+                  <Text className="text-xs font-sans-medium text-neutral-400 dark:text-neutral-500">
+                    {course.duration_hours}h
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+
+          {/* Price */}
+          <View className="mt-5 flex-row items-center gap-3">
+            <Text className="text-3xl font-display-black text-brand-primary">
+              {formatPrice(course.price)}
+            </Text>
+            {hasDiscount && (
+              <>
+                <Text className="text-base font-sans-medium text-neutral-400 line-through">
+                  {formatPrice(course.mrp!)}
+                </Text>
+                <View className="rounded-full border border-green-200 bg-green-50 px-2.5 py-0.5 dark:border-green-800 dark:bg-green-900/40">
+                  <Text className="text-xs font-display-black text-green-700 dark:text-green-300">
+                    {discountPercent(course.price, course.mrp!)}% off
+                  </Text>
+                </View>
+              </>
+            )}
+          </View>
+
+          {/* Description — borderless, subtle bg */}
           {course.description ? (
-            <View className="mt-5 rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700 p-4">
-              <Text className="text-sm font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300">
+            <View className="mt-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 p-4">
+              <Text
+                className="text-sm font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300"
+                numberOfLines={descExpanded ? undefined : 3}
+              >
                 {course.description}
               </Text>
+              <Pressable
+                onPress={() => setDescExpanded((v) => !v)}
+                style={{ alignSelf: 'flex-start', marginTop: 8 }}
+                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+              >
+                <Text className="text-xs font-display-black text-brand-primary">
+                  {descExpanded ? 'Show less ↑' : 'Read more ↓'}
+                </Text>
+              </Pressable>
             </View>
           ) : null}
 
-          {/* Syllabus */}
-          <View className="mt-5">
+          {/* Syllabus — SyllabusView has its own "Syllabus" header */}
+          <View className="mt-6">
             <SyllabusView
               courseId={course.id}
               hasPurchased={purchased}
@@ -190,31 +239,47 @@ export default function CourseDetailScreen() {
               onQuizPress={(quizId) => router.push(href(`/course/${course.id}/quiz/${quizId}`))}
             />
           </View>
+
         </View>
       </ScrollView>
 
-      <SafeAreaView edges={['bottom']} className="absolute bottom-0 left-0 right-0 border-t border-neutral-100 bg-white px-4 pt-3 dark:border-neutral-800 dark:bg-neutral-950">
+      {/* Floating back button — overlays the hero */}
+      <View
+        className="absolute left-4 z-10"
+        style={{ top: insets.top + 10 }}
+        pointerEvents="box-none"
+      >
+        <BackButton variant="dark" />
+      </View>
+
+      {/* Sticky bottom CTA with top shadow */}
+      <SafeAreaView
+        edges={['bottom']}
+        className="absolute bottom-0 left-0 right-0 bg-white dark:bg-neutral-950 px-4 pt-3"
+        style={{
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: -3 },
+          shadowOpacity: 0.07,
+          shadowRadius: 10,
+          elevation: 16,
+        }}
+      >
         <Button
-          title={purchased ? 'Continue Learning' : `Buy Course — ${formatRupeePaise(course.price)}`}
+          title={purchased ? 'Continue Learning' : `Buy Course — ${formatPrice(course.price)}`}
           loading={!purchased && buying}
           onPress={() => {
             if (purchased) {
-              // Find first uncompleted lesson or quiz
-              let nextItem: { type: 'lesson' | 'quiz', id: string } | null = null;
-
+              let nextItem: { type: 'lesson' | 'quiz'; id: string } | null = null;
               for (const mod of modules) {
                 for (const lesson of mod.lessons) {
-                  const isDone = progress.some(p => p.lesson_id === lesson.id);
-                  if (!isDone) {
+                  if (!progress.some((p) => p.lesson_id === lesson.id)) {
                     nextItem = { type: 'lesson', id: lesson.id };
                     break;
                   }
                 }
                 if (nextItem) break;
-
                 for (const quiz of mod.quizzes) {
-                  const isDone = progress.some(p => p.quiz_id === quiz.id);
-                  if (!isDone) {
+                  if (!progress.some((p) => p.quiz_id === quiz.id)) {
                     nextItem = { type: 'quiz', id: quiz.id };
                     break;
                   }
@@ -225,7 +290,6 @@ export default function CourseDetailScreen() {
               if (nextItem) {
                 router.push(href(`/course/${course.id}/${nextItem.type}/${nextItem.id}`));
               } else if (modules.length > 0 && modules[0].lessons.length > 0) {
-                // All complete? Just go to the first one again or show finished
                 router.push(href(`/course/${course.id}/lesson/${modules[0].lessons[0].id}`));
               } else {
                 Toast.show({ type: 'info', text1: 'No content available yet.' });
@@ -236,6 +300,7 @@ export default function CourseDetailScreen() {
           }}
         />
       </SafeAreaView>
+
     </View>
   );
 }
