@@ -52,3 +52,8 @@ coverage
 # Git worktrees
 .worktrees/
 commands.txt
+
+# Native build artifacts
+*.apk
+*.aab
+*.ipa

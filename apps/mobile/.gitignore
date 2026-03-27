@@ -40,3 +40,8 @@ yarn-error.*
 /ios
 /android
 parikshanam-28c51ecada9e.json
+
+# Build artifacts
+*.apk
+*.aab
+*.ipa
