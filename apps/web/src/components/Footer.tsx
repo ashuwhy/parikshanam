@@ -35,8 +35,8 @@ export default function Footer() {
             Support
           </h3>
           <nav className="flex flex-col gap-2">
-            <Link href="#" className="text-sm text-[#E5E7EB] hover:text-[#E8720C] transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-sm text-[#E5E7EB] hover:text-[#E8720C] transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="text-sm text-[#E5E7EB] hover:text-[#E8720C] transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/privacy-policy" className="text-sm text-[#E5E7EB] hover:text-[#E8720C] transition-colors">Privacy Policy</Link>
             <Link href="#" className="text-sm text-[#E5E7EB] hover:text-[#E8720C] transition-colors">Contact</Link>
           </nav>
         </div>
