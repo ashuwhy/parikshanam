@@ -4,9 +4,11 @@ import { Pressable, ScrollView, Text, TextInput, View, KeyboardAvoidingView, Pla
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
+import { AppFooter } from '@/components/ui/AppFooter';
 import { AvatarCircle } from '@/components/ui/Avatar';
 import { BackButton } from '@/components/ui/BackButton';
 import { isValidIndianPhone, PhoneInput } from '@/components/ui/PhoneInput';
+import { iconColors } from '@/constants/Colors';
 import { useAuth } from '@/hooks/useAuth';
 import { useMyPurchases, useUserProgress } from '@/hooks/usePurchases';
 import { useColorScheme } from '@/components/useColorScheme';
@@ -98,7 +100,7 @@ export default function ProfileScreen() {
 
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{ paddingBottom: 16 }}
         showsVerticalScrollIndicator={false}
       >
 
@@ -115,7 +117,7 @@ export default function ProfileScreen() {
                     value={name}
                     onChangeText={setName}
                     placeholder="Your name"
-                    placeholderTextColor="#9CA3AF"
+                    placeholderTextColor={iconColors.subtle}
                     autoFocus
                     autoCapitalize="words"
                     className="rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 text-center"
@@ -195,6 +197,7 @@ export default function ProfileScreen() {
         </Pressable>
 
       </ScrollView>
+      <AppFooter />
     </SafeAreaView>
   );
 }

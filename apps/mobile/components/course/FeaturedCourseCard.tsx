@@ -51,9 +51,10 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
   const prevVideoUrl = useRef<string | null>(null);
   useEffect(() => {
     if (activeVideoUrl && activeVideoUrl !== prevVideoUrl.current) {
-      player.replace(activeVideoUrl);
-      player.muted = muted;
-      player.play();
+      void player.replaceAsync(activeVideoUrl).then(() => {
+        player.muted = muted;
+        player.play();
+      });
       prevVideoUrl.current = activeVideoUrl;
     } else if (!activeVideoUrl && prevVideoUrl.current) {
       player.pause();

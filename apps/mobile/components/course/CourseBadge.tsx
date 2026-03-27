@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
 import { cn } from '@/lib/cn';
+import { brand, iconColors } from '@/constants/Colors';
 import { classRange, discountPercent } from '@/lib/courseUtils';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
@@ -78,7 +79,7 @@ export function CourseBadges({ course, purchased, overlay, className }: CourseBa
         <CourseBadge
           label="Featured"
           variant="featured"
-          icon={<Star size={9} color="#fff" strokeWidth={2.5} />}
+          icon={<Star size={9} color={iconColors.onBrand} strokeWidth={2.5} />}
         />
       ) : null}
 
@@ -86,7 +87,7 @@ export function CourseBadges({ course, purchased, overlay, className }: CourseBa
         <CourseBadge
           label="Enrolled"
           variant="enrolled"
-          icon={<CheckCircle size={10} color="#16A34A" strokeWidth={2.5} />}
+          icon={<CheckCircle size={10} color={brand.success} strokeWidth={2.5} />}
         />
       ) : null}
     </View>

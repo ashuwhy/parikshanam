@@ -5,8 +5,9 @@ import { Animated, Pressable, Text, View } from 'react-native';
 
 import { CourseBadge } from '@/components/course/CourseBadge';
 import { Button } from '@/components/ui/Button';
-import { iconColors } from '@/constants/Colors';
+import { brand, iconColors } from '@/constants/Colors';
 import { useBuyCourse } from '@/hooks/useBuyCourse';
+import { prefetchStorageUrl } from '@/hooks/useStorageUrl';
 import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
@@ -25,8 +26,10 @@ export function CourseCard({ course, onPress, purchased }: Props) {
   const metaLine = [olympiad, cls].filter(Boolean).join(' • ');
 
   const scale = useRef(new Animated.Value(1)).current;
-  const onPressIn = () =>
+  const onPressIn = () => {
+    prefetchStorageUrl(course.intro_video_path);
     Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
+  };
   const onPressOut = () =>
     Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 6 }).start();
 
@@ -71,7 +74,7 @@ export function CourseCard({ course, onPress, purchased }: Props) {
                 variant="enrolled"
                 className="bg-white/90 dark:bg-neutral-800/90"
                 textClassName="text-green-700 dark:text-green-300"
-                icon={<CheckCircle size={10} color="#16A34A" strokeWidth={2.5} />}
+                icon={<CheckCircle size={10} color={brand.success} strokeWidth={2.5} />}
               />
             </View>
           ) : null}
@@ -113,7 +116,7 @@ export function CourseCard({ course, onPress, purchased }: Props) {
           {/* CTA */}
           {purchased ? (
             <View className="mt-3 flex-row items-center gap-1.5">
-              <CheckCircle size={13} color="#16A34A" strokeWidth={2.5} />
+              <CheckCircle size={13} color={brand.success} strokeWidth={2.5} />
               <Text className="text-xs font-display-black text-green-600 dark:text-green-400">
                 Enrolled — tap to continue
               </Text>

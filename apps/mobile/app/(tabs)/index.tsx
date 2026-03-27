@@ -12,6 +12,7 @@ import {
 import { ScrollView, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AppFooter } from '@/components/ui/AppFooter';
 import { Avatar } from '@/components/ui/Avatar';
 import { FeaturedCourseCard } from '@/components/course/FeaturedCourseCard';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
@@ -53,7 +54,7 @@ export default function HomeScreen() {
     <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top', 'bottom']}>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 32 }}
+        contentContainerStyle={{ paddingBottom: 16 }}
         showsVerticalScrollIndicator={false}
       >
 
@@ -185,6 +186,7 @@ export default function HomeScreen() {
         )}
 
       </ScrollView>
+      <AppFooter />
     </SafeAreaView>
   );
 }

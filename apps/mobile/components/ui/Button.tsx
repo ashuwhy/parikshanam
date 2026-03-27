@@ -10,6 +10,7 @@ import {
 
 import { cn } from '@/lib/cn';
 import { useColorScheme } from '@/components/useColorScheme';
+import { brand, colors } from '@/constants/Colors';
 
 type Variant = 'primary' | 'outline' | 'ghost';
 
@@ -28,8 +29,8 @@ const RADIUS = 16;
 
 // Colors for the bottom shadow bar
 const BAR_COLOR: Record<Variant, string> = {
-  primary: '#A04F08',  // brand.dark
-  outline: '#E5E0D8',  // ui.border
+  primary: brand.dark,
+  outline: colors.border.default,
   ghost:   'transparent',
 };
 
@@ -109,7 +110,7 @@ export function Button({
           {...rest}
         >
           {loading ? (
-            <ActivityIndicator color={variant === 'primary' ? '#fff' : '#E8720C'} />
+            <ActivityIndicator color={variant === 'primary' ? colors.text.inverse : brand.primary} />
           ) : (
             <View className="flex-row items-center justify-center gap-2">
               {leftIcon ?? null}

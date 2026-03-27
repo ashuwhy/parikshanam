@@ -1,4 +1,5 @@
 import { Text, TextInput, View } from 'react-native';
+import { iconColors } from '@/constants/Colors';
 
 type Props = {
   value: string;
@@ -38,7 +39,7 @@ export function PhoneInput({ value, onChangeText, showValidation = false }: Prop
         value={digits}
         onChangeText={(raw) => onChangeText(sanitize(raw))}
         placeholder="98765 43210"
-        placeholderTextColor="#9CA3AF"
+        placeholderTextColor={iconColors.subtle}
         keyboardType="number-pad"
         maxLength={10}
         className="flex-1 px-4 text-base font-sans-medium text-neutral-900"

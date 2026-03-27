@@ -12,7 +12,7 @@ import { VideoPlayer } from '@/components/course/VideoPlayer';
 import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
-import { iconColors } from '@/constants/Colors';
+import { brand, iconColors } from '@/constants/Colors';
 import { useAuth } from '@/hooks/useAuth';
 import { useCourseById, useSyllabus } from '@/hooks/useCourses';
 import { useHasPurchased, useUserProgress } from '@/hooks/usePurchases';
@@ -126,7 +126,7 @@ export default function CourseDetailScreen() {
 
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 120, paddingTop: insets.top }}
         showsVerticalScrollIndicator={false}
       >
         {/* Hero: 16:9 video or thumbnail, edge-to-edge */}
@@ -152,13 +152,13 @@ export default function CourseDetailScreen() {
               <CourseBadge
                 label="Enrolled"
                 variant="enrolled"
-                icon={<CheckCircle size={10} color="#16A34A" strokeWidth={2.5} />}
+                icon={<CheckCircle size={10} color={brand.success} strokeWidth={2.5} />}
               />
             ) : course.is_featured ? (
               <CourseBadge
                 label="Featured"
                 variant="featured"
-                icon={<Star size={9} color="#fff" strokeWidth={2.5} />}
+                icon={<Star size={9} color={iconColors.onBrand} strokeWidth={2.5} />}
               />
             ) : null}
           </View>
@@ -209,9 +209,9 @@ export default function CourseDetailScreen() {
             )}
           </View>
 
-          {/* Description — borderless, subtle bg */}
+          {/* Description */}
           {course.description ? (
-            <View className="mt-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800/60 p-4">
+            <View className="mt-4 rounded-2xl border border-ui-border bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-800/60">
               <Text
                 className="text-sm font-sans-medium leading-relaxed text-neutral-700 dark:text-neutral-300"
                 numberOfLines={descExpanded ? undefined : 3}

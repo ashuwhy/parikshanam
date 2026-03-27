@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { BookOpen, ChevronDown, ChevronUp, HelpCircle, Lock, Play } from 'lucide-react-native';
 import { useSyllabus } from '@/hooks/useCourses';
-import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { iconColors } from '@/constants/Colors';
 
 interface SyllabusViewProps {
@@ -16,7 +15,7 @@ export function SyllabusView({ courseId, hasPurchased, onLessonPress, onQuizPres
   const { modules, loading, error } = useSyllabus(courseId);
   const [expandedModules, setExpandedModules] = useState<Record<string, boolean>>({});
 
-  if (loading) return <View className="py-8"><LoadingScreen /></View>;
+  if (loading) return null;
 
   if (error) {
     return (

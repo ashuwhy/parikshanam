@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { isValidIndianPhone, PhoneInput } from '@/components/ui/PhoneInput';
 import { useAuth } from '@/hooks/useAuth';
+import { iconColors } from '@/constants/Colors';
 import { href } from '@/lib/href';
 import { supabase } from '@/lib/supabase';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
@@ -100,7 +101,7 @@ export default function ClassSelectScreen() {
                 value={name}
                 onChangeText={setName}
                 placeholder="Your full name"
-                placeholderTextColor="#9CA3AF"
+                placeholderTextColor={iconColors.subtle}
                 autoCapitalize="words"
                 className="h-14 rounded-2xl border-2 border-ui-border bg-white px-4 text-base font-sans-medium text-neutral-900"
               />

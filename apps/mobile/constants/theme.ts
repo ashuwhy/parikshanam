@@ -50,9 +50,9 @@ export const neutral = {
 export const colors = {
   // Backgrounds
   background: {
-    primary: '#f8f6f6', // ui.bg
+    primary: '#F9F7F5', // ui.bg
     secondary: '#FFFFFF', // ui.card
-    tertiary: '#f8f6f6', 
+    tertiary: '#F9F7F5', 
     inverse: '#111827', 
   },
   
@@ -68,9 +68,9 @@ export const colors = {
   
   // Borders
   border: {
-    default: '#dddddc', // ui.border
+    default: '#E5E0D8', // ui.border
     strong: '#A04F08', // brand.dark (burnt orange)
-    subtle: '#dddddc',
+    subtle: '#E5E0D8',
   },
   
   // Surfaces
@@ -86,7 +86,7 @@ export const colors = {
     primaryHover: brand.secondary,
     primaryActive: brand.dark,
     secondary: '#FFFFFF',
-    secondaryHover: '#f8f6f6',
+    secondaryHover: '#F9F7F5',
   },
   
   // Status
@@ -112,7 +112,7 @@ export const darkColors = {
     primary: '#111827', // Dark background
     secondary: '#1F2937', // Dark card background
     tertiary: '#374151', 
-    inverse: '#f8f6f6', 
+    inverse: '#F9F7F5', 
   },
   
   // Text
@@ -360,7 +360,7 @@ export const dimensionalShadows = {
   /** Subtle lift — stat cards, subject pills */
   sm: {
     light: {
-      shadowColor: '#dddddc',
+      shadowColor: '#E5E0D8',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 1,
       shadowRadius: 0,
@@ -377,7 +377,7 @@ export const dimensionalShadows = {
   /** Standard card lift — course cards, course list items */
   md: {
     light: {
-      shadowColor: '#dddddc',
+      shadowColor: '#E5E0D8',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 1,
       shadowRadius: 0,

@@ -10,7 +10,7 @@ import { VideoPlayer } from '@/components/course/VideoPlayer';
 import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
-import { iconColors } from '@/constants/Colors';
+import { brand, iconColors } from '@/constants/Colors';
 import { useLessonById } from '@/hooks/useCourses';
 import { useVideoUrl } from '@/hooks/useVideoUrl';
 import { useAuth } from '@/hooks/useAuth';
@@ -147,7 +147,7 @@ export default function LessonScreen() {
             <View className="mt-8">
               {completed ? (
                 <View className="flex-row items-center justify-center gap-2 rounded-2xl bg-green-100 dark:bg-green-900/30 py-4">
-                  <CheckCircle size={18} color="#22C55E" strokeWidth={2.5} />
+                  <CheckCircle size={18} color={brand.success} strokeWidth={2.5} />
                   <Text className="text-sm font-display-black text-green-700 dark:text-green-400">
                     Lesson completed
                   </Text>

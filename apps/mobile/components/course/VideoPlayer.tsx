@@ -4,7 +4,7 @@ import { AlertCircle, Loader } from 'lucide-react-native';
 import { useEffect, useRef } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 
-import { iconColors } from '@/constants/Colors';
+import { brand, iconColors } from '@/constants/Colors';
 
 type Props = {
   /** Signed URL for the video. Pass null to show a loading state. */
@@ -57,7 +57,7 @@ export function VideoPlayer({ url, onEnded }: Props) {
       {/* Error overlay */}
       {hasError && (
         <View className="absolute inset-0 items-center justify-center bg-neutral-950 px-8">
-          <AlertCircle size={40} color="#EF4444" strokeWidth={1.5} />
+          <AlertCircle size={40} color={brand.error} strokeWidth={1.5} />
           <Text className="mt-3 text-sm font-sans-medium text-neutral-400 text-center">
             Failed to load video
           </Text>

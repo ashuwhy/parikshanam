@@ -13,6 +13,7 @@ function matchesClass(course: Course, classLevelId: string | null | undefined): 
 }
 
 import { useAuth } from "@/hooks/useAuth";
+import { prefetchStorageUrl } from "@/hooks/useStorageUrl";
 import { supabase } from "@/lib/supabase";
 import { COURSE_LIST_SELECT, PURCHASE_LIST_SELECT } from "@/lib/supabase/selects";
 import { useAuthStore } from "@/lib/stores/useAuthStore";
@@ -111,6 +112,8 @@ export function useRemoteData() {
       actions.setFeaturedCourse(forClass.find((c) => c.is_featured) ?? forClass[0] ?? null);
       actions.setLoading(false);
       actions.setError(null);
+      // Warm signed-URL cache for all intro videos in the background
+      list.forEach((c) => prefetchStorageUrl(c.intro_video_path));
     }
     if (coursesQuery.isError) {
       actions.setLoading(false);

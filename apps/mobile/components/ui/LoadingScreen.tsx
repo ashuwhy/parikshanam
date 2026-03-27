@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
-import { Animated, Easing, Image, StyleSheet, View } from 'react-native';
+import { Animated, Easing, Image, useWindowDimensions, View } from 'react-native';
+import { brand, colors } from '@/constants/Colors';
 
 const LOGO_SIZE = 72;
 const RING_SIZE = LOGO_SIZE + 32; // 8px gap on each side
 
 export function LoadingScreen() {
+  const { width, height } = useWindowDimensions();
   const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -24,7 +26,10 @@ export function LoadingScreen() {
   });
 
   return (
-    <View style={[StyleSheet.absoluteFill, { backgroundColor: '#F9F9F6' }]} className="items-center justify-center dark:bg-neutral-900">
+    <View
+      style={{ position: 'absolute', top: 0, left: 0, width, height, zIndex: 9999, backgroundColor: colors.background.primary }}
+      className="items-center justify-center dark:bg-neutral-900"
+    >
       {/* Spinner ring + logo, stacked */}
       <View style={{ width: RING_SIZE, height: RING_SIZE, alignItems: 'center', justifyContent: 'center' }}>
         {/* Rotating arc */}
@@ -36,8 +41,8 @@ export function LoadingScreen() {
             borderRadius: RING_SIZE / 2,
             borderWidth: 3,
             borderColor: 'transparent',
-            borderTopColor: '#E8720C',
-            borderRightColor: '#E8720C33',
+            borderTopColor: brand.primary,
+            borderRightColor: brand.primary + '33',
             transform: [{ rotate: spin }],
           }}
         />

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '@/lib/supabase';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
+import { iconColors } from '@/constants/Colors';
 
 interface QuizRunnerProps {
   quizId: string;
@@ -63,7 +64,7 @@ export function QuizRunner({ quizId, onComplete, onExit }: QuizRunnerProps) {
     <View className="flex-1 bg-ui-bg">
       <View className="flex-row items-center justify-between p-4 border-b border-ui-border bg-white">
         <Pressable onPress={onExit} className="p-2 -ml-2">
-          <Ionicons name="close" size={24} color="#737373" />
+          <Ionicons name="close" size={24} color={iconColors.muted} />
         </Pressable>
         <Text className="font-bold text-neutral-900">
           Question {currentIndex + 1} of {questions.length}
