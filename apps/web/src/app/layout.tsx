@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Nunito, Roboto } from "next/font/google";
 import "./globals.css";
 
+import { QueryProvider } from "@/components/providers/QueryProvider";
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "sonner";
+
 const nunito = Nunito({
   variable: "--font-nunito-var",
   subsets: ["latin"],
@@ -14,26 +18,27 @@ const roboto = Roboto({
   weight: ["400", "500", "700"],
 });
 
-import Footer from "@/components/Footer";
-
 export const metadata: Metadata = {
-  title: "Parikshanam — Coming Soon",
-  description: "Exam prep for Grades 6–10. Coming soon.",
+  title: "Parikshanam — Olympiad Prep for Grades 6–10",
+  description:
+    "Expert-crafted courses for Olympiad preparation. Video lessons, interactive quizzes, and progress tracking for students in Grades 6–10.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       className={`${nunito.variable} ${roboto.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <main className="flex-1 flex flex-col">{children}</main>
-        <Footer />
+      <body className="min-h-full bg-[#F9F7F5]">
+        <QueryProvider>
+          <AuthProvider>
+            {children}
+            <Toaster richColors position="top-right" />
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

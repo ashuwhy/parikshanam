@@ -52,34 +52,34 @@ export const colors = {
   background: {
     primary: '#F9F7F5', // ui.bg
     secondary: '#FFFFFF', // ui.card
-    tertiary: '#F9F7F5', 
-    inverse: '#111827', 
+    tertiary: '#F9F7F5',
+    inverse: '#111827',
   },
-  
+
   // Text
   text: {
-    primary: '#111827', 
-    secondary: '#374151', 
-    tertiary: '#6B7280', 
-    quaternary: '#9CA3AF', 
+    primary: '#111827',
+    secondary: '#374151',
+    tertiary: '#6B7280',
+    quaternary: '#9CA3AF',
     inverse: '#FFFFFF',
     link: '#E8720C', // brand.primary orange
   },
-  
+
   // Borders
   border: {
     default: '#E5E0D8', // ui.border
     strong: '#A04F08', // brand.dark (burnt orange)
     subtle: '#E5E0D8',
   },
-  
+
   // Surfaces
   surface: {
     card: '#FFFFFF',
     elevated: '#FFFFFF',
     overlay: 'rgba(0, 0, 0, 0.5)',
   },
-  
+
   // Interactive
   interactive: {
     primary: brand.primary,
@@ -88,7 +88,7 @@ export const colors = {
     secondary: '#FFFFFF',
     secondaryHover: '#F9F7F5',
   },
-  
+
   // Status
   status: {
     success: '#22C55E',
@@ -111,10 +111,10 @@ export const darkColors = {
   background: {
     primary: '#111111', // Dark background
     secondary: '#1C1C1C', // Dark card background
-    tertiary: '#374151', 
-    inverse: '#F9F7F5', 
+    tertiary: '#374151',
+    inverse: '#F9F7F5',
   },
-  
+
   // Text
   text: {
     primary: '#F9FAFB', // Light text on dark
@@ -124,21 +124,21 @@ export const darkColors = {
     inverse: '#111827',
     link: '#F5A623', // brand.secondary amber — lighter for dark mode
   },
-  
+
   // Borders
   border: {
     default: '#374151', // Darker border
     strong: '#F5A623',  // brand.secondary amber — visible on dark
     subtle: '#4B5563',
   },
-  
+
   // Surfaces
   surface: {
     card: '#1F2937',
     elevated: '#374151',
     overlay: 'rgba(0, 0, 0, 0.7)',
   },
-  
+
   // Interactive
   interactive: {
     primary: brand.primary,
@@ -147,7 +147,7 @@ export const darkColors = {
     secondary: '#374151',
     secondaryHover: '#4B5563',
   },
-  
+
   // Status (keep vibrant for visibility)
   status: {
     success: '#22C55E',
@@ -259,7 +259,7 @@ export const typography = {
     '4xl': 36,
     '5xl': 48,
   },
-  
+
   fontWeight: {
     thin: '100',
     extralight: '200',
@@ -271,7 +271,7 @@ export const typography = {
     extrabold: '800',
     black: '900',
   },
-  
+
   lineHeight: {
     none: 1,
     tight: 1.25,
@@ -280,7 +280,7 @@ export const typography = {
     relaxed: 1.625,
     loose: 2,
   },
-  
+
   letterSpacing: {
     tighter: '-0.05em',
     tight: '-0.025em',
