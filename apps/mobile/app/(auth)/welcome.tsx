@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GoogleSignInButton } from '@/components/auth/GoogleSignInButton';
 import { iconColors } from '@/constants/Colors';
-import Logo from '../../assets/images/icon.png';
+import Logo from '../../assets/images/splash-icon.png';
 
 const SUBJECTS = [
   { Icon: Calculator, label: 'Math' },

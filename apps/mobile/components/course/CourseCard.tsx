@@ -1,7 +1,6 @@
 import { Image } from 'expo-image';
 import { BookOpen, CheckCircle } from 'lucide-react-native';
-import { useRef } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { CourseBadge } from '@/components/course/CourseBadge';
 import { Button } from '@/components/ui/Button';
@@ -25,21 +24,12 @@ export function CourseCard({ course, onPress, purchased }: Props) {
   const hasDiscount = course.mrp != null && course.mrp > course.price;
   const metaLine = [olympiad, cls].filter(Boolean).join(' • ');
 
-  const scale = useRef(new Animated.Value(1)).current;
-  const onPressIn = () => {
-    prefetchStorageUrl(course.intro_video_path);
-    Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
-  };
-  const onPressOut = () =>
-    Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 6 }).start();
-
   return (
-    <Animated.View style={{ transform: [{ scale }], marginBottom: 16 }}>
+    <View style={{ marginBottom: 16 }}>
       <Pressable
         accessibilityRole="button"
         onPress={onPress}
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
+        onPressIn={() => prefetchStorageUrl(course.intro_video_path)}
         className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
       >
         {/* Thumbnail */}
@@ -132,6 +122,6 @@ export function CourseCard({ course, onPress, purchased }: Props) {
           )}
         </View>
       </Pressable>
-    </Animated.View>
+    </View>
   );
 }

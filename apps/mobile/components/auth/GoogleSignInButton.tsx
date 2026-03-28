@@ -1,10 +1,16 @@
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
-import { Pressable, Text } from 'react-native';
+import { useRef } from 'react';
+import { Animated, Pressable, Text, View } from 'react-native';
 
 import GoogleIcon from '../../assets/icons/google.svg';
 
+import { useColorScheme } from '@/components/useColorScheme';
+import { neutral } from '@/constants/theme';
 import { supabase } from '@/lib/supabase';
+
+const BAR_HEIGHT = 4;
+const RADIUS = 16;
 
 function parseHashParams(url: string): Record<string, string> {
   const hashIndex = url.indexOf('#');
@@ -19,6 +25,17 @@ function parseHashParams(url: string): Record<string, string> {
 }
 
 export function GoogleSignInButton() {
+  const isDark = useColorScheme() === 'dark';
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  const pressIn = () => {
+    Animated.timing(translateY, { toValue: BAR_HEIGHT, duration: 60, useNativeDriver: true }).start();
+  };
+
+  const pressOut = () => {
+    Animated.timing(translateY, { toValue: 0, duration: 80, useNativeDriver: true }).start();
+  };
+
   const onPress = async () => {
     try {
       const redirectTo = Linking.createURL('google-callback');
@@ -59,13 +76,30 @@ export function GoogleSignInButton() {
   };
 
   return (
-    <Pressable
-      accessibilityRole="button"
-      onPress={() => void onPress()}
-      style={({ pressed }: { pressed: boolean }) => pressed ? { transform: [{ translateY: 3 }] } : undefined}
-      className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-b-4 border-ui-border dark:border-neutral-600 px-6 py-4 items-center justify-center flex-row gap-3">
-      <GoogleIcon width={20} height={20} />
-      <Text className="text-base font-sans-bold text-brand-primary">Continue with Google</Text>
-    </Pressable>
+    <View style={{ paddingBottom: BAR_HEIGHT }}>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: BAR_HEIGHT + RADIUS,
+          backgroundColor: isDark ? neutral[600] : neutral[300],
+          borderBottomLeftRadius: RADIUS,
+          borderBottomRightRadius: RADIUS,
+        }}
+      />
+      <Animated.View style={{ transform: [{ translateY }] }}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => void onPress()}
+          onPressIn={pressIn}
+          onPressOut={pressOut}
+          className="bg-white dark:bg-neutral-800 rounded-2xl border-2 border-ui-border dark:border-neutral-600 px-6 py-4 items-center justify-center flex-row gap-3">
+          <GoogleIcon width={20} height={20} />
+          <Text className="text-base font-sans-bold text-brand-primary">Continue with Google</Text>
+        </Pressable>
+      </Animated.View>
+    </View>
   );
 }

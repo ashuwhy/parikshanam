@@ -31,10 +31,10 @@ function greeting() {
 }
 
 const SUBJECT_TILES = [
-  { Icon: Calculator, label: 'Math',      color: '#EFF6FF', border: '#BFDBFE', darkColor: 'rgba(59,130,246,0.12)',  darkBorder: 'rgba(59,130,246,0.25)',  iconColor: '#3B82F6' },
-  { Icon: FlaskConical, label: 'Science', color: '#F0FDF4', border: '#BBF7D0', darkColor: 'rgba(34,197,94,0.12)',   darkBorder: 'rgba(34,197,94,0.25)',   iconColor: '#22C55E' },
-  { Icon: Globe, label: 'Geography',      color: '#FFFBEB', border: '#FDE68A', darkColor: 'rgba(245,158,11,0.12)', darkBorder: 'rgba(245,158,11,0.25)', iconColor: '#F59E0B' },
-  { Icon: Laptop, label: 'Computing',     color: '#F5F3FF', border: '#DDD6FE', darkColor: 'rgba(139,92,246,0.12)', darkBorder: 'rgba(139,92,246,0.25)', iconColor: '#8B5CF6' },
+  { Icon: Calculator, label: 'Math', color: '#EFF6FF', border: '#BFDBFE', darkColor: 'rgba(59,130,246,0.12)', darkBorder: 'rgba(59,130,246,0.25)', iconColor: '#3B82F6' },
+  { Icon: FlaskConical, label: 'Science', color: '#F0FDF4', border: '#BBF7D0', darkColor: 'rgba(34,197,94,0.12)', darkBorder: 'rgba(34,197,94,0.25)', iconColor: '#22C55E' },
+  { Icon: Globe, label: 'Geography', color: '#FFFBEB', border: '#FDE68A', darkColor: 'rgba(245,158,11,0.12)', darkBorder: 'rgba(245,158,11,0.25)', iconColor: '#F59E0B' },
+  { Icon: Laptop, label: 'Computing', color: '#F5F3FF', border: '#DDD6FE', darkColor: 'rgba(139,92,246,0.12)', darkBorder: 'rgba(139,92,246,0.25)', iconColor: '#8B5CF6' },
 ];
 
 export default function HomeScreen() {
@@ -104,7 +104,7 @@ export default function HomeScreen() {
           <View className="px-5">
             <View className="mb-3 flex-row items-center justify-between">
               <View className="flex-row items-center gap-1.5">
-                <Sparkles size={14} color={isDark ? iconColors.secondary : iconColors.primary} strokeWidth={2.5} />
+                <Sparkles size={14} color={isDark ? iconColors.primary : iconColors.primary} strokeWidth={2.5} />
                 <Text className="text-base font-display uppercase tracking-wider text-neutral-900 dark:text-neutral-100">
                   Featured
                 </Text>
@@ -188,7 +188,7 @@ export default function HomeScreen() {
         )}
 
       </ScrollView>
-      <AppFooter />
+      {/* <AppFooter /> */}
     </SafeAreaView>
   );
 }

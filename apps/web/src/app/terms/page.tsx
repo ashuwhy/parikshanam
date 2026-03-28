@@ -92,7 +92,7 @@ export default function TermsPage() {
             className="text-[#9CA3AF] text-sm"
             style={{ fontFamily: "var(--font-roboto-var)" }}
           >
-            Last updated: March 2025
+            Last updated: March 2026
           </p>
         </div>
       </div>

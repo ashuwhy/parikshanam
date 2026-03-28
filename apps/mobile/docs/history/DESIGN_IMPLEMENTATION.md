@@ -5,6 +5,7 @@ This guide explains how the Dimensional Joy design system has been implemented i
 ## Overview
 
 The design system is built on:
+
 - **NativeWind 5** (Tailwind CSS for React Native)
 - **Expo Router** for navigation
 - **Custom ThemeProvider** for theme management
@@ -71,6 +72,7 @@ const { colorScheme, isDark, themePreference, setThemePreference } = useTheme();
 ```
 
 **Features:**
+
 - Persists theme preference using `expo-secure-store`
 - Supports 'light', 'dark', and 'system' modes
 - Automatically detects device theme
@@ -209,22 +211,26 @@ function MyComponent() {
 ### Colors
 
 **Brand Colors:**
+
 - `brand-primary`: #58CC02 (Duolingo Green)
 - `brand-secondary`: #84fb42 (Light Green)
 - `brand-dark`: #2a6900 (Dark Green)
 
 **UI Colors (Light):**
+
 - `ui-bg`: #f8f6f6 (Off-white background)
 - `ui-card`: #FFFFFF (White cards)
 - `ui-border`: #dddddc (Light gray borders)
 - `ui-accent`: #a3d8ff (Soft blue)
 
 **UI Colors (Dark):**
+
 - Background: #111827
 - Cards: #1F2937
 - Borders: #374151
 
 **Status Colors:**
+
 - `status-success`: #58CC02
 - `status-warning`: #FFC800
 - `status-error`: #FF4B4B
@@ -249,6 +255,7 @@ className="text-xs font-bold uppercase tracking-wider"
 ### Spacing
 
 Use base-4 grid (multiples of 4px):
+
 - `p-2` = 8px
 - `p-4` = 16px
 - `p-6` = 24px
@@ -325,6 +332,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
    - Press `Shift + D` in terminal to toggle dark mode
 
 3. **Programmatically:**
+
    ```tsx
    const { setThemePreference } = useTheme();
    setThemePreference('dark');
@@ -394,6 +402,7 @@ When updating existing components:
 ## Support
 
 For questions or issues with the design system:
+
 1. Check [DESIGN.md](./DESIGN.md) for specifications
 2. Review component examples in `components/ui/`
 3. Test in both light and dark modes

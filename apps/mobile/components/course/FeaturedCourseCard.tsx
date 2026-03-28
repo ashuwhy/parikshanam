@@ -3,7 +3,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { BookOpen, ChevronRight, Clock, Volume2, VolumeX } from 'lucide-react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { Button } from '@/components/ui/Button';
 import { iconColors } from '@/constants/Colors';
@@ -81,22 +81,12 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
     }, [course.intro_video_path]),
   );
 
-  // ── Press animation ────────────────────────────────────────────
-  const scale = useRef(new Animated.Value(1)).current;
-  const onPressIn = () =>
-    Animated.spring(scale, { toValue: 0.98, useNativeDriver: true, speed: 50, bounciness: 4 }).start();
-  const onPressOut = () =>
-    Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 50, bounciness: 6 }).start();
-
   return (
-    <Animated.View style={{ transform: [{ scale }] }}>
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => router.push(href(`/course/${course.id}`))}
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
-        className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
-      >
+    <Pressable
+      accessibilityRole="button"
+      onPress={() => router.push(href(`/course/${course.id}`))}
+      className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
+    >
         {/* ── Media area ─────────────────────────────────────────── */}
         <View
           className="relative items-center justify-center bg-brand-primary/8 dark:bg-brand-primary/5"
@@ -235,7 +225,6 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
             />
           )}
         </View>
-      </Pressable>
-    </Animated.View>
+    </Pressable>
   );
 }
