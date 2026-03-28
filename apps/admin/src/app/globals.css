@@ -1,24 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F9F7F5;
-  --foreground: #1B3A6E;
+  --background: #f9f7f5;
+  --foreground: #1b3a6e;
+  --surface-elevated: #ffffff;
+  --surface-subtle: #faf8f6;
+  --text-heading: #1b3a6e;
+  --text-body: #4b5563;
+  --text-muted: #6b7280;
+  --border-ui: #e5e0d8;
+
+  --radius-card: 1rem;
+  --radius-button: 1rem;
+  --radius-nested: 1rem;
+  --radius-control-sm: 0.75rem;
+  --radius-icon-tile: 1rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand-primary: #E8720C;
-  --color-brand-dark: #A04F08;
-  --color-brand-navy: #1B3A6E;
-  --color-brand-teal: #1B8A7A;
-  --color-ui-border: #E5E0D8;
+  --color-brand-primary: #e8720c;
+  --color-brand-dark: #a04f08;
+  --color-brand-navy: #1b3a6e;
+  --color-brand-teal: #1b8a7a;
+  --color-ui-border: #e5e0d8;
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-text-heading: var(--text-heading);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
   --font-nunito: var(--font-nunito-var);
   --font-roboto: var(--font-roboto-var);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--text-body);
   font-family: var(--font-roboto-var), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(232, 114, 12, 0.2);
+  color: #1b3a6e;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e0d8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d1ccc4;
+}
+
+*:focus-visible {
+  outline: 2px solid #e8720c;
+  outline-offset: 2px;
+}
+
+:is(input, textarea, select):focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+
+.btn-press-motion {
+  transition:
+    transform 160ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms cubic-bezier(0.25, 0.88, 0.35, 1),
+    background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-press-motion {
+    transition-property: box-shadow, background-color, border-color, color, filter;
+    transition-duration: 140ms;
+    transition-timing-function: ease-out;
+  }
 }
