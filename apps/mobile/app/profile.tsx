@@ -105,7 +105,7 @@ export default function ProfileScreen() {
       >
 
         {/* Avatar + name block */}
-        <View className="items-center dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-700">
+        <View className="items-center pt-8 pb-6">
           <AvatarCircle size="lg" />
           <View className="mt-4 items-center px-6 w-full">
             {editing ? (
