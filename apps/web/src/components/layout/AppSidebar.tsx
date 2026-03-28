@@ -11,7 +11,7 @@ import {
   User,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/Button";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard", Icon: Home },
@@ -23,11 +23,9 @@ const NAV = [
 export function AppSidebar() {
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
-  const router = useRouter();
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.push("/");
+  const handleSignOut = () => {
+    void signOut("/");
   };
 
   return (
@@ -51,7 +49,7 @@ export function AppSidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all hover:scale-[1.02] ${
                 active
                   ? "bg-[#E8720C]/10 text-[#E8720C]"
                   : "text-[#6B7280] hover:text-[#1B3A6E] hover:bg-[#F9F7F5]"
@@ -70,7 +68,7 @@ export function AppSidebar() {
       </nav>
 
       {/* User footer */}
-      <div className="border-t border-[#E5E0D8] pt-4 mt-4">
+      <div className="">
         {profile && (
           <div className="flex items-center gap-3 px-3 mb-3">
             {profile.avatar_url ? (
@@ -98,14 +96,10 @@ export function AppSidebar() {
             </div>
           </div>
         )}
-        <button
-          onClick={() => void handleSignOut()}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm text-[#9CA3AF] hover:text-red-500 hover:bg-red-50 transition-all"
-          style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
-        >
+        <Button variant="sidebarSignOut" type="button" onClick={handleSignOut}>
           <LogOut size={16} strokeWidth={2} />
           Sign Out
-        </button>
+        </Button>
       </div>
     </aside>
   );

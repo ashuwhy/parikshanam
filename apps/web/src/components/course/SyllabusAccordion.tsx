@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookOpen, ChevronDown, ChevronUp, HelpCircle, Lock, Play } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { BookOpen, Check, ChevronDown, ChevronUp, HelpCircle, Lock, Play } from "lucide-react";
 
 interface SyllabusModule {
   id: string;
@@ -57,11 +58,12 @@ export function SyllabusAccordion({ courseId, modules, hasPurchased, completedId
               className="rounded-2xl border border-[#E5E0D8] bg-white overflow-hidden"
             >
               {/* Module header */}
-              <button
+              <Button
+                variant="accordionHeader"
+                type="button"
                 onClick={() =>
                   setExpanded((prev) => ({ ...prev, [module.id]: !prev[module.id] }))
                 }
-                className="w-full flex items-center justify-between px-4 py-3.5 text-left hover:bg-[#F9F7F5] transition-colors"
               >
                 <div className="flex-1 mr-3">
                   <p
@@ -82,7 +84,7 @@ export function SyllabusAccordion({ courseId, modules, hasPurchased, completedId
                 ) : (
                   <ChevronDown size={16} color="#9CA3AF" strokeWidth={2.5} />
                 )}
-              </button>
+              </Button>
 
               {isOpen && (
                 <div className="border-t border-[#E5E0D8] px-2 py-2">
@@ -98,7 +100,7 @@ export function SyllabusAccordion({ courseId, modules, hasPurchased, completedId
                         >
                           <div className={`w-7 h-7 rounded-full flex items-center justify-center mr-3 shrink-0 ${done ? "bg-green-100" : "bg-[#E8720C]/15"}`}>
                             {done ? (
-                              <span className="text-green-600 text-xs">✓</span>
+                              <Check size={12} color="#16A34A" strokeWidth={2.8} aria-hidden />
                             ) : (
                               <Play size={12} color="#E8720C" strokeWidth={2.5} />
                             )}
@@ -150,7 +152,7 @@ export function SyllabusAccordion({ courseId, modules, hasPurchased, completedId
                       >
                         <div className={`w-7 h-7 rounded-full flex items-center justify-center mr-3 shrink-0 ${done ? "bg-green-100" : "bg-[#F5C842]/20"}`}>
                           {done ? (
-                            <span className="text-green-600 text-xs">✓</span>
+                            <Check size={12} color="#16A34A" strokeWidth={2.8} aria-hidden />
                           ) : (
                             <HelpCircle size={13} color="#A04F08" strokeWidth={2.5} />
                           )}

@@ -11,21 +11,22 @@ import {
   type ReactNode,
 } from "react";
 
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types";
 
 export type AuthContextType = {
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
-  signOut: () => Promise<void>;
+  /** Ends session, clears cookies (client + server), then full-page navigates to `redirectTo` (default "/"). */
+  signOut: (redirectTo?: string) => Promise<void>;
   refreshProfile: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const supabase = useMemo(() => createClient(), []);
+  const supabase = getSupabaseBrowserClient();
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -114,10 +115,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [supabase, fetchProfile]);
 
-  const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
+  const signOut = useCallback(async (redirectTo = "/") => {
+    const { error } = await supabase.auth.signOut({ scope: "global" });
+    if (error) {
+      console.error("signOut:", error.message);
+    }
+
+    try {
+      await fetch(`${window.location.origin}/api/auth/signout`, {
+        method: "POST",
+        credentials: "include",
+        cache: "no-store",
+      });
+    } catch {
+      /* network — still clear local state below */
+    }
+
     setSession(null);
     setProfile(null);
+    window.location.assign(redirectTo);
   }, [supabase]);
 
   const value = useMemo(

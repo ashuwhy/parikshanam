@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { Button, buttonProps } from "@/components/ui/Button";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -13,18 +15,36 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { session, signOut } = useAuth();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleSignOut = () => {
+    void signOut("/");
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#F9F7F5]/95 backdrop-blur-sm border-b border-[#E5E0D8]">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#F9F7F5]/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)] border-b border-[#E5E0D8]/60"
+          : "bg-[#F9F7F5]/95 backdrop-blur-sm border-b border-transparent"
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
           <Image
             src="/icon.png"
             width={32}
             height={32}
             alt="Parikshanam"
-            className="rounded-lg"
+            className="rounded-lg transition-transform group-hover:scale-105"
           />
           <span
             className="text-[1.2rem] text-[#1B3A6E]"
@@ -40,7 +60,7 @@ export default function Navbar() {
             <a
               key={label}
               href={href}
-              className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors"
+              className="relative text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-[#E8720C] after:rounded-full after:transition-all hover:after:w-full"
               style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
             >
               {label}
@@ -48,51 +68,95 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <a
-            href="#download"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E8720C] text-white text-sm border-b-4 border-[#A04F08] hover:bg-[#d4640a] active:translate-y-[2px] active:border-b-2 transition-all select-none"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
-            Download App
-          </a>
+        {/* Desktop CTAs */}
+        <div className="hidden md:flex items-center gap-3">
+          {session ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-xl hover:bg-[#E5E0D8]/60"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              >
+                Dashboard
+              </Link>
+              <Button variant="dangerNav" type="button" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-xl hover:bg-[#E5E0D8]/60"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              >
+                Log In
+              </Link>
+              <Link href="/login" {...buttonProps("primaryNav")}>
+                Start for Free →
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile hamburger */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden p-2 rounded-lg text-[#374151] hover:bg-[#E5E0D8] transition-colors"
-          aria-label="Toggle menu"
-        >
+        <Button variant="iconMenu" type="button" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
           {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        </Button>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-[#E5E0D8] bg-[#F9F7F5] px-6 py-5 flex flex-col gap-5">
+      {/* Mobile menu — animated slide */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          open ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="border-t border-[#E5E0D8] bg-[#F9F7F5] px-6 py-5 flex flex-col gap-4">
           {NAV_LINKS.map(({ label, href }) => (
             <a
               key={label}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-sm text-[#374151] font-medium"
-              style={{ fontFamily: "var(--font-roboto-var)" }}
+              className="text-sm text-[#374151] hover:text-[#E8720C] transition-colors"
+              style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
             >
               {label}
             </a>
           ))}
-          <a
-            href="#download"
-            onClick={() => setOpen(false)}
-            className="text-center py-3 rounded-xl bg-[#E8720C] text-white text-sm border-b-4 border-[#A04F08]"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
-            Download App
-          </a>
+          <div className="flex flex-col gap-3 pt-2 border-t border-[#E5E0D8]">
+            {session ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  {...buttonProps("outlineNavCard")}
+                >
+                  Dashboard
+                </Link>
+                <Button
+                  variant="dangerNavMobile"
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    handleSignOut();
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setOpen(false)} {...buttonProps("outlineNavCard")}>
+                  Log In
+                </Link>
+                <Link href="/login" onClick={() => setOpen(false)} {...buttonProps("primaryNavMobile")}>
+                  Start for Free →
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${roboto.variable} h-full antialiased`}
+      className={`${nunito.variable} ${roboto.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full bg-[#F9F7F5]">
         <QueryProvider>

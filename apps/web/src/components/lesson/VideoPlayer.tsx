@@ -26,8 +26,11 @@ export function VideoPlayer({ url, onEnded }: Props) {
   const togglePlay = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) { void v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
+    if (v.paused) {
+      void v.play().catch(() => setPlaying(false));
+    } else {
+      v.pause();
+    }
   }, []);
 
   const handleTimeUpdate = useCallback(() => {
@@ -89,9 +92,9 @@ export function VideoPlayer({ url, onEnded }: Props) {
         playsInline
       />
 
-      {/* Controls overlay — shown on hover or pause */}
+      {/* Controls overlay — hover only; pointer-events-none when hidden so taps reach the video */}
       <div
-        className="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto"
         onClick={(e) => e.stopPropagation()}
         style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)" }}
       >
@@ -142,8 +145,12 @@ export function VideoPlayer({ url, onEnded }: Props) {
       {/* Center play/pause overlay */}
       {!playing && (
         <button
-          onClick={togglePlay}
-          className="absolute inset-0 flex items-center justify-center"
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            togglePlay();
+          }}
+          className="absolute inset-0 z-10 flex items-center justify-center"
         >
           <div className="w-14 h-14 rounded-full bg-[#E8720C] flex items-center justify-center shadow-lg">
             <Play size={24} color="white" strokeWidth={2.5} fill="white" />

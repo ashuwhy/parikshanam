@@ -14,9 +14,13 @@ function createAdminClient() {
 }
 
 export async function POST(request: Request) {
+  console.log("[submit-payment-proof] Started");
   const supabase = await createServerClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!user) {
+    console.log("[submit-payment-proof] Unauthorized");
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  }
 
   const body = await request.json().catch(() => ({})) as {
     course_id?: string;
@@ -25,7 +29,8 @@ export async function POST(request: Request) {
   };
 
   const { course_id, amount, storage_path } = body;
-  if (!course_id || !amount || !storage_path) {
+  if (!course_id || amount === undefined || !storage_path) {
+    console.log("[submit-payment-proof] Missing fields");
     return NextResponse.json({ error: "missing fields" }, { status: 400 });
   }
 
@@ -38,6 +43,7 @@ export async function POST(request: Request) {
 
   const screenshotUrl = signedData?.signedUrl ?? null;
 
+  console.log("[submit-payment-proof] Upserting to database...");
   // Insert pending purchase
   const { error: dbError } = await admin.from("purchases").upsert(
     {
@@ -52,8 +58,10 @@ export async function POST(request: Request) {
   );
 
   if (dbError) {
+    console.error("[submit-payment-proof] DB Error:", dbError.message);
     return NextResponse.json({ error: dbError.message }, { status: 500 });
   }
+  console.log("[submit-payment-proof] DB Upsert complete.");
 
   // Fetch user profile + course details for the email
   const [profileRes, courseRes] = await Promise.all([
@@ -68,8 +76,9 @@ export async function POST(request: Request) {
 
   // Send email notification — only if RESEND_API_KEY is configured
   if (process.env.RESEND_API_KEY) {
-    await resend.emails.send({
-      from: "Parikshanam <noreply@parikshanam.com>",
+    console.log("[submit-payment-proof] Sending email via Resend in background...");
+    resend.emails.send({
+      from: "Parikshanam <admin@parikshanam.com>",
       to: "manasputra.paiko@gmail.com",
       subject: `New UPI Payment — ${courseTitle}`,
       html: `
@@ -96,8 +105,13 @@ export async function POST(request: Request) {
           </p>
         </div>
       `,
+    }).then(() => {
+      console.log("[submit-payment-proof] Email sent successfully.");
+    }).catch((error) => {
+      console.error("[submit-payment-proof] Failed to send Resend email:", error);
     });
   }
 
+  console.log("[submit-payment-proof] Finished");
   return NextResponse.json({ ok: true });
 }

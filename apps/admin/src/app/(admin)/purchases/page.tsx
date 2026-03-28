@@ -8,7 +8,8 @@ export default async function PurchasesPage() {
     .select('*, profile:profiles(full_name), course:courses(title)')
     .order('created_at', { ascending: false })
 
-  const totalRevenue = purchases?.filter(p => p.status === 'completed').reduce((s, p) => s + p.amount, 0) ?? 0
+  // Amount is stored in paise, so we divide by 100 for rupees
+  const totalRevenue = (purchases?.filter(p => p.status === 'completed').reduce((s, p) => s + p.amount, 0) ?? 0) / 100
 
   return (
     <div>

@@ -1,29 +1,94 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { LogOut, User } from "lucide-react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import {
+  BookOpen,
+  Calendar,
+  Compass,
+  GraduationCap,
+  Hash,
+  ListChecks,
+  LogOut,
+  Phone,
+  Shield,
+  User,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import type { ClassLevel } from "@/lib/types";
+import { Button } from "@/components/ui/Button";
+
+function formatMemberSince(iso: string | undefined) {
+  if (!iso) return "—";
+  try {
+    return new Date(iso).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return "—";
+  }
+}
 
 export default function ProfilePage() {
-  const router = useRouter();
   const { session, profile, signOut, refreshProfile } = useAuth();
-  const supabase = useMemo(() => createClient(), []);
+  const supabase = useMemo(() => getSupabaseBrowserClient(), []);
 
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    setName(profile?.full_name ?? "");
-  }, [profile?.full_name]);
-
   const email = session?.user?.email ?? null;
   const initials = profile?.full_name
     ? profile.full_name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
     : email?.[0]?.toUpperCase() ?? "?";
+
+  const { data: classLevels = [] } = useQuery<ClassLevel[]>({
+    queryKey: ["class_levels"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("class_levels")
+        .select("*")
+        .order("min_age", { ascending: true });
+      if (error) throw error;
+      return (data as ClassLevel[]) ?? [];
+    },
+    staleTime: 60 * 60_000,
+  });
+
+  const classLabel =
+    profile?.class_level_id != null
+      ? classLevels.find((c) => c.id === profile.class_level_id)?.label ?? profile.class_level_id
+      : null;
+
+  const { data: profileStats } = useQuery({
+    queryKey: ["profile-stats", session?.user?.id],
+    enabled: !!session?.user?.id,
+    queryFn: async () => {
+      const uid = session!.user!.id;
+      const [purchasesRes, progressRes] = await Promise.all([
+        supabase
+          .from("purchases")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", uid)
+          .eq("status", "completed"),
+        supabase
+          .from("user_progress")
+          .select("id", { count: "exact", head: true })
+          .eq("user_id", uid)
+          .not("lesson_id", "is", null),
+      ]);
+      return {
+        enrolled: purchasesRes.count ?? 0,
+        lessonsDone: progressRes.count ?? 0,
+      };
+    },
+    staleTime: 60_000,
+  });
 
   const handleSave = async () => {
     if (!session?.user) return;
@@ -42,10 +107,13 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.replace("/login");
+  const handleSignOut = () => {
+    void signOut("/login");
   };
+
+  const roleLabel = profile?.role
+    ? profile.role.charAt(0).toUpperCase() + profile.role.slice(1)
+    : "Student";
 
   return (
     <div className="min-h-screen bg-[#F9F7F5]">
@@ -88,13 +156,16 @@ export default function ProfilePage() {
                   {email}
                 </p>
               )}
-              <button
-                onClick={() => setEditing(true)}
-                className="mt-3 rounded-full border border-[#E5E0D8] px-5 py-1.5 text-xs uppercase tracking-wider text-[#6B7280] hover:border-[#E8720C] hover:text-[#E8720C] transition-colors"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              <Button
+                variant="ghostPill"
+                onClick={() => {
+                  setName(profile?.full_name ?? "");
+                  setEditing(true);
+                }}
+                className="mt-3"
               >
                 Edit profile
-              </button>
+              </Button>
             </div>
           ) : (
             <div className="mt-4 w-full">
@@ -114,53 +185,173 @@ export default function ProfilePage() {
                 style={{ fontFamily: "var(--font-roboto-var)" }}
               />
               <div className="flex gap-3 mt-3">
-                <button
+                <Button
+                  variant="primaryCompact"
                   onClick={() => void handleSave()}
                   disabled={saving}
-                  className="flex-1 py-3 rounded-2xl bg-[#E8720C] text-white text-sm border-b-4 border-[#A04F08] active:translate-y-[2px] transition-all disabled:opacity-60"
-                  style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+                  className="disabled:opacity-60"
                 >
                   {saving ? "Saving…" : "Save"}
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="secondaryCompact"
                   onClick={() => {
                     setEditing(false);
                     setName(profile?.full_name ?? "");
                   }}
-                  className="flex-1 py-3 rounded-2xl border-2 border-[#E5E0D8] bg-white text-sm text-[#374151] hover:border-[#E8720C] transition-colors"
-                  style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Account info */}
+        {/* Learning snapshot */}
+        {profileStats && (
+          <div className="grid grid-cols-2 gap-3 mb-5">
+            <div className="rounded-2xl bg-white border border-[#E5E0D8] px-4 py-3 text-center">
+              <p
+                className="text-2xl text-[#E8720C]"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              >
+                {profileStats.enrolled}
+              </p>
+              <p
+                className="text-[10px] text-[#9CA3AF] uppercase tracking-wider mt-0.5"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
+              >
+                Courses
+              </p>
+            </div>
+            <div className="rounded-2xl bg-white border border-[#E5E0D8] px-4 py-3 text-center">
+              <p
+                className="text-2xl text-[#1B3A6E]"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              >
+                {profileStats.lessonsDone}
+              </p>
+              <p
+                className="text-[10px] text-[#9CA3AF] uppercase tracking-wider mt-0.5"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
+              >
+                Lessons done
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Quick links */}
+        <div className="flex flex-col gap-2 mb-5">
+          <Link
+            href="/my-courses"
+            className="flex items-center gap-3 rounded-2xl border border-[#E5E0D8] bg-white px-4 py-3 text-sm text-[#111827] hover:border-[#E8720C]/40 transition-colors"
+            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
+          >
+            <BookOpen size={18} color="#E8720C" strokeWidth={2.2} />
+            My courses
+          </Link>
+          <Link
+            href="/explore"
+            className="flex items-center gap-3 rounded-2xl border border-[#E5E0D8] bg-white px-4 py-3 text-sm text-[#111827] hover:border-[#E8720C]/40 transition-colors"
+            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
+          >
+            <Compass size={18} color="#1B3A6E" strokeWidth={2.2} />
+            Explore catalog
+          </Link>
+        </div>
+
+        {/* Account details */}
         <div className="rounded-2xl bg-white border border-[#E5E0D8] divide-y divide-[#F3F4F6] mb-5">
           <div className="flex items-center gap-3 px-5 py-4">
             <User size={16} color="#9CA3AF" strokeWidth={2} />
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
                 Email
               </p>
-              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+              <p className="text-sm text-[#111827] break-all" style={{ fontFamily: "var(--font-roboto-var)" }}>
                 {email ?? "—"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <Phone size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                Phone
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {profile?.phone?.trim() ? profile.phone : "Not added"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <GraduationCap size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                Class
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {classLabel ?? "Not set"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <Shield size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                Account type
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {roleLabel}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <Calendar size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                Member since
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {formatMemberSince(profile?.created_at)}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <ListChecks size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                Onboarding
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {profile?.onboarding_completed ? "Completed" : "Not completed"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <Hash size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                User ID
+              </p>
+              <p className="text-xs text-[#6B7280] font-mono break-all" title={session?.user?.id}>
+                {session?.user?.id ?? "—"}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Sign out */}
-        <button
-          onClick={() => void handleSignOut()}
-          className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl border-2 border-red-200 bg-red-50 text-red-600 text-sm hover:bg-red-100 transition-colors"
-          style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-        >
+        <Button variant="danger" type="button" onClick={handleSignOut}>
           <LogOut size={16} strokeWidth={2} />
           Sign Out
-        </button>
+        </Button>
       </div>
     </div>
   );

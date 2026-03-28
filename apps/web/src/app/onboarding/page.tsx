@@ -1,33 +1,44 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { ClassLevel } from "@/lib/types";
+import { Button } from "@/components/ui/Button";
 
 export default function OnboardingPage() {
   const router = useRouter();
   const { session, refreshProfile } = useAuth();
-  const supabase = useMemo(() => createClient(), []);
+  const supabase = useMemo(() => getSupabaseBrowserClient(), []);
 
-  const [classLevels, setClassLevels] = useState<ClassLevel[]>([]);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [classLevelId, setClassLevelId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    supabase
-      .from("class_levels")
-      .select("*")
-      .order("id")
-      .then(({ data }) => {
-        if (data) setClassLevels(data as ClassLevel[]);
-      });
-  }, [supabase]);
+  const {
+    data: classLevels = [],
+    isPending: classLevelsLoading,
+    isError: classLevelsError,
+    refetch: refetchClassLevels,
+  } = useQuery<ClassLevel[]>({
+    queryKey: ["class_levels"],
+    queryFn: async () => {
+      const { data, error: qError } = await supabase
+        .from("class_levels")
+        .select("*")
+        .order("min_age", { ascending: true });
+      if (qError) throw qError;
+      return (data as ClassLevel[]) ?? [];
+    },
+    staleTime: 60 * 60_000,
+    retry: 2,
+    retryDelay: (i) => Math.min(1000 * 2 ** i, 4000),
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,22 +147,48 @@ export default function OnboardingPage() {
             >
               Your Class *
             </label>
-            <div className="flex flex-wrap gap-2">
-              {classLevels.map((cl) => (
-                <button
-                  key={cl.id}
-                  type="button"
-                  onClick={() => setClassLevelId(cl.id)}
-                  className={`px-4 py-2 rounded-xl border-2 text-sm transition-all ${
-                    classLevelId === cl.id
-                      ? "bg-[#E8720C] border-[#A04F08] text-white"
-                      : "bg-white border-[#E5E0D8] text-[#374151] hover:border-[#E8720C]"
-                  }`}
-                  style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-                >
-                  {cl.label}
-                </button>
-              ))}
+            <div className="flex flex-wrap gap-2 min-h-[2.75rem] items-center">
+              {classLevelsLoading && (
+                <p className="text-sm text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                  Loading classes…
+                </p>
+              )}
+              {classLevelsError && (
+                <div className="flex flex-col gap-2 w-full">
+                  <p className="text-sm text-red-600" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                    Couldn&apos;t load class list. Check your connection and try again.
+                  </p>
+                  <Button type="button" variant="outlineAccent" onClick={() => void refetchClassLevels()}>
+                    Retry
+                  </Button>
+                </div>
+              )}
+              {!classLevelsLoading &&
+                !classLevelsError &&
+                classLevels.length === 0 && (
+                  <p className="text-sm text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                    No classes available.{" "}
+                    <button
+                      type="button"
+                      className="text-[#E8720C] underline font-medium"
+                      onClick={() => void refetchClassLevels()}
+                    >
+                      Refresh
+                    </button>
+                  </p>
+                )}
+              {!classLevelsLoading &&
+                !classLevelsError &&
+                classLevels.map((cl) => (
+                  <Button
+                    key={cl.id}
+                    type="button"
+                    variant={classLevelId === cl.id ? "choiceOn" : "choiceOff"}
+                    onClick={() => setClassLevelId(cl.id)}
+                  >
+                    {cl.label}
+                  </Button>
+                ))}
             </div>
           </div>
 
@@ -161,14 +198,9 @@ export default function OnboardingPage() {
             </p>
           )}
 
-          <button
-            type="submit"
-            disabled={saving || !classLevelId}
-            className="w-full py-4 rounded-2xl bg-[#E8720C] text-white text-base border-b-4 border-[#A04F08] active:translate-y-[2px] active:border-b-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
+          <Button type="submit" variant="primary" disabled={saving || !classLevelId}>
             {saving ? "Saving…" : "Start Learning →"}
-          </button>
+          </Button>
         </form>
       </div>
     </div>

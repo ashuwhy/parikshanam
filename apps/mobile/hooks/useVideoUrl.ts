@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/useAuth";
 
 // Cache the signed URL for 55 minutes — safely under the 1-hour server expiry.
 const STALE_MS = 55 * 60 * 1000;
@@ -11,9 +12,11 @@ const STALE_MS = 55 * 60 * 1000;
  * Returns null url when lessonId is undefined or lesson has no video.
  */
 export function useVideoUrl(lessonId: string | undefined) {
+  const { session, loading: authLoading } = useAuth();
+
   const q = useQuery({
-    queryKey: ["videoUrl", lessonId],
-    enabled: !!lessonId,
+    queryKey: ["videoUrl", lessonId, session?.access_token],
+    enabled: !!lessonId && !authLoading && !!session?.access_token,
     staleTime: STALE_MS,
     gcTime: STALE_MS + 5_000, // keep in cache slightly longer than stale window
     retry: 1,
@@ -23,6 +26,9 @@ export function useVideoUrl(lessonId: string | undefined) {
         expires_at: string;
       }>("get-video-url", {
         body: { lesson_id: lessonId },
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+        },
       });
 
       if (error) throw error;

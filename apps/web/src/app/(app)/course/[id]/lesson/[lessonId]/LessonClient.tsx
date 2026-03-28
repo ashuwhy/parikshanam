@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { ArrowLeft, CheckCircle, Clock } from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { createClient } from "@/lib/supabase/client";
+import { useAuth } from "@/context/AuthContext";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { VideoPlayer } from "@/components/lesson/VideoPlayer";
+import { Button } from "@/components/ui/Button";
 
 interface Lesson {
   id: string;
@@ -27,17 +29,19 @@ interface Props {
 }
 
 const STALE_MS = 55 * 60 * 1000;
+const supabase = getSupabaseBrowserClient();
 
 export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
-  const supabase = useMemo(() => createClient(), []);
+  const { session, loading: authLoading } = useAuth();
+  const authReady = !authLoading;
   const queryClient = useQueryClient();
   const [completed, setCompleted] = useState(alreadyDone);
   const [marking, setMarking] = useState(false);
 
-  // Fetch signed video URL via Edge Function
+  // Fetch signed video URL via Edge Function (@supabase/ssr does not forward JWT on invoke from browser)
   const { data: videoUrl, isLoading: urlLoading, error: urlError, refetch } = useQuery<string | null>({
-    queryKey: ["videoUrl", lesson.id],
-    enabled: !!lesson.video_storage_path,
+    queryKey: ["videoUrl", lesson.id, session?.access_token],
+    enabled: !!lesson.video_storage_path && authReady && !!session?.access_token,
     staleTime: STALE_MS,
     gcTime: STALE_MS + 5000,
     retry: 1,
@@ -45,7 +49,13 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
       const { data, error } = await supabase.functions.invoke<{
         signed_url: string;
         expires_at: string;
-      }>("get-video-url", { body: { lesson_id: lesson.id } });
+      }>("get-video-url", {
+        body: { lesson_id: lesson.id },
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+        },
+      });
+
       if (error) throw error;
       if (!data?.signed_url) throw new Error("No video URL");
       return data.signed_url;
@@ -70,9 +80,9 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
     } else {
       setCompleted(true);
       void queryClient.invalidateQueries({ queryKey: ["progress", userId] });
-      toast.success("Lesson completed! 🎉");
+      toast.success("Lesson completed.");
     }
-  }, [completed, marking, supabase, userId, lesson.id, courseId, queryClient]);
+  }, [completed, marking, userId, lesson.id, courseId, queryClient]);
 
   return (
     <div className="min-h-screen bg-[#111827] md:bg-[#F9F7F5]">
@@ -88,13 +98,9 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
               <p className="text-sm text-white/60" style={{ fontFamily: "var(--font-roboto-var)" }}>
                 Could not load video
               </p>
-              <button
-                onClick={() => void refetch()}
-                className="px-4 py-2 rounded-xl bg-[#E8720C] text-white text-sm"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-              >
+              <Button variant="primarySm" onClick={() => void refetch()}>
                 Retry
-              </button>
+              </Button>
             </div>
           ) : videoUrl ? (
             <VideoPlayer url={videoUrl} onEnded={() => void markComplete()} />
@@ -159,14 +165,14 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
             </span>
           </div>
         ) : (
-          <button
+          <Button
+            variant="primary"
             onClick={() => void markComplete()}
             disabled={marking}
-            className="w-full py-4 rounded-2xl bg-[#E8720C] text-white text-base border-b-4 border-[#A04F08] active:translate-y-[2px] active:border-b-2 transition-all disabled:opacity-60"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+            className="disabled:opacity-60"
           >
-            {marking ? "Saving…" : "Mark as Completed ✓"}
-          </button>
+            {marking ? "Saving…" : "Mark as completed"}
+          </Button>
         )}
       </div>
     </div>

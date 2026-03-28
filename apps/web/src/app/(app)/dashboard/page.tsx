@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Calculator, Compass, FlaskConical, Globe, Laptop, Sparkles } from "lucide-react";
+import { BookOpen, Calculator, Compass, Flame, FlaskConical, Globe, Laptop, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { COURSE_LIST_SELECT, PURCHASE_LIST_SELECT } from "@/lib/supabase/selects";
 import type { Course, Purchase, UserProgress } from "@/lib/types";
 import { DashboardClient } from "./DashboardClient";
+import { buttonProps } from "@/components/ui/buttonStyles";
 
 const SUBJECT_TILES = [
   { label: "Math", Icon: Calculator, color: "#3B82F6", bg: "#EFF6FF", border: "#BFDBFE" },
@@ -84,7 +85,7 @@ export default async function DashboardPage() {
             </div>
           ))}
           <div className="flex flex-col items-center justify-center py-4 rounded-2xl bg-[#E8720C]">
-            <span className="text-xl">🔥</span>
+            <Flame size={22} color="white" strokeWidth={2.2} className="opacity-95" aria-hidden />
             <span
               className="text-[10px] text-white/80 uppercase tracking-wider mt-1"
               style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
@@ -169,10 +170,7 @@ export default async function DashboardPage() {
 
       {/* Resume CTA */}
       {enrolledCount > 0 && (
-        <Link
-          href="/my-courses"
-          className="flex items-center justify-between rounded-2xl bg-[#E8720C] p-4 hover:bg-[#d4640a] transition-colors"
-        >
+        <Link href="/my-courses" {...buttonProps("linkPanelOrange")}>
           <div>
             <p
               className="text-base text-white"

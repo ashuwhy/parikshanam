@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { BookOpen, Play } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice, classRange, olympiadLabel } from "@/lib/courseUtils";
+import { buttonProps } from "@/components/ui/buttonStyles";
 
 export default async function MyCoursesPage() {
   const supabase = await createClient();
@@ -83,11 +84,7 @@ export default async function MyCoursesPage() {
             >
               Explore our catalog and enroll in your first Olympiad course
             </p>
-            <Link
-              href="/explore"
-              className="px-8 py-3 rounded-2xl bg-[#E8720C] text-white border-b-4 border-[#A04F08] active:translate-y-[2px] transition-all"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-            >
+            <Link href="/explore" {...buttonProps("primaryBrowse")}>
               Browse Courses
             </Link>
           </div>
@@ -162,11 +159,7 @@ export default async function MyCoursesPage() {
                       />
                     </div>
 
-                    <Link
-                      href={`/course/${p.course_id}`}
-                      className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#E8720C]/10 text-[#E8720C] text-sm hover:bg-[#E8720C]/20 transition-colors"
-                      style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-                    >
+                    <Link href={`/course/${p.course_id}`} {...buttonProps("softPrimary")}>
                       <Play size={14} strokeWidth={2.5} />
                       {pct >= 100 ? "Review Course" : "Resume"}
                     </Link>

@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useMemo } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Quiz, QuizQuestion } from "@/lib/types";
+import { Button } from "@/components/ui/Button";
 
 interface Props {
   quiz: Quiz;
@@ -19,7 +20,7 @@ interface Props {
 
 export function QuizClient({ quiz, questions, courseId, userId, previousScore }: Props) {
   const router = useRouter();
-  const supabase = useMemo(() => createClient(), []);
+  const supabase = useMemo(() => getSupabaseBrowserClient(), []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -89,7 +90,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
       if (error) {
         toast.error("Failed to save quiz result");
       } else {
-        toast.success(passed ? "Quiz passed! 🎉" : `Quiz complete — ${score}%`);
+        toast.success(passed ? "Quiz passed." : `Quiz complete — ${score}%`);
       }
     }
   }, [submitted, isLast, questions, answers, quiz.passing_score, quiz.id, supabase, userId]);
@@ -132,25 +133,20 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
           </p>
 
           <div className="flex flex-col w-full max-w-sm gap-3">
-            <button
+            <Button
+              variant="secondary"
               onClick={() => {
                 setAnswers({});
                 setSubmitted(false);
                 setCurrentIndex(0);
                 setResult(null);
               }}
-              className="w-full py-4 rounded-2xl border-2 border-[#E5E0D8] bg-white text-[#111827] text-base"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
             >
               Retake Quiz
-            </button>
-            <button
-              onClick={() => router.push(`/course/${courseId}`)}
-              className="w-full py-4 rounded-2xl bg-[#E8720C] text-white text-base border-b-4 border-[#A04F08] active:translate-y-[2px] active:border-b-2 transition-all"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-            >
+            </Button>
+            <Button variant="primary" onClick={() => router.push(`/course/${courseId}`)}>
               Back to Course
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -267,11 +263,10 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
       {/* Footer button */}
       <div className="bg-white border-t border-[#E5E0D8] px-4 py-4">
         <div className="max-w-2xl mx-auto">
-          <button
+          <Button
+            variant="primary"
             onClick={() => void handleNext()}
             disabled={(!submitted && !isAnswered) || saving}
-            className="w-full py-4 rounded-2xl bg-[#E8720C] text-white text-base border-b-4 border-[#A04F08] active:translate-y-[2px] active:border-b-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
             {saving
               ? "Saving…"
@@ -282,7 +277,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
               : isLast
               ? "Submit Quiz"
               : "Next"}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

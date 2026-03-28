@@ -68,7 +68,7 @@ export default function FeaturesSection() {
     <section id="features" className="py-24 px-6 bg-white border-t border-[#E5E0D8]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-14 animate-fade-in-up">
           <p
             className="text-xs uppercase tracking-widest text-[#E8720C] mb-3"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
@@ -90,11 +90,11 @@ export default function FeaturesSection() {
         </div>
 
         {/* Feature grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map(({ Icon, iconBg, iconColor, title, description, tag, tagColor }) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {FEATURES.map(({ Icon, iconBg, iconColor, title, description, tag, tagColor }, i) => (
             <div
               key={title}
-              className="group flex flex-col p-7 rounded-[2rem] border border-[#E5E0D8] bg-[#F9F7F5] hover:border-[#E8720C] hover:bg-white hover:-translate-y-1 transition-all"
+              className={`animate-fade-in-up delay-${Math.min(i + 1, 6)} group flex flex-col p-5 sm:p-7 rounded-[2rem] border border-[#E5E0D8] bg-[#F9F7F5] hover:border-[#E8720C] hover:bg-white hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(232,114,12,0.08)] transition-all`}
             >
               {/* Icon */}
               <div

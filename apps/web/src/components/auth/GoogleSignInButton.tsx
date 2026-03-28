@@ -1,10 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/Button";
 
 export default function GoogleSignInButton() {
-  const supabase = useMemo(() => createClient(), []);
+  const supabase = useMemo(() => getSupabaseBrowserClient(), []);
   const [loading, setLoading] = useState(false);
 
   const signInWithGoogle = async () => {
@@ -19,11 +20,10 @@ export default function GoogleSignInButton() {
   };
 
   return (
-    <button
+    <Button
+      variant="google"
       onClick={() => void signInWithGoogle()}
       disabled={loading}
-      className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white border-2 border-[#E5E0D8] border-b-4 border-b-[#D1D5DB] hover:border-[#E8720C] hover:border-b-[#A04F08] active:translate-y-[2px] active:border-b-2 transition-all select-none disabled:opacity-60 disabled:cursor-not-allowed"
-      style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
     >
       {/* Google G icon */}
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -35,6 +35,6 @@ export default function GoogleSignInButton() {
       <span className="text-[#1B3A6E]">
         {loading ? "Signing in…" : "Continue with Google"}
       </span>
-    </button>
+    </Button>
   );
 }

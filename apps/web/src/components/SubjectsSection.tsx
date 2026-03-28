@@ -52,7 +52,7 @@ export default function SubjectsSection() {
     <section id="subjects" className="py-24 px-6 bg-[#F9F7F5]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-14 animate-fade-in-up">
           <p
             className="text-xs uppercase tracking-widest text-[#E8720C] mb-3"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
@@ -74,11 +74,11 @@ export default function SubjectsSection() {
         </div>
 
         {/* Subject grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {SUBJECTS.map(({ Icon, label, color, bg, border, description, olympiad }) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {SUBJECTS.map(({ Icon, label, color, bg, border, description, olympiad }, i) => (
             <div
               key={label}
-              className="group flex flex-col rounded-[2rem] overflow-hidden border border-[#E5E0D8] bg-white hover:border-[#E8720C] hover:-translate-y-1 transition-all"
+              className={`animate-fade-in-up delay-${i + 1} group flex flex-col rounded-[2rem] overflow-hidden border border-[#E5E0D8] bg-white hover:border-[#E8720C] hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(232,114,12,0.08)] transition-all`}
             >
               {/* Top color bar */}
               <div

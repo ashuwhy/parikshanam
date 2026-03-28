@@ -20,6 +20,8 @@ export interface Profile {
   onboarding_completed: boolean;
   created_at: string;
   updated_at?: string;
+  /** Present when DB column exists (admin/teacher roles migration) */
+  role?: string | null;
 }
 
 export interface Course {

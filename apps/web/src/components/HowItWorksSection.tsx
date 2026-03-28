@@ -1,3 +1,4 @@
+import { buttonProps } from "@/components/ui/buttonStyles";
 import { Download, BookOpen, Trophy } from "lucide-react";
 
 const STEPS = [
@@ -35,7 +36,7 @@ export default function HowItWorksSection() {
     <section id="how-it-works" className="py-24 px-6 bg-white border-t border-[#E5E0D8]">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <p
             className="text-xs uppercase tracking-widest text-[#E8720C] mb-3"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
@@ -61,8 +62,8 @@ export default function HowItWorksSection() {
           {/* Connector line (desktop) */}
           <div className="hidden md:block absolute top-[3.5rem] left-[calc(16.7%+1.5rem)] right-[calc(16.7%+1.5rem)] h-px bg-[#E5E0D8] z-0" />
 
-          {STEPS.map(({ step, Icon, iconBg, iconColor, title, description }) => (
-            <div key={step} className="relative z-10 flex flex-col items-center text-center">
+          {STEPS.map(({ step, Icon, iconBg, iconColor, title, description }, i) => (
+            <div key={step} className={`animate-fade-in-up delay-${i + 1} relative z-10 flex flex-col items-center text-center`}>
               {/* Step icon with number badge */}
               <div className="relative mb-6">
                 <div
@@ -106,11 +107,7 @@ export default function HowItWorksSection() {
 
         {/* Bottom CTA */}
         <div className="mt-16 text-center">
-          <a
-            href="#download"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-[#E8720C] text-white text-base border-b-4 border-[#A04F08] hover:bg-[#d4640a] hover:translate-y-[1px] hover:border-b-[3px] active:translate-y-[4px] active:border-b-0 transition-all select-none cursor-pointer"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
+          <a href="#download" {...buttonProps("primarySection")}>
             Start for Free — Download Now
           </a>
         </div>
