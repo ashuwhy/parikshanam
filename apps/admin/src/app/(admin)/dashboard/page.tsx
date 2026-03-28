@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { StatCard } from '@/components/StatCard'
+import { PendingCourseReviewLink } from '@/components/PendingCourseReviewLink'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -39,17 +40,15 @@ export default async function DashboardPage() {
       </div>
 
       {pendingCourses && pendingCourses.length > 0 && (
-        <div className="bg-white rounded-2xl border border-ui-border p-5">
+        <div className="bg-surface-elevated rounded-[var(--radius-card)] border border-ui-border p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.1)]">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">
             Pending Approval ({pendingCourses.length})
           </h2>
           <ul className="divide-y divide-ui-border">
             {pendingCourses.map((c) => (
-              <li key={c.id} className="py-2 flex items-center justify-between">
-                <span className="text-sm text-foreground">{c.title}</span>
-                <a href={`/courses/${c.id}`} className="text-xs text-brand-primary font-medium">
-                  Review →
-                </a>
+              <li key={c.id} className="py-2 flex items-center justify-between gap-3">
+                <span className="text-sm text-text-body">{c.title}</span>
+                <PendingCourseReviewLink courseId={c.id} />
               </li>
             ))}
           </ul>

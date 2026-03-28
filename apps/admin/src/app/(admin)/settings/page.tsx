@@ -1,7 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { Plus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+
+const fieldClass =
+  'border border-ui-border rounded-[var(--radius-control-sm)] px-2 py-1.5 text-sm text-text-body focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus:outline-none'
 
 interface ClassLevel { id: string; label: string; min_age: number | null; max_age: number | null }
 interface OlympiadType { id: string; label: string; color_hex: string }
@@ -56,30 +60,33 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Class Levels */}
-        <div className="bg-white border border-ui-border rounded-2xl p-5">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">Class Levels</h2>
           <ul className="divide-y divide-ui-border text-sm mb-4">
             {classLevels.map((c) => (
               <li key={c.id} className="py-2 flex justify-between items-center">
-                <span>{c.label} <span className="text-gray-400 text-xs">({c.min_age}–{c.max_age})</span></span>
+                <span className="text-text-body">{c.label} <span className="text-text-muted text-xs">({c.min_age}–{c.max_age})</span></span>
                 <button onClick={() => deleteClass(c.id)} className="text-red-400 hover:text-red-600 text-xs">Delete</button>
               </li>
             ))}
           </ul>
           <form onSubmit={addClass} className="space-y-2 border-t border-ui-border pt-3">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Add class level</p>
-            <input value={newClass.id} onChange={(e) => setNewClass({ ...newClass, id: e.target.value })} placeholder="ID (e.g. 11)" className="w-full border border-ui-border rounded-lg px-2 py-1.5 text-sm" required />
-            <input value={newClass.label} onChange={(e) => setNewClass({ ...newClass, label: e.target.value })} placeholder="Label (e.g. Class 11)" className="w-full border border-ui-border rounded-lg px-2 py-1.5 text-sm" required />
+            <p className="text-xs font-medium text-text-muted uppercase tracking-wider">Add class level</p>
+            <input value={newClass.id} onChange={(e) => setNewClass({ ...newClass, id: e.target.value })} placeholder="ID (e.g. 11)" className={`w-full ${fieldClass}`} required />
+            <input value={newClass.label} onChange={(e) => setNewClass({ ...newClass, label: e.target.value })} placeholder="Label (e.g. Class 11)" className={`w-full ${fieldClass}`} required />
             <div className="grid grid-cols-2 gap-2">
-              <input type="number" value={newClass.min_age} onChange={(e) => setNewClass({ ...newClass, min_age: e.target.value })} placeholder="Min age" className="border border-ui-border rounded-lg px-2 py-1.5 text-sm" />
-              <input type="number" value={newClass.max_age} onChange={(e) => setNewClass({ ...newClass, max_age: e.target.value })} placeholder="Max age" className="border border-ui-border rounded-lg px-2 py-1.5 text-sm" />
+              <input type="number" value={newClass.min_age} onChange={(e) => setNewClass({ ...newClass, min_age: e.target.value })} placeholder="Min age" className={fieldClass} />
+              <input type="number" value={newClass.max_age} onChange={(e) => setNewClass({ ...newClass, max_age: e.target.value })} placeholder="Max age" className={fieldClass} />
             </div>
-            <button type="submit" className="bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-lg border-b-2 border-brand-dark">+ Add</button>
+            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]">
+              <Plus className="size-3.5 shrink-0 stroke-[2.5]" aria-hidden />
+              Add
+            </button>
           </form>
         </div>
 
         {/* Olympiad Types */}
-        <div className="bg-white border border-ui-border rounded-2xl p-5">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">Olympiad Types</h2>
           <ul className="divide-y divide-ui-border text-sm mb-4">
             {olympiadTypes.map((o) => (
@@ -93,14 +100,17 @@ export default function SettingsPage() {
             ))}
           </ul>
           <form onSubmit={addOlympiad} className="space-y-2 border-t border-ui-border pt-3">
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Add olympiad type</p>
-            <input value={newOlympiad.id} onChange={(e) => setNewOlympiad({ ...newOlympiad, id: e.target.value })} placeholder="ID (e.g. nmo)" className="w-full border border-ui-border rounded-lg px-2 py-1.5 text-sm" required />
-            <input value={newOlympiad.label} onChange={(e) => setNewOlympiad({ ...newOlympiad, label: e.target.value })} placeholder="Label (e.g. NMO)" className="w-full border border-ui-border rounded-lg px-2 py-1.5 text-sm" required />
+            <p className="text-xs font-medium text-text-muted uppercase tracking-wider">Add olympiad type</p>
+            <input value={newOlympiad.id} onChange={(e) => setNewOlympiad({ ...newOlympiad, id: e.target.value })} placeholder="ID (e.g. nmo)" className={`w-full ${fieldClass}`} required />
+            <input value={newOlympiad.label} onChange={(e) => setNewOlympiad({ ...newOlympiad, label: e.target.value })} placeholder="Label (e.g. NMO)" className={`w-full ${fieldClass}`} required />
             <div className="flex items-center gap-2">
-              <input type="color" value={newOlympiad.color_hex} onChange={(e) => setNewOlympiad({ ...newOlympiad, color_hex: e.target.value })} className="h-8 w-10 rounded border border-ui-border p-0.5" />
-              <span className="text-xs text-gray-400">{newOlympiad.color_hex}</span>
+              <input type="color" value={newOlympiad.color_hex} onChange={(e) => setNewOlympiad({ ...newOlympiad, color_hex: e.target.value })} className="h-8 w-10 rounded-[var(--radius-control-sm)] border border-ui-border p-0.5" />
+              <span className="text-xs text-text-muted">{newOlympiad.color_hex}</span>
             </div>
-            <button type="submit" className="bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-lg border-b-2 border-brand-dark">+ Add</button>
+            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]">
+              <Plus className="size-3.5 shrink-0 stroke-[2.5]" aria-hidden />
+              Add
+            </button>
           </form>
         </div>
       </div>

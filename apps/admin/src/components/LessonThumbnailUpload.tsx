@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { ImagePlus } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 interface Props {
@@ -74,7 +75,7 @@ export function LessonThumbnailUpload({ courseId, lessonId, currentUrl, onUpload
         title={url ? 'Replace thumbnail' : 'Upload thumbnail'}
         onClick={() => inputRef.current?.click()}
         disabled={loading}
-        className="relative w-[88px] h-[50px] rounded-lg overflow-hidden border-2 border-dashed border-ui-border hover:border-brand-primary transition-colors shrink-0 bg-gray-50 flex items-center justify-center"
+        className="relative w-[88px] h-[50px] rounded-[var(--radius-control-sm)] overflow-hidden border-2 border-dashed border-ui-border hover:border-brand-primary transition-colors shrink-0 bg-surface-subtle flex items-center justify-center"
       >
         {url ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -84,9 +85,9 @@ export function LessonThumbnailUpload({ courseId, lessonId, currentUrl, onUpload
         {/* Upload / loading overlay */}
         <span
           className={`absolute inset-0 flex items-center justify-center text-[10px] font-medium transition-colors
-            ${loading ? 'bg-white/80 text-brand-primary' : url ? 'bg-black/0 hover:bg-black/50 text-transparent hover:text-white' : 'text-gray-400'}`}
+            ${loading ? 'bg-surface-elevated/80 text-brand-primary' : url ? 'bg-black/0 hover:bg-black/50 text-transparent hover:text-white' : 'text-text-muted'}`}
         >
-          {loading ? '…' : url ? 'Replace' : '+ Thumb'}
+          {loading ? '…' : url ? 'Replace' : <ImagePlus className="size-5 shrink-0 stroke-[2]" aria-hidden />}
         </span>
       </button>
 

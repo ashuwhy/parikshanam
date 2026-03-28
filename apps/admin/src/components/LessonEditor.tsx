@@ -1,7 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Plus } from 'lucide-react'
 import { LessonThumbnailUpload } from './LessonThumbnailUpload'
+
+const inputClass =
+  'mt-1 w-full border border-ui-border rounded-[var(--radius-control-sm)] px-4 py-2 text-sm text-text-body focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus:outline-none'
 
 interface Lesson {
   id: string
@@ -71,9 +75,9 @@ function LessonYoutubeField({
           placeholder="e.g. dQw4w9WgXcQ"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="mt-1 w-full border border-ui-border rounded-xl px-4 py-2 text-sm"
+          className={inputClass}
         />
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-text-muted mt-1">
           From the URL: youtube.com/watch?v=
           <strong>THIS_PART</strong>
         </p>
@@ -82,7 +86,7 @@ function LessonYoutubeField({
         type="button"
         onClick={() => void save()}
         disabled={saving}
-        className="text-sm font-bold px-4 py-2 rounded-xl bg-brand-primary text-white border-b-4 border-brand-dark disabled:opacity-50"
+        className="btn-press-motion text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-50 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
       >
         {saving ? 'Saving…' : 'Save video ID'}
       </button>
@@ -90,7 +94,7 @@ function LessonYoutubeField({
       {previewId ? (
         <iframe
           title="YouTube preview"
-          className="w-full aspect-video mt-2 rounded-xl border border-ui-border"
+          className="w-full aspect-video mt-2 rounded-[var(--radius-nested)] border border-ui-border"
           src={`https://www.youtube-nocookie.com/embed/${previewId}`}
           allowFullScreen
         />
@@ -137,11 +141,11 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
   return (
     <div className="space-y-4">
       {error && (
-        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2">{error}</p>
+        <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-[var(--radius-nested)] px-4 py-2">{error}</p>
       )}
 
       {modules.map((mod) => (
-        <div key={mod.id} className="bg-white border border-ui-border rounded-2xl p-4">
+        <div key={mod.id} className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy">
               {mod.title}
@@ -150,7 +154,7 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
 
           <div className="space-y-2 ml-4">
             {mod.lessons.map((lesson) => (
-              <div key={lesson.id} className="border border-ui-border rounded-xl p-3 bg-background">
+              <div key={lesson.id} className="border border-ui-border rounded-[var(--radius-nested)] p-3 bg-background">
                 <div className="flex items-start gap-3">
                   <LessonThumbnailUpload
                     courseId={courseId}
@@ -169,7 +173,7 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-sm font-medium truncate">{lesson.title}</span>
-                      <span className="text-xs text-gray-400 shrink-0">
+                      <span className="text-xs text-text-muted shrink-0">
                         {lesson.duration_minutes > 0 ? `${lesson.duration_minutes} min` : '-'}
                       </span>
                     </div>
@@ -192,19 +196,23 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
           </div>
 
           <button
+            type="button"
             onClick={() => addLesson(mod.id)}
-            className="mt-3 ml-4 text-sm text-brand-primary hover:underline"
+            className="mt-3 ml-4 inline-flex items-center gap-1.5 text-sm text-brand-primary font-medium hover:underline"
           >
-            + Add lesson
+            <Plus className="size-4 shrink-0 stroke-[2]" aria-hidden />
+            Add lesson
           </button>
         </div>
       ))}
 
       <button
+        type="button"
         onClick={addModule}
-        className="bg-brand-primary text-white text-sm font-bold px-4 py-2 rounded-xl border-b-4 border-brand-dark"
+        className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]"
       >
-        + Add module
+        <Plus className="size-4 shrink-0 stroke-[2]" aria-hidden />
+        Add module
       </button>
     </div>
   )

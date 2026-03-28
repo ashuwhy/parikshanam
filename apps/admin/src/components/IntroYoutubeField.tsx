@@ -42,11 +42,11 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
   const previewId = value.trim()
 
   return (
-    <div className="bg-white border border-ui-border rounded-2xl p-5">
+    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
       <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-1">
         Intro / preview video (YouTube)
       </h3>
-      <p className="text-xs text-gray-400 mb-4">
+      <p className="text-xs text-text-muted mb-4">
         Shown on the course page before purchase. Paste the YouTube video ID only (not the full URL).
       </p>
 
@@ -56,9 +56,9 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
         placeholder="e.g. dQw4w9WgXcQ"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="mt-1 w-full border border-ui-border rounded-xl px-4 py-2 text-sm"
+        className="mt-1 w-full border border-ui-border rounded-[var(--radius-control-sm)] px-4 py-2 text-sm text-text-body focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus:outline-none"
       />
-      <p className="text-xs text-gray-400 mt-1">
+      <p className="text-xs text-text-muted mt-1">
         From the URL: youtube.com/watch?v=
         <strong>THIS_PART</strong>
       </p>
@@ -67,7 +67,7 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
         type="button"
         onClick={() => void save()}
         disabled={saving}
-        className="mt-3 text-sm font-bold px-4 py-2 rounded-xl bg-brand-primary text-white border-b-4 border-brand-dark disabled:opacity-50"
+        className="btn-press-motion mt-3 text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-50 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
       >
         {saving ? 'Saving…' : 'Save intro video'}
       </button>
@@ -76,7 +76,7 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
       {looksLikeYoutubeId(previewId) ? (
         <iframe
           title="YouTube intro preview"
-          className="w-full aspect-video mt-4 rounded-xl border border-ui-border"
+          className="w-full aspect-video mt-4 rounded-[var(--radius-nested)] border border-ui-border"
           src={`https://www.youtube-nocookie.com/embed/${previewId.trim()}`}
           allowFullScreen
         />

@@ -17,6 +17,9 @@ const schema = z.object({
 
 export type CourseFormData = z.infer<typeof schema>
 
+const fieldClass =
+  'w-full border border-ui-border rounded-[var(--radius-control-sm)] px-3 py-2 text-sm text-text-body focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus:outline-none'
+
 interface CourseFormProps {
   defaultValues?: Partial<CourseFormData>
   olympiadTypes: { id: string; label: string }[]
@@ -34,35 +37,35 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-2xl">
       <div>
-        <label className="block text-sm font-medium mb-1">Title *</label>
-        <input {...register('title')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+        <label className="block text-sm font-medium text-brand-navy mb-1">Title *</label>
+        <input {...register('title')} className={fieldClass} />
         {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Subtitle</label>
-        <input {...register('subtitle')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+        <label className="block text-sm font-medium text-brand-navy mb-1">Subtitle</label>
+        <input {...register('subtitle')} className={fieldClass} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Description</label>
-        <textarea {...register('description')} rows={3} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+        <label className="block text-sm font-medium text-brand-navy mb-1">Description</label>
+        <textarea {...register('description')} rows={3} className={fieldClass} />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Price (₹) *</label>
-          <input type="number" {...register('price')} placeholder="e.g. 499" className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+          <label className="block text-sm font-medium text-brand-navy mb-1">Price (₹) *</label>
+          <input type="number" {...register('price')} placeholder="e.g. 499" className={fieldClass} />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">MRP (₹)</label>
-          <input type="number" {...register('mrp')} placeholder="e.g. 999" className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm" />
+          <label className="block text-sm font-medium text-brand-navy mb-1">MRP (₹)</label>
+          <input type="number" {...register('mrp')} placeholder="e.g. 999" className={fieldClass} />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-1">Olympiad Type</label>
-        <select {...register('olympiad_type_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
+        <label className="block text-sm font-medium text-brand-navy mb-1">Olympiad Type</label>
+        <select {...register('olympiad_type_id')} className={fieldClass}>
           <option value="">- Select -</option>
           {olympiadTypes.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
         </select>
@@ -70,15 +73,15 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Min Class</label>
-          <select {...register('min_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
+          <label className="block text-sm font-medium text-brand-navy mb-1">Min Class</label>
+          <select {...register('min_class_id')} className={fieldClass}>
             <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Max Class</label>
-          <select {...register('max_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
+          <label className="block text-sm font-medium text-brand-navy mb-1">Max Class</label>
+          <select {...register('max_class_id')} className={fieldClass}>
             <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
@@ -88,7 +91,7 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-brand-primary text-white font-bold rounded-xl px-6 py-2.5 border-b-4 border-brand-dark disabled:opacity-60"
+        className="btn-press-motion rounded-[var(--radius-button)] bg-brand-primary text-white font-bold px-6 py-2.5 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_4px_0_0_#a04f08]"
       >
         {isSubmitting ? 'Saving…' : submitLabel}
       </button>

@@ -23,7 +23,7 @@ const columns = [
     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
       i.getValue() === 'active' ? 'bg-green-100 text-green-700' :
       i.getValue() === 'pending_review' ? 'bg-amber-100 text-amber-700' :
-      'bg-gray-100 text-gray-600'
+      'bg-surface-subtle text-text-muted'
     }`}>{i.getValue()}</span>
   )}),
   col.accessor((r) => r.olympiad_type?.label ?? '-', { id: 'olympiad', header: 'Olympiad' }),

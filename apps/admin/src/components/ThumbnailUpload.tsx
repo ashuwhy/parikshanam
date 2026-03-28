@@ -68,11 +68,11 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
   }
 
   return (
-    <div className="bg-white border border-ui-border rounded-2xl p-5">
+    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
       <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-1">
         Course Thumbnail
       </h3>
-      <p className="text-xs text-gray-400 mb-4">
+      <p className="text-xs text-text-muted mb-4">
         Shown on course cards. JPEG, PNG, or WebP - 16:9 recommended, max 5 MB.
       </p>
 
@@ -85,12 +85,12 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
       />
 
       {progress !== null ? (
-        <div className="border border-ui-border rounded-xl px-4 py-3">
+        <div className="border border-ui-border rounded-[var(--radius-nested)] px-4 py-3">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-foreground">Uploading…</span>
+            <span className="text-brand-navy">Uploading…</span>
             <span className="font-medium text-brand-primary">{progress}%</span>
           </div>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2 bg-surface-subtle rounded-full overflow-hidden">
             <div
               className="h-full bg-brand-primary transition-all duration-300"
               style={{ width: `${progress}%` }}
@@ -98,7 +98,7 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
           </div>
         </div>
       ) : url ? (
-        <div className="relative rounded-xl overflow-hidden border border-ui-border group">
+        <div className="relative rounded-[var(--radius-nested)] overflow-hidden border border-ui-border group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={url}
@@ -109,7 +109,7 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
-              className="opacity-0 group-hover:opacity-100 transition-opacity text-sm font-bold text-white bg-black/60 hover:bg-black/80 rounded-lg px-4 py-2"
+              className="opacity-0 group-hover:opacity-100 transition-opacity text-sm font-bold text-white bg-black/60 hover:bg-black/80 rounded-[var(--radius-control-sm)] px-4 py-2"
             >
               Replace image
             </button>
@@ -122,10 +122,10 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
           onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
           onDragLeave={() => setDragging(false)}
           onDrop={onDrop}
-          className={`w-full border-2 border-dashed rounded-xl px-6 py-12 text-sm transition-colors ${
+          className={`w-full border-2 border-dashed rounded-[var(--radius-nested)] px-6 py-12 text-sm transition-colors ${
             dragging
               ? 'border-brand-primary bg-brand-primary/5 text-brand-primary'
-              : 'border-ui-border text-gray-400 hover:border-brand-primary hover:text-brand-primary'
+              : 'border-ui-border text-text-muted hover:border-brand-primary hover:text-brand-primary'
           }`}
         >
           Click or drag an image here

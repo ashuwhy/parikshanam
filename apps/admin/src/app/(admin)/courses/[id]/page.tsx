@@ -3,6 +3,7 @@ import { LessonEditor } from '@/components/LessonEditor'
 import { IntroYoutubeField } from '@/components/IntroYoutubeField'
 import { ThumbnailUpload } from '@/components/ThumbnailUpload'
 import Link from 'next/link'
+import { BackLink } from '@/components/BackLink'
 import { notFound } from 'next/navigation'
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -21,7 +22,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
   return (
     <div>
       <div className="flex items-center gap-3 mb-2">
-        <Link href="/courses" className="text-sm text-gray-400 hover:text-brand-primary">← Courses</Link>
+        <BackLink href="/courses">Courses</BackLink>
       </div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy">{course.title}</h1>
@@ -29,7 +30,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ i
           <span className={`text-xs px-2 py-1 rounded-full font-medium ${
             course.status === 'active' ? 'bg-green-100 text-green-700' :
             course.status === 'pending_review' ? 'bg-amber-100 text-amber-700' :
-            'bg-gray-100 text-gray-600'
+            'bg-surface-subtle text-text-muted'
           }`}>{course.status}</span>
           <Link href={`/courses/${id}/edit`} className="text-sm text-brand-primary font-medium hover:underline">
             Edit details

@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
+import { ExternalLink } from 'lucide-react'
 import { DataTable } from '@/components/DataTable'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -35,16 +36,18 @@ function ApproveActions({ id }: { id: string }) {
   return (
     <div className="flex gap-2">
       <button
+        type="button"
         onClick={() => void act('completed')}
         disabled={!!loading}
-        className="px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-700 hover:bg-green-200 transition-colors disabled:opacity-50"
+        className="btn-press-motion px-3 py-1 rounded-[var(--radius-control-sm)] text-xs font-bold bg-green-100 text-green-700 hover:bg-green-200 active:translate-y-px disabled:opacity-50"
       >
         {loading === 'approve' ? '…' : 'Approve'}
       </button>
       <button
+        type="button"
         onClick={() => void act('rejected')}
         disabled={!!loading}
-        className="px-3 py-1 rounded-lg text-xs font-bold bg-red-100 text-red-600 hover:bg-red-200 transition-colors disabled:opacity-50"
+        className="btn-press-motion px-3 py-1 rounded-[var(--radius-control-sm)] text-xs font-bold bg-red-100 text-red-600 hover:bg-red-200 active:translate-y-px disabled:opacity-50"
       >
         {loading === 'reject' ? '…' : 'Reject'}
       </button>
@@ -72,9 +75,11 @@ const columns = [
   col.accessor('payment_method', {
     header: 'Method',
     cell: (i) => (
-      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-        i.getValue() === 'upi' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
-      }`}>
+      <span
+        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+          i.getValue() === 'upi' ? 'bg-blue-100 text-blue-700' : 'bg-surface-subtle text-text-muted'
+        }`}
+      >
         {i.getValue() === 'upi' ? 'UPI' : 'Razorpay'}
       </span>
     ),
@@ -82,11 +87,15 @@ const columns = [
   col.accessor('status', {
     header: 'Status',
     cell: (i) => (
-      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-        i.getValue() === 'completed' ? 'bg-green-100 text-green-700'
-        : i.getValue() === 'rejected' ? 'bg-red-100 text-red-600'
-        : 'bg-amber-100 text-amber-700'
-      }`}>
+      <span
+        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+          i.getValue() === 'completed'
+            ? 'bg-green-100 text-green-700'
+            : i.getValue() === 'rejected'
+              ? 'bg-red-100 text-red-600'
+              : 'bg-amber-100 text-amber-700'
+        }`}
+      >
         {i.getValue()}
       </span>
     ),
@@ -96,10 +105,16 @@ const columns = [
     header: 'Proof',
     cell: (i) => {
       const url = i.row.original.screenshot_url
-      if (!url) return <span className="text-gray-400 text-xs">-</span>
+      if (!url) return <span className="text-text-muted text-xs">-</span>
       return (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-primary hover:underline">
-          View ↗
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs text-brand-primary hover:underline"
+        >
+          View
+          <ExternalLink className="size-3 shrink-0 stroke-[2]" aria-hidden />
         </a>
       )
     },
@@ -112,7 +127,7 @@ const columns = [
       if (row.payment_method === 'upi' && row.status === 'pending') {
         return <ApproveActions id={row.id} />
       }
-      return <span className="text-gray-400 text-xs">{row.razorpay_payment_id ?? '-'}</span>
+      return <span className="text-text-muted text-xs">{row.razorpay_payment_id ?? '-'}</span>
     },
   }),
   col.accessor('created_at', {

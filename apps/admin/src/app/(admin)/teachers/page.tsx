@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { UserPlus } from 'lucide-react'
 import { DataTable } from '@/components/DataTable'
 import { createColumnHelper } from '@tanstack/react-table'
 import { createClient } from '@/lib/supabase/client'
@@ -9,12 +10,22 @@ import type { Profile } from '@/lib/types'
 const col = createColumnHelper<Profile>()
 const columns = [
   col.accessor('full_name', { header: 'Name', cell: (i) => i.getValue() ?? '-' }),
-  col.accessor('is_active', { header: 'Status', cell: (i) => (
-    <span className={`text-xs px-2 py-0.5 rounded-full ${i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
-      {i.getValue() ? 'Active' : 'Inactive'}
-    </span>
-  )}),
+  col.accessor('is_active', {
+    header: 'Status',
+    cell: (i) => (
+      <span
+        className={`text-xs px-2 py-0.5 rounded-full ${
+          i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'
+        }`}
+      >
+        {i.getValue() ? 'Active' : 'Inactive'}
+      </span>
+    ),
+  }),
 ]
+
+const inputClass =
+  'w-full border border-ui-border rounded-[var(--radius-control-sm)] px-3 py-2 text-sm text-text-body focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus:outline-none'
 
 export default function TeachersPage() {
   const [teachers, setTeachers] = useState<Profile[]>([])
@@ -25,9 +36,13 @@ export default function TeachersPage() {
   const supabase = createClient()
 
   useEffect(() => {
-    supabase.from('profiles').select('*').eq('role', 'teacher').then(({ data }) => {
-      setTeachers(data ?? [])
-    })
+    supabase
+      .from('profiles')
+      .select('*')
+      .eq('role', 'teacher')
+      .then(({ data }) => {
+        setTeachers(data ?? [])
+      })
   }, [])
 
   async function sendInvite(e: React.FormEvent) {
@@ -48,27 +63,33 @@ export default function TeachersPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy">Teachers</h1>
+        <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy">
+          Teachers
+        </h1>
         <button
+          type="button"
           onClick={() => setShowInvite(true)}
-          className="bg-brand-primary text-white text-sm font-bold px-4 py-2 rounded-xl border-b-4 border-brand-dark"
+          className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]"
         >
-          + Invite Teacher
+          <UserPlus className="size-4 shrink-0 stroke-[2]" aria-hidden />
+          Invite Teacher
         </button>
       </div>
 
       <DataTable columns={columns} data={teachers} />
 
       {showInvite && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
-            <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy text-lg mb-4">Invite Teacher</h2>
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface-elevated rounded-[var(--radius-card)] p-6 w-full max-w-sm shadow-[0_20px_50px_-20px_rgba(27,58,110,0.35)] border border-ui-border">
+            <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy text-lg mb-4">
+              Invite Teacher
+            </h2>
             <form onSubmit={sendInvite} className="space-y-3">
               <input
                 value={inviteName}
                 onChange={(e) => setInviteName(e.target.value)}
                 placeholder="Teacher name"
-                className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm"
+                className={inputClass}
               />
               <input
                 type="email"
@@ -76,11 +97,21 @@ export default function TeachersPage() {
                 onChange={(e) => setInviteEmail(e.target.value)}
                 placeholder="Email address"
                 required
-                className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm"
+                className={inputClass}
               />
               <div className="flex gap-2">
-                <button type="button" onClick={() => setShowInvite(false)} className="flex-1 border border-ui-border rounded-xl py-2 text-sm">Cancel</button>
-                <button type="submit" disabled={sending} className="flex-1 bg-brand-primary text-white rounded-xl py-2 text-sm font-bold border-b-2 border-brand-dark disabled:opacity-60">
+                <button
+                  type="button"
+                  onClick={() => setShowInvite(false)}
+                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] border-2 border-ui-border bg-surface-elevated py-2 text-sm text-text-body shadow-[0_3px_0_0_#ddd8cf] hover:bg-surface-subtle active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#ddd8cf]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] bg-brand-primary text-white py-2 text-sm font-bold shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
+                >
                   {sending ? 'Sending…' : 'Send Invite'}
                 </button>
               </div>
