@@ -3,6 +3,7 @@ import { BookOpen, CheckCircle, Play } from 'lucide-react-native';
 import { ScrollView, Text, View, RefreshControl, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { CourseBadge } from '@/components/course/CourseBadge';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
@@ -42,7 +43,7 @@ export default function MyCoursesScreen() {
           <Text className="text-2xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-100">
             My Learning
           </Text>
-          <Avatar size="md" />
+          <Avatar className="" size="md" />
         </View>
 
         {/* Stats bar */}
@@ -50,11 +51,11 @@ export default function MyCoursesScreen() {
           <View className="mx-5 mb-2 flex-row gap-3">
             <View className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700">
               <Text className="text-2xl font-display-black text-brand-primary">{purchases.length}</Text>
-              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">Enrolled</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Enrolled</Text>
             </View>
             <View className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700">
               <Text className="text-2xl font-display-black text-brand-primary">{totalLessons}</Text>
-              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">Completed</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Completed</Text>
             </View>
           </View>
         )}
@@ -113,8 +114,8 @@ export default function MyCoursesScreen() {
 
                   <View className="p-4">
                     {olympiad ? (
-                      <View className="mb-2 self-start rounded-full bg-status-warning/20 px-3 py-1">
-                        <Text className="text-xs font-display uppercase tracking-wider text-brand-dark">{olympiad}</Text>
+                      <View className="mb-2 self-start">
+                        <CourseBadge label={olympiad} variant="olympiad" />
                       </View>
                     ) : null}
                     <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100" numberOfLines={2}>
@@ -122,18 +123,14 @@ export default function MyCoursesScreen() {
                     </Text>
 
                     <View className="mt-3">
-                      <View className="mb-1.5 flex-row items-center justify-between">
-                        <Text className="text-xs font-display text-neutral-500 uppercase tracking-wider">Progress</Text>
-                        <Text className="text-xs font-display-black text-brand-primary">{pct}%</Text>
-                      </View>
-                      <ProgressBar progress={ratio} />
+                      <ProgressBar progress={ratio} label="Progress" />
                     </View>
 
                     <Button
                       title={pct >= 100 ? 'Review Course' : 'Resume'}
                       variant="ghost"
                       className="mt-3 rounded-xl bg-brand-primary/10 px-4 py-2.5"
-                      textClassName="text-brand-dark"
+                      textClassName="text-brand-primary dark:text-brand-secondary"
                       leftIcon={
                         pct >= 100 ? (
                           <CheckCircle size={14} color={iconColors.onWarning} strokeWidth={2.5} />

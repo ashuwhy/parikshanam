@@ -137,7 +137,7 @@ export default function CourseDetailScreen() {
         )}
 
         {/* Content sheet */}
-        <View className="rounded-t-3xl bg-ui-bg dark:bg-neutral-900 px-5 pt-6">
+        <View className="rounded-t-3xl bg-ui-bg dark:bg-neutral-900 px-5 pt-4">
 
           {/* Meta + status badge */}
           <View className="flex-row items-center justify-between">

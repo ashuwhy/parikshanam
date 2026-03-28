@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 import {
   Animated,
   ActivityIndicator,
@@ -24,11 +24,10 @@ export type ButtonProps = Omit<PressableProps, 'style'> & {
   textClassName?: string;
 };
 
-const BAR_HEIGHT = 4;
+const DEPTH = 4;
 const RADIUS = 16;
 
-// Colors for the bottom shadow bar (dark-mode aware)
-function barColor(variant: Variant, isDark: boolean): string {
+function edgeColor(variant: Variant, isDark: boolean): string {
   if (variant === 'primary') return brand.dark;
   if (variant === 'outline') return isDark ? '#374151' : colors.border.default;
   return 'transparent';
@@ -49,15 +48,27 @@ export function Button({
 }: ButtonProps) {
   const isDisabled = disabled || loading;
   const isDark = useColorScheme() === 'dark';
-  const translateY = useRef(new Animated.Value(0)).current;
+  const pressed = useRef(new Animated.Value(0)).current;
+  const [isPressed, setIsPressed] = useState(false);
 
   const pressIn = () => {
     if (isDisabled) return;
-    Animated.timing(translateY, { toValue: BAR_HEIGHT, duration: 60, useNativeDriver: true }).start();
+    setIsPressed(true);
+    Animated.spring(pressed, {
+      toValue: 1,
+      useNativeDriver: true,
+      speed: 40,
+      bounciness: 0,
+    }).start();
   };
 
   const pressOut = () => {
-    Animated.timing(translateY, { toValue: 0, duration: 80, useNativeDriver: true }).start();
+    Animated.spring(pressed, {
+      toValue: 0,
+      useNativeDriver: true,
+      speed: 40,
+      bounciness: 0,
+    }).start(() => setIsPressed(false));
   };
 
   if (variant === 'ghost') {
@@ -65,52 +76,81 @@ export function Button({
       <Pressable
         accessibilityRole="button"
         disabled={isDisabled}
-        onPressIn={(e) => { pressIn(); onPressIn?.(e); }}
-        onPressOut={(e) => { pressOut(); onPressOut?.(e); }}
-        className={cn('flex-row items-center justify-center rounded-2xl px-6 py-4 active:opacity-60', isDisabled && 'opacity-50', className)}
+        onPressIn={(e) => {
+          pressIn();
+          onPressIn?.(e);
+        }}
+        onPressOut={(e) => {
+          pressOut();
+          onPressOut?.(e);
+        }}
+        className={cn(
+          'flex-row items-center justify-center rounded-2xl px-6 py-4 active:opacity-60',
+          isDisabled && 'opacity-50',
+          className
+        )}
         {...rest}
       >
-        <Text className={cn('text-center text-base font-sans-bold', isDark ? 'text-brand-secondary' : 'text-brand-primary', textClassName)}>
+        <Text
+          className={cn(
+            'text-center text-base font-sans-bold',
+            isDark ? 'text-brand-secondary' : 'text-brand-primary',
+            textClassName
+          )}
+        >
           {title}
         </Text>
       </Pressable>
     );
   }
 
+  const translateY = pressed.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 2],
+  });
+
+  const scaleY = pressed.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0.985],
+  });
+
   return (
-    // Outer container reserves space for the bar without ever changing size
-    <View style={{ paddingBottom: BAR_HEIGHT }}>
-      {/* Static shadow bar — always present, button slides over it on press */}
-      <View
+    <View style={{ paddingBottom: DEPTH }}>
+      <Animated.View
         style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: BAR_HEIGHT + RADIUS, // extends up behind button so top of bar is hidden
-          backgroundColor: barColor(variant, isDark),
-          borderBottomLeftRadius: RADIUS,
-          borderBottomRightRadius: RADIUS,
+          transform: [{ translateY }, { scaleY }],
         }}
-      />
-      {/* Button slides down on press, covering the bar */}
-      <Animated.View style={{ transform: [{ translateY }] }}>
+      >
         <Pressable
           accessibilityRole="button"
           disabled={isDisabled}
-          onPressIn={(e) => { pressIn(); onPressIn?.(e); }}
-          onPressOut={(e) => { pressOut(); onPressOut?.(e); }}
+          onPressIn={(e) => {
+            pressIn();
+            onPressIn?.(e);
+          }}
+          onPressOut={(e) => {
+            pressOut();
+            onPressOut?.(e);
+          }}
+          style={{
+            borderRadius: RADIUS,
+            borderBottomWidth: isPressed ? 0 : DEPTH,
+            borderBottomColor: edgeColor(variant, isDark),
+          }}
           className={cn(
             'flex-row items-center justify-center rounded-2xl px-6 py-4',
             variant === 'primary' && 'bg-brand-primary',
-            variant === 'outline' && 'bg-white dark:bg-neutral-800 border-2 border-ui-border dark:border-neutral-600',
+            variant === 'outline' &&
+              'bg-white dark:bg-neutral-800 border-2 border-ui-border dark:border-neutral-600',
             isDisabled && 'opacity-50',
-            className,
+            className
           )}
           {...rest}
         >
           {loading ? (
-            <ActivityIndicator color={variant === 'primary' ? colors.text.inverse : brand.primary} />
+            <ActivityIndicator
+              color={variant === 'primary' ? colors.text.inverse : brand.primary}
+            />
           ) : (
             <View className="flex-row items-center justify-center gap-2">
               {leftIcon ?? null}
@@ -118,8 +158,9 @@ export function Button({
                 className={cn(
                   'text-center text-base font-sans-bold',
                   variant === 'primary' && 'text-white',
-                  variant === 'outline' && (isDark ? 'text-brand-secondary' : 'text-brand-dark'),
-                  textClassName,
+                  variant === 'outline' &&
+                    (isDark ? 'text-brand-secondary' : 'text-brand-dark'),
+                  textClassName
                 )}
               >
                 {title}

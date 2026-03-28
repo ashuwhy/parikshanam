@@ -31,6 +31,12 @@ module.exports = {
           error:   '#EF4444',     // Red — wrong, errors
           locked:  '#9CA3AF',     // Gray — disabled, locked
         },
+        // Override neutral-800/900 to match darkColors.background — removes the
+        // navy cast from the default Tailwind palette (#1F2937 / #111827)
+        neutral: {
+          800: '#1C1C1C',
+          900: '#111111',
+        },
       },
       fontFamily: {
         // Roboto — primary/body font

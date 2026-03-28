@@ -109,8 +109,8 @@ export const colors = {
 export const darkColors = {
   // Backgrounds
   background: {
-    primary: '#111827', // Dark background
-    secondary: '#1F2937', // Dark card background
+    primary: '#111111', // Dark background
+    secondary: '#1C1C1C', // Dark card background
     tertiary: '#374151', 
     inverse: '#F9F7F5', 
   },

@@ -1,10 +1,12 @@
 import { useEvent, useEventListener } from 'expo';
 import { useVideoPlayer, VideoView } from 'expo-video';
-import { AlertCircle, Loader } from 'lucide-react-native';
-import { useEffect, useRef } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { AlertCircle, Play, Pause, Maximize, Minimize } from 'lucide-react-native';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Text, View, Pressable, PanResponder, Modal } from 'react-native';
 
-import { brand, iconColors } from '@/constants/Colors';
+import { Button } from '@/components/ui/Button';
+import { brand } from '@/constants/Colors';
+import { cn } from '@/lib/cn';
 
 type Props = {
   /** Signed URL for the video. Pass null to show a loading state. */
@@ -12,57 +14,305 @@ type Props = {
   onEnded?: () => void;
 };
 
+function formatTime(seconds: number) {
+  if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
 export function VideoPlayer({ url, onEnded }: Props) {
+  const videoViewRef = useRef<VideoView>(null);
+  const fullscreenVideoViewRef = useRef<VideoView>(null);
+  
   const player = useVideoPlayer(url, (p) => {
     p.loop = false;
     if (url) p.play();
   });
 
-  // Re-play when url changes (e.g. after signed URL refresh)
   const prevUrl = useRef<string | null>(null);
   useEffect(() => {
     if (url && url !== prevUrl.current) {
-      player.replaceAsync(url).then(() => player.play());
+      void player.replaceAsync(url).then(() => player.play());
       prevUrl.current = url;
     }
   }, [url, player]);
 
-  // Fire onEnded callback when video reaches the end
   useEventListener(player, 'playToEnd', () => {
     onEnded?.();
   });
 
   const { status } = useEvent(player, 'statusChange', { status: player.status });
+  const { isPlaying } = useEvent(player, 'playingChange', { isPlaying: player.playing });
+  
   const isBuffering = status === 'loading';
   const hasError = status === 'error';
 
-  return (
-    <View className="w-full bg-neutral-950" style={{ aspectRatio: 16 / 9 }}>
+  // Custom Controls State
+  const [showControls, setShowControls] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const controlsTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Scrubber Drag State
+  const [scrubberWidth, setScrubberWidth] = useState(0);
+  const scrubberWidthRef = useRef(0); // ref copy so PanResponder (created once) always reads current value
+  const durationRef = useRef(0);      // same for duration
+  const isDragging = useRef(false);
+  const [dragProgress, setDragProgress] = useState(0); // 0 to 1
+  const startRatio = useRef(0);
+
+  // Sync video time for the UI slider (4Hz is smooth enough without overhead)
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (player && !isDragging.current) {
+        setCurrentTime(player.currentTime || 0);
+        const d = player.duration || 0;
+        setDuration(d);
+        durationRef.current = d; // keep ref in sync so PanResponder sees current value
+      }
+    }, 250);
+    return () => clearInterval(id);
+  }, [player]);
+
+  const hideControlsLater = () => {
+    if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
+    controlsTimeout.current = setTimeout(() => {
+      if (player.playing && !isDragging.current) {
+        setShowControls(false);
+      }
+    }, 3000);
+  };
+
+  const toggleControls = () => {
+    setShowControls((v) => !v);
+    hideControlsLater();
+  };
+
+  useEffect(() => {
+    if (isPlaying && !isDragging.current) {
+      hideControlsLater();
+    } else {
+      setShowControls(true);
+      if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
+    }
+  }, [isPlaying]);
+
+  const retry = () => {
+    if (url) void player.replaceAsync(url).then(() => player.play());
+  };
+
+  const togglePlaybackRate = () => {
+    const nextRate = playbackRate === 1 ? 1.5 : playbackRate === 1.5 ? 2 : playbackRate === 2 ? 0.5 : 1;
+    player.playbackRate = nextRate;
+    setPlaybackRate(nextRate);
+    hideControlsLater();
+  };
+
+  const panResponder = useRef(
+    PanResponder.create({
+      // Capture in the bubble-down phase so we win before the parent Pressable overlay claims the gesture
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+      onPanResponderGrant: (e) => {
+        isDragging.current = true;
+        if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
+        // Read from refs — NOT from closed-over state (which would be stale 0s from mount)
+        const sw = scrubberWidthRef.current;
+        if (sw > 0) {
+          startRatio.current = Math.max(0, Math.min(1, e.nativeEvent.locationX / sw));
+          setDragProgress(startRatio.current);
+        }
+      },
+      onPanResponderMove: (_e, gestureState) => {
+        const sw = scrubberWidthRef.current;
+        if (sw > 0) {
+          const newRatio = Math.max(0, Math.min(1, startRatio.current + gestureState.dx / sw));
+          setDragProgress(newRatio);
+        }
+      },
+      onPanResponderRelease: (_e, gestureState) => {
+        isDragging.current = false;
+        const sw = scrubberWidthRef.current;
+        const d = durationRef.current;
+        if (sw > 0 && d > 0) {
+          const newRatio = Math.max(0, Math.min(1, startRatio.current + gestureState.dx / sw));
+          player.currentTime = newRatio * d;
+          setCurrentTime(newRatio * d);
+        }
+        hideControlsLater();
+      },
+      onPanResponderTerminate: () => {
+        // Another responder stole the gesture — reset drag state cleanly
+        isDragging.current = false;
+      },
+    })
+  ).current;
+
+  const currentProgressRatio = isDragging.current 
+    ? dragProgress 
+    : (duration > 0 ? (currentTime / duration) : 0);
+
+  const renderContent = (full: boolean) => (
+    <View 
+      className={cn("w-full bg-neutral-950", full ? "flex-1 justify-center" : "")} 
+      style={full ? undefined : { aspectRatio: 16 / 9 }}
+    >
       {url ? (
         <VideoView
+          ref={full ? fullscreenVideoViewRef : videoViewRef}
           player={player}
-          style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: full ? '100%' : '100%' }}
           contentFit="contain"
-          nativeControls
+          nativeControls={false}
         />
       ) : null}
 
-      {/* Buffering overlay */}
+      {/* Interactive Overlay to capture taps and show controls */}
+      {!hasError && (
+        <Pressable 
+          className="absolute inset-0 z-10" 
+          onPress={toggleControls}
+          style={{ backgroundColor: showControls ? 'rgba(0,0,0,0.4)' : 'transparent' }}
+        >
+          {showControls && (
+            <>
+              {/* Play / Pause Center Button */}
+              <View className="absolute inset-0 items-center justify-center" pointerEvents="box-none">
+                <Pressable
+                  className="w-16 h-16 rounded-full bg-black/40 items-center justify-center"
+                  onPress={() => {
+                    if (isPlaying) player.pause();
+                    else player.play();
+                    hideControlsLater();
+                  }}
+                >
+                  {isPlaying ? (
+                    <Pause color="white" fill="white" size={32} />
+                  ) : (
+                    <Play color="white" fill="white" size={32} style={{ marginLeft: 4 }} />
+                  )}
+                </Pressable>
+              </View>
+
+              {/* Bottom Control Bar */}
+              <View className="absolute bottom-0 left-0 right-0 p-4 pt-10" pointerEvents="box-none">
+                {/* Time & Maximize Row */}
+                <View className="flex-row items-center justify-between mb-3 px-2">
+                  <Text className="text-white font-sans-medium text-xs shadow-sm">
+                    {formatTime(isDragging.current ? dragProgress * duration : currentTime)} / {formatTime(duration)}
+                  </Text>
+                  
+                  <View className="flex-row items-center gap-5">
+                    <Pressable 
+                      onPress={togglePlaybackRate}
+                      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    >
+                      <Text className="text-white font-display-black text-[11px] uppercase tracking-wider shadow-sm">
+                        {playbackRate}x
+                      </Text>
+                    </Pressable>
+                    <Pressable 
+                      onPress={() => setIsFullscreen(!full)}
+                      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    >
+                      {full ? (
+                        <Minimize color="white" size={20} strokeWidth={2.5} />
+                      ) : (
+                        <Maximize color="white" size={18} strokeWidth={2.5} />
+                      )}
+                    </Pressable>
+                  </View>
+                </View>
+
+                {/* Scrubber Timeline */}
+                <View 
+                  className="w-full h-8 justify-center px-2"
+                  onLayout={(e) => {
+                    // Only update if this is the active view (not the hidden one behind the Modal)
+                    if (full === isFullscreen) {
+                      const w = e.nativeEvent.layout.width - 16; // subtract px-2 on each side
+                      setScrubberWidth(w);
+                      scrubberWidthRef.current = w; // keep ref in sync so PanResponder sees it
+                    }
+                  }}
+                  {...panResponder.panHandlers}
+                >
+                  <View className="w-full h-1.5 bg-white/30 rounded-full">
+                    {/* Fill */}
+                    <View 
+                      className="h-full bg-brand-primary rounded-full absolute left-0 top-0 bottom-0" 
+                      style={{ width: `${currentProgressRatio * 100}%` }}
+                    />
+                    {/* Draggable Dot */}
+                    <View 
+                      className="absolute top-1/2 w-4 h-4 bg-white rounded-full shadow-sm"
+                      style={{ 
+                        left: `${currentProgressRatio * 100}%`,
+                        marginTop: -8,       
+                        marginLeft: -8,      
+                        elevation: 4,
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </>
+          )}
+        </Pressable>
+      )}
+
+      {/* Buffering overlay — higher zIndex than controls (z-10) + later in tree = on top everywhere */}
       {(isBuffering || !url) && !hasError && (
-        <View className="absolute inset-0 items-center justify-center bg-neutral-950/80">
-          <ActivityIndicator size="large" color={iconColors.primary} />
+        <View
+          className="absolute inset-0 items-center justify-center"
+          style={{ zIndex: 15 }}
+          pointerEvents="none"
+        >
+          <ActivityIndicator size="large" color={brand.primary} />
         </View>
       )}
 
       {/* Error overlay */}
       {hasError && (
-        <View className="absolute inset-0 items-center justify-center bg-neutral-950 px-8">
-          <AlertCircle size={40} color={brand.error} strokeWidth={1.5} />
-          <Text className="mt-3 text-sm font-sans-medium text-neutral-400 text-center">
-            Failed to load video
-          </Text>
+        <View className="absolute inset-0 items-center justify-center bg-neutral-950 px-8 gap-5 z-20">
+          <AlertCircle size={44} color={brand.error} strokeWidth={1.5} />
+          <View className="items-center gap-1.5">
+            <Text className="text-lg font-display-black text-white">
+              Video unavailable
+            </Text>
+            <Text className="text-sm font-sans-medium text-neutral-400 text-center leading-relaxed">
+              Something went wrong loading this video.
+            </Text>
+          </View>
+          {url && (
+            <Button title="Try again" variant="outline" onPress={retry} />
+          )}
         </View>
       )}
     </View>
+  );
+
+  return (
+    <>
+      {/* Normal mode renders inline, but we hide it completely if fullscreen so layout width doesn't fight */}
+      {!isFullscreen && renderContent(false)}
+      
+      {/* Fullscreen uses a native modal so it breaks out of ScrollViews and UI hierarchy */}
+      <Modal
+        visible={isFullscreen}
+        animationType="fade"
+        transparent={false}
+        statusBarTranslucent
+        supportedOrientations={['portrait', 'landscape', 'landscape-left', 'landscape-right']}
+        onRequestClose={() => setIsFullscreen(false)}
+      >
+        <View className="flex-1 bg-black">
+          {renderContent(true)}
+        </View>
+      </Modal>
+    </>
   );
 }

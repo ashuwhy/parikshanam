@@ -24,7 +24,7 @@ export function StatusBadge({ label, variant = 'success', className, ...rest }: 
       {...rest}>
       <Text
         className={cn(
-          'text-xs font-bold uppercase tracking-wide',
+          'text-xs font-display uppercase tracking-wide',
           variant === 'success' && 'text-brand-dark dark:text-green-200',
           variant === 'warning' && 'text-yellow-800 dark:text-yellow-200',
           variant === 'error' && 'text-red-800 dark:text-red-200',

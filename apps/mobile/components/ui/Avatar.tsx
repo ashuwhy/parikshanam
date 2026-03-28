@@ -67,7 +67,6 @@ export function Avatar({ size = 'sm' }: { size?: AvatarSize }) {
         onPress={() => router.push(href('/profile'))}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
-        className="mr-3"
       >
         <View
           className={`${s.dim} items-center justify-center rounded-full border-2 border-brand-primary dark:border-brand-secondary overflow-hidden`}

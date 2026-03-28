@@ -89,7 +89,7 @@ export function GoogleSignInButton() {
           borderBottomRightRadius: RADIUS,
         }}
       />
-      <Animated.View style={{ transform: [{ translateY }] }}>
+      <Animated.View style={{ transform: [{ translateY }] }} renderToHardwareTextureAndroid>
         <Pressable
           accessibilityRole="button"
           onPress={() => void onPress()}

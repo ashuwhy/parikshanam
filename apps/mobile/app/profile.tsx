@@ -105,7 +105,7 @@ export default function ProfileScreen() {
       >
 
         {/* Avatar + name block */}
-        <View className="items-center dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-800">
+        <View className="items-center dark:bg-neutral-800 pt-8 pb-6 border-b border-neutral-100 dark:border-neutral-700">
           <AvatarCircle size="lg" />
           <View className="mt-4 items-center px-6 w-full">
             {editing ? (
@@ -176,7 +176,7 @@ export default function ProfileScreen() {
               className="flex-1 items-center rounded-2xl bg-white dark:bg-neutral-800 py-4 border border-ui-border dark:border-neutral-700"
             >
               <Text className="text-2xl font-display-black text-brand-primary">{s.value}</Text>
-              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500">{s.label}</Text>
+              <Text className="mt-1 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{s.label}</Text>
             </View>
           ))}
         </View>

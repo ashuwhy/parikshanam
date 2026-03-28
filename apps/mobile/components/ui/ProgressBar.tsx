@@ -23,14 +23,16 @@ export function ProgressBar({ progress, label, variant = 'success' }: ProgressBa
   
   return (
     <View className="w-full">
-      <View className="flex-row justify-between items-center mb-1.5">
-        {label && <Text className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{label}</Text>}
-        <Text className={`text-xs font-bold ${textColor}`}>{Math.round(percentage)}%</Text>
-      </View>
+      {label ? (
+        <View className="flex-row justify-between items-center mb-1.5">
+          <Text className="text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">{label}</Text>
+          <Text className={`text-xs font-display-black ${textColor}`}>{Math.round(percentage)}%</Text>
+        </View>
+      ) : null}
       <View className="h-3.5 w-full bg-ui-border dark:bg-neutral-700 rounded-full overflow-hidden border border-ui-border dark:border-neutral-600">
-        <View 
-          className={`h-full ${fillColor} rounded-full transition-all duration-700`}
-          style={{ width: `${percentage}%` }} 
+        <View
+          className={`h-full ${fillColor} rounded-full`}
+          style={{ width: `${percentage}%` }}
         />
       </View>
     </View>
