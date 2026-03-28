@@ -3,13 +3,15 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { BookOpen, ChevronRight, Clock, Volume2, VolumeX } from 'lucide-react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, useWindowDimensions, View } from 'react-native';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
 import { Button } from '@/components/ui/Button';
 import { iconColors } from '@/constants/Colors';
 import { useBuyCourse } from '@/hooks/useBuyCourse';
 import { useStorageUrl } from '@/hooks/useStorageUrl';
 import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
+import { isYoutubeVideoId } from '@/lib/videoSource';
 import { href } from '@/lib/href';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
@@ -21,6 +23,7 @@ type Props = {
 
 export function FeaturedCourseCard({ course, purchased }: Props) {
   const router = useRouter();
+  const { width: windowWidth } = useWindowDimensions();
   const { buy, buying } = useBuyCourse(course);
   const olympiad = olympiadLabel(course);
   const cls = classRange(course);
@@ -35,12 +38,12 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
   const [showVideo, setShowVideo] = useState(false);
   const [muted, setMuted] = useState(true);
 
-  // Fetch the signed URL in the background from mount so it is ready
-  // when the 2-second timer fires.
-  const { url: videoUrl } = useStorageUrl(course.intro_video_path);
+  const introIsYoutube = isYoutubeVideoId(course.intro_video_path);
+  const { url: videoUrl } = useStorageUrl(introIsYoutube ? null : course.intro_video_path);
 
-  // Only hand the URL to the player once we actually want to play.
-  const activeVideoUrl = showVideo && videoUrl ? videoUrl : null;
+  const activeVideoUrl =
+    !introIsYoutube && showVideo && videoUrl ? videoUrl : null;
+  const showYoutubeIntro = introIsYoutube && showVideo;
 
   const player = useVideoPlayer(activeVideoUrl, (p) => {
     p.loop = true;
@@ -71,7 +74,7 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
   // cancel and reset when it loses focus or unmounts.
   useFocusEffect(
     useCallback(() => {
-      if (!course.intro_video_path) return;
+      if (!course.intro_video_path?.trim()) return;
       const timer = setTimeout(() => setShowVideo(true), 2000);
       return () => {
         clearTimeout(timer);
@@ -92,8 +95,8 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
           className="relative items-center justify-center bg-brand-primary/8 dark:bg-brand-primary/5"
           style={{ height: 192 }}
         >
-          {/* Thumbnail — shown while video is not yet active */}
-          {!activeVideoUrl && course.thumbnail_url && (
+          {/* Thumbnail - shown while video is not yet active */}
+          {!activeVideoUrl && !showYoutubeIntro && course.thumbnail_url && (
             <Image
               source={{ uri: course.thumbnail_url }}
               style={{ width: '100%', height: '100%' }}
@@ -101,12 +104,10 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
             />
           )}
 
-          {/* Fallback icon when there is neither thumbnail nor video */}
-          {!activeVideoUrl && !course.thumbnail_url && (
+          {!activeVideoUrl && !showYoutubeIntro && !course.thumbnail_url && (
             <BookOpen size={48} color={iconColors.primary} strokeWidth={1.2} />
           )}
 
-          {/* Intro video */}
           {activeVideoUrl && (
             <VideoView
               player={player}
@@ -116,8 +117,24 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
             />
           )}
 
-          {/* Mute / unmute button — only while video is playing */}
-          {activeVideoUrl && (
+          {showYoutubeIntro && course.intro_video_path && (
+            <YoutubePlayer
+              height={192}
+              width={windowWidth}
+              videoId={course.intro_video_path.trim()}
+              play
+              mute={muted}
+              forceAndroidAutoplay
+              initialPlayerParams={{
+                loop: true,
+                controls: false,
+                rel: false,
+              }}
+              webViewProps={{ pointerEvents: 'none' }}
+            />
+          )}
+
+          {(activeVideoUrl || showYoutubeIntro) && (
             <Pressable
               onPress={() => setMuted((m) => !m)}
               hitSlop={8}
@@ -217,7 +234,7 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
             />
           ) : (
             <Button
-              title={`Enroll Now — ${formatPrice(course.price)}`}
+              title={`Enroll Now - ${formatPrice(course.price)}`}
               variant="primary"
               className="mt-4"
               loading={buying}

@@ -3,6 +3,19 @@
 :root {
   --background: #F9F7F5;
   --foreground: #1B3A6E;
+  --surface-elevated: #ffffff;
+  --surface-subtle: #faf8f6;
+  --text-heading: #1b3a6e;
+  --text-body: #4b5563;
+  --text-muted: #6b7280;
+  --border-ui: #e5e0d8;
+
+  /* Border radius system (marketing + shared UI) */
+  --radius-card: 1rem;
+  --radius-button: 1rem;
+  --radius-nested: 1rem;
+  --radius-control-sm: 0.75rem;
+  --radius-icon-tile: 1rem;
 }
 
 @theme inline {
@@ -28,6 +41,7 @@ body {
   font-family: var(--font-roboto-var), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* ── Brand selection color ── */
@@ -51,12 +65,13 @@ body {
   background: #D1CCC4;
 }
 
-/* ── Focus visible ring (skip native fields — use field border / parent focus-within) ── */
+/* ── Focus visible ring (skip native fields - use field border / parent focus-within) ── */
 *:focus-visible {
   outline: 2px solid #E8720C;
   outline-offset: 2px;
-  border-radius: 8px;
 }
+
+/* Do not set border-radius here: it overrides Tailwind rounded-* on focus (e.g. rounded-xl inputs). */
 
 :is(input, textarea, select):focus-visible {
   outline: none;
@@ -64,10 +79,11 @@ body {
 }
 
 /* ── Keyframe animations ── */
+/* Entrance: opacity-first; minimal vertical motion (no hover - avoids “jump” feel on load). */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -83,11 +99,9 @@ body {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -130,6 +144,13 @@ body {
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
 .delay-6 { animation-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-scale-in {
+    animation: fadeIn 0.35s ease-out both;
+  }
+}
 
 /* ── Safe area padding for iOS ── */
 .pb-safe {

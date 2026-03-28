@@ -28,7 +28,7 @@ export default async function MyCoursesPage() {
   const totalCompleted = progress.length;
 
   return (
-    <div className="min-h-screen bg-[#F9F7F5]">
+    <div className="min-h-screen bg-transparent">
       <div className="max-w-3xl mx-auto px-5 py-6">
         {/* Header */}
         <div className="mb-6">

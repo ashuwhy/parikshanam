@@ -5,12 +5,12 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#111827] text-white py-14 px-6">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+    <footer className="w-full bg-[#111827] text-white py-16 px-6 sm:px-8 border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
         {/* Brand */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-2.5">
-            <Image src="/icon.png" width={36} height={36} alt="Parikshanam" className="rounded-xl" />
+            <Image src="/icon.png" width={36} height={36} alt="Parikshanam" className="rounded-[var(--radius-icon-tile)]" />
             <h2
               className="text-xl text-white"
               style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
@@ -19,11 +19,11 @@ export default function Footer() {
             </h2>
           </div>
           <p
-            className="text-[#9CA3AF] text-sm leading-relaxed max-w-sm"
+            className="text-[#9CA3AF] text-sm leading-[1.65] max-w-sm"
             style={{ fontFamily: "var(--font-roboto-var)" }}
           >
             Empowering students in Grades 6–10 with expert Olympiad coaching.
-            Video lessons, smart quizzes, and progress tracking — all in one app.
+            Video lessons, smart quizzes, and progress tracking - all in one app.
           </p>
           <p
             className="text-xs text-[#E8720C] uppercase tracking-widest"

@@ -6,7 +6,7 @@ This folder matches the Expo app: tables `profiles`, `courses`, `purchases`, aut
 
 Migrations live in **`parikshanam/supabase/migrations/`** (repo root), not under `apps/mobile/`.
 
-If you run `supabase db push` from **`apps/mobile`**, the CLI may use an empty or wrong `supabase/` folder and report **“Remote database is up to date”** while **nothing new is applied** — the DB can stay blank or missing tables.
+If you run `supabase db push` from **`apps/mobile`**, the CLI may use an empty or wrong `supabase/` folder and report **“Remote database is up to date”** while **nothing new is applied** - the DB can stay blank or missing tables.
 
 **Do this:**
 
@@ -22,7 +22,7 @@ There is a **`supabase/migrations` symlink** under `apps/mobile/supabase/migrati
 
 ## 1. Apply database SQL
 
-### Option A — Supabase CLI (recommended)
+### Option A - Supabase CLI (recommended)
 
 From the **repository root** `parikshanam/` (with [Supabase CLI](https://supabase.com/docs/guides/cli) installed and logged in):
 
@@ -34,7 +34,7 @@ supabase db push
 
 That runs everything under `supabase/migrations/` in order.
 
-### Option B — Dashboard SQL Editor
+### Option B - Dashboard SQL Editor
 
 1. Open [Supabase Dashboard](https://supabase.com/dashboard) → your project → **SQL Editor**.
 2. Run each file **in order** (copy/paste contents):
@@ -42,7 +42,7 @@ That runs everything under `supabase/migrations/` in order.
    1. `migrations/20250322000000_init_parikshanam.sql`
    2. `migrations/20250322000001_seed_course.sql`
    3. `migrations/20250322000002_polish.sql`
-   4. `migrations/20250322000003_class_olympiad_catalog.sql` — `class_levels`, `olympiad_types`, profile `class_level_id`, course FKs (replaces legacy `class_level` / `olympiad_type` text columns).
+   4. `migrations/20250322000003_class_olympiad_catalog.sql` - `class_levels`, `olympiad_types`, profile `class_level_id`, course FKs (replaces legacy `class_level` / `olympiad_type` text columns).
 
 If you already applied older migrations, run only the **new** files you are missing (for example `20250322000002_polish.sql` and/or `20250322000003_class_olympiad_catalog.sql`). Do **not** re-run `00001` seed if you already have data, or you may duplicate the sample course.
 
@@ -63,8 +63,8 @@ The mobile app calls `supabase.functions.invoke('create-razorpay-order', …)` f
 
 1. **Secrets** (Dashboard → **Edge Functions** → **Secrets**, or CLI):
 
-   - `RAZORPAY_KEY_ID` — Razorpay key id (test or live).
-   - `RAZORPAY_KEY_SECRET` — Razorpay key secret.
+   - `RAZORPAY_KEY_ID` - Razorpay key id (test or live).
+   - `RAZORPAY_KEY_SECRET` - Razorpay key secret.
 
    `SUPABASE_URL` and `SUPABASE_ANON_KEY` are usually injected by Supabase for Edge Functions; if not, add them to match your project.
 
@@ -91,7 +91,7 @@ RLS is defined in the init migration:
 
 ## 6. Troubleshooting
 
-- **`supabase db push` says “Remote database is up to date” but the DB is empty / tables missing** — You were probably in **`apps/mobile`** without migration files. Real migrations are only at **`parikshanam/supabase/migrations/`**. `cd` to the **monorepo root**, run `ls supabase/migrations` (you should see four `.sql` files), then `supabase db push` or `pnpm supabase:push`. This repo adds `apps/mobile/supabase/migrations` as a **symlink** to the root migrations so pushes from the mobile folder can work; still prefer running from the root. Compare local vs remote with `supabase migration list` (run from the repo root after `supabase link`).
+- **`supabase db push` says “Remote database is up to date” but the DB is empty / tables missing** - You were probably in **`apps/mobile`** without migration files. Real migrations are only at **`parikshanam/supabase/migrations/`**. `cd` to the **monorepo root**, run `ls supabase/migrations` (you should see four `.sql` files), then `supabase db push` or `pnpm supabase:push`. This repo adds `apps/mobile/supabase/migrations` as a **symlink** to the root migrations so pushes from the mobile folder can work; still prefer running from the root. Compare local vs remote with `supabase migration list` (run from the repo root after `supabase link`).
 - **Profile row missing after sign-up**: Check **Database → Logs** for errors from trigger `on_auth_user_created`. Ensure migration `20250322000000` ran completely.
 - **“permission denied for table”**: Confirm you’re using the **anon** key in the app and RLS policies exist (re-run init migration on a fresh DB if unsure).
 - **Duplicate seed course**: Re-running `20250322000001` inserts another row; delete extras in **Table Editor** or adjust seed to be idempotent for your environment.
@@ -100,10 +100,10 @@ RLS is defined in the init migration:
 
 The CLI is logged in, but the account **does not have API access** to that project ref. Common causes:
 
-1. **Wrong Supabase account** — The browser session you used for `supabase login` must be the same identity that can open `https://supabase.com/dashboard/project/fpfadcfycypxudzmguax` (or your project). If you use multiple Google/GitHub accounts, log out in the dashboard and run `supabase login` again after signing into the correct one.
-2. **Wrong project ref** — In the dashboard: **Project Settings → General → Reference ID** must match `fpfadcfycypxudzmguax` exactly. If you created a **new** project after moving orgs, the ref is different.
-3. **Org / team permissions** — You need a role that can manage the project (e.g. Owner or Developer). Ask an org owner to invite this account to the org/project.
-4. **Confirm what the CLI sees** — Run:
+1. **Wrong Supabase account** - The browser session you used for `supabase login` must be the same identity that can open `https://supabase.com/dashboard/project/fpfadcfycypxudzmguax` (or your project). If you use multiple Google/GitHub accounts, log out in the dashboard and run `supabase login` again after signing into the correct one.
+2. **Wrong project ref** - In the dashboard: **Project Settings → General → Reference ID** must match `fpfadcfycypxudzmguax` exactly. If you created a **new** project after moving orgs, the ref is different.
+3. **Org / team permissions** - You need a role that can manage the project (e.g. Owner or Developer). Ask an org owner to invite this account to the org/project.
+4. **Confirm what the CLI sees** - Run:
 
    ```bash
    supabase projects list

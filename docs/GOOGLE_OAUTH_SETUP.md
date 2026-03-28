@@ -36,11 +36,11 @@ You need **two** client IDs.
 1. **APIs & Services → Credentials → Create Credentials → OAuth client ID**.
 2. **Application type:** Web application.
 3. **Name:** `parikshanam-web`
-4. **Authorized redirect URIs** — add both:
+4. **Authorized redirect URIs** - add both:
    ```
    https://fpfadcfycypxudzmguax.supabase.co/auth/v1/callback
    ```
-5. Click **Create**. Copy the **Client ID** and **Client Secret** — you need them in Supabase next.
+5. Click **Create**. Copy the **Client ID** and **Client Secret** - you need them in Supabase next.
 
 #### iOS Client ID (native Google Sign-In, optional but needed for native `expo-auth-session`)
 
@@ -64,7 +64,7 @@ You need **two** client IDs.
    ```
    https://fpfadcfycypxudzmguax.supabase.co/auth/v1/callback
    ```
-   This is read-only — it's what you already added to GCP in step 1d.
+   This is read-only - it's what you already added to GCP in step 1d.
 7. Click **Save**.
 
 ---
@@ -79,7 +79,7 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
 EXPO_PUBLIC_RAZORPAY_KEY_ID=rzp_test_XXXXXXXX
 ```
 
-The app's Google sign-in (`GoogleSignInButton`) uses `supabase.auth.signInWithOAuth({ provider: 'google' })` — it reads only `SUPABASE_URL` and `SUPABASE_ANON_KEY`, so no Google Client ID is needed in `.env`.
+The app's Google sign-in (`GoogleSignInButton`) uses `supabase.auth.signInWithOAuth({ provider: 'google' })` - it reads only `SUPABASE_URL` and `SUPABASE_ANON_KEY`, so no Google Client ID is needed in `.env`.
 
 ---
 
@@ -119,4 +119,4 @@ The wildcard catches all paths under the scheme.
 2. Sign in with a Google account on the **Test users** list.
 3. Browser closes → app navigates to onboarding (if first time) or home.
 
-If you see `Error 400: redirect_uri_mismatch`, the redirect URI in GCP doesn't match what Supabase sent — double-check step 1d.
+If you see `Error 400: redirect_uri_mismatch`, the redirect URI in GCP doesn't match what Supabase sent - double-check step 1d.

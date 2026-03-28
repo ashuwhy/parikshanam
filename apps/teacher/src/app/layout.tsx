@@ -15,7 +15,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Parikshanam — Teacher Portal',
+  title: 'Parikshanam - Teacher Portal',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -18,6 +18,7 @@ import { useCourseById, useSyllabus } from '@/hooks/useCourses';
 import { useHasPurchased, useUserProgress } from '@/hooks/usePurchases';
 import { useStorageUrl } from '@/hooks/useStorageUrl';
 import { href } from '@/lib/href';
+import { isYoutubeVideoId } from '@/lib/videoSource';
 import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
 import { olympiadLabel } from '@/types';
 
@@ -28,7 +29,10 @@ export default function CourseDetailScreen() {
   const { purchased, loading: pLoading } = useHasPurchased(id);
   const { modules } = useSyllabus(id);
   const { progress } = useUserProgress(id);
-  const { url: introVideoUrl, loading: introUrlLoading } = useStorageUrl(course?.intro_video_path);
+  const introIsYoutube = isYoutubeVideoId(course?.intro_video_path);
+  const { url: introVideoUrl, loading: introUrlLoading } = useStorageUrl(
+    introIsYoutube ? null : course?.intro_video_path,
+  );
   const insets = useSafeAreaInsets();
   const [descExpanded, setDescExpanded] = useState(false);
 
@@ -61,7 +65,11 @@ export default function CourseDetailScreen() {
         >
           {/* Hero: 16:9 video or thumbnail, edge-to-edge */}
           {course.intro_video_path ? (
-            <VideoPlayer url={introUrlLoading ? null : introVideoUrl} />
+            introIsYoutube ? (
+              <VideoPlayer videoId={course.intro_video_path.trim()} />
+            ) : (
+              <VideoPlayer url={introUrlLoading ? null : introVideoUrl} />
+            )
           ) : (
             <CourseHero course={course} />
           )}
@@ -160,7 +168,7 @@ export default function CourseDetailScreen() {
               </View>
             ) : null}
 
-            {/* Syllabus — SyllabusView has its own "Syllabus" header */}
+            {/* Syllabus - SyllabusView has its own "Syllabus" header */}
             <View className="mt-6">
               <SyllabusView
                 courseId={course.id}
@@ -173,7 +181,7 @@ export default function CourseDetailScreen() {
           </View>
         </ScrollView>
 
-        {/* Floating back button — overlays the hero */}
+        {/* Floating back button - overlays the hero */}
         <View
           className="absolute left-4 z-10"
           style={{ top: insets.top + 10 }}
@@ -195,7 +203,7 @@ export default function CourseDetailScreen() {
           }}
         >
           <Button
-            title={purchased ? 'Continue Learning' : `Buy Course — ${formatPrice(course.price)}`}
+            title={purchased ? 'Continue Learning' : `Buy Course - ${formatPrice(course.price)}`}
             loading={!purchased && buying}
             onPress={() => {
               if (purchased) {

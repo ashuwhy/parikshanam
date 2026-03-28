@@ -8,7 +8,7 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values (
   'course-thumbnails',
   'course-thumbnails',
-  true,          -- PUBLIC — served as CDN, no auth required
+  true,          -- PUBLIC - served as CDN, no auth required
   5242880,       -- 5 MB per file
   array['image/jpeg', 'image/png', 'image/webp']
 )

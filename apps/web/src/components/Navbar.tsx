@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { label: "Subjects", href: "#subjects" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Courses", href: "#courses" },
+  { label: "YSC certificates", href: "/ysc" },
 ];
 
 export default function Navbar() {
@@ -38,13 +39,13 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <Image
             src="/icon.png"
             width={32}
             height={32}
             alt="Parikshanam"
-            className="rounded-lg transition-transform group-hover:scale-105"
+            className="rounded-[var(--radius-icon-tile)]"
           />
           <span
             className="text-[1.2rem] text-[#1B3A6E]"
@@ -74,7 +75,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-xl hover:bg-[#E5E0D8]/60"
+                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-[var(--radius-control-sm)] hover:bg-[#E5E0D8]/60"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
                 Dashboard
@@ -87,7 +88,7 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
-                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-xl hover:bg-[#E5E0D8]/60"
+                className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-[var(--radius-control-sm)] hover:bg-[#E5E0D8]/60"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
                 Log In
@@ -105,7 +106,7 @@ export default function Navbar() {
         </Button>
       </div>
 
-      {/* Mobile menu — animated slide */}
+      {/* Mobile menu - animated slide */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
           open ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"

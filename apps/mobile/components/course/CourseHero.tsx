@@ -36,14 +36,14 @@ export function CourseHero({ course }: Props) {
       {/* Bottom scrim for badge legibility */}
       <View className="absolute bottom-0 left-0 right-0 h-20 bg-black/25" />
 
-      {/* Olympiad badge — bottom-left */}
+      {/* Olympiad badge - bottom-left */}
       {olympiad ? (
         <View className="absolute bottom-3 left-4">
           <CourseBadge label={olympiad} variant="olympiad" />
         </View>
       ) : null}
 
-      {/* Stats — bottom row */}
+      {/* Stats - bottom row */}
       <View className="absolute bottom-3 right-4 flex-row items-center gap-2">
         {course.total_lessons > 0 && (
           <View className="flex-row items-center gap-1 rounded-full bg-white/90 dark:bg-neutral-800/90 px-2.5 py-1">
@@ -63,7 +63,7 @@ export function CourseHero({ course }: Props) {
         )}
       </View>
 
-      {/* Class badge — top-right (positioned by parent via insets) */}
+      {/* Class badge - top-right (positioned by parent via insets) */}
       {cls ? (
         <View className="absolute top-3 right-4">
           <CourseBadge

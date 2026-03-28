@@ -32,7 +32,7 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 ```
 
-### Mobile — Supabase
+### Mobile - Supabase
 
 Copy env and add your project URL and anon key:
 

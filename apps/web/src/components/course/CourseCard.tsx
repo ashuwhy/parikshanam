@@ -16,7 +16,7 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/course/${course.id}`}
-      className="group flex flex-col rounded-2xl bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] hover:-translate-y-0.5 transition-all"
+      className="group flex flex-col rounded-[var(--radius-card)] bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] hover:-translate-y-0.5 transition-all"
     >
       {/* Thumbnail */}
       <div

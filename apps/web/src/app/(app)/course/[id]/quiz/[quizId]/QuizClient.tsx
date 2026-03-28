@@ -30,7 +30,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
 
   if (!questions.length) {
     return (
-      <div className="min-h-screen bg-[#F9F7F5] flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center gap-4">
         <p className="text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
           No questions in this quiz yet.
         </p>
@@ -90,7 +90,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
       if (error) {
         toast.error("Failed to save quiz result");
       } else {
-        toast.success(passed ? "Quiz passed." : `Quiz complete — ${score}%`);
+        toast.success(passed ? "Quiz passed." : `Quiz complete - ${score}%`);
       }
     }
   }, [submitted, isLast, questions, answers, quiz.passing_score, quiz.id, supabase, userId]);
@@ -98,7 +98,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
   // Results screen
   if (result) {
     return (
-      <div className="min-h-screen bg-[#F9F7F5] flex flex-col">
+      <div className="min-h-screen bg-transparent flex flex-col">
         <div className="bg-white border-b border-[#E5E0D8] px-4 py-3 flex items-center gap-3">
           <Link href={`/course/${courseId}`} className="text-[#6B7280] hover:text-[#1B3A6E] transition-colors">
             <ArrowLeft size={20} strokeWidth={2} />
@@ -154,7 +154,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
   }
 
   return (
-    <div className="min-h-screen bg-[#F9F7F5] flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col">
       {/* Header */}
       <div className="bg-white border-b border-[#E5E0D8] px-4 py-3 flex items-center gap-3">
         <Link href={`/course/${courseId}`} className="text-[#6B7280] hover:text-[#1B3A6E] transition-colors">

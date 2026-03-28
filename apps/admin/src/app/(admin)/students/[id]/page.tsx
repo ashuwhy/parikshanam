@@ -31,9 +31,9 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         <div className="bg-white border border-ui-border rounded-2xl p-5">
           <h2 className="font-bold text-brand-navy mb-3">Profile</h2>
           <dl className="space-y-2 text-sm">
-            <div className="flex justify-between"><dt className="text-gray-400">Email</dt><dd>{emailRow?.email ?? '—'}</dd></div>
-            <div className="flex justify-between"><dt className="text-gray-400">Phone</dt><dd>{profile.phone ?? '—'}</dd></div>
-            <div className="flex justify-between"><dt className="text-gray-400">Class</dt><dd>{profile.class_level_id ? `Class ${profile.class_level_id}` : '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Email</dt><dd>{emailRow?.email ?? '-'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Phone</dt><dd>{profile.phone ?? '-'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Class</dt><dd>{profile.class_level_id ? `Class ${profile.class_level_id}` : '-'}</dd></div>
             <div className="flex justify-between"><dt className="text-gray-400">Status</dt>
               <dd><span className={`text-xs px-2 py-0.5 rounded-full ${profile.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>{profile.is_active ? 'Active' : 'Inactive'}</span></dd>
             </div>
@@ -50,7 +50,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           <ul className="divide-y divide-ui-border text-sm">
             {purchases?.map((p) => (
               <li key={p.id} className="py-2 flex justify-between">
-                <span>{p.course?.title ?? '—'}</span>
+                <span>{p.course?.title ?? '-'}</span>
                 <span className="text-gray-400">₹{(p.amount / 100).toLocaleString('en-IN')}</span>
               </li>
             ))}
@@ -63,7 +63,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         <ul className="divide-y divide-ui-border text-sm max-h-64 overflow-y-auto">
           {progress?.map((p) => (
             <li key={p.id} className="py-2 flex justify-between">
-              <span>{p.lesson?.title ?? p.quiz?.title ?? '—'}</span>
+              <span>{p.lesson?.title ?? p.quiz?.title ?? '-'}</span>
               <span className="text-gray-400">{new Date(p.completed_at).toLocaleDateString('en-IN')}</span>
             </li>
           ))}

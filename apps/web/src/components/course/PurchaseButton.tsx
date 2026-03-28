@@ -115,7 +115,7 @@ export function PurchaseButton({ course, purchased, modules, completedIds }: Pro
 
   // UPI payment panel
   return (
-    <div className="rounded-2xl border-2 border-[#E5E0D8] bg-white overflow-hidden">
+    <div className="rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white overflow-hidden">
       {/* Header */}
       <div className="flex items-center px-4 py-3 border-b border-[#E5E0D8]">
         <span

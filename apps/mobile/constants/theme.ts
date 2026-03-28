@@ -2,27 +2,27 @@ import { CSSProperties } from 'react';
 
 /**
  * BRAND COLORS
- * Primary brand identity colors — derived from the Parikshanam app icon.
+ * Primary brand identity colors - derived from the Parikshanam app icon.
  *
  * Icon palette:
- *   Orange  #E8720C — open book pages, arrow accent, body stick (hero action color)
- *   Navy    #1B3A6E — arrow shaft, book spine, structural depth
- *   Teal    #1B8A7A — yin-yang accent half
- *   Gold    #F5C842 — sun rays, warmth accent
+ *   Orange  #E8720C - open book pages, arrow accent, body stick (hero action color)
+ *   Navy    #1B3A6E - arrow shaft, book spine, structural depth
+ *   Teal    #1B8A7A - yin-yang accent half
+ *   Gold    #F5C842 - sun rays, warmth accent
  */
 export const brand = {
-  primary: '#E8720C',   // Vivid Orange — primary buttons, active states, progress fills
-  secondary: '#F5A623', // Warm Amber — hover glows, light accents, dark mode text
-  dark: '#A04F08',      // Burnt Orange — button bottom-border, shadow base
-  navy: '#1B3A6E',      // Deep Navy — structural text, depth accents
-  navyLight: '#2A5298', // Navy mid — secondary actions, links in dark mode
-  teal: '#1B8A7A',      // Teal — accent highlights, info states, focus rings
-  gold: '#F5C842',      // Gold — streak/warning accents, sun/energy motif
-  success: '#22C55E',   // Green — correct answers, completed lessons
-  error: '#EF4444',     // Red — wrong answers, errors
-  warning: '#F5C842',   // Gold — streak at risk, partial progress
-  info: '#1B8A7A',      // Teal — informational states
-  locked: '#9CA3AF',    // Gray — locked content, disabled states
+  primary: '#E8720C',   // Vivid Orange - primary buttons, active states, progress fills
+  secondary: '#F5A623', // Warm Amber - hover glows, light accents, dark mode text
+  dark: '#A04F08',      // Burnt Orange - button bottom-border, shadow base
+  navy: '#1B3A6E',      // Deep Navy - structural text, depth accents
+  navyLight: '#2A5298', // Navy mid - secondary actions, links in dark mode
+  teal: '#1B8A7A',      // Teal - accent highlights, info states, focus rings
+  gold: '#F5C842',      // Gold - streak/warning accents, sun/energy motif
+  success: '#22C55E',   // Green - correct answers, completed lessons
+  error: '#EF4444',     // Red - wrong answers, errors
+  warning: '#F5C842',   // Gold - streak at risk, partial progress
+  info: '#1B8A7A',      // Teal - informational states
+  locked: '#9CA3AF',    // Gray - locked content, disabled states
 } as const;
 
 /**
@@ -122,13 +122,13 @@ export const darkColors = {
     tertiary: '#9CA3AF',
     quaternary: '#6B7280',
     inverse: '#111827',
-    link: '#F5A623', // brand.secondary amber — lighter for dark mode
+    link: '#F5A623', // brand.secondary amber - lighter for dark mode
   },
 
   // Borders
   border: {
     default: '#374151', // Darker border
-    strong: '#F5A623',  // brand.secondary amber — visible on dark
+    strong: '#F5A623',  // brand.secondary amber - visible on dark
     subtle: '#4B5563',
   },
 
@@ -211,16 +211,16 @@ export const borderRadius = {
  * FONT FAMILIES
  * Roboto = primary/body · Nunito = secondary/display (headings, labels, CTAs)
  *
- * In React Native, fontWeight doesn't compose with fontFamily — each weight
+ * In React Native, fontWeight doesn't compose with fontFamily - each weight
  * must be a separate named font. Use these constants for inline styles, and
  * the matching `font-{variant}` Tailwind class for className usage.
  */
 export const fonts = {
-  // Roboto — body & interface text
+  // Roboto - body & interface text
   sans: 'Roboto_400Regular',
   sansMedium: 'Roboto_500Medium',
   sansBold: 'Roboto_700Bold',
-  // Nunito — headings, display, labels
+  // Nunito - headings, display, labels
   display: 'Nunito_700Bold',
   displayExtra: 'Nunito_800ExtraBold',
   displayBlack: 'Nunito_900Black',
@@ -232,14 +232,14 @@ export const fonts = {
  * Always import these instead of hardcoding hex values.
  */
 export const iconColors = {
-  primary: '#E8720C',   // brand.primary — featured, CTAs, active states
-  secondary: '#1B8A7A', // brand.teal — UI accent, avatars, highlights
-  structural: '#1B3A6E', // brand.navy — section headers, structural icons
-  muted: '#6B7280',     // neutral-500 — placeholders, disabled
-  subtle: '#9CA3AF',    // neutral-400 — decorative, search, clear
-  empty: '#D1D5DB',     // neutral-300 — empty states
-  onBrand: '#FFFFFF',   // white — icons on colored backgrounds
-  onWarning: '#A04F08', // brand.dark — icons on warning/gold backgrounds
+  primary: '#E8720C',   // brand.primary - featured, CTAs, active states
+  secondary: '#1B8A7A', // brand.teal - UI accent, avatars, highlights
+  structural: '#1B3A6E', // brand.navy - section headers, structural icons
+  muted: '#6B7280',     // neutral-500 - placeholders, disabled
+  subtle: '#9CA3AF',    // neutral-400 - decorative, search, clear
+  empty: '#D1D5DB',     // neutral-300 - empty states
+  onBrand: '#FFFFFF',   // white - icons on colored backgrounds
+  onWarning: '#A04F08', // brand.dark - icons on warning/gold backgrounds
 } as const;
 
 /**
@@ -357,7 +357,7 @@ export const shadows = {
  * Brand: uses brand.dark (#A04F08) for primary/CTA elements
  */
 export const dimensionalShadows = {
-  /** Subtle lift — stat cards, subject pills */
+  /** Subtle lift - stat cards, subject pills */
   sm: {
     light: {
       shadowColor: '#E5E0D8',
@@ -374,7 +374,7 @@ export const dimensionalShadows = {
       elevation: 2,
     } as const,
   },
-  /** Standard card lift — course cards, course list items */
+  /** Standard card lift - course cards, course list items */
   md: {
     light: {
       shadowColor: '#E5E0D8',
@@ -391,7 +391,7 @@ export const dimensionalShadows = {
       elevation: 3,
     } as const,
   },
-  /** CTA/primary button — uses brand.dark (#A04F08) as shadow */
+  /** CTA/primary button - uses brand.dark (#A04F08) as shadow */
   brand: {
     sm: {
       shadowColor: '#A04F08',
@@ -408,7 +408,7 @@ export const dimensionalShadows = {
       elevation: 4,
     } as const,
   },
-  /** Overlay badge — black, subtle (e.g. olympiad badge on thumbnail) */
+  /** Overlay badge - black, subtle (e.g. olympiad badge on thumbnail) */
   badge: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -416,7 +416,7 @@ export const dimensionalShadows = {
     shadowRadius: 2,
     elevation: 2,
   } as const,
-  /** Brand glow — diffused orange glow for avatar rings and accent elements */
+  /** Brand glow - diffused orange glow for avatar rings and accent elements */
   brandGlow: {
     shadowColor: '#E8720C',
     shadowOffset: { width: 0, height: 0 },

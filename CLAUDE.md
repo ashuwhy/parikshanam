@@ -5,10 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Overview
 
 Parikshanam is a Turborepo monorepo with three apps:
-- `apps/api` — Python 3.11+ / FastAPI backend
-- `apps/mobile` — Expo (React Native) mobile app with Supabase
-- `apps/web` — Next.js (App Router) web app
-- `packages/typescript-config` — Shared TypeScript base configs
+- `apps/api` - Python 3.11+ / FastAPI backend
+- `apps/mobile` - Expo (React Native) mobile app with Supabase
+- `apps/web` - Next.js (App Router) web app
+- `packages/typescript-config` - Shared TypeScript base configs
 
 Package manager: **npm**. Task runner: **Turborepo**.
 
@@ -55,16 +55,16 @@ npm run supabase:push     # push local migrations to remote
 ### Mobile (`apps/mobile`)
 
 **Routing**: Expo Router (file-based). Groups:
-- `(auth)/` — unauthenticated screens (welcome, sign-in)
-- `(onboarding)/` — post-signup onboarding
-- `(tabs)/` — main authenticated tab navigation
-- `course/[id]/lesson/[lessonId]` — lesson viewer with video
+- `(auth)/` - unauthenticated screens (welcome, sign-in)
+- `(onboarding)/` - post-signup onboarding
+- `(tabs)/` - main authenticated tab navigation
+- `course/[id]/lesson/[lessonId]` - lesson viewer with video
 
 **Auth flow**: `AuthContext` wraps the app with Supabase session. `NavigationGuard` in `_layout.tsx` redirects based on `session` + `profile` state. Auth state is exposed via `useAuth` hook (`hooks/useAuth.ts`).
 
 **State management** (two layers):
-- **Zustand stores** (`lib/stores/`) — local/UI state: `useAuthStore`, `useCoursesStore`, `useProfileStore`, `usePurchasesStore`, `useUiStore`
-- **TanStack Query** (`hooks/useCourses.ts`, `hooks/usePurchases.ts`) — server-fetched data with caching
+- **Zustand stores** (`lib/stores/`) - local/UI state: `useAuthStore`, `useCoursesStore`, `useProfileStore`, `usePurchasesStore`, `useUiStore`
+- **TanStack Query** (`hooks/useCourses.ts`, `hooks/usePurchases.ts`) - server-fetched data with caching
 
 **Supabase client** lives in `lib/supabase.ts`. Typed selects are in `lib/supabase/selects.ts`.
 

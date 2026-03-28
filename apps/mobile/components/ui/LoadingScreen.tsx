@@ -60,7 +60,7 @@ export function LoadingScreen() {
 }
 
 /**
- * Skeleton placeholder card — use for screen-level skeleton layouts.
+ * Skeleton placeholder card - use for screen-level skeleton layouts.
  * Matches the shape of a CourseCard for visual consistency.
  */
 export function SkeletonCard() {

@@ -4,7 +4,7 @@
 
 **Goal:** Replace the boilerplate Next.js web app with a polished Coming Soon landing page using the Parikshanam "Dimensional Joy" design system.
 
-**Architecture:** Single-page Next.js App Router app. No client components, no data fetching — pure static HTML/CSS. App icon from mobile assets serves double duty as the page favicon (via Next.js metadata image route) and the visible logo in the page.
+**Architecture:** Single-page Next.js App Router app. No client components, no data fetching - pure static HTML/CSS. App icon from mobile assets serves double duty as the page favicon (via Next.js metadata image route) and the visible logo in the page.
 
 **Tech Stack:** Next.js 16 App Router, Tailwind CSS v4, `next/font/google` (Nunito + Roboto), no additional dependencies.
 
@@ -14,12 +14,12 @@
 
 | File | Action | Responsibility |
 |---|---|---|
-| `apps/web/src/app/icon.png` | Create (copy) | Favicon — Next.js App Router metadata image route |
+| `apps/web/src/app/icon.png` | Create (copy) | Favicon - Next.js App Router metadata image route |
 | `apps/web/src/app/favicon.ico` | Delete | Replaced by `icon.png` above |
 | `apps/web/public/icon.png` | Create (copy) | App logo image used by `<Image>` component in the page |
 | `apps/web/src/app/globals.css` | Modify | Brand CSS variables + `@theme` font registration |
 | `apps/web/src/app/layout.tsx` | Modify | Metadata (title, description), load Nunito + Roboto fonts |
-| `apps/web/src/app/page.tsx` | Modify (full rewrite) | Coming Soon layout — icon, wordmark, badge, tagline |
+| `apps/web/src/app/page.tsx` | Modify (full rewrite) | Coming Soon layout - icon, wordmark, badge, tagline |
 
 ---
 
@@ -36,7 +36,7 @@
 cp apps/mobile/assets/images/icon.png apps/web/src/app/icon.png
 ```
 
-Next.js App Router automatically serves any file named `icon.png` placed in the `app/` directory as the site favicon — no ICO conversion needed. This replaces the existing `favicon.ico`.
+Next.js App Router automatically serves any file named `icon.png` placed in the `app/` directory as the site favicon - no ICO conversion needed. This replaces the existing `favicon.ico`.
 
 - [ ] **Step 2: Copy icon to public folder for use by the Image component**
 
@@ -129,7 +129,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Parikshanam — Coming Soon",
+  title: "Parikshanam - Coming Soon",
   description: "Exam prep for Grades 6–10. Coming soon.",
 };
 
@@ -157,7 +157,7 @@ export default function RootLayout({
 cd apps/web && pnpm build
 ```
 
-Expected: build succeeds with no TypeScript or Tailwind errors. (The page still shows the old content — that's fine, we replace it in Task 3.)
+Expected: build succeeds with no TypeScript or Tailwind errors. (The page still shows the old content - that's fine, we replace it in Task 3.)
 
 - [ ] **Step 4: Commit**
 
@@ -247,7 +247,7 @@ Open `http://localhost:3000` and confirm:
 - [ ] Orange pill badge with "COMING SOON" and a darker bottom border (dimensional shadow)
 - [ ] Muted grey tagline below
 - [ ] Faint warm orange glow in the upper background
-- [ ] Browser tab shows the app icon as favicon and "Parikshanam — Coming Soon" as title
+- [ ] Browser tab shows the app icon as favicon and "Parikshanam - Coming Soon" as title
 
 - [ ] **Step 3: Verify production build**
 

@@ -94,14 +94,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, s) => {
+      (event, s) => {
         if (cancelled) return;
         setSession(s);
         if (s?.user) {
-          await fetchProfile(
-            s.user.id,
-            s.user.user_metadata as Record<string, string | undefined>,
-          );
+          const userId = s.user.id;
+          const meta = s.user.user_metadata as Record<string, string | undefined>;
+          // Never await Supabase data calls inside this callback - it can deadlock the
+          // auth lock (see supabase-js / gotrue-js issues). Defer profile load.
+          queueMicrotask(() => {
+            if (cancelled) return;
+            void fetchProfile(userId, meta);
+          });
         } else {
           setProfile(null);
         }
@@ -128,7 +132,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         cache: "no-store",
       });
     } catch {
-      /* network — still clear local state below */
+      /* network - still clear local state below */
     }
 
     setSession(null);

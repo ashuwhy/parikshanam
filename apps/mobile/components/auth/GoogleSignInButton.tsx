@@ -44,7 +44,7 @@ export function GoogleSignInButton() {
           return;
         }
       } catch {
-        // non-standard URL — try fragment flow below
+        // non-standard URL - try fragment flow below
       }
 
       const params = parseHashParams(result.url);

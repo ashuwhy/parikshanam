@@ -70,17 +70,17 @@ export async function POST(request: Request) {
   ]);
 
   const studentName = profileRes.data?.full_name ?? "Unknown";
-  const phone = profileRes.data?.phone ?? "—";
+  const phone = profileRes.data?.phone ?? "-";
   const courseTitle = courseRes.data?.title ?? "Unknown course";
   const amountRupees = `₹${(amount / 100).toFixed(0)}`;
 
-  // Send email notification — only if RESEND_API_KEY is configured
+  // Send email notification - only if RESEND_API_KEY is configured
   if (process.env.RESEND_API_KEY) {
     console.log("[submit-payment-proof] Sending email via Resend in background...");
     resend.emails.send({
       from: "Parikshanam <admin@parikshanam.com>",
       to: "manasputra.paiko@gmail.com",
-      subject: `New UPI Payment — ${courseTitle}`,
+      subject: `New UPI Payment - ${courseTitle}`,
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
           <h2 style="color:#1B3A6E">New UPI Payment Received</h2>

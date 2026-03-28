@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS public.teacher_invites (
   accepted_at timestamptz,
   created_at  timestamptz DEFAULT now()
 );
--- RLS enabled but no anon/authenticated policies — only service-role accesses this
+-- RLS enabled but no anon/authenticated policies - only service-role accesses this
 ALTER TABLE public.teacher_invites ENABLE ROW LEVEL SECURITY;
 
 -- ── 3. course_teachers ─────────────────────────────────────────
@@ -178,7 +178,7 @@ CREATE POLICY "Teachers can view progress for own course students"
 
 -- ── 8. admin_user_emails view ─────────────────────────────────
 -- Exposes auth.users email to service-role only.
--- Must be queried via admin API routes — never from client.
+-- Must be queried via admin API routes - never from client.
 CREATE OR REPLACE VIEW public.admin_user_emails
   WITH (security_barrier = true) AS
   SELECT id, email FROM auth.users;

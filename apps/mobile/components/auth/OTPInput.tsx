@@ -45,7 +45,7 @@ export function OTPInput({ value, onChange }: Props) {
           selectTextOnFocus
           value={value[i] ?? ''}
           onChangeText={(t) => handleChange(t, i)}
-          className="h-14 w-12 rounded-2xl border-2 border-ui-border bg-white text-center text-lg font-bold text-brand-dark focus:border-ui-accent"
+          className="h-12 w-11 rounded-lg border border-neutral-200 bg-white text-center text-lg font-semibold text-neutral-900 dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-100"
         />
       ))}
     </View>

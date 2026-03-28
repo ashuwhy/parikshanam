@@ -55,7 +55,7 @@ export function SyllabusAccordion({ courseId, modules, hasPurchased, completedId
           return (
             <div
               key={module.id}
-              className="rounded-2xl border border-[#E5E0D8] bg-white overflow-hidden"
+              className="rounded-[var(--radius-card)] border border-[#E5E0D8] bg-white overflow-hidden"
             >
               {/* Module header */}
               <Button

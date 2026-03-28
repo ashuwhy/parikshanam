@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build `apps/admin` — a Next.js 16 admin panel at `admin.parikshanam.com` with sidebar navigation for managing courses, students, teachers, purchases, and settings, plus teacher invite flow and direct video uploads.
+**Goal:** Build `apps/admin` - a Next.js 16 admin panel at `admin.parikshanam.com` with sidebar navigation for managing courses, students, teachers, purchases, and settings, plus teacher invite flow and direct video uploads.
 
 **Architecture:** Next.js App Router with route groups: `(auth)` for login, `(admin)` for the protected sidebar layout. All mutations go through API routes using the Supabase service-role client. The browser client uses the anon key + SSR session cookies. Design follows the Parikshanam design system (Navy sidebar, Orange accents, Nunito + Roboto fonts, dimensional button shadows).
 
@@ -56,12 +56,12 @@ apps/admin/
       api/
         invites/
           send/
-            route.ts                     # POST — create invite + Resend email
+            route.ts                     # POST - create invite + Resend email
         upload-url/
-          route.ts                       # POST — signed upload URL for course-videos
+          route.ts                       # POST - signed upload URL for course-videos
         lessons/
           [id]/
-            route.ts                     # PATCH — save video_storage_path
+            route.ts                     # PATCH - save video_storage_path
     components/
       Sidebar.tsx
       StatCard.tsx
@@ -242,7 +242,7 @@ cd apps/admin && pnpm install
 pnpm dev:admin   # or: cd apps/admin && pnpm dev
 ```
 
-Open http://localhost:3002 — expect a 404 or blank page (no routes yet).
+Open http://localhost:3002 - expect a 404 or blank page (no routes yet).
 
 - [ ] **Step 1.9: Commit**
 
@@ -391,14 +391,14 @@ import { describe, it, expect, vi } from 'vitest'
 
 describe('admin middleware', () => {
   it('redirects to /login when no session', async () => {
-    // Middleware logic is tested via integration — this documents the expected behaviour.
+    // Middleware logic is tested via integration - this documents the expected behaviour.
     // The middleware must redirect any unauthenticated request to /login.
-    expect(true).toBe(true) // placeholder — see integration test below
+    expect(true).toBe(true) // placeholder - see integration test below
   })
 })
 ```
 
-Run: `cd apps/admin && pnpm test` — expect PASS (placeholder).
+Run: `cd apps/admin && pnpm test` - expect PASS (placeholder).
 
 - [ ] **Step 3.2: Create `middleware.ts`**
 
@@ -547,7 +547,7 @@ export default function LoginPage() {
 pnpm dev:admin
 ```
 
-Open http://localhost:3002/login — expect the login form with Navy/Orange branding.
+Open http://localhost:3002/login - expect the login form with Navy/Orange branding.
 
 - [ ] **Step 3.5: Commit**
 
@@ -661,10 +661,10 @@ export default function AdminRoot() { redirect('/dashboard') }
 
 - [ ] **Step 4.4: Create shell pages (one per section)**
 
-For each of `dashboard`, `courses`, `students`, `teachers`, `purchases`, `settings` — create `src/app/(admin)/<section>/page.tsx`:
+For each of `dashboard`, `courses`, `students`, `teachers`, `purchases`, `settings` - create `src/app/(admin)/<section>/page.tsx`:
 
 ```tsx
-// Example for dashboard — repeat pattern for others with appropriate title
+// Example for dashboard - repeat pattern for others with appropriate title
 export default function DashboardPage() {
   return (
     <div>
@@ -786,7 +786,7 @@ export default async function DashboardPage() {
 
 - [ ] **Step 5.3: Verify dashboard loads with real data**
 
-Open http://localhost:3002/dashboard — stat cards should show counts (even if 0).
+Open http://localhost:3002/dashboard - stat cards should show counts (even if 0).
 
 - [ ] **Step 5.4: Commit**
 
@@ -833,7 +833,7 @@ describe('DataTable', () => {
 })
 ```
 
-Run: `pnpm test` — expect FAIL (component not yet created).
+Run: `pnpm test` - expect FAIL (component not yet created).
 
 - [ ] **Step 6.2: Create `DataTable.tsx`**
 
@@ -886,7 +886,7 @@ export function DataTable<T>({ columns, data }: DataTableProps<T>) {
 }
 ```
 
-- [ ] **Step 6.3: Run tests — expect PASS**
+- [ ] **Step 6.3: Run tests - expect PASS**
 
 ```bash
 pnpm test
@@ -977,7 +977,7 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
       <div>
         <label className="block text-sm font-medium mb-1">Olympiad Type</label>
         <select {...register('olympiad_type_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-          <option value="">— Select —</option>
+          <option value="">- Select -</option>
           {olympiadTypes.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
         </select>
       </div>
@@ -986,14 +986,14 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
         <div>
           <label className="block text-sm font-medium mb-1">Min Class</label>
           <select {...register('min_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-            <option value="">— Select —</option>
+            <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Max Class</label>
           <select {...register('max_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-            <option value="">— Select —</option>
+            <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
@@ -1042,7 +1042,7 @@ const columns = [
       'bg-gray-100 text-gray-600'
     }`}>{i.getValue()}</span>
   )}),
-  col.accessor((r) => r.olympiad_type?.label ?? '—', { id: 'olympiad', header: 'Olympiad' }),
+  col.accessor((r) => r.olympiad_type?.label ?? '-', { id: 'olympiad', header: 'Olympiad' }),
   col.accessor('price', { header: 'Price', cell: (i) => `₹${i.getValue()}` }),
 ]
 
@@ -1155,7 +1155,7 @@ describe('POST /api/upload-url', () => {
 })
 ```
 
-Run: `pnpm test` — expect FAIL.
+Run: `pnpm test` - expect FAIL.
 
 - [ ] **Step 8.2: Create upload-url API route**
 
@@ -1187,7 +1187,7 @@ export async function POST(request: Request) {
 }
 ```
 
-- [ ] **Step 8.3: Run test — expect PASS**
+- [ ] **Step 8.3: Run test - expect PASS**
 
 ```bash
 pnpm test
@@ -1555,7 +1555,7 @@ describe('POST /api/invites/send', () => {
 })
 ```
 
-Run: `pnpm test` — expect FAIL.
+Run: `pnpm test` - expect FAIL.
 
 - [ ] **Step 10.2: Create invite send API route**
 
@@ -1620,7 +1620,7 @@ export async function POST(request: Request) {
 > // use user.id as invited_by
 > ```
 
-- [ ] **Step 10.3: Run test — expect PASS**
+- [ ] **Step 10.3: Run test - expect PASS**
 
 ```bash
 pnpm test
@@ -1641,8 +1641,8 @@ import type { Profile } from '@/lib/types'
 
 const col = createColumnHelper<Profile & { email?: string }>()
 const columns = [
-  col.accessor('full_name', { header: 'Name', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('email', { header: 'Email', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('full_name', { header: 'Name', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('email', { header: 'Email', cell: (i) => i.getValue() ?? '-' }),
   col.accessor('is_active', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full ${i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
       {i.getValue() ? 'Active' : 'Inactive'}
@@ -1760,10 +1760,10 @@ import Link from 'next/link'
 const col = createColumnHelper<any>()
 const columns = [
   col.accessor('full_name', { header: 'Name', cell: (i) => (
-    <Link href={`/students/${i.row.original.id}`} className="text-brand-primary hover:underline">{i.getValue() ?? '—'}</Link>
+    <Link href={`/students/${i.row.original.id}`} className="text-brand-primary hover:underline">{i.getValue() ?? '-'}</Link>
   )}),
-  col.accessor('phone', { header: 'Phone', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('class_level_id', { header: 'Class', cell: (i) => i.getValue() ? `Class ${i.getValue()}` : '—' }),
+  col.accessor('phone', { header: 'Phone', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('class_level_id', { header: 'Class', cell: (i) => i.getValue() ? `Class ${i.getValue()}` : '-' }),
   col.accessor('is_active', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full ${i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
       {i.getValue() ? 'Active' : 'Inactive'}
@@ -1800,15 +1800,15 @@ import { createColumnHelper } from '@tanstack/react-table'
 
 const col = createColumnHelper<any>()
 const columns = [
-  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '-' }),
   col.accessor('amount', { header: 'Amount', cell: (i) => `₹${i.getValue()}` }),
   col.accessor('status', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
       i.getValue() === 'completed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
     }`}>{i.getValue()}</span>
   )}),
-  col.accessor('razorpay_payment_id', { header: 'Razorpay ID', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('razorpay_payment_id', { header: 'Razorpay ID', cell: (i) => i.getValue() ?? '-' }),
   col.accessor('created_at', { header: 'Date', cell: (i) => new Date(i.getValue()).toLocaleDateString('en-IN') }),
 ]
 
@@ -1947,9 +1947,9 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         <div className="bg-white border border-ui-border rounded-2xl p-5">
           <h2 className="font-bold text-brand-navy mb-3">Profile</h2>
           <dl className="space-y-2 text-sm">
-            <div className="flex justify-between"><dt className="text-gray-400">Email</dt><dd>{emailRow?.email ?? '—'}</dd></div>
-            <div className="flex justify-between"><dt className="text-gray-400">Phone</dt><dd>{profile.phone ?? '—'}</dd></div>
-            <div className="flex justify-between"><dt className="text-gray-400">Class</dt><dd>{profile.class_level_id ? `Class ${profile.class_level_id}` : '—'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Email</dt><dd>{emailRow?.email ?? '-'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Phone</dt><dd>{profile.phone ?? '-'}</dd></div>
+            <div className="flex justify-between"><dt className="text-gray-400">Class</dt><dd>{profile.class_level_id ? `Class ${profile.class_level_id}` : '-'}</dd></div>
             <div className="flex justify-between"><dt className="text-gray-400">Status</dt>
               <dd><span className={`text-xs px-2 py-0.5 rounded-full ${profile.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>{profile.is_active ? 'Active' : 'Inactive'}</span></dd>
             </div>
@@ -1966,7 +1966,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           <ul className="divide-y divide-ui-border text-sm">
             {purchases?.map((p) => (
               <li key={p.id} className="py-2 flex justify-between">
-                <span>{p.course?.title ?? '—'}</span>
+                <span>{p.course?.title ?? '-'}</span>
                 <span className="text-gray-400">₹{p.amount}</span>
               </li>
             ))}
@@ -1979,7 +1979,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         <ul className="divide-y divide-ui-border text-sm max-h-64 overflow-y-auto">
           {progress?.map((p) => (
             <li key={p.id} className="py-2 flex justify-between">
-              <span>{p.lesson?.title ?? p.quiz?.title ?? '—'}</span>
+              <span>{p.lesson?.title ?? p.quiz?.title ?? '-'}</span>
               <span className="text-gray-400">{new Date(p.completed_at).toLocaleDateString('en-IN')}</span>
             </li>
           ))}

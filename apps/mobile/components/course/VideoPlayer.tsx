@@ -1,18 +1,87 @@
 import { useEvent, useEventListener } from 'expo';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { AlertCircle, Play, Pause, Maximize, Minimize } from 'lucide-react-native';
-import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Text, View, Pressable, PanResponder, Modal } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Text, View, Pressable, PanResponder, Modal, useWindowDimensions, StyleSheet } from 'react-native';
+import YoutubePlayer, { type YoutubeIframeRef } from 'react-native-youtube-iframe';
 
 import { Button } from '@/components/ui/Button';
 import { brand } from '@/constants/Colors';
 import { cn } from '@/lib/cn';
 
-type Props = {
-  /** Signed URL for the video. Pass null to show a loading state. */
+/** Lesson videos: YouTube ID. Course intro / storage: signed URL. */
+export type VideoPlayerProps =
+  | { videoId: string; url?: undefined; onEnded?: () => void }
+  | { videoId?: undefined; url: string | null; onEnded?: () => void };
+
+type StorageUrlProps = {
   url: string | null;
   onEnded?: () => void;
 };
+
+export function VideoPlayer(props: VideoPlayerProps) {
+  if (props.videoId) {
+    return <YoutubeLessonPlayer videoId={props.videoId} onEnded={props.onEnded} />;
+  }
+  return <StorageUrlVideoPlayer url={props.url ?? null} onEnded={props.onEnded} />;
+}
+
+function YoutubeLessonPlayer({
+  videoId,
+  onEnded,
+}: {
+  videoId: string;
+  onEnded?: () => void;
+}) {
+  const { width } = useWindowDimensions();
+  const height = Math.round((width * 9) / 16);
+  const [playing, setPlaying] = useState(false);
+  const playerRef = useRef<YoutubeIframeRef>(null);
+
+  const onStateChange = useCallback(
+    (state: string) => {
+      if (state === 'ended') {
+        setPlaying(false);
+        onEnded?.();
+      }
+      if (state === 'paused') setPlaying(false);
+      if (state === 'playing') setPlaying(true);
+    },
+    [onEnded],
+  );
+
+  return (
+    <View style={youtubeStyles.container}>
+      <YoutubePlayer
+        ref={playerRef}
+        height={height}
+        width={width}
+        play={playing}
+        videoId={videoId}
+        onChangeState={onStateChange}
+        initialPlayerParams={{
+          rel: false,
+          modestbranding: true,
+          controls: true,
+          iv_load_policy: 3,
+        }}
+        webViewProps={{
+          allowsInlineMediaPlayback: true,
+          mediaPlaybackRequiresUserAction: false,
+        }}
+      />
+    </View>
+  );
+}
+
+const youtubeStyles = StyleSheet.create({
+  container: {
+    width: '100%',
+    backgroundColor: '#000',
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+});
 
 function formatTime(seconds: number) {
   if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
@@ -21,11 +90,11 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-export function VideoPlayer({ url, onEnded }: Props) {
+function StorageUrlVideoPlayer({ url, onEnded }: StorageUrlProps) {
   const videoViewRef = useRef<VideoView>(null);
   const fullscreenVideoViewRef = useRef<VideoView>(null);
   
-  // Always pass null — never let expo-video manage the source directly.
+  // Always pass null - never let expo-video manage the source directly.
   // If you pass a URL, expo-video recreates+releases the player on every URL change,
   // which causes "shared object already released" crashes in effects and timers.
   const player = useVideoPlayer(null, (p) => {
@@ -77,7 +146,7 @@ export function VideoPlayer({ url, onEnded }: Props) {
         const d = player.duration || 0;
         setDuration(d);
         durationRef.current = d;
-      } catch { /* player released on unmount — interval cleanup races with GC */ }
+      } catch { /* player released on unmount - interval cleanup races with GC */ }
     }, 250);
     return () => clearInterval(id);
   }, [player]);
@@ -128,7 +197,7 @@ export function VideoPlayer({ url, onEnded }: Props) {
       onPanResponderGrant: (e) => {
         isDragging.current = true;
         if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
-        // Read from refs — NOT from closed-over state (which would be stale 0s from mount)
+        // Read from refs - NOT from closed-over state (which would be stale 0s from mount)
         const sw = scrubberWidthRef.current;
         if (sw > 0) {
           startRatio.current = Math.max(0, Math.min(1, e.nativeEvent.locationX / sw));
@@ -156,7 +225,7 @@ export function VideoPlayer({ url, onEnded }: Props) {
         hideControlsLater();
       },
       onPanResponderTerminate: () => {
-        // Another responder stole the gesture — reset drag state cleanly
+        // Another responder stole the gesture - reset drag state cleanly
         isDragging.current = false;
       },
     })
@@ -277,7 +346,7 @@ export function VideoPlayer({ url, onEnded }: Props) {
         </Pressable>
       )}
 
-      {/* Buffering overlay — higher zIndex than controls (z-10) + later in tree = on top everywhere */}
+      {/* Buffering overlay - higher zIndex than controls (z-10) + later in tree = on top everywhere */}
       {(isBuffering || !url) && !hasError && (
         <View
           className="absolute inset-0 items-center justify-center"

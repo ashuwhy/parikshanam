@@ -31,6 +31,7 @@ export interface Course {
   price: number;
   mrp: number | null;
   thumbnail_url: string | null;
+  /** YouTube video ID, or legacy Supabase `course-videos` object path. */
   intro_video_path: string | null;
   total_lessons: number;
   duration_hours: number;

@@ -28,9 +28,9 @@ export default function InfoSection() {
           {SUBJECTS.map(({ Icon, label }) => (
             <div 
               key={label}
-              className="group flex flex-col items-center justify-center p-8 rounded-[2rem] bg-[#F9F7F5] border border-[#E5E0D8] transition-all hover:translate-y-[-4px] hover:border-[#E8720C] hover:bg-white"
+              className="group flex flex-col items-center justify-center p-8 rounded-[var(--radius-card)] bg-[#F9F7F5] border border-[#E5E0D8] transition-all hover:translate-y-[-4px] hover:border-[#E8720C] hover:bg-white"
             >
-              <div className="p-4 rounded-2xl bg-white border-b-4 border-[#E5E0D8] group-hover:border-[#E8720C] mb-4 transition-colors">
+              <div className="p-4 rounded-[var(--radius-nested)] bg-white border-b-4 border-[#E5E0D8] group-hover:border-[#E8720C] mb-4 transition-colors">
                 <Icon size={32} className="text-[#1B8A7A]" strokeWidth={2.5} />
               </div>
               <p className="text-sm font-[800] uppercase tracking-widest text-[#1B3A6E]" style={{ fontFamily: 'var(--font-nunito-var)' }}>
@@ -42,7 +42,7 @@ export default function InfoSection() {
 
         {/* Social Proof / Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-          <div className="p-8 rounded-[2rem] border border-[#E5E0D8] bg-[#F9F7F5] flex items-center gap-6">
+          <div className="p-8 rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#F9F7F5] flex items-center gap-6">
             <div className="flex -space-x-4">
               {[1, 2, 3].map((i) => (
                 <div 
@@ -63,8 +63,8 @@ export default function InfoSection() {
             </div>
           </div>
 
-          <div className="p-8 rounded-[2rem] border border-[#E5E0D8] bg-[#F9F7F5] flex items-center gap-6">
-            <div className="w-12 h-12 rounded-2xl bg-[#1B8A7A] flex items-center justify-center shrink-0">
+          <div className="p-8 rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#F9F7F5] flex items-center gap-6">
+            <div className="w-12 h-12 rounded-[var(--radius-nested)] bg-[#1B8A7A] flex items-center justify-center shrink-0">
                <Globe size={24} className="text-white" strokeWidth={2.5} />
             </div>
             <div>

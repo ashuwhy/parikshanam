@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Parikshanam",
+  title: "Privacy Policy - Parikshanam",
   description: "How Parikshanam collects, uses, and protects your personal information.",
 };
 
@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(ellipse 80% 40% at 50% -5%, rgba(232,114,12,0.07) 0%, transparent 70%), #F9F7F5",
+          "radial-gradient(ellipse 80% 40% at 50% -5%, rgba(232,114,12,0.07) 0%, transparent 70%)",
       }}
     >
       {/* Header */}

@@ -3,7 +3,7 @@ import { buttonProps } from "@/components/ui/buttonStyles";
 import {
   Flame, BookOpen, CheckCircle,
   Calculator, FlaskConical, Globe, Laptop,
-  Play, HelpCircle,
+  Play, HelpCircle, FileDown,
 } from "lucide-react";
 
 const STATS = [
@@ -28,7 +28,7 @@ function BrowserMockup() {
     >
       {/* Browser chrome */}
       <div
-        className="rounded-2xl overflow-hidden"
+        className="rounded-[var(--radius-card)] overflow-hidden"
         style={{ border: "1.5px solid #E5E0D8", background: "#F3F4F6" }}
       >
         {/* Title bar */}
@@ -192,124 +192,189 @@ function BrowserMockup() {
 
 export default function HeroSection() {
   return (
-    <section
-      className="pt-28 pb-16 px-6 overflow-hidden"
-      style={{
-        background:
-          "radial-gradient(ellipse 100% 60% at 60% -5%, rgba(232,114,12,0.10) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 0% 80%, rgba(27,58,110,0.06) 0%, transparent 60%), #F9F7F5",
-      }}
-    >
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+    <section className="relative overflow-hidden bg-transparent pt-32 pb-28 md:pb-32 px-6 sm:px-8">
+      {/* Translucent wash only - doodles come from root layout `DoodleBackground` (single layer, no duplicate). */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 120% 80% at 50% -10%, rgba(232,114,12,0.11) 0%, transparent 72%), radial-gradient(ellipse 80% 60% at 0% 100%, rgba(27,58,110,0.06) 0%, transparent 68%), radial-gradient(ellipse 60% 50% at 100% 50%, rgba(27,138,122,0.04) 0%, transparent 62%), rgba(249,247,245,0.48)",
+          }}
+        />
+        <div
+          className="absolute top-20 right-[10%] h-72 w-72 rounded-full opacity-25 blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(232,114,12,0.25) 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute bottom-20 left-[5%] h-96 w-96 rounded-full opacity-[0.18] blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(27,58,110,0.20) 0%, transparent 70%)" }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 xl:gap-20 items-center">
           {/* Left: copy */}
           <div>
-            {/* Eyebrow badge */}
-            <div className="animate-fade-in-up inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-[#E8720C]/10 border border-[#E8720C]/20">
-              <Globe size={18} color="#E8720C" strokeWidth={2.2} className="shrink-0" aria-hidden />
+            {/* Eyebrow badge - enhanced */}
+            <div className="animate-fade-in-up inline-flex items-center gap-2.5 mb-8 px-5 py-2.5 rounded-full bg-white/85 backdrop-blur-md border border-[#E8720C]/25 shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_8px_24px_-8px_rgba(27,58,110,0.08)]">
+              <Globe size={20} color="#E8720C" strokeWidth={2.5} className="shrink-0" aria-hidden />
               <span
-                className="text-xs sm:text-sm text-[#E8720C]"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+                className="text-sm text-[#E8720C]"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.01em" }}
               >
-                Learn in your browser — no download needed
+                Live
               </span>
             </div>
 
             <h1
-              className="animate-fade-in-up delay-1 text-3xl sm:text-5xl lg:text-[4rem] leading-tight text-[#1B3A6E] mb-5"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              className="animate-fade-in-up delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-[4.75rem] xl:text-[5rem] leading-[1.08] sm:leading-[1.06] text-[#1B3A6E] mb-8 text-balance"
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.025em" }}
             >
               Master every
               <br />
-              <span className="text-[#E8720C]">Olympiad.</span>
+              <span className="relative inline-block text-[#E8720C]">
+                Olympiad.
+                <svg
+                  className="absolute -bottom-2 left-1/2 h-3 w-[105%] max-w-[11rem] -translate-x-1/2 sm:max-w-[13rem]"
+                  viewBox="0 0 200 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden
+                >
+                  <path
+                    d="M4 10 Q100 2 196 10"
+                    stroke="#F5C842"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    opacity="0.65"
+                  />
+                </svg>
+              </span>
               <br />
               Ace every exam.
             </h1>
 
             <p
-              className="animate-fade-in-up delay-2 text-base sm:text-lg text-[#6B7280] leading-relaxed max-w-lg mb-8"
+              className="animate-fade-in-up delay-2 text-lg sm:text-xl text-[#4B5563] leading-[1.65] max-w-xl mb-11"
               style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 400 }}
             >
               Expert-crafted courses for Grades 6–10. Watch video lessons, take interactive quizzes,
-              and track your progress — all right here in the browser.
+              and track your progress - all right here in the browser.
             </p>
 
-            {/* CTAs */}
-            <div className="animate-fade-in-up delay-3 flex flex-wrap gap-3 sm:gap-4 mb-12">
-              <Link href="/login" {...buttonProps("primaryHero")}>
-                Start Learning Free →
+            {/* CTAs - YSC beside main pair; md+ three equal columns */}
+            <div className="animate-fade-in-up delay-3 mb-14 grid w-full max-w-lg grid-cols-1 gap-3 sm:gap-4 sm:max-w-2xl sm:grid-cols-2 md:max-w-5xl md:grid-cols-3">
+              <Link
+                href="/login"
+                {...buttonProps(
+                  "primaryHeroLg",
+                  "w-full justify-center text-center px-4 sm:px-6 md:px-8",
+                )}
+              >
+                Start Learning
               </Link>
-              <Link href="/explore" {...buttonProps("outlineHero")}>
+              <Link
+                href="/explore"
+                {...buttonProps(
+                  "outlineHero",
+                  "w-full justify-center text-center bg-white/95 backdrop-blur-sm border-[#E5E0D8] px-4 py-3.5 text-sm sm:px-5 sm:py-4 sm:text-base md:py-5 md:text-[1.05rem]",
+                )}
+              >
                 Browse Courses
+              </Link>
+              <Link
+                href="/ysc"
+                {...buttonProps(
+                  "outlineHero",
+                  "w-full justify-center gap-2 text-center sm:col-span-2 md:col-span-1 bg-white/95 backdrop-blur-sm border-[#1B8A7A]/45 text-[#1B3A6E] hover:border-[#1B8A7A] hover:text-[#1B8A7A] hover:bg-[#1B8A7A]/[0.06] px-4 py-3.5 text-sm sm:px-5 sm:py-4 sm:text-base md:py-5 md:text-[1.05rem]",
+                )}
+              >
+                <FileDown
+                  strokeWidth={2.25}
+                  className="h-[18px] w-[18px] shrink-0 text-[#1B8A7A] sm:h-5 sm:w-5"
+                  aria-hidden
+                />
+                YSC certificate
               </Link>
             </div>
 
-            {/* Social proof */}
-            <div className="animate-fade-in-up delay-4 flex items-center gap-3">
-              <div className="flex -space-x-2">
+            {/* Social proof - enhanced */}
+            <div className="animate-fade-in-up delay-4 flex w-fit max-w-full mx-auto sm:mx-0 items-center gap-4 p-5 sm:p-6 rounded-[var(--radius-card)] bg-white/70 backdrop-blur-md border border-[#E5E0D8]/90 shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_10px_32px_-12px_rgba(27,58,110,0.1)]">
+              <div className="flex -space-x-3">
                 {["A", "R", "S", "P"].map((l, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-[#F9F7F5] flex items-center justify-center text-white text-xs font-bold"
-                    style={{ background: ["#E8720C", "#1B3A6E", "#1B8A7A", "#F5C842"][i] }}
+                    className="w-10 h-10 rounded-full border-[3px] border-white flex items-center justify-center text-white text-sm shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+                    style={{ 
+                      background: ["#E8720C", "#1B3A6E", "#1B8A7A", "#F5C842"][i],
+                      fontFamily: "var(--font-nunito-var)",
+                      fontWeight: 900
+                    }}
                   >
                     {l}
                   </div>
                 ))}
               </div>
-              <p
-                className="text-xs sm:text-sm text-[#6B7280]"
-                style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
-              >
-                Join{" "}
-                <strong
-                  className="text-[#E8720C]"
-                  style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              <div>
+                <p
+                  className="text-sm text-[#374151] leading-snug"
+                  style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
                 >
-                  10,000+
-                </strong>{" "}
-                students already learning
-              </p>
+                  Join{" "}
+                  <strong
+                    className="text-[#E8720C]"
+                    style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+                  >
+                    10,000+
+                  </strong>{" "}
+                  students
+                </p>
+                <p className="text-xs text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                  already learning
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Right: browser mockup — hidden on mobile */}
-          <div className="hidden lg:flex justify-end">
+          {/* Right: browser mockup - hidden on mobile */}
+          <div className="hidden lg:flex justify-end animate-fade-in-up delay-2">
             <BrowserMockup />
           </div>
 
           {/* Mobile-only visual: floating subject clouds */}
           <div className="flex lg:hidden justify-center">
-            <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
+            <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
               {MINI_SUBJECTS.map(({ Icon, label, bg, border, color }, i) => (
                 <div
                   key={label}
-                  className={`animate-scale-in delay-${i + 2} flex items-center gap-2.5 p-3 rounded-2xl border`}
+                  className={`animate-scale-in delay-${i + 2} flex items-center gap-3 p-4 rounded-[var(--radius-card)] border-2 shadow-[0_1px_0_rgba(255,255,255,0.65)_inset,0_6px_20px_-10px_rgba(27,58,110,0.08)] transition-[border-color,box-shadow] duration-200 ease-out hover:shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_10px_28px_-10px_rgba(27,58,110,0.1)]`}
                   style={{ background: bg, borderColor: border }}
                 >
-                  <Icon size={18} color={color} strokeWidth={2.2} />
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#374151", fontFamily: "var(--font-nunito-var)" }}>{label}</span>
+                  <Icon size={22} color={color} strokeWidth={2.5} />
+                  <span style={{ fontSize: 15, fontWeight: 800, color: "#374151", fontFamily: "var(--font-nunito-var)" }}>{label}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Stats strip */}
-        <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        {/* Stats strip - enhanced */}
+        <div className="mt-20 sm:mt-24 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
           {STATS.map(({ value, label }, i) => (
             <div
               key={label}
-              className={`animate-fade-in-up delay-${i + 1} flex flex-col items-center py-4 sm:py-5 px-3 sm:px-4 rounded-2xl bg-white border border-[#E5E0D8] text-center hover:border-[#E8720C]/40 hover:-translate-y-0.5 transition-all`}
+              className={`animate-fade-in-up delay-${i + 1} flex flex-col items-center py-6 sm:py-7 px-4 sm:px-5 rounded-[var(--radius-card)] bg-white border border-[#E5E0D8] text-center shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_8px_26px_-14px_rgba(27,58,110,0.07)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/45 hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_14px_36px_-12px_rgba(232,114,12,0.12)] cursor-default`}
             >
               <p
-                className="text-xl sm:text-2xl text-[#E8720C] mb-1"
+                className="text-2xl sm:text-3xl text-[#E8720C] mb-2 tabular-nums tracking-tight transition-colors duration-200 ease-out"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
               >
                 {value}
               </p>
               <p
-                className="text-[10px] sm:text-xs text-[#9CA3AF] uppercase tracking-widest"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
+                className="text-[11px] sm:text-xs text-[#6B7280] uppercase tracking-[0.14em]"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
                 {label}
               </p>

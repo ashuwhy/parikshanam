@@ -1,4 +1,4 @@
-# Coming Soon Website — Design Spec
+# Coming Soon Website - Design Spec
 
 **Date:** 2026-03-25
 **Status:** Approved
@@ -9,7 +9,7 @@
 
 Replace the boilerplate Next.js web app (`apps/web`) with a polished Coming Soon landing page for Parikshanam, using the mobile app's "Dimensional Joy" design system as the visual reference.
 
-The page is **purely informational** — no email capture, no CTAs, no links. Just a strong brand impression.
+The page is **purely informational** - no email capture, no CTAs, no links. Just a strong brand impression.
 
 ---
 
@@ -17,10 +17,10 @@ The page is **purely informational** — no email capture, no CTAs, no links. Ju
 
 ### Layout
 
-Single full-viewport centered layout (Option A — Centered Minimal):
+Single full-viewport centered layout (Option A - Centered Minimal):
 
 ```
-[App Icon — 96×96px]
+[App Icon - 96×96px]
 Parikshanam           ← Nunito 900 Black, #1B3A6E
 ● Coming Soon ●       ← Orange pill badge, dimensional shadow
 Exam prep for Grades 6–10  ← Roboto Medium, muted #6B7280
@@ -33,7 +33,7 @@ Subtle dot-grid or radial gradient background decoration in brand colors for dep
 | Token | Value | Usage |
 |---|---|---|
 | Background | `#F9F7F5` | Page background |
-| Wordmark | `#1B3A6E` | Brand navy — "Parikshanam" text |
+| Wordmark | `#1B3A6E` | Brand navy - "Parikshanam" text |
 | Badge BG | `#E8720C` | "Coming Soon" pill |
 | Badge Shadow | `#A04F08` | Dimensional border-bottom |
 | Badge Text | `#FFFFFF` | Text on badge |
@@ -61,18 +61,18 @@ font-nunito font-bold uppercase tracking-widest text-sm
 
 | File | Action |
 |---|---|
-| `apps/web/src/app/page.tsx` | Full replacement — Coming Soon layout |
+| `apps/web/src/app/page.tsx` | Full replacement - Coming Soon layout |
 | `apps/web/src/app/layout.tsx` | Update metadata, swap fonts to Nunito + Roboto |
 | `apps/web/src/app/globals.css` | Add brand CSS variables and `@theme` font utilities |
-| `apps/web/src/app/icon.png` | Copy from `apps/mobile/assets/images/icon.png` — Next.js App Router serves this automatically as the favicon (no ICO conversion needed) |
-| `apps/web/src/app/favicon.ico` | Delete — replaced by `icon.png` metadata route above |
-| `apps/web/public/icon.png` | Copy from `apps/mobile/assets/images/icon.png` — used by `<Image>` in the page |
+| `apps/web/src/app/icon.png` | Copy from `apps/mobile/assets/images/icon.png` - Next.js App Router serves this automatically as the favicon (no ICO conversion needed) |
+| `apps/web/src/app/favicon.ico` | Delete - replaced by `icon.png` metadata route above |
+| `apps/web/public/icon.png` | Copy from `apps/mobile/assets/images/icon.png` - used by `<Image>` in the page |
 
 ---
 
 ## Favicon
 
-Next.js App Router natively handles `icon.png` placed in `src/app/` as a metadata image route — it generates `<link rel="icon">` automatically and serves it at `/favicon.ico`. No ICO conversion required. Delete the existing placeholder `src/app/favicon.ico` to avoid conflicts.
+Next.js App Router natively handles `icon.png` placed in `src/app/` as a metadata image route - it generates `<link rel="icon">` automatically and serves it at `/favicon.ico`. No ICO conversion required. Delete the existing placeholder `src/app/favicon.ico` to avoid conflicts.
 
 ---
 

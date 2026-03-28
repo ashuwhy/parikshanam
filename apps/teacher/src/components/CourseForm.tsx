@@ -64,7 +64,7 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
       <div>
         <label className="block text-sm font-medium mb-1">Olympiad Type</label>
         <select {...register('olympiad_type_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-          <option value="">— Select —</option>
+          <option value="">- Select -</option>
           {olympiadTypes.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
         </select>
       </div>
@@ -73,14 +73,14 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
         <div>
           <label className="block text-sm font-medium mb-1">Min Class</label>
           <select {...register('min_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-            <option value="">— Select —</option>
+            <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Max Class</label>
           <select {...register('max_class_id')} className="w-full border border-ui-border rounded-xl px-3 py-2 text-sm">
-            <option value="">— Select —</option>
+            <option value="">- Select -</option>
             {classLevels.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>

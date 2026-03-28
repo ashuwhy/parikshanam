@@ -17,7 +17,7 @@ export async function createClient() {
               cookieStore.set(name, value, options),
             );
           } catch {
-            // Server Component — can't set cookies but auth refresh still works
+            // Server Component - can't set cookies but auth refresh still works
           }
         },
       },

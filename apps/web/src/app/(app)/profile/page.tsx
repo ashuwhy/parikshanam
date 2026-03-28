@@ -22,7 +22,7 @@ import type { ClassLevel } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 
 function formatMemberSince(iso: string | undefined) {
-  if (!iso) return "—";
+  if (!iso) return "-";
   try {
     return new Date(iso).toLocaleDateString(undefined, {
       year: "numeric",
@@ -30,7 +30,7 @@ function formatMemberSince(iso: string | undefined) {
       day: "numeric",
     });
   } catch {
-    return "—";
+    return "-";
   }
 }
 
@@ -116,7 +116,7 @@ export default function ProfilePage() {
     : "Student";
 
   return (
-    <div className="min-h-screen bg-[#F9F7F5]">
+    <div className="min-h-screen bg-transparent">
       <div className="max-w-lg mx-auto px-5 py-8">
         <h1
           className="text-2xl text-[#111827] mb-8"
@@ -175,15 +175,17 @@ export default function ProfilePage() {
               >
                 Full Name
               </label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                autoFocus
-                className="w-full rounded-2xl border-2 border-[#E5E0D8] bg-white px-4 py-3 text-sm text-[#111827] outline-none focus:border-[#E8720C] transition-colors"
-                style={{ fontFamily: "var(--font-roboto-var)" }}
-              />
+              <div className="flex min-h-[3.25rem] w-full items-stretch rounded-2xl border-2 border-[#E5E0D8] bg-white focus-within:border-[#E8720C] transition-colors overflow-hidden">
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  autoFocus
+                  className="min-w-0 w-full flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] placeholder-[#9CA3AF] shadow-none outline-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
+                  style={{ fontFamily: "var(--font-roboto-var)", caretColor: "#E8720C" }}
+                />
+              </div>
               <div className="flex gap-3 mt-3">
                 <Button
                   variant="primaryCompact"
@@ -270,7 +272,7 @@ export default function ProfilePage() {
                 Email
               </p>
               <p className="text-sm text-[#111827] break-all" style={{ fontFamily: "var(--font-roboto-var)" }}>
-                {email ?? "—"}
+                {email ?? "-"}
               </p>
             </div>
           </div>
@@ -342,7 +344,7 @@ export default function ProfilePage() {
                 User ID
               </p>
               <p className="text-xs text-[#6B7280] font-mono break-all" title={session?.user?.id}>
-                {session?.user?.id ?? "—"}
+                {session?.user?.id ?? "-"}
               </p>
             </div>
           </div>

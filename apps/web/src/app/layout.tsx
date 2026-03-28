@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito, Roboto } from "next/font/google";
 import "./globals.css";
 
+import { DoodleBackground } from "@/components/layout/DoodleBackground";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner";
@@ -19,7 +20,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Parikshanam — Olympiad Prep for Grades 6–10",
+  title: "Parikshanam - Olympiad Prep for Grades 6–10",
   description:
     "Expert-crafted courses for Olympiad preparation. Video lessons, interactive quizzes, and progress tracking for students in Grades 6–10.",
 };
@@ -35,8 +36,11 @@ export default function RootLayout({
       <body className="min-h-full bg-[#F9F7F5]">
         <QueryProvider>
           <AuthProvider>
-            {children}
-            <Toaster richColors position="top-right" />
+            <div className="relative min-h-full">
+              <DoodleBackground />
+              <div className="relative z-10">{children}</div>
+              <Toaster richColors position="top-right" />
+            </div>
           </AuthProvider>
         </QueryProvider>
       </body>

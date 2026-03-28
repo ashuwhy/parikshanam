@@ -26,7 +26,7 @@ const columns = [
       'bg-gray-100 text-gray-600'
     }`}>{i.getValue()}</span>
   )}),
-  col.accessor((r) => r.olympiad_type?.label ?? '—', { id: 'olympiad', header: 'Olympiad' }),
+  col.accessor((r) => r.olympiad_type?.label ?? '-', { id: 'olympiad', header: 'Olympiad' }),
   col.accessor('price', { header: 'Price', cell: (i) => `₹${(i.getValue() / 100).toLocaleString('en-IN')}` }),
 ]
 

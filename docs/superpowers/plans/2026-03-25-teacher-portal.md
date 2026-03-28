@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build `apps/teacher` — a Next.js 16 teacher portal at `teach.parikshanam.com` with invite-only signup, a sidebar for managing courses (full authoring with video upload), viewing enrolled students, and editing profile.
+**Goal:** Build `apps/teacher` - a Next.js 16 teacher portal at `teach.parikshanam.com` with invite-only signup, a sidebar for managing courses (full authoring with video upload), viewing enrolled students, and editing profile.
 
 **Architecture:** Next.js App Router with `(auth)` group (login + invite acceptance) and `(teacher)` group (protected sidebar). Teacher-scoped Supabase operations use the anon client + RLS (`teacher_owns_course()` policies). Video upload uses signed URLs via a service-role API route (`/api/upload-url`). The invite-accept flow uses a service-role API route to create the Supabase auth user and set `role = 'teacher'`.
 
@@ -50,11 +50,11 @@ apps/teacher/
       api/
         invites/
           verify/
-            route.ts                     # GET ?token= — verify token
+            route.ts                     # GET ?token= - verify token
           accept/
-            route.ts                     # POST — create user + set role
+            route.ts                     # POST - create user + set role
         upload-url/
-          route.ts                       # POST — signed upload URL
+          route.ts                       # POST - signed upload URL
         lessons/
           [id]/
             route.ts                     # PATCH video_storage_path
@@ -77,7 +77,7 @@ apps/teacher/
         upload-url.test.ts
 ```
 
-> **Note:** `Sidebar`, `StatCard`, `DataTable`, `CourseForm`, `LessonEditor`, and `VideoUpload` are identical in structure to `apps/admin`. Copy and adapt — the core logic is the same; the teacher versions operate under RLS rather than service role.
+> **Note:** `Sidebar`, `StatCard`, `DataTable`, `CourseForm`, `LessonEditor`, and `VideoUpload` are identical in structure to `apps/admin`. Copy and adapt - the core logic is the same; the teacher versions operate under RLS rather than service role.
 
 ---
 
@@ -138,10 +138,10 @@ Same as `apps/admin/package.json` but:
 - [ ] **Step 1.2: Create `next.config.ts`, `tsconfig.json`, `globals.css`, `layout.tsx`**
 
 Copy verbatim from `apps/admin`:
-- `next.config.ts` — identical
-- `tsconfig.json` — identical
-- `src/app/globals.css` — identical
-- `src/app/layout.tsx` — change `metadata.title` to `'Parikshanam — Teacher Portal'`
+- `next.config.ts` - identical
+- `tsconfig.json` - identical
+- `src/app/globals.css` - identical
+- `src/app/layout.tsx` - change `metadata.title` to `'Parikshanam - Teacher Portal'`
 
 - [ ] **Step 1.3: Create `.env.local.example`**
 
@@ -159,7 +159,7 @@ Copy to `.env.local` and fill from Supabase dashboard.
 cd apps/teacher && pnpm install && pnpm dev
 ```
 
-Open http://localhost:3003 — expect 404 or blank page.
+Open http://localhost:3003 - expect 404 or blank page.
 
 - [ ] **Step 1.5: Commit**
 
@@ -319,7 +319,7 @@ describe('POST /api/invites/accept', () => {
 })
 ```
 
-Run: `pnpm test` — expect FAIL.
+Run: `pnpm test` - expect FAIL.
 
 - [ ] **Step 4.2: Create verify route**
 
@@ -415,7 +415,7 @@ export async function POST(request: Request) {
 }
 ```
 
-- [ ] **Step 4.4: Run tests — expect PASS**
+- [ ] **Step 4.4: Run tests - expect PASS**
 
 ```bash
 pnpm test
@@ -548,7 +548,7 @@ export default function InvitePage() {
 - [ ] **Step 4.6: Test invite flow end-to-end**
 
 1. Use the admin portal to send an invite to a test email
-2. Click the link in the email — opens `/invite?token=...`
+2. Click the link in the email - opens `/invite?token=...`
 3. Page should show "Set up your account" with pre-filled email
 4. Enter name + password, submit
 5. Confirm redirect to `/dashboard`
@@ -558,7 +558,7 @@ export default function InvitePage() {
 
 ```bash
 git add apps/teacher/src/app/api/invites apps/teacher/src/app/\(auth\)/invite
-git commit -m "feat(teacher): invite acceptance flow — verify token and create account"
+git commit -m "feat(teacher): invite acceptance flow - verify token and create account"
 ```
 
 ---
@@ -610,7 +610,7 @@ export default function Root() { redirect('/dashboard') }
 
 - [ ] **Step 5.3: Create shell pages**
 
-For `dashboard`, `courses`, `students`, `profile` — same boilerplate as admin shells.
+For `dashboard`, `courses`, `students`, `profile` - same boilerplate as admin shells.
 
 - [ ] **Step 5.4: Verify navigation**
 
@@ -632,7 +632,7 @@ git commit -m "feat(teacher): sidebar layout and shell pages"
 
 - [ ] **Step 6.1: Copy `StatCard` from admin**
 
-Create `apps/teacher/src/components/StatCard.tsx` — identical to admin version.
+Create `apps/teacher/src/components/StatCard.tsx` - identical to admin version.
 
 - [ ] **Step 6.2: Build dashboard page**
 
@@ -739,7 +739,7 @@ describe('POST /api/upload-url', () => {
 })
 ```
 
-Run: `pnpm test` — expect FAIL.
+Run: `pnpm test` - expect FAIL.
 
 - [ ] **Step 7.2: Copy upload-url route and lessons PATCH route from admin**
 
@@ -747,7 +747,7 @@ Both routes are **identical** to `apps/admin`. Copy as-is:
 - `src/app/api/upload-url/route.ts`
 - `src/app/api/lessons/[id]/route.ts`
 
-- [ ] **Step 7.3: Run test — expect PASS**
+- [ ] **Step 7.3: Run test - expect PASS**
 
 ```bash
 pnpm test
@@ -766,7 +766,7 @@ git commit -m "feat(teacher): video upload route and shared UI components"
 
 ---
 
-### Task 8: My Courses — list, create, edit
+### Task 8: My Courses - list, create, edit
 
 **Files:**
 - Create: `apps/teacher/src/components/CourseForm.tsx`
@@ -781,7 +781,7 @@ git commit -m "feat(teacher): video upload route and shared UI components"
 
 - [ ] **Step 8.2: Copy `LessonEditor.tsx` from admin**
 
-`LessonEditor.tsx` is **identical** (uses anon client which is fine — teacher RLS policies allow it). Copy as-is.
+`LessonEditor.tsx` is **identical** (uses anon client which is fine - teacher RLS policies allow it). Copy as-is.
 
 - [ ] **Step 8.3: Build My Courses list page**
 
@@ -956,8 +956,8 @@ import { createColumnHelper } from '@tanstack/react-table'
 
 const col = createColumnHelper<any>()
 const columns = [
-  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '—' }),
-  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '—' }),
+  col.accessor('profile.full_name', { header: 'Student', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('course.title', { header: 'Course', cell: (i) => i.getValue() ?? '-' }),
   col.accessor('status', { header: 'Payment', cell: (i) => i.getValue() }),
   col.accessor('created_at', { header: 'Enrolled', cell: (i) => new Date(i.getValue()).toLocaleDateString('en-IN') }),
 ]

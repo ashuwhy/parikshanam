@@ -24,7 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       type={type}
       className={cn(
         "touch-manipulation transform-gpu backface-hidden",
-        // Press: translateY + shorter shadow — transform does not reflow layout.
+        // Press: translateY + shorter shadow - transform does not reflow layout.
         v.className,
         className,
       )}

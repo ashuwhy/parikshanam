@@ -12,7 +12,6 @@ import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { brand, iconColors } from '@/constants/Colors';
 import { useLessonById } from '@/hooks/useCourses';
-import { useVideoUrl } from '@/hooks/useVideoUrl';
 import { useAuth } from '@/hooks/useAuth';
 import { queryClient } from '@/lib/queryClient';
 import { supabase } from '@/lib/supabase';
@@ -22,9 +21,6 @@ export default function LessonScreen() {
   const router = useRouter();
   const { session } = useAuth();
   const { lesson, loading, error } = useLessonById(lessonId);
-  const { url: videoUrl, loading: urlLoading, error: urlError, refetch } = useVideoUrl(
-    lesson?.video_storage_path ? lessonId : undefined,
-  );
   const [completed, setCompleted] = useState(false);
   const [marking, setMarking] = useState(false);
 
@@ -69,12 +65,9 @@ export default function LessonScreen() {
   return (
     <SafeAreaView className="flex-1 bg-neutral-950" edges={['top']}>
 
-      {/* Video area — full width, dark background */}
+      {/* Video area - full width, dark background */}
       {hasVideo ? (
-        <VideoPlayer
-          url={urlLoading ? null : (videoUrl ?? null)}
-          onEnded={onVideoEnded}
-        />
+        <VideoPlayer videoId={lesson.video_storage_path!} onEnded={onVideoEnded} />
       ) : lesson.thumbnail_url ? (
         <View className="w-full bg-neutral-950" style={{ aspectRatio: 16 / 9 }}>
           <Image
@@ -93,7 +86,7 @@ export default function LessonScreen() {
         </View>
       )}
 
-      {/* Content area — white sheet below video */}
+      {/* Content area - white sheet below video */}
       <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['bottom']}>
         <ScrollView
           className="flex-1"
@@ -109,20 +102,6 @@ export default function LessonScreen() {
           </View>
 
           {/* Signed URL error banner */}
-          {urlError && (
-            <View className="mx-5 mt-4 rounded-2xl bg-red-50 dark:bg-red-950 px-4 py-3 flex-row items-center gap-3">
-              <Text className="flex-1 text-sm font-sans-medium text-red-600 dark:text-red-400">
-                Could not load video. Check your connection.
-              </Text>
-              <Text
-                className="text-sm font-sans-bold text-red-600 dark:text-red-400"
-                onPress={() => void refetch()}
-              >
-                Retry
-              </Text>
-            </View>
-          )}
-
           {/* Lesson body */}
           <View className="px-5 pt-5">
             <Text className="text-xl font-display-black leading-tight text-neutral-900 dark:text-neutral-100">

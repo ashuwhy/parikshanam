@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 
 /**
  * Clears Supabase auth cookies on the server (pairs with client signOut).
- * POST only — avoids accidental GET prefetch logging users out.
+ * POST only - avoids accidental GET prefetch logging users out.
  */
 export async function POST() {
   const supabase = await createClient();

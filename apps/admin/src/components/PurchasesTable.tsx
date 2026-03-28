@@ -58,12 +58,12 @@ const columns = [
   col.accessor((r) => r.profile?.full_name, {
     id: 'student',
     header: 'Student',
-    cell: (i) => i.getValue() ?? '—',
+    cell: (i) => i.getValue() ?? '-',
   }),
   col.accessor((r) => r.course?.title, {
     id: 'course',
     header: 'Course',
-    cell: (i) => i.getValue() ?? '—',
+    cell: (i) => i.getValue() ?? '-',
   }),
   col.accessor('amount', {
     header: 'Amount',
@@ -96,7 +96,7 @@ const columns = [
     header: 'Proof',
     cell: (i) => {
       const url = i.row.original.screenshot_url
-      if (!url) return <span className="text-gray-400 text-xs">—</span>
+      if (!url) return <span className="text-gray-400 text-xs">-</span>
       return (
         <a href={url} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-primary hover:underline">
           View ↗
@@ -112,7 +112,7 @@ const columns = [
       if (row.payment_method === 'upi' && row.status === 'pending') {
         return <ApproveActions id={row.id} />
       }
-      return <span className="text-gray-400 text-xs">{row.razorpay_payment_id ?? '—'}</span>
+      return <span className="text-gray-400 text-xs">{row.razorpay_payment_id ?? '-'}</span>
     },
   }),
   col.accessor('created_at', {

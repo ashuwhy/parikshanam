@@ -1,6 +1,6 @@
 # Design System
 
-## Flat & Vibrant — Parikshanam Edition
+## Flat & Vibrant - Parikshanam Edition
 
 > A high-energy, high-performance design language for Grades 6–10. Focuses on premium flat aesthetics, vivid brand colors, and cinematic interface overlays.
 
@@ -10,11 +10,11 @@
 
 The visual identity is rooted in three principles:
 
-**Icon-Native Identity** — The palette is pulled directly from the Parikshanam icon: Vivid Orange for action, Deep Navy for structure, and Teal/Gold for accents.
+**Icon-Native Identity** - The palette is pulled directly from the Parikshanam icon: Vivid Orange for action, Deep Navy for structure, and Teal/Gold for accents.
 
-**Premium Flat Interactivity** — Interface elements use flat surfaces with high-contrast borders and subtle interaction feedback (`active:opacity-80`) instead of complex 3D layers. This ensures maximum stability and performance on all mobile devices.
+**Premium Flat Interactivity** - Interface elements use flat surfaces with high-contrast borders and subtle interaction feedback (`active:opacity-80`) instead of complex 3D layers. This ensures maximum stability and performance on all mobile devices.
 
-**Visual Reward** — Success states use a clean green (#22C55E) and vibrant highlights that stand out against the clean, warm background.
+**Visual Reward** - Success states use a clean green (#22C55E) and vibrant highlights that stand out against the clean, warm background.
 
 ---
 
@@ -25,8 +25,8 @@ The visual identity is rooted in three principles:
 | Token | Value | Usage |
 |---|---|---|
 | `brand.primary` | `#E8720C` | Hero buttons, progress fills, primary actions |
-| `brand.secondary`| `#F5A623` | Warm amber — active text in dark mode, hover glows |
-| `brand.dark` | `#A04F08` | Burnt Orange — emphasis borders |
+| `brand.secondary`| `#F5A623` | Warm amber - active text in dark mode, hover glows |
+| `brand.dark` | `#A04F08` | Burnt Orange - emphasis borders |
 | `brand.navy` | `#1B3A6E` | Structural text, depth accents, book motifs |
 | `brand.teal` | `#1B8A7A` | Secondary accents, informational highlights |
 
@@ -57,7 +57,7 @@ The visual identity is rooted in three principles:
 
 - **Headings and display text** always use Nunito (`font-display-*`)
 - **Body and interface copy** always use Roboto (`font-sans-*`)
-- **Never mix** a Nunito class with a `font-{weight}` utility — the weight is embedded in the font name and combining them causes rendering issues on Android.
+- **Never mix** a Nunito class with a `font-{weight}` utility - the weight is embedded in the font name and combining them causes rendering issues on Android.
 
 ---
 
@@ -99,7 +99,7 @@ import { colors, fonts, iconColors } from '@/constants/theme';
 // Semantic icon colors
 <BookOpen size={16} color={iconColors.structural} strokeWidth={2.5} />
 
-// Font families (Tailwind className — preferred)
+// Font families (Tailwind className - preferred)
 <Text className="font-display-black">Heading</Text>
 <Text className="font-sans-medium">Body text</Text>
 

@@ -1,4 +1,4 @@
-# Admin & Teacher Portals — Design Spec
+# Admin & Teacher Portals - Design Spec
 
 **Date:** 2026-03-25
 **Project:** Parikshanam
@@ -32,9 +32,9 @@ apps/
   api/          ← FastAPI (existing)
 ```
 
-`pnpm-workspace.yaml` already uses `apps/*` glob — no change needed. `turbo.json` `pipeline` gains `dev`, `build`, `lint` entries for the two new apps (same pattern as existing apps).
+`pnpm-workspace.yaml` already uses `apps/*` glob - no change needed. `turbo.json` `pipeline` gains `dev`, `build`, `lint` entries for the two new apps (same pattern as existing apps).
 
-Each app is an independent Next.js deployment. No shared `packages/ui` — design system tokens are co-located in each app's `globals.css` (same values as `apps/web`).
+Each app is an independent Next.js deployment. No shared `packages/ui` - design system tokens are co-located in each app's `globals.css` (same values as `apps/web`).
 
 ### Tech Stack (both apps)
 
@@ -43,7 +43,7 @@ Each app is an independent Next.js deployment. No shared `packages/ui` — desig
 - **Auth & DB:** Supabase JS client (`@supabase/ssr`)
 - **Forms:** React Hook Form + Zod
 - **Tables:** TanStack Table v8
-- **Email:** Resend (transactional — teacher invites, admin app only)
+- **Email:** Resend (transactional - teacher invites, admin app only)
 - **Fonts:** Nunito + Roboto (same as `apps/web`)
 
 ---
@@ -62,9 +62,9 @@ ALTER TABLE public.profiles
   ADD COLUMN is_active boolean NOT NULL DEFAULT true;
 ```
 
-The existing `handle_new_user` trigger inserts `(id, phone)` — the DEFAULT `'student'` ensures no breakage for new student signups.
+The existing `handle_new_user` trigger inserts `(id, phone)` - the DEFAULT `'student'` ensures no breakage for new student signups.
 
-Teacher accounts are created via service-role (see invite flow below), which sets `role = 'teacher'` explicitly — the trigger is not involved.
+Teacher accounts are created via service-role (see invite flow below), which sets `role = 'teacher'` explicitly - the trigger is not involved.
 
 ### `teacher_invites` table (new)
 
@@ -82,7 +82,7 @@ CREATE TABLE public.teacher_invites (
 ALTER TABLE public.teacher_invites ENABLE ROW LEVEL SECURITY;
 ```
 
-Token is 64-char hex (32 random bytes via `gen_random_bytes`). Stored as plain text — it is single-use, short-lived (7 days), and generated server-side, so hashing is not required. Token lookup only happens in a service-role API route, never exposed to client.
+Token is 64-char hex (32 random bytes via `gen_random_bytes`). Stored as plain text - it is single-use, short-lived (7 days), and generated server-side, so hashing is not required. Token lookup only happens in a service-role API route, never exposed to client.
 
 ### `course_teachers` table (new)
 
@@ -125,7 +125,7 @@ CREATE TRIGGER on_course_status_change
 
 The existing `is_active` boolean is kept for backwards compatibility with the mobile app. The trigger keeps it in sync automatically.
 
-### RLS Policies — Teacher Write Access
+### RLS Policies - Teacher Write Access
 
 ```sql
 -- Teachers can view and edit their own courses
@@ -175,7 +175,7 @@ CREATE POLICY "Teachers can manage modules for own courses"
     )
   );
 
--- Helper function — avoids repeating the ownership subquery in every policy
+-- Helper function - avoids repeating the ownership subquery in every policy
 CREATE OR REPLACE FUNCTION teacher_owns_course(cid uuid)
 RETURNS boolean LANGUAGE sql SECURITY DEFINER STABLE
 SET search_path = public
@@ -215,7 +215,7 @@ CREATE POLICY "Teachers can view progress for own course students"
 
 **Existing `"Anyone can view active courses"` policy:** Kept as-is. The `sync_course_is_active` trigger sets `is_active = false` for all non-`'active'` status rows, so draft/pending/archived courses remain invisible to students. Teachers gain read access to their own courses via the teacher SELECT policy (OR-union semantics), which is the intended behaviour.
 
-**Admin operations:** All admin mutations use the Supabase service-role client in Next.js API routes — RLS is bypassed entirely.
+**Admin operations:** All admin mutations use the Supabase service-role client in Next.js API routes - RLS is bypassed entirely.
 
 ---
 
@@ -248,7 +248,7 @@ Settings
 #### Courses
 - Table: all courses, filterable by status / olympiad type / class range
 - Create course form: title, subtitle, description, price, MRP, thumbnail upload, `olympiad_type_id` (select from `olympiad_types`), `min_class_id` + `max_class_id` (select from `class_levels`), assign teacher
-- Edit course — same form
+- Edit course - same form
 - Course detail: manage modules → lessons (with video upload) → quizzes
 - Approve / reject teacher-submitted courses (status dropdown)
 - Toggle active / archive
@@ -261,7 +261,7 @@ Settings
     WITH (security_barrier = true) AS
     SELECT id, email FROM auth.users;
 
-  -- Revoke public access — only service-role (used by admin API routes) can query this
+  -- Revoke public access - only service-role (used by admin API routes) can query this
   REVOKE SELECT ON public.admin_user_emails FROM anon, authenticated;
   ```
 - Student detail: profile info, edit email (`supabase.auth.admin.updateUserById(id, { email })`), purchase history, course progress
@@ -286,7 +286,7 @@ Settings
 
 ## 4. Teacher Portal (`apps/teacher`)
 
-### Authentication — Invite-Only Flow
+### Authentication - Invite-Only Flow
 
 **Invite creation (admin side, `/api/invites/send` in `apps/admin`):**
 1. Admin submits email + teacher name
@@ -295,7 +295,7 @@ Settings
 
 **Invite acceptance (teacher side, `/invite?token=...` in `apps/teacher`):**
 1. Page loads token from query param, calls `/api/invites/verify` (teacher app API route, service role)
-2. API verifies token exists, `accepted_at IS NULL`, `expires_at > now()` — returns `{ email, valid: true }` or `{ valid: false, reason }`
+2. API verifies token exists, `accepted_at IS NULL`, `expires_at > now()` - returns `{ email, valid: true }` or `{ valid: false, reason }`
 3. Teacher fills in name + password and submits
 4. `/api/invites/accept` (service role):
    - Calls `supabase.auth.admin.createUser({ email, password, email_confirm: true })`
@@ -329,11 +329,11 @@ Profile
   - Module management (add, rename, reorder via drag-handle, delete)
   - Lesson management per module: title, content text, duration, `is_preview` toggle, order
   - Video upload: browser picks `.mp4`/`.webm` file → teacher app API route (`/api/upload-url`, service role) generates a Supabase Storage signed upload URL for `course-videos` bucket → client uploads directly to Storage via `PUT` with progress tracking → path `courses/<course-id>/lesson-<uuid>.mp4` saved to `lessons.video_storage_path`
-  - Quiz management: add quiz to module, add questions (text + 4 options + correct answer index) — see quiz schema below
+  - Quiz management: add quiz to module, add questions (text + 4 options + correct answer index) - see quiz schema below
 
 #### My Students
 - Students enrolled in teacher's courses (join `purchases` + `profiles`)
-- Per student: lessons completed / total, quizzes completed — read-only
+- Per student: lessons completed / total, quizzes completed - read-only
 
 #### Profile
 - Edit name, bio, avatar URL
@@ -347,12 +347,12 @@ Both admin and teacher use the same signed-URL upload pattern:
 
 1. Client selects file (validated: mp4/webm/quicktime, max 5 GB)
 2. Client calls own app's API route: `POST /api/upload-url` with `{ courseId, lessonId, mimeType }`
-3. API route (service role) calls `supabase.storage.from('course-videos').createSignedUploadUrl(path)` — returns `{ signedUrl, token, path }` (`@supabase/storage-js` v2+)
+3. API route (service role) calls `supabase.storage.from('course-videos').createSignedUploadUrl(path)` - returns `{ signedUrl, token, path }` (`@supabase/storage-js` v2+)
 4. Returns `{ signedUrl, token, path }` to client
-5. Client calls `supabase.storage.from('course-videos').uploadToSignedUrl(path, token, file, { onUploadProgress })` — this is the correct client-side method; do **not** use a raw `PUT` to `signedUrl`
+5. Client calls `supabase.storage.from('course-videos').uploadToSignedUrl(path, token, file, { onUploadProgress })` - this is the correct client-side method; do **not** use a raw `PUT` to `signedUrl`
 6. On success, client calls `PATCH /api/lessons/[id]` with `{ video_storage_path: path }`
 
-The `course-videos` bucket remains private. No new storage INSERT policies are needed — signed upload URLs are generated server-side by service role and work without client policies.
+The `course-videos` bucket remains private. No new storage INSERT policies are needed - signed upload URLs are generated server-side by service role and work without client policies.
 
 ---
 
@@ -382,7 +382,7 @@ RLS policies for both tables are defined in Section 2 (`"Teachers can manage own
 
 ---
 
-## 7. Email — Teacher Invite
+## 7. Email - Teacher Invite
 
 Sent via Resend from `apps/admin` API route (`/api/invites/send`).
 

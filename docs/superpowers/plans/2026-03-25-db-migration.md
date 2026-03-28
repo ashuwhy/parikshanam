@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add role-based access (student/teacher/admin), teacher invite tokens, course-teacher assignments, quiz content tables, video/lesson RLS policies, and an admin email view — all in a single idempotent Supabase migration.
+**Goal:** Add role-based access (student/teacher/admin), teacher invite tokens, course-teacher assignments, quiz content tables, video/lesson RLS policies, and an admin email view - all in a single idempotent Supabase migration.
 
-**Architecture:** One new migration file with strict DDL ordering: tables first, then functions/triggers, then RLS policies, then the admin email view. All new policies follow the `teacher_owns_course()` security-definer helper pattern. No breaking changes to the mobile app — `is_active` is kept in sync via trigger.
+**Architecture:** One new migration file with strict DDL ordering: tables first, then functions/triggers, then RLS policies, then the admin email view. All new policies follow the `teacher_owns_course()` security-definer helper pattern. No breaking changes to the mobile app - `is_active` is kept in sync via trigger.
 
 **Tech Stack:** PostgreSQL / Supabase, `supabase` CLI, `pnpm supabase:push`
 
@@ -33,7 +33,7 @@ supabase/migrations/
 -- ─────────────────────────────────────────────────────────────
 ```
 
-Run: `ls supabase/migrations/` — confirm the file appears.
+Run: `ls supabase/migrations/` - confirm the file appears.
 
 - [ ] **Step 1.2: Commit the empty skeleton**
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS public.teacher_invites (
   accepted_at timestamptz,
   created_at  timestamptz DEFAULT now()
 );
--- RLS enabled but no anon/authenticated policies — only service-role accesses this
+-- RLS enabled but no anon/authenticated policies - only service-role accesses this
 ALTER TABLE public.teacher_invites ENABLE ROW LEVEL SECURITY;
 ```
 
@@ -363,7 +363,7 @@ git commit -am "feat(db): add teacher_owns_course helper + all teacher RLS polic
 ```sql
 -- ── 8. admin_user_emails view ─────────────────────────────────
 -- Exposes auth.users email to service-role only.
--- Must be queried via admin API routes — never from client.
+-- Must be queried via admin API routes - never from client.
 CREATE OR REPLACE VIEW public.admin_user_emails
   WITH (security_barrier = true) AS
   SELECT id, email FROM auth.users;

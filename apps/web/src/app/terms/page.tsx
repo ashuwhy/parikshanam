@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions — Parikshanam",
+  title: "Terms & Conditions - Parikshanam",
   description: "Terms and conditions governing your use of the Parikshanam platform.",
 };
 
@@ -17,7 +17,7 @@ const SECTIONS = [
   },
   {
     title: "3. Accounts and Registration",
-    body: `You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. Please notify us immediately at support@parikshanam.com if you suspect unauthorised access to your account.`,
+    body: `You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. Please notify us immediately at hello@parikshanam.com if you suspect unauthorised access to your account.`,
   },
   {
     title: "4. Course Enrolment and Payments",
@@ -25,11 +25,11 @@ const SECTIONS = [
   },
   {
     title: "5. Refund Policy",
-    body: `You may request a refund within 7 days of purchase, provided you have not completed more than 20% of the course content. Refund requests after this window will not be entertained. To request a refund, contact support@parikshanam.com with your order details.`,
+    body: `You may request a refund within 7 days of purchase, provided you have not completed more than 20% of the course content. Refund requests after this window will not be entertained. To request a refund, contact hello@parikshanam.com with your order details.`,
   },
   {
     title: "6. Intellectual Property",
-    body: `All content on Parikshanam — including videos, quizzes, text, graphics, and branding — is the intellectual property of Parikshanam or its licensors. You may not reproduce, distribute, or create derivative works from our content without prior written permission.`,
+    body: `All content on Parikshanam - including videos, quizzes, text, graphics, and branding - is the intellectual property of Parikshanam or its licensors. You may not reproduce, distribute, or create derivative works from our content without prior written permission.`,
   },
   {
     title: "7. User Conduct",
@@ -53,7 +53,7 @@ const SECTIONS = [
   },
   {
     title: "12. Contact",
-    body: `For questions about these Terms, please reach out to legal@parikshanam.com or write to Parikshanam, India.`,
+    body: `For questions about these Terms, please reach out to hello@parikshanam.com or write to Parikshanam, India.`,
   },
 ];
 
@@ -63,7 +63,7 @@ export default function TermsPage() {
       className="min-h-screen"
       style={{
         background:
-          "radial-gradient(ellipse 80% 40% at 50% -5%, rgba(232,114,12,0.07) 0%, transparent 70%), #F9F7F5",
+          "radial-gradient(ellipse 80% 40% at 50% -5%, rgba(232,114,12,0.07) 0%, transparent 70%)",
       }}
     >
       {/* Header */}

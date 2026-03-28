@@ -4,7 +4,7 @@ import Link from "next/link";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 
 export const metadata: Metadata = {
-  title: "Sign In — Parikshanam",
+  title: "Sign In - Parikshanam",
 };
 
 export default function LoginPage() {
@@ -13,7 +13,7 @@ export default function LoginPage() {
       className="min-h-screen flex flex-col items-center justify-center px-6 py-12"
       style={{
         background:
-          "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,114,12,0.09) 0%, transparent 70%), #F9F7F5",
+          "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(232,114,12,0.09) 0%, transparent 70%)",
       }}
     >
       <div className="w-full max-w-sm">
@@ -24,7 +24,7 @@ export default function LoginPage() {
             width={72}
             height={72}
             alt="Parikshanam"
-            className="rounded-2xl mb-4"
+            className="rounded-[var(--radius-nested)] mb-4"
           />
           <h1
             className="text-3xl text-[#1B3A6E] tracking-tight"
@@ -41,7 +41,7 @@ export default function LoginPage() {
         </div>
 
         {/* Sign-in card */}
-        <div className="bg-white rounded-[2rem] border border-[#E5E0D8] p-8 shadow-sm">
+        <div className="bg-white rounded-[var(--radius-card)] border border-[#E5E0D8] p-8 shadow-sm">
           <h2
             className="text-xl text-[#111827] mb-2"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}

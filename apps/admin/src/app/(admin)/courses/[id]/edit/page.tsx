@@ -18,7 +18,7 @@ export default async function EditCoursePage({ params }: { params: Promise<{ id:
   async function updateCourse(data: CourseFormData) {
     'use server'
     const admin = createAdminClient()
-    // thumbnail_url is managed separately via ThumbnailUpload — never overwrite it here
+    // thumbnail_url is managed separately via ThumbnailUpload - never overwrite it here
     await admin.from('courses').update({
       title: data.title,
       subtitle: data.subtitle ?? null,

@@ -1,8 +1,3 @@
-# Supabase CLI — use this folder at the monorepo root (not apps/mobile).
+# Supabase CLI - use this folder at the monorepo root (not apps/mobile).
 # https://supabase.com/docs/guides/cli/config
 project_id = "parikshanam"
-
-# Verify JWT inside the function (Bearer + auth.getUser(token)) so the gateway
-# does not 401 before the handler runs; see Edge Function 401 troubleshooting.
-[functions.get-video-url]
-verify_jwt = false

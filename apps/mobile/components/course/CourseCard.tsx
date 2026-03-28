@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { brand, iconColors } from '@/constants/Colors';
 import { useBuyCourse } from '@/hooks/useBuyCourse';
 import { prefetchStorageUrl } from '@/hooks/useStorageUrl';
+import { isYoutubeVideoId } from '@/lib/videoSource';
 import { classRange, discountPercent, formatPrice } from '@/lib/courseUtils';
 import { olympiadLabel } from '@/types';
 import type { Course } from '@/types';
@@ -29,7 +30,11 @@ export function CourseCard({ course, onPress, purchased }: Props) {
       <Pressable
         accessibilityRole="button"
         onPress={onPress}
-        onPressIn={() => prefetchStorageUrl(course.intro_video_path)}
+        onPressIn={() => {
+          if (!isYoutubeVideoId(course.intro_video_path)) {
+            prefetchStorageUrl(course.intro_video_path);
+          }
+        }}
         className="overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700"
       >
         {/* Thumbnail */}
@@ -49,14 +54,14 @@ export function CourseCard({ course, onPress, purchased }: Props) {
             </View>
           )}
 
-          {/* Single olympiad badge — top-left */}
+          {/* Single olympiad badge - top-left */}
           {olympiad ? (
             <View className="absolute left-3 top-3">
               <CourseBadge label={olympiad} variant="olympiad" />
             </View>
           ) : null}
 
-          {/* Enrolled — top-right */}
+          {/* Enrolled - top-right */}
           {purchased ? (
             <View className="absolute right-3 top-3">
               <CourseBadge
@@ -108,12 +113,12 @@ export function CourseCard({ course, onPress, purchased }: Props) {
             <View className="mt-3 flex-row items-center gap-1.5">
               <CheckCircle size={13} color={brand.success} strokeWidth={2.5} />
               <Text className="text-xs font-display-black text-green-600 dark:text-green-400">
-                Enrolled — tap to continue
+                Enrolled - tap to continue
               </Text>
             </View>
           ) : (
             <Button
-              title={`Enroll — ${formatPrice(course.price)}`}
+              title={`Enroll - ${formatPrice(course.price)}`}
               variant="primary"
               className="mt-3 py-3"
               loading={buying}

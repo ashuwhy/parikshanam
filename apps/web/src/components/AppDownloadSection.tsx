@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Star, User, Monitor, Smartphone } from "lucide-react";
+import { buttonProps } from "@/components/ui/buttonStyles";
+import { cn } from "@/lib/cn";
 
 const REVIEWS = [
   {
     name: "Aryan M.",
     grade: "Class 9",
-    text: "I went from average to rank 3 in my district NSO. The quizzes are especially helpful — detailed explanations make all the difference.",
+    text: "I went from average to rank 3 in my district NSO. The quizzes are especially helpful - detailed explanations make all the difference.",
     stars: 5,
   },
   {
@@ -25,64 +27,75 @@ const REVIEWS = [
 
 export default function AppDownloadSection() {
   return (
-    <section id="download" className="py-24 px-6 bg-[#1B3A6E] overflow-hidden relative">
-      {/* Background decoration */}
+    <section id="download" className="relative py-28 md:py-36 px-6 sm:px-8 bg-[#1B3A6E] overflow-hidden">
+      {/* Enhanced background decoration */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 80% 50%, rgba(232,114,12,0.12) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(27,138,122,0.10) 0%, transparent 60%)",
+            "radial-gradient(ellipse 90% 70% at 75% 40%, rgba(232,114,12,0.16) 0%, transparent 70%), radial-gradient(ellipse 60% 60% at 15% 75%, rgba(27,138,122,0.14) 0%, transparent 65%), radial-gradient(ellipse 50% 50% at 50% 10%, rgba(245,198,66,0.10) 0%, transparent 60%)",
         }}
       />
+      
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Reviews */}
-        <div className="mb-16">
-          <div className="text-center mb-10">
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Reviews - enhanced */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
             <p
-              className="text-xs uppercase tracking-widest text-[#E8720C] mb-3"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              className="text-[11px] sm:text-xs uppercase tracking-[0.16em] text-[#F5A84A] mb-4"
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
             >
               Student Reviews
             </p>
             <h2
-              className="text-3xl md:text-4xl text-white"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              className="text-3xl sm:text-4xl md:text-[2.75rem] md:leading-tight text-white mb-3 text-balance max-w-3xl mx-auto"
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.025em" }}
             >
               Loved by 10,000+ students
             </h2>
+            <div className="flex items-center justify-center gap-2 mt-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={20} color="#F5C842" fill="#F5C842" strokeWidth={0} />
+              ))}
+              <span className="ml-2 text-[#D1D5DB] text-lg" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>
+                4.9/5 average rating
+              </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {REVIEWS.map(({ name, grade, text, stars }) => (
               <div
                 key={name}
-                className="rounded-2xl p-6 flex flex-col gap-4"
-                style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
+                className="rounded-[var(--radius-card)] p-7 flex flex-col gap-5 border border-white/12 shadow-[0_1px_0_rgba(255,255,255,0.06)_inset] transition-[border-color,box-shadow] duration-200 ease-out hover:border-white/22 hover:shadow-[0_1px_0_rgba(255,255,255,0.1)_inset,0_12px_40px_-16px_rgba(0,0,0,0.2)] backdrop-blur-sm"
+                style={{ background: "rgba(255,255,255,0.08)" }}
               >
                 <div className="flex gap-1">
                   {Array.from({ length: stars }).map((_, i) => (
-                    <Star key={i} size={14} color="#F5C842" fill="#F5C842" strokeWidth={0} />
+                    <Star key={i} size={16} color="#F5C842" fill="#F5C842" strokeWidth={0} />
                   ))}
                 </div>
                 <p
-                  className="text-sm text-[#D1D5DB] leading-relaxed flex-1"
+                  className="text-base text-[#E8EAED] leading-[1.65] flex-1"
                   style={{ fontFamily: "var(--font-roboto-var)" }}
                 >
                   &ldquo;{text}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center"
-                    style={{ background: "rgba(232,114,12,0.3)" }}
+                    className="w-11 h-11 rounded-full flex items-center justify-center border-2 border-[#E8720C]/40"
+                    style={{ background: "rgba(232,114,12,0.25)" }}
                   >
-                    <User size={16} color="#E8720C" strokeWidth={2.5} />
+                    <User size={18} color="#E8720C" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <p className="text-sm text-white" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>
+                    <p className="text-base text-white" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}>
                       {name}
                     </p>
-                    <p className="text-xs text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                    <p className="text-sm text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
                       {grade}
                     </p>
                   </div>
@@ -92,70 +105,89 @@ export default function AppDownloadSection() {
           </div>
         </div>
 
-        {/* Main CTA card */}
+        {/* Main CTA - same surface language as hero / courses (cream card on navy band) */}
         <div
-          className="rounded-[2rem] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10"
-          style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}
+          className={cn(
+            "flex flex-col gap-8 rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FFFBF7] p-6 sm:p-8 md:p-10 lg:flex-row lg:items-center lg:justify-between lg:gap-14 lg:p-12",
+            "shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_12px_40px_-18px_rgba(27,58,110,0.1)]",
+          )}
         >
           {/* Left copy */}
-          <div className="text-center md:text-left max-w-md">
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-6">
-              <Image src="/icon.png" width={52} height={52} alt="Parikshanam" className="rounded-xl" />
+          <div className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-[26rem] lg:text-left xl:max-w-lg">
+            <div className="mb-6 flex items-center justify-center gap-3 sm:mb-7 lg:justify-start">
+              <Image
+                src="/icon.png"
+                width={52}
+                height={52}
+                alt=""
+                className="h-[52px] w-[52px] shrink-0 rounded-[var(--radius-icon-tile)] border border-[#E5E0D8] shadow-[0_4px_16px_-4px_rgba(27,58,110,0.15)]"
+              />
               <span
-                className="text-2xl text-white"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+                className="text-2xl tracking-tight text-[#1B3A6E] sm:text-[1.65rem]"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.02em" }}
               >
                 Parikshanam
               </span>
             </div>
+            <p
+              className="mb-3 text-[11px] font-black uppercase tracking-[0.16em] text-[#C65F0A] sm:text-xs"
+              style={{ fontFamily: "var(--font-nunito-var)" }}
+            >
+              Start in your browser
+            </p>
             <h3
-              className="text-3xl md:text-4xl text-white mb-3"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+              className="mb-4 text-balance text-3xl leading-[1.12] text-[#1B3A6E] sm:text-4xl md:text-[2.25rem]"
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.03em" }}
             >
               Start learning right now.
             </h3>
             <p
-              className="text-[#9CA3AF] text-base"
-              style={{ fontFamily: "var(--font-roboto-var)" }}
+              className="mx-auto max-w-[32rem] text-base leading-[1.65] text-[#4B5563] lg:mx-0"
+              style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 400 }}
             >
-              Sign in with Google and start your first lesson in under 2 minutes — no download, no setup, works on any device.
+              Sign in with Google and start your first lesson in under 2 minutes - no download, no setup, works on any
+              device.
             </p>
           </div>
 
-          {/* Right: action options */}
-          <div className="flex flex-col gap-4 shrink-0 w-full md:w-auto">
-            {/* Primary: web app */}
+          {/* CTAs - shared system buttons; narrow column on mobile */}
+          <div className="mx-auto flex w-full max-w-[17.5rem] shrink-0 flex-col gap-3 sm:max-w-xs lg:mx-0 lg:w-[min(100%,18.5rem)]">
             <Link
               href="/login"
-              className="flex items-center justify-center gap-3 px-8 py-5 rounded-2xl text-white border-b-4 border-[#A04F08] hover:bg-[#d4640a] active:translate-y-[2px] active:border-b-2 transition-all select-none"
-              style={{
-                background: "#E8720C",
-                fontFamily: "var(--font-nunito-var)",
-                fontWeight: 900,
-                fontSize: "1.05rem",
-                minWidth: 260,
-              }}
+              {...buttonProps(
+                "primaryHeroLg",
+                cn(
+                  "flex w-full min-h-[3.5rem] items-center justify-center gap-2.5 text-center sm:min-h-16",
+                  "px-4 sm:px-6",
+                ),
+              )}
             >
-              <Monitor size={22} strokeWidth={2} />
-              Start in Browser — Free
+              <Monitor className="h-5 w-5 shrink-0 text-white" strokeWidth={2.25} aria-hidden />
+              Get Started
             </Link>
 
-            {/* Secondary: mobile app */}
             <div
-              className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl cursor-pointer hover:translate-y-[1px] transition-all select-none opacity-70"
-              style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                fontFamily: "var(--font-nunito-var)",
-                fontWeight: 800,
-                color: "white",
-                minWidth: 260,
-              }}
+              className={cn(
+                "box-border flex min-h-[3.5rem] w-full items-center justify-center gap-3 rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white px-4 py-3 sm:min-h-16 sm:px-5",
+                "shadow-[0_3px_0_0_#E3DED4]",
+              )}
+              role="note"
+              aria-label="Mobile apps coming soon on iOS and Android"
             >
-              <Smartphone size={20} strokeWidth={1.8} />
-              <div className="text-left">
-                <p style={{ fontSize: 10, color: "rgba(255,255,255,0.55)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2 }}>Also available on</p>
-                <p style={{ fontSize: 15, lineHeight: 1 }}>iOS &amp; Android</p>
+              <Smartphone className="h-5 w-5 shrink-0 text-[#1B8A7A]" strokeWidth={2.25} aria-hidden />
+              <div className="flex min-w-0 flex-col justify-center gap-0.5 text-left leading-tight">
+                <span
+                  className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#6B7280] sm:text-[11px]"
+                  style={{ fontFamily: "var(--font-nunito-var)" }}
+                >
+                  Coming soon on
+                </span>
+                <span
+                  className="text-base font-black tracking-tight text-[#1B3A6E] sm:text-[1.0625rem]"
+                  style={{ fontFamily: "var(--font-nunito-var)" }}
+                >
+                  iOS &amp; Android
+                </span>
               </div>
             </div>
           </div>

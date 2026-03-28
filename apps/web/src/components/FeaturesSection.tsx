@@ -27,7 +27,7 @@ const FEATURES = [
     iconColor: "#3B82F6",
     title: "Progress Tracking",
     description:
-      "See which lessons you've completed, your quiz scores, and streaks — all in a beautiful dashboard that keeps you motivated.",
+      "See which lessons you've completed, your quiz scores, and streaks - all in a beautiful dashboard that keeps you motivated.",
     tag: "Stay on Track",
     tagColor: "#3B82F6",
   },
@@ -37,7 +37,7 @@ const FEATURES = [
     iconColor: "#F59E0B",
     title: "Olympiad Ready",
     description:
-      "Courses built specifically for national Olympiads — Science, Math, Geography, and Computing — with syllabus-aligned content.",
+      "Courses built specifically for national Olympiads - Science, Math, Geography, and Computing - with syllabus-aligned content.",
     tag: "Compete & Win",
     tagColor: "#F59E0B",
   },
@@ -47,7 +47,7 @@ const FEATURES = [
     iconColor: "#8B5CF6",
     title: "Full Syllabus Coverage",
     description:
-      "Every module, every topic, every chapter — neatly organized so nothing slips through the cracks before exam day.",
+      "Every module, every topic, every chapter - neatly organized so nothing slips through the cracks before exam day.",
     tag: "Complete Coverage",
     tagColor: "#8B5CF6",
   },
@@ -57,7 +57,7 @@ const FEATURES = [
     iconColor: "#1B8A7A",
     title: "Learn Anywhere",
     description:
-      "Native mobile app for iOS and Android. Content loads fast, works great on any screen, anytime — even with limited connectivity.",
+      "Native mobile app for iOS and Android. Content loads fast, works great on any screen, anytime - even with limited connectivity.",
     tag: "Mobile-First",
     tagColor: "#1B8A7A",
   },
@@ -65,69 +65,73 @@ const FEATURES = [
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="py-24 px-6 bg-white border-t border-[#E5E0D8]">
-      <div className="max-w-6xl mx-auto">
+    <section id="features" className="relative py-24 md:py-32 px-6 sm:px-8 bg-white border-t border-[#E5E0D8]/90 overflow-hidden">
+      {/* Subtle grid pattern overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "radial-gradient(circle, #1B3A6E 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-14 animate-fade-in-up">
+        <div className="text-center mb-14 md:mb-16 animate-fade-in-up">
           <p
-            className="text-xs uppercase tracking-widest text-[#E8720C] mb-3"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+            className="text-[11px] sm:text-xs uppercase tracking-[0.16em] text-[#C65F0A] mb-4"
+            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
             Features
           </p>
           <h2
-            className="text-3xl md:text-4xl text-[#1B3A6E] mb-4"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+            className="text-3xl sm:text-4xl md:text-[2.75rem] md:leading-tight text-[#1B3A6E] mb-5 text-balance max-w-3xl mx-auto"
+            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.025em" }}
           >
             Everything a student needs to excel
           </h2>
           <p
-            className="text-[#6B7280] text-lg max-w-2xl mx-auto"
-            style={{ fontFamily: "var(--font-roboto-var)" }}
+            className="text-[#4B5563] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed"
+            style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 400 }}
           >
             Parikshanam packs a full learning system into one beautifully simple app.
           </p>
         </div>
 
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {/* Feature grid - enhanced */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {FEATURES.map(({ Icon, iconBg, iconColor, title, description, tag, tagColor }, i) => (
             <div
               key={title}
-              className={`animate-fade-in-up delay-${Math.min(i + 1, 6)} group flex flex-col p-5 sm:p-7 rounded-[2rem] border border-[#E5E0D8] bg-[#F9F7F5] hover:border-[#E8720C] hover:bg-white hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(232,114,12,0.08)] transition-all`}
+              className={`animate-fade-in-up delay-${Math.min(i + 1, 6)} group flex flex-col p-7 sm:p-8 rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FAF8F6] shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_10px_36px_-18px_rgba(27,58,110,0.08)] transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/40 hover:bg-white hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_18px_44px_-14px_rgba(232,114,12,0.12)] cursor-default`}
             >
-              {/* Icon */}
+              {/* Icon - enhanced */}
               <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 border-b-4 transition-all group-hover:translate-y-[2px] group-hover:border-b-2"
+                className="w-14 h-14 rounded-[var(--radius-nested)] flex items-center justify-center mb-6 border transition-[box-shadow,border-color] duration-200 ease-out shadow-[0_2px_8px_-2px_rgba(27,58,110,0.08)] group-hover:shadow-[0_6px_16px_-4px_rgba(27,58,110,0.12)]"
                 style={{
                   background: iconBg,
-                  borderColor: iconColor + "66",
+                  borderColor: iconColor + "55",
                 }}
               >
-                <Icon size={22} color={iconColor} strokeWidth={2} />
+                <Icon size={26} color={iconColor} strokeWidth={2.2} />
               </div>
 
-              {/* Tag */}
+              {/* Tag - enhanced */}
               <span
-                className="inline-block mb-3 px-3 py-0.5 rounded-full text-[11px] uppercase tracking-widest"
+                className="inline-block self-start mb-4 px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] uppercase tracking-[0.12em] border"
                 style={{
-                  background: tagColor + "15",
+                  background: tagColor + "12",
+                  borderColor: tagColor + "28",
                   color: tagColor,
                   fontFamily: "var(--font-nunito-var)",
-                  fontWeight: 800,
+                  fontWeight: 900,
                 }}
               >
                 {tag}
               </span>
 
               <h3
-                className="text-lg text-[#111827] mb-2"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+                className="text-lg sm:text-xl text-[#111827] mb-3 group-hover:text-[#E8720C] transition-colors duration-200"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900, letterSpacing: "-0.015em" }}
               >
                 {title}
               </h3>
               <p
-                className="text-sm text-[#6B7280] leading-relaxed"
+                className="text-sm text-[#6B7280] leading-[1.65]"
                 style={{ fontFamily: "var(--font-roboto-var)" }}
               >
                 {description}

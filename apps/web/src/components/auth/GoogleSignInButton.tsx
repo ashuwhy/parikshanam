@@ -16,7 +16,7 @@ export default function GoogleSignInButton() {
         redirectTo: `${window.location.origin}/api/auth/callback`,
       },
     });
-    // No need to setLoading(false) — page redirects
+    // No need to setLoading(false) - page redirects
   };
 
   return (

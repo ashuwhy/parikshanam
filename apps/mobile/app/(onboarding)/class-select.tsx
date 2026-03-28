@@ -3,29 +3,21 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
-import { BackButton } from '@/components/ui/BackButton';
 import { Button } from '@/components/ui/Button';
 import { LoadingScreen } from '@/components/ui/LoadingScreen';
-import { isValidIndianPhone, PhoneInput } from '@/components/ui/PhoneInput';
 import { useAuth } from '@/hooks/useAuth';
-import { iconColors } from '@/constants/Colors';
-import { href } from '@/lib/href';
 import { supabase } from '@/lib/supabase';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
-import { useRouter } from 'expo-router';
 
 export default function ClassSelectScreen() {
-  const router = useRouter();
-  const { session, profile, refreshProfile, signOut } = useAuth();
+  const { session, profile, refreshProfile } = useAuth();
   const classLevels = useProfileStore((s) => s.classLevels);
   const [selected, setSelected] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState(profile?.full_name ?? session?.user?.user_metadata?.full_name ?? '');
   const [phone, setPhone] = useState(profile?.phone ?? session?.user?.phone ?? '');
 
   const onContinue = async () => {
-    setSubmitted(true);
     if (!session?.user || !selected) {
       Toast.show({ type: 'error', text1: 'Select your class' });
       return;
@@ -34,20 +26,16 @@ export default function ClassSelectScreen() {
       Toast.show({ type: 'error', text1: 'Please enter your full name' });
       return;
     }
-    if (!isValidIndianPhone(phone)) {
-      Toast.show({ type: 'error', text1: 'Enter a valid 10-digit mobile number' });
-      return;
-    }
     setLoading(true);
     const { error } = await supabase
       .from('profiles')
-      .upsert({
-        id: session.user.id,
+      .update({
         full_name: name.trim(),
         phone: phone.trim() || null,
         class_level_id: selected,
         onboarding_completed: true,
-      });
+      })
+      .eq('id', session.user.id);
     setLoading(false);
     if (error) {
       Toast.show({ type: 'error', text1: error.message });
@@ -56,78 +44,52 @@ export default function ClassSelectScreen() {
     await refreshProfile();
   };
 
-  const onBack = async () => {
-    await signOut();
-    router.replace(href('/(auth)/welcome'));
-  };
+  if (!session) {
+    return <LoadingScreen />;
+  }
 
-  if (!session || classLevels.length === 0) {
+  if (classLevels.length === 0) {
     return <LoadingScreen />;
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900">
-      <KeyboardAvoidingView
+    <SafeAreaView className="flex-1 bg-ui-bg">
+      <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
       >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 32 }}
+        <ScrollView 
+          contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 24, paddingTop: 32, paddingBottom: 32 }}
           keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
         >
-          {/* Header */}
-          <View className="px-5 pt-4 pb-2">
-            <BackButton variant="light" onPress={() => void onBack()} />
-          </View>
+          <Text className="text-3xl font-black text-neutral-900 dark:text-neutral-100">Welcome!</Text>
+          <Text className="mt-2 text-base text-neutral-600 dark:text-neutral-400">Please provide your details to get started.</Text>
 
-          {/* Title */}
-          <View className="px-5 pt-4 pb-6">
-            <Text className="text-3xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-100">
-              Let's get you set up
-            </Text>
-            <Text className="mt-1.5 text-base font-sans-medium text-neutral-500 dark:text-neutral-400">
-              Tell us a little about yourself to personalise your learning.
-            </Text>
-          </View>
-
-          {/* Form fields */}
-          <View className="px-5 gap-4">
+          <View className="mt-8 gap-5">
             <View>
-              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                Full Name *
-              </Text>
+              <Text className="mb-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Full Name</Text>
               <TextInput
                 value={name}
                 onChangeText={setName}
                 placeholder="Your full name"
-                placeholderTextColor={iconColors.subtle}
-                autoCapitalize="words"
-                className="h-14 rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800 px-4 text-base font-sans-medium text-neutral-900 dark:text-neutral-100"
+                className="h-14 rounded-xl border border-neutral-200 bg-ui-bg px-4 text-base text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
               />
             </View>
-
             <View>
-              <Text className="mb-2 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                Phone Number *
-              </Text>
-              <PhoneInput
+              <Text className="mb-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Phone Number (Optional)</Text>
+              <TextInput
                 value={phone}
                 onChangeText={setPhone}
-                showValidation={submitted}
+                placeholder="10-digit phone number"
+                keyboardType="phone-pad"
+                className="h-14 rounded-xl border border-neutral-200 bg-ui-bg px-4 text-base text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
               />
-              {submitted && !isValidIndianPhone(phone) && (
-                <Text className="mt-1 text-xs text-red-500">Enter a valid 10-digit Indian mobile number</Text>
-              )}
             </View>
           </View>
 
-          {/* Class selector */}
-          <View className="px-5 mt-8">
-            <Text className="mb-3 text-xs font-display uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-              Your Class *
-            </Text>
-            <View className="flex-row flex-wrap gap-3">
+          <View className="mt-10">
+            <Text className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Select Your Class</Text>
+            <View className="flex-row flex-wrap justify-center gap-3">
               {classLevels.map((cl) => {
                 const active = selected === cl.id;
                 return (
@@ -136,17 +98,13 @@ export default function ClassSelectScreen() {
                     accessibilityRole="button"
                     accessibilityState={{ selected: active }}
                     onPress={() => setSelected(cl.id)}
-                    className={`h-14 min-w-[76px] items-center justify-center rounded-2xl border-2 px-5 ${
+                    className={`h-16 min-w-[28%] items-center justify-center rounded-xl border-2 px-4 ${
                       active
-                        ? 'border-brand-primary bg-brand-primary/10'
-                        : 'border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800'
-                    }`}
-                  >
+                        ? 'border-brand-primary bg-brand-primaryLight dark:border-brand-primary-light dark:bg-brand-primaryDark'
+                        : 'border-neutral-200 bg-ui-bg dark:border-neutral-700 dark:bg-neutral-900'
+                    }`}>
                     <Text
-                      className={`text-base font-display-black ${
-                        active ? 'text-brand-dark dark:text-brand-secondary' : 'text-neutral-700 dark:text-neutral-200'
-                      }`}
-                    >
+                      className={`text-lg font-semibold ${active ? 'text-brand-primaryDark dark:text-brand-primary-light' : 'text-neutral-800 dark:text-neutral-200'}`}>
                       {cl.label}
                     </Text>
                   </Pressable>
@@ -155,14 +113,8 @@ export default function ClassSelectScreen() {
             </View>
           </View>
 
-          {/* CTA */}
-          <View className="px-5 mt-auto pt-10">
-            <Button
-              title="Continue"
-              loading={loading}
-              disabled={!selected || !name.trim() || !isValidIndianPhone(phone)}
-              onPress={() => void onContinue()}
-            />
+          <View className="mt-auto pt-12">
+            <Button title="Continue" loading={loading} disabled={!selected || !name.trim()} onPress={() => void onContinue()} />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

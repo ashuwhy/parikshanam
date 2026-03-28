@@ -17,7 +17,7 @@ const nunitoBold: CSSProperties = {
 };
 
 /**
- * Transform does not affect document flow — siblings/parent layout stay stable.
+ * Transform does not affect document flow - siblings/parent layout stay stable.
  * Motion: see `.btn-press-motion` in globals.css (staggered transform vs shadow).
  */
 const transPress = "btn-press-motion";
@@ -55,8 +55,16 @@ const pushOrangeElevated = cn(
   "disabled:active:shadow-[0_4px_0_0_#A04F08,0_12px_28px_-8px_rgba(27,58,110,0.14)]",
 );
 
+/** Darker than `hover:bg-[#152d57]` so the extrusion stays visible at rest and on hover. */
+const pushNavy = cn(
+  "shadow-[0_4px_0_0_#0f2847]",
+  depth4,
+  "active:shadow-[0_1px_0_0_#0f2847]",
+  "disabled:active:shadow-[0_4px_0_0_#0f2847]",
+);
+
 const primaryBase = cn(
-  "inline-flex items-center justify-center gap-2 rounded-2xl bg-[#E8720C] text-white hover:bg-[#d4640a] select-none",
+  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[#E8720C] text-white hover:bg-[#d4640a] select-none",
   transPress,
   "disabled:opacity-50 disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.01] disabled:brightness-100",
 );
@@ -78,7 +86,7 @@ const VARIANTS = {
   },
   primarySm: {
     className: cn(
-      "inline-flex items-center justify-center rounded-xl bg-[#E8720C] text-white text-sm hover:bg-[#d4640a] select-none",
+      "inline-flex items-center justify-center rounded-[var(--radius-control-sm)] bg-[#E8720C] text-white text-sm hover:bg-[#d4640a] select-none",
       transPress,
       "px-4 py-2",
       pushOrangeSm,
@@ -87,16 +95,34 @@ const VARIANTS = {
     style: nunitoExtrabold,
   },
   primaryNav: {
-    className: cn(primaryCore, "px-5 py-2.5 rounded-xl text-sm"),
+    className: cn(primaryCore, "px-5 py-2.5 rounded-[var(--radius-control-sm)] text-sm"),
     style: nunitoExtrabold,
   },
   primaryNavMobile: {
-    className: cn(primaryCore, "w-full text-center py-3 rounded-xl text-sm"),
+    className: cn(primaryCore, "w-full text-center py-3 rounded-[var(--radius-control-sm)] text-sm"),
     style: nunitoExtrabold,
   },
   primaryHero: {
     className: cn(primaryCore, "px-5 sm:px-7 py-3.5 sm:py-4 text-sm sm:text-base"),
     style: nunitoExtrabold,
+  },
+  /** Large hero / download CTAs (shadow lip only - no border-width change on press). */
+  primaryHeroLg: {
+    className: cn(
+      primaryCore,
+      "min-w-0 px-6 py-3.5 text-sm sm:px-8 sm:py-4 sm:text-base md:px-10 md:py-5 md:text-[1.1rem]",
+    ),
+    style: nunitoBlack,
+  },
+  primaryNavyLg: {
+    className: cn(
+      "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[#1B3A6E] text-white hover:bg-[#152d57] select-none text-center",
+      transPress,
+      pushNavy,
+      "px-10 sm:px-12 py-5 sm:py-6 text-base sm:text-lg",
+      "disabled:opacity-50 disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.02] disabled:brightness-100",
+    ),
+    style: nunitoBlack,
   },
   primarySection: {
     className: cn(
@@ -112,7 +138,7 @@ const VARIANTS = {
   },
   secondary: {
     className: cn(
-      "inline-flex items-center justify-center gap-2 w-full py-4 rounded-2xl border-2 border-[#E5E0D8] bg-white text-[#111827] text-base select-none",
+      "inline-flex items-center justify-center gap-2 w-full py-4 rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white text-[#111827] text-base select-none",
       transPress,
       "shadow-[0_3px_0_0_#DDD8CF]",
       depth3,
@@ -122,7 +148,7 @@ const VARIANTS = {
   },
   secondaryCompact: {
     className: cn(
-      "inline-flex items-center justify-center flex-1 py-3 rounded-2xl border-2 border-[#E5E0D8] bg-white text-sm text-[#374151] select-none",
+      "inline-flex items-center justify-center flex-1 py-3 rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white text-sm text-[#374151] select-none",
       transPress,
       "shadow-[0_3px_0_0_#DDD8CF]",
       depth3,
@@ -132,7 +158,7 @@ const VARIANTS = {
   },
   outlineHero: {
     className: cn(
-      "inline-flex items-center gap-2 px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-white text-[#1B3A6E] text-sm sm:text-base border-2 border-[#E5E0D8] select-none",
+      "inline-flex items-center gap-2 px-5 sm:px-7 py-3.5 sm:py-4 rounded-[var(--radius-button)] bg-white text-[#1B3A6E] text-sm sm:text-base border-2 border-[#E5E0D8] select-none",
       transPress,
       "shadow-[0_3px_0_0_#E3DED4]",
       depth3,
@@ -142,7 +168,7 @@ const VARIANTS = {
   },
   outlineNavCard: {
     className: cn(
-      "inline-flex items-center justify-center w-full text-center py-3 rounded-xl border-2 border-[#E5E0D8] text-[#374151] text-sm select-none",
+      "inline-flex items-center justify-center w-full text-center py-3 rounded-[var(--radius-control-sm)] border-2 border-[#E5E0D8] text-[#374151] text-sm select-none",
       transPress,
       "shadow-[0_2px_0_0_#E8E4DC]",
       depth2,
@@ -152,7 +178,7 @@ const VARIANTS = {
   },
   outlineAccent: {
     className: cn(
-      "inline-flex items-center justify-center px-6 py-3 rounded-2xl border-2 border-[#E8720C] text-sm text-[#E8720C] select-none",
+      "inline-flex items-center justify-center px-6 py-3 rounded-[var(--radius-button)] border-2 border-[#E8720C] text-sm text-[#E8720C] select-none",
       transPress,
       "shadow-[0_3px_0_0_#C65F0A]",
       depth3,
@@ -162,7 +188,7 @@ const VARIANTS = {
   },
   softPrimary: {
     className: cn(
-      "inline-flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#E8720C]/10 text-[#E8720C] text-sm select-none",
+      "inline-flex items-center justify-center gap-2 w-full py-3 rounded-[var(--radius-button)] bg-[#E8720C]/10 text-[#E8720C] text-sm select-none",
       transPress,
       "shadow-[0_2px_0_0_rgba(200,90,8,0.45)]",
       depth2,
@@ -172,7 +198,7 @@ const VARIANTS = {
   },
   linkPanelOrange: {
     className: cn(
-      "flex items-center justify-between rounded-2xl bg-[#E8720C] p-4 hover:bg-[#d4640a] w-full select-none text-white",
+      "flex items-center justify-between rounded-[var(--radius-button)] bg-[#E8720C] p-4 hover:bg-[#d4640a] w-full select-none text-white",
       transPress,
       "shadow-[0_4px_0_0_#7A3D06]",
       depth4,
@@ -182,7 +208,7 @@ const VARIANTS = {
   },
   danger: {
     className: cn(
-      "inline-flex items-center justify-center gap-2 w-full py-4 rounded-2xl border-2 border-red-200 bg-red-50 text-red-600 text-sm select-none",
+      "inline-flex items-center justify-center gap-2 w-full py-4 rounded-[var(--radius-button)] border-2 border-red-200 bg-red-50 text-red-600 text-sm select-none",
       transPress,
       "shadow-[0_3px_0_0_#FECACA]",
       depth3,
@@ -192,7 +218,7 @@ const VARIANTS = {
   },
   dangerNav: {
     className: cn(
-      "inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-50 text-red-600 text-sm border-2 border-red-200 select-none",
+      "inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--radius-control-sm)] bg-red-50 text-red-600 text-sm border-2 border-red-200 select-none",
       transPress,
       "shadow-[0_3px_0_0_#FECACA]",
       depth3,
@@ -202,7 +228,7 @@ const VARIANTS = {
   },
   dangerNavMobile: {
     className: cn(
-      "w-full text-center py-3 rounded-xl bg-red-50 text-red-600 text-sm border-2 border-red-200 select-none",
+      "w-full text-center py-3 rounded-[var(--radius-control-sm)] bg-red-50 text-red-600 text-sm border-2 border-red-200 select-none",
       transPress,
       "shadow-[0_3px_0_0_#FECACA]",
       depth3,
@@ -212,11 +238,11 @@ const VARIANTS = {
   },
   ghostPill: {
     className: cn(
-      "inline-flex items-center justify-center rounded-full border border-[#E5E0D8] px-5 py-1.5 text-xs uppercase tracking-wider text-[#6B7280] select-none",
+      "inline-flex items-center justify-center rounded-full border border-[#E5E0D8] bg-white px-5 py-1.5 text-xs uppercase tracking-wider text-[#6B7280] select-none",
       transPress,
       "shadow-[0_2px_0_0_#EBE8E2]",
       depth2,
-      "active:shadow-[0_1px_0_0_#EBE8E2] hover:border-[#E8720C] hover:text-[#E8720C] active:bg-[#FFFBF7]",
+      "active:shadow-[0_1px_0_0_#EBE8E2] hover:border-[#E8720C] hover:bg-[#FFFBF7] hover:text-[#E8720C] active:bg-[#FFF5ED]",
     ),
     style: nunitoExtrabold,
   },
@@ -242,7 +268,7 @@ const VARIANTS = {
   },
   choiceOff: {
     className: cn(
-      "px-4 py-2 rounded-xl border-2 text-sm bg-white border-[#E5E0D8] text-[#374151] select-none",
+      "px-4 py-2 rounded-[var(--radius-control-sm)] border-2 text-sm bg-white border-[#E5E0D8] text-[#374151] select-none",
       transPress,
       "shadow-[0_2px_0_0_#E8E4DC]",
       depth2,
@@ -252,7 +278,7 @@ const VARIANTS = {
   },
   choiceOn: {
     className: cn(
-      "px-4 py-2 rounded-xl border-2 text-sm bg-[#E8720C] border-[#A04F08] text-white select-none",
+      "px-4 py-2 rounded-[var(--radius-control-sm)] border-2 text-sm bg-[#E8720C] border-[#A04F08] text-white select-none",
       transPress,
       "shadow-[0_2px_0_0_#7A3D06]",
       depth2,
@@ -262,7 +288,7 @@ const VARIANTS = {
   },
   google: {
     className: cn(
-      "relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white border-2 border-[#E5E0D8] select-none",
+      "relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-[var(--radius-button)] bg-white border-2 border-[#E5E0D8] select-none",
       transPress,
       "shadow-[0_4px_0_0_#D1D5DB]",
       depth4,
@@ -292,7 +318,7 @@ const VARIANTS = {
   },
   uploadDashed: {
     className: cn(
-      "w-full py-4 rounded-xl border-2 border-dashed border-[#D1D5DB] flex flex-col items-center gap-2 select-none",
+      "w-full py-4 rounded-[var(--radius-control-sm)] border-2 border-dashed border-[#D1D5DB] flex flex-col items-center gap-2 select-none",
       transPress,
       "shadow-[0_2px_0_0_#E5E2DC]",
       depth2,
@@ -312,7 +338,7 @@ const VARIANTS = {
   },
   sidebarSignOut: {
     className: cn(
-      "flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm text-[#9CA3AF] select-none",
+      "flex items-center gap-3 w-full px-3 py-2.5 rounded-[var(--radius-control-sm)] text-sm text-[#9CA3AF] select-none",
       transPress,
       "shadow-[0_2px_0_0_#EFEDEA]",
       depth2,

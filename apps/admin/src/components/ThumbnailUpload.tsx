@@ -73,7 +73,7 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
         Course Thumbnail
       </h3>
       <p className="text-xs text-gray-400 mb-4">
-        Shown on course cards. JPEG, PNG, or WebP — 16:9 recommended, max 5 MB.
+        Shown on course cards. JPEG, PNG, or WebP - 16:9 recommended, max 5 MB.
       </p>
 
       <input
@@ -129,7 +129,7 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
           }`}
         >
           Click or drag an image here
-          <span className="block mt-1 text-xs opacity-70">JPEG · PNG · WebP — max 5 MB</span>
+          <span className="block mt-1 text-xs opacity-70">JPEG · PNG · WebP - max 5 MB</span>
         </button>
       )}
 
