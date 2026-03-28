@@ -25,16 +25,20 @@ export function VideoPlayer({ url, onEnded }: Props) {
   const videoViewRef = useRef<VideoView>(null);
   const fullscreenVideoViewRef = useRef<VideoView>(null);
   
-  const player = useVideoPlayer(url, (p) => {
+  // Always pass null — never let expo-video manage the source directly.
+  // If you pass a URL, expo-video recreates+releases the player on every URL change,
+  // which causes "shared object already released" crashes in effects and timers.
+  const player = useVideoPlayer(null, (p) => {
     p.loop = false;
-    if (url) p.play();
   });
 
   const prevUrl = useRef<string | null>(null);
   useEffect(() => {
     if (url && url !== prevUrl.current) {
-      void player.replaceAsync(url).then(() => player.play());
       prevUrl.current = url;
+      void player.replaceAsync(url).then(() => {
+        try { player.play(); } catch { /* player released between replaceAsync and play */ }
+      });
     }
   }, [url, player]);
 
@@ -67,12 +71,13 @@ export function VideoPlayer({ url, onEnded }: Props) {
   // Sync video time for the UI slider (4Hz is smooth enough without overhead)
   useEffect(() => {
     const id = setInterval(() => {
-      if (player && !isDragging.current) {
+      if (isDragging.current) return;
+      try {
         setCurrentTime(player.currentTime || 0);
         const d = player.duration || 0;
         setDuration(d);
-        durationRef.current = d; // keep ref in sync so PanResponder sees current value
-      }
+        durationRef.current = d;
+      } catch { /* player released on unmount — interval cleanup races with GC */ }
     }, 250);
     return () => clearInterval(id);
   }, [player]);
@@ -80,9 +85,9 @@ export function VideoPlayer({ url, onEnded }: Props) {
   const hideControlsLater = () => {
     if (controlsTimeout.current) clearTimeout(controlsTimeout.current);
     controlsTimeout.current = setTimeout(() => {
-      if (player.playing && !isDragging.current) {
-        setShowControls(false);
-      }
+      try {
+        if (player.playing && !isDragging.current) setShowControls(false);
+      } catch { /* player released before timeout fired */ }
     }, 3000);
   };
 
@@ -101,14 +106,18 @@ export function VideoPlayer({ url, onEnded }: Props) {
   }, [isPlaying]);
 
   const retry = () => {
-    if (url) void player.replaceAsync(url).then(() => player.play());
+    if (url) void player.replaceAsync(url).then(() => {
+      try { player.play(); } catch {}
+    });
   };
 
   const togglePlaybackRate = () => {
     const nextRate = playbackRate === 1 ? 1.5 : playbackRate === 1.5 ? 2 : playbackRate === 2 ? 0.5 : 1;
-    player.playbackRate = nextRate;
-    setPlaybackRate(nextRate);
-    hideControlsLater();
+    try {
+      player.playbackRate = nextRate;
+      setPlaybackRate(nextRate);
+      hideControlsLater();
+    } catch {}
   };
 
   const panResponder = useRef(
@@ -139,8 +148,10 @@ export function VideoPlayer({ url, onEnded }: Props) {
         const d = durationRef.current;
         if (sw > 0 && d > 0) {
           const newRatio = Math.max(0, Math.min(1, startRatio.current + gestureState.dx / sw));
-          player.currentTime = newRatio * d;
-          setCurrentTime(newRatio * d);
+          try {
+            player.currentTime = newRatio * d;
+            setCurrentTime(newRatio * d);
+          } catch {}
         }
         hideControlsLater();
       },
@@ -184,9 +195,11 @@ export function VideoPlayer({ url, onEnded }: Props) {
                 <Pressable
                   className="w-16 h-16 rounded-full bg-black/40 items-center justify-center"
                   onPress={() => {
-                    if (isPlaying) player.pause();
-                    else player.play();
-                    hideControlsLater();
+                    try {
+                      if (isPlaying) player.pause();
+                      else player.play();
+                      hideControlsLater();
+                    } catch {}
                   }}
                 >
                   {isPlaying ? (
