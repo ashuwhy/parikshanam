@@ -5,11 +5,6 @@ import { BookOpen, CheckCircle, Clock, Star } from "lucide-react";
 import type { Course, Purchase, UserProgress } from "@/lib/types";
 import { formatPrice, classRange, discountPercent, olympiadLabel } from "@/lib/courseUtils";
 
-// Re-export olympiadLabel from types since courseUtils doesn't have it
-function getOlympiadLabel(course: Course) {
-  return course.olympiad_type?.label ?? null;
-}
-
 export function DashboardClient({
   featuredCourse,
   purchases,
@@ -21,7 +16,7 @@ export function DashboardClient({
   const purchased = purchases.some(
     (p) => p.course_id === featuredCourse.id && p.status === "completed",
   );
-  const olympiad = getOlympiadLabel(featuredCourse);
+  const olympiad = olympiadLabel(featuredCourse);
   const cls = classRange(featuredCourse);
   const metaLine = [olympiad, cls].filter(Boolean).join(" • ");
   const hasDiscount = featuredCourse.mrp != null && featuredCourse.mrp > featuredCourse.price;
@@ -125,9 +120,4 @@ export function DashboardClient({
       </div>
     </Link>
   );
-}
-
-// Add missing function to courseUtils call
-function olympiadLabel(course: Course): string | null {
-  return course.olympiad_type?.label ?? null;
 }

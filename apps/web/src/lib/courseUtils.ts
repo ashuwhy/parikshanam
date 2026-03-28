@@ -19,3 +19,8 @@ export function classRange(course: Course): string | null {
 export function discountPercent(price: number, mrp: number): number {
   return Math.round(((mrp - price) / mrp) * 100);
 }
+
+/** Returns olympiad label string or null */
+export function olympiadLabel(course: Course): string | null {
+  return course.olympiad_type?.label ?? null;
+}
