@@ -90,13 +90,13 @@ export default function HeroSection() {
               Start Learning
             </Link>
             <Link
-              href="/explore"
+              href="/research-quiz"
               {...buttonProps(
                 "outlineHero",
                 "w-full min-w-0 justify-center text-center border-[#E5E0D8] bg-white px-5 py-3.5 sm:w-auto sm:min-w-[180px] sm:py-4 md:py-5 lg:min-w-0 lg:flex-1 lg:basis-0 lg:px-3 lg:py-3 lg:text-sm lg:whitespace-nowrap xl:px-5 xl:py-4 xl:text-base 2xl:px-7 2xl:py-5 2xl:text-lg",
               )}
             >
-              Browse Courses
+              Free quizzes
             </Link>
             <Link
               href="/ysc"
