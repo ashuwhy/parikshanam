@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ExternalLink, Trash2 } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { DataTable } from '@/components/DataTable'
 import { createColumnHelper } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
@@ -52,33 +52,6 @@ function ApproveActions({ id }: { id: string }) {
         {loading === 'reject' ? '…' : 'Reject'}
       </button>
     </div>
-  )
-}
-
-function DeleteAction({ id }: { id: string }) {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this purchase record? This cannot be undone.')) return
-    
-    setLoading(true)
-    const res = await fetch(`/api/purchases/${id}`, { method: 'DELETE' })
-    if (!res.ok) alert('Failed to delete purchase')
-    setLoading(false)
-    router.refresh()
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={handleDelete}
-      disabled={loading}
-      className="p-2 rounded-lg text-text-muted hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
-      title="Delete purchase"
-    >
-      <Trash2 size={16} strokeWidth={2.5} />
-    </button>
   )
 }
 
@@ -177,18 +150,12 @@ const columns = [
     header: 'Actions',
     cell: (i) => {
       const row = i.row.original
-      return (
-        <div className="flex items-center gap-2">
-          {row.payment_method === 'upi' && row.status === 'pending' ? (
-            <ApproveActions id={row.id} />
-          ) : (
-            <span className="text-text-muted text-xs font-mono">{row.razorpay_payment_id ?? '-'}</span>
-          )}
-          <DeleteAction id={row.id} />
-        </div>
-      )
+      if (row.payment_method === 'upi' && row.status === 'pending') {
+        return <ApproveActions id={row.id} />
+      }
+      return <span className="text-text-muted text-xs font-mono">{row.razorpay_payment_id ?? '-'}</span>
     },
-    size: 180,
+    size: 160,
   }),
   col.accessor('created_at', {
     header: 'Date',
