@@ -45,7 +45,7 @@ export default function Navbar() {
             width={32}
             height={32}
             alt="Parikshanam"
-            className="rounded-[var(--radius-icon-tile)]"
+            className="h-8 w-8 shrink-0 rounded-[var(--radius-icon-tile)]"
           />
           <span
             className="text-[1.2rem] text-[#1B3A6E]"

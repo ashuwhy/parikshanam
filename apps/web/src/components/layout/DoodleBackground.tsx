@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, type CSSProperties } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
@@ -19,10 +19,12 @@ const DOODLES = [
   "/doodles/doodle12.png",
 ];
 
-/** Deterministic 0..1 from an integer seed (stable across SSR and client). */
+/** Deterministic 0..1 from an integer seed (integer-only; stable across JS engines for SSR). */
 function seeded01(seed: number): number {
-  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
-  return x - Math.floor(x);
+  let h = seed | 0;
+  h = Math.imul(h ^ (h >>> 16), 2246822519);
+  h = Math.imul(h ^ (h >>> 13), 3266489917);
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
 }
 
 interface DoodlePosition {
@@ -33,6 +35,15 @@ interface DoodlePosition {
   rotation: number;
   scale: number;
   opacity: number;
+}
+
+function doodleLayoutStyle(d: DoodlePosition): CSSProperties {
+  return {
+    top: `${Number(d.top.toFixed(4))}%`,
+    left: `${Number(d.left.toFixed(4))}%`,
+    transform: `translate(-50%, -50%) rotate(${Number(d.rotation.toFixed(2))}deg) scale(${Number(d.scale.toFixed(6))})`,
+    opacity: Number(d.opacity.toFixed(6)),
+  };
 }
 
 const MAX_DOODLES = 8;
@@ -110,12 +121,7 @@ export function DoodleBackground({ mode = "fixed", className }: DoodleBackground
         <div
           key={doodle.id}
           className="absolute"
-          style={{
-            top: `${doodle.top}%`,
-            left: `${doodle.left}%`,
-            transform: `translate(-50%, -50%) rotate(${doodle.rotation}deg) scale(${doodle.scale})`,
-            opacity: doodle.opacity,
-          }}
+          style={doodleLayoutStyle(doodle)}
         >
           <Image
             src={doodle.src}
@@ -124,6 +130,7 @@ export function DoodleBackground({ mode = "fixed", className }: DoodleBackground
             height={176}
             sizes="(max-width: 768px) 40vw, 208px"
             quality={55}
+            loading={mode === "fixed" ? "eager" : undefined}
             className={cn(
               "object-contain",
               mode === "section" ? "h-36 w-36 sm:h-40 sm:w-40" : "h-48 w-48 sm:h-52 sm:w-52",
