@@ -25,7 +25,7 @@ function QuizSection({
   quizzes: ResearchQuizPaper[];
 }) {
   return (
-    <section className="mb-10 last:mb-0">
+    <section className="min-w-0">
       <div className="flex items-start gap-3 mb-4">
         <div
           className={cn(
@@ -86,7 +86,7 @@ export function ResearchQuizHub() {
   const { ymrc, ysrc } = researchQuizData;
 
   return (
-    <div className="max-w-2xl mx-auto px-5 py-6 pb-24 md:pb-6">
+    <div className="max-w-6xl mx-auto px-5 py-6 pb-24 md:pb-6">
       <Link
         href="/dashboard"
         className="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1B3A6E] mb-6 transition-colors"
@@ -109,25 +109,27 @@ export function ResearchQuizHub() {
         </p>
       </div>
 
-      <QuizSection
-        competition="ymrc"
-        title={ymrc.abbr}
-        subjectLine={ymrc.subject}
-        fullName={ymrc.name}
-        Icon={Brain}
-        iconWrapClass="bg-[#1B3A6E]/10 text-[#1B3A6E]"
-        quizzes={YMRC_QUIZZES}
-      />
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8 xl:gap-10 lg:items-start">
+        <QuizSection
+          competition="ymrc"
+          title={ymrc.abbr}
+          subjectLine={ymrc.subject}
+          fullName={ymrc.name}
+          Icon={Brain}
+          iconWrapClass="bg-[#1B3A6E]/10 text-[#1B3A6E]"
+          quizzes={YMRC_QUIZZES}
+        />
 
-      <QuizSection
-        competition="ysrc"
-        title={ysrc.abbr}
-        subjectLine={ysrc.subject}
-        fullName={ysrc.name}
-        Icon={Microscope}
-        iconWrapClass="bg-emerald-700/10 text-emerald-800"
-        quizzes={YSRC_QUIZZES}
-      />
+        <QuizSection
+          competition="ysrc"
+          title={ysrc.abbr}
+          subjectLine={ysrc.subject}
+          fullName={ysrc.name}
+          Icon={Microscope}
+          iconWrapClass="bg-emerald-700/10 text-emerald-800"
+          quizzes={YSRC_QUIZZES}
+        />
+      </div>
 
       <p className="mt-10 text-xs text-center text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
         Questions are extracted from the official sample papers. For practice only.
