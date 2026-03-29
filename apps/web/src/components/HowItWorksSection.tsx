@@ -81,7 +81,7 @@ export default function HowItWorksSection() {
         {/* Steps - connector through center of fixed 80×80 tiles (md+ one row) */}
         <div className="relative grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
           <div
-            className="pointer-events-none absolute inset-x-[10%] top-10 z-0 hidden h-0.5 rounded-full bg-gradient-to-r from-[#E8720C]/40 via-[#3B82F6]/30 to-[#F59E0B]/40 md:block"
+            className="pointer-events-none absolute inset-x-[18%] top-10 z-0 hidden h-0.5 rounded-full bg-gradient-to-r from-[#E8720C]/40 via-[#3B82F6]/30 to-[#F59E0B]/40 md:block"
             aria-hidden
           />
 

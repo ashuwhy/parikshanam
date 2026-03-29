@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
 import {
   certificateTypeFromScore,
-  findStudentByRollAndName,
+  findStudentForCertificate,
   loadAllYscStudents,
 } from "@/lib/ysc/students";
 
@@ -35,6 +35,10 @@ const NUNITO_BLACK_PATH = path.join(
 type Body = {
   rollNo?: string;
   name?: string;
+  /** Disambiguate when the same roll + name appears on multiple rows (e.g. multiple subjects). */
+  class?: string;
+  subject?: string;
+  score?: string;
 };
 
 export async function POST(request: Request) {
@@ -42,12 +46,21 @@ export async function POST(request: Request) {
     const body = (await request.json()) as Body;
     const rollNo = typeof body.rollNo === "string" ? body.rollNo : "";
     const name = typeof body.name === "string" ? body.name : "";
+    const cls = typeof body.class === "string" ? body.class : undefined;
+    const subject = typeof body.subject === "string" ? body.subject : undefined;
+    const score = typeof body.score === "string" ? body.score : undefined;
     if (!rollNo.trim() || !name.trim()) {
       return NextResponse.json({ error: "Missing roll number or name" }, { status: 400 });
     }
 
     const students = loadAllYscStudents();
-    const row = findStudentByRollAndName(students, rollNo, name);
+    const row = findStudentForCertificate(students, {
+      rollNo,
+      name,
+      class: cls,
+      subject,
+      score,
+    });
     if (!row) {
       return NextResponse.json({ error: "Student not found" }, { status: 404 });
     }

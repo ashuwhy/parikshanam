@@ -6,6 +6,7 @@ import { AlertCircle, ArrowLeft, Download, Search } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/cn";
 import type { YscStudentRecord } from "@/lib/ysc/types";
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
 
@@ -52,6 +53,9 @@ export default function YscClient({ students }: Props) {
         body: JSON.stringify({
           rollNo: student.rollNo,
           name: student.name,
+          class: student.class,
+          subject: student.subject,
+          score: student.score,
         }),
       });
 
@@ -159,8 +163,10 @@ export default function YscClient({ students }: Props) {
               Multiple matches - pick your row
             </h3>
             <ul className="flex flex-col gap-2">
-              {matches.map((m) => (
-                <li key={`${m.rollNo}-${m.class}-${m.subject}`}>
+              {matches.map((m, index) => (
+                <li
+                  key={`ysc-${index}-${m.rollNo}-${m.class}-${m.subject}-${m.name}-${m.score}-${m.contact}`}
+                >
                   <button
                     type="button"
                     onClick={() => setSelected(m)}
@@ -290,12 +296,16 @@ export default function YscClient({ students }: Props) {
               </div>
             </div>
 
-            <div className="relative z-10 flex flex-col sm:flex-row gap-2">
+            <div className="relative z-10 flex flex-col sm:flex-row sm:flex-nowrap sm:items-stretch gap-2 sm:min-w-0">
               {matches.length > 1 && (
                 <Button
                   type="button"
                   variant="secondaryCompact"
-                  className="sm:flex-none"
+                  className={cn(
+                    "shrink-0 sm:flex-none sm:min-h-14",
+                    // Same 4px lip + press depth as primary (secondaryCompact defaults to 3px).
+                    "shadow-[0_4px_0_0_#DDD8CF] active:translate-y-[3px] motion-reduce:active:translate-y-0 disabled:active:translate-y-0 active:shadow-[0_1px_0_0_#DDD8CF] disabled:active:shadow-[0_4px_0_0_#DDD8CF]",
+                  )}
                   onClick={() => setSelected(null)}
                   disabled={downloading}
                 >
@@ -304,8 +314,8 @@ export default function YscClient({ students }: Props) {
               )}
               <Button
                 type="button"
-                variant="primary"
-                className="flex-1 flex items-center justify-center gap-2 py-3"
+                variant="primaryCompact"
+                className="w-auto min-w-0 flex-1 min-h-14 flex items-center justify-center gap-2"
                 onClick={() => void handleDownload(selected)}
                 disabled={downloading}
               >

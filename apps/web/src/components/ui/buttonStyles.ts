@@ -148,7 +148,7 @@ const VARIANTS = {
   },
   secondaryCompact: {
     className: cn(
-      "inline-flex items-center justify-center flex-1 py-3 rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white text-sm text-[#374151] select-none",
+      "inline-flex items-center justify-center flex-1 px-4 py-3 rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white text-sm text-[#374151] select-none",
       transPress,
       "shadow-[0_3px_0_0_#DDD8CF]",
       depth3,

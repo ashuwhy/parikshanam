@@ -97,15 +97,42 @@ export function findStudentsByNameQuery(
   return students.filter((s) => normalizeNameKey(s.name).includes(q));
 }
 
-export function findStudentByRollAndName(
+/**
+ * Resolve a student row for certificate generation. When roll + name match more than one row
+ * (e.g. same roll in multiple subjects), pass class, subject, and score to pick the exact row.
+ */
+export function findStudentForCertificate(
   students: YscStudentRecord[],
-  rollNo: string,
-  name: string,
+  params: {
+    rollNo: string;
+    name: string;
+    class?: string;
+    subject?: string;
+    score?: string;
+  },
 ): YscStudentRecord | undefined {
-  const r = rollNo.trim();
-  const n = normalizeNameKey(name);
+  const r = params.rollNo.trim();
+  const n = normalizeNameKey(params.name);
   if (!r || !n) return undefined;
-  return students.find(
+
+  const byRollName = students.filter(
     (s) => s.rollNo.trim() === r && normalizeNameKey(s.name) === n,
   );
+  if (byRollName.length === 0) return undefined;
+  if (byRollName.length === 1) return byRollName[0];
+
+  const cls = params.class?.trim();
+  const subj = params.subject?.trim();
+  const score = params.score?.trim();
+  if (cls !== undefined && subj !== undefined && score !== undefined) {
+    const exact = byRollName.find(
+      (s) =>
+        s.class.trim() === cls &&
+        s.subject.trim() === subj &&
+        s.score.trim() === score,
+    );
+    if (exact) return exact;
+  }
+
+  return byRollName[0];
 }
