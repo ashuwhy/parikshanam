@@ -28,11 +28,11 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-6">
+      <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-6 animate-fade-in-up">
         Dashboard
       </h1>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 animate-fade-in-up delay-1">
         <StatCard label="Students" value={studentCount ?? 0} />
         <StatCard label="Teachers" value={teacherCount ?? 0} />
         <StatCard label="Active Courses" value={courseCount ?? 0} />
@@ -40,7 +40,7 @@ export default async function DashboardPage() {
       </div>
 
       {pendingCourses && pendingCourses.length > 0 && (
-        <div className="bg-surface-elevated rounded-[var(--radius-card)] border border-ui-border p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.1)]">
+        <div className="bg-surface-elevated rounded-[var(--radius-card)] border border-ui-border p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.1)] animate-fade-in-up delay-2">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">
             Pending Approval ({pendingCourses.length})
           </h2>
