@@ -30,6 +30,9 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
+  // Public course landing: /course/<id> only (lessons/quizzes stay behind auth)
+  const isCourseDetailOnly = /^\/course\/[^/]+\/?$/.test(pathname);
+
   // Authenticated user trying to visit login → redirect to dashboard
   if (user && pathname.startsWith("/login")) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -40,7 +43,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/explore") ||
     pathname.startsWith("/my-courses") ||
     pathname.startsWith("/profile") ||
-    pathname.startsWith("/course") ||
+    (pathname.startsWith("/course/") && !isCourseDetailOnly) ||
     pathname.startsWith("/onboarding");
 
   if (!user && isProtected) {

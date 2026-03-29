@@ -1,4 +1,5 @@
-import { redirect, notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ArrowLeft, BookOpen, CheckCircle, Clock, Star } from "lucide-react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -7,6 +8,78 @@ import type { Course } from "@/lib/types";
 import { formatPrice, classRange, discountPercent } from "@/lib/courseUtils";
 import { SyllabusAccordion } from "@/components/course/SyllabusAccordion";
 import { PurchaseButton } from "@/components/course/PurchaseButton";
+import { getSiteUrl } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: course } = await supabase
+    .from("courses")
+    .select(
+      "title, description, total_lessons, duration_hours, olympiad_type:olympiad_types(label)",
+    )
+    .eq("id", id)
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (!course) {
+    return { title: "Course" };
+  }
+
+  const site = getSiteUrl();
+  const olympiadLabel =
+    course.olympiad_type &&
+    typeof course.olympiad_type === "object" &&
+    "label" in course.olympiad_type
+      ? String((course.olympiad_type as { label: string }).label)
+      : null;
+
+  const title = course.title;
+  const descFromDb = course.description?.trim();
+  const stats =
+    (course.total_lessons ?? 0) > 0 || (course.duration_hours ?? 0) > 0
+      ? [
+          (course.total_lessons ?? 0) > 0 ? `${course.total_lessons} lessons` : null,
+          (course.duration_hours ?? 0) > 0 ? `${course.duration_hours}h content` : null,
+        ]
+          .filter(Boolean)
+          .join(" • ")
+      : null;
+
+  const description =
+    (descFromDb && descFromDb.length > 0 ? descFromDb.slice(0, 160) : null) ??
+    [
+      olympiadLabel ? `${olympiadLabel} on Parikshanam — ${course.title}.` : `${course.title} on Parikshanam.`,
+      stats,
+      "Video lessons, quizzes, and progress tracking for Grades 6–10.",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+  const ogImagePath = "/og/parikshanam-share.png";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${site}/course/${id}`,
+      type: "website",
+      images: [{ url: ogImagePath, alt: `${title} — Parikshanam` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImagePath],
+    },
+  };
+}
 
 export default async function CourseDetailPage({
   params,
@@ -16,13 +89,32 @@ export default async function CourseDetailPage({
   const { id } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
 
   const [courseRes, purchaseRes, modulesRes, progressRes] = await Promise.all([
     supabase.from("courses").select(COURSE_LIST_SELECT).eq("id", id).eq("is_active", true).maybeSingle(),
-    supabase.from("purchases").select("id").eq("user_id", user.id).eq("course_id", id).eq("status", "completed").maybeSingle(),
-    supabase.from("modules").select(`id, title, order_index, lessons(id, title, duration_minutes, is_preview, order_index), quizzes(id, title, order_index)`).eq("course_id", id).order("order_index"),
-    supabase.from("user_progress").select("lesson_id, quiz_id").eq("user_id", user.id).eq("course_id", id),
+    user
+      ? supabase
+          .from("purchases")
+          .select("id")
+          .eq("user_id", user.id)
+          .eq("course_id", id)
+          .eq("status", "completed")
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabase
+      .from("modules")
+      .select(
+        `id, title, order_index, lessons(id, title, duration_minutes, is_preview, order_index), quizzes(id, title, order_index)`,
+      )
+      .eq("course_id", id)
+      .order("order_index"),
+    user
+      ? supabase
+          .from("user_progress")
+          .select("lesson_id, quiz_id")
+          .eq("user_id", user.id)
+          .eq("course_id", id)
+      : Promise.resolve({ data: [] as { lesson_id: string | null; quiz_id: string | null }[] }),
   ]);
 
   const course = courseRes.data as Course | null;
@@ -48,12 +140,12 @@ export default async function CourseDetailPage({
     <div className="max-w-3xl mx-auto px-5 py-6">
       {/* Back button */}
       <Link
-        href="/explore"
+        href={user ? "/explore" : "/"}
         className="inline-flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1B3A6E] mb-4 transition-colors"
         style={{ fontFamily: "var(--font-roboto-var)" }}
       >
         <ArrowLeft size={16} strokeWidth={2} />
-        Back to Explore
+        {user ? "Back to Explore" : "Back to home"}
       </Link>
 
       {/* Hero */}
@@ -172,6 +264,7 @@ export default async function CourseDetailPage({
           purchased={purchased}
           modules={modules}
           completedIds={completedIds}
+          authenticated={!!user}
         />
       </div>
     </div>

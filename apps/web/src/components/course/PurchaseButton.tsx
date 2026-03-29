@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -9,6 +10,8 @@ import type { Course } from "@/lib/types";
 import { formatPrice } from "@/lib/courseUtils";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
+import { resolveButtonVariant } from "@/components/ui/buttonStyles";
+import { cn } from "@/lib/cn";
 
 declare global {
   interface Window {
@@ -23,9 +26,17 @@ interface Props {
   purchased: boolean;
   modules: { id: string; lessons: { id: string }[]; quizzes: { id: string }[] }[];
   completedIds: Set<string | null | undefined>;
+  /** When false, show sign-in CTA instead of UPI flow (public course page). */
+  authenticated?: boolean;
 }
 
-export function PurchaseButton({ course, purchased, modules, completedIds }: Props) {
+export function PurchaseButton({
+  course,
+  purchased,
+  modules,
+  completedIds,
+  authenticated = true,
+}: Props) {
   const router = useRouter();
   const supabase = getSupabaseBrowserClient();
   // UPI state
@@ -110,6 +121,27 @@ export function PurchaseButton({ course, purchased, modules, completedIds }: Pro
       <Button variant="primaryShadow" onClick={handleContinue}>
         Continue Learning →
       </Button>
+    );
+  }
+
+  if (!authenticated) {
+    const cta = resolveButtonVariant("primaryShadow");
+    return (
+      <div className="rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white overflow-hidden p-5 text-center">
+        <p
+          className="text-sm text-[#374151] mb-4"
+          style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+        >
+          Sign in to pay via UPI and get full access to this course.
+        </p>
+        <Link
+          href="/login"
+          className={cn("touch-manipulation transform-gpu backface-hidden inline-flex items-center justify-center", cta.className)}
+          style={cta.style}
+        >
+          Sign in to enroll
+        </Link>
+      </div>
     );
   }
 

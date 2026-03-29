@@ -3,6 +3,7 @@ import { Nunito, Roboto } from "next/font/google";
 import "./globals.css";
 
 import { DoodleBackground } from "@/components/layout/DoodleBackground";
+import { getSiteUrl } from "@/lib/site";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner";
@@ -19,10 +20,32 @@ const roboto = Roboto({
   weight: ["400", "500", "700"],
 });
 
+const site = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: "Parikshanam - Olympiad Prep for Grades 6–10",
+  metadataBase: new URL(site),
+  title: {
+    default: "Parikshanam — Olympiad prep for Grades 6–10",
+    template: "%s | Parikshanam",
+  },
   description:
-    "Expert-crafted courses for Olympiad preparation. Video lessons, interactive quizzes, and progress tracking for students in Grades 6–10.",
+    "Master every Olympiad. Expert-crafted courses for Grades 6–10 — video lessons, interactive quizzes, and progress tracking.",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Parikshanam",
+    title: "Parikshanam — Olympiad prep for Grades 6–10",
+    description:
+      "Expert-crafted courses for Grades 6–10. Video lessons, quizzes, and progress tracking — join thousands of students.",
+    images: [{ url: "/og/parikshanam-share.png", alt: "Parikshanam" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Parikshanam — Olympiad prep for Grades 6–10",
+    description:
+      "Expert-crafted Olympiad courses for Grades 6–10. Video lessons, quizzes, and progress tracking.",
+    images: ["/og/parikshanam-share.png"],
+  },
 };
 
 export default function RootLayout({
