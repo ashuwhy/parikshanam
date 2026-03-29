@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
 import { toast } from "sonner";
-import { useMemo } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Quiz, QuizQuestion } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
@@ -120,6 +119,10 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
         </Link>
       </div>
     );
+  }
+
+  if (!currentQ) {
+    return null;
   }
 
   // Results screen

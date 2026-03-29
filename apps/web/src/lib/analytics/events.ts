@@ -6,6 +6,7 @@ export const AnalyticsEvents = {
   pageview_manual: "$pageview",
   app_nav_clicked: "app_nav_clicked",
   marketing_cta_clicked: "marketing_cta_clicked",
+  marketing_nav_link_clicked: "marketing_nav_link_clicked",
 
   // Auth
   google_sign_in_clicked: "google_sign_in_clicked",

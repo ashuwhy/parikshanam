@@ -104,7 +104,7 @@ export async function POST(request: Request) {
           ` : ""}
           <hr style="border:none;border-top:1px solid #eee;margin:24px 0">
           <p style="color:#999;font-size:12px">
-            Go to the <a href="${process.env.NEXT_PUBLIC_ADMIN_URL ?? "http://localhost:3002"}/purchases" style="color:#E8720C">Admin Purchases page</a> to approve and enroll this student.
+            Go to the <a href="https://admin.parikshanam.com/purchases" style="color:#E8720C;font-weight:bold">Admin Purchases page</a> to approve and enroll this student.
           </p>
         </div>
       `,

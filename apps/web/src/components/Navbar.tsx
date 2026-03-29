@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Button, buttonProps } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -61,6 +63,13 @@ export default function Navbar() {
             <a
               key={label}
               href={href}
+              onClick={() =>
+                captureClient(AnalyticsEvents.marketing_nav_link_clicked, {
+                  label,
+                  href,
+                  placement: "navbar_desktop",
+                })
+              }
               className="relative text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-[2px] after:bg-[#E8720C] after:rounded-full after:transition-all hover:after:w-full"
               style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
             >
@@ -75,6 +84,13 @@ export default function Navbar() {
             <>
               <Link
                 href="/dashboard"
+                onClick={() =>
+                  captureClient(AnalyticsEvents.marketing_nav_link_clicked, {
+                    label: "Dashboard",
+                    href: "/dashboard",
+                    placement: "navbar_desktop_cta",
+                  })
+                }
                 className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-[var(--radius-control-sm)] hover:bg-[#E5E0D8]/60"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
@@ -88,12 +104,29 @@ export default function Navbar() {
             <>
               <Link
                 href="/login"
+                onClick={() =>
+                  captureClient(AnalyticsEvents.marketing_nav_link_clicked, {
+                    label: "Log In",
+                    href: "/login",
+                    placement: "navbar_desktop_cta",
+                  })
+                }
                 className="text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors px-3 py-2 rounded-[var(--radius-control-sm)] hover:bg-[#E5E0D8]/60"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
                 Log In
               </Link>
-              <Link href="/login" {...buttonProps("primaryNav")}>
+              <Link
+                href="/login"
+                onClick={() =>
+                  captureClient(AnalyticsEvents.marketing_nav_link_clicked, {
+                    label: "Start for Free",
+                    href: "/login",
+                    placement: "navbar_desktop_cta",
+                  })
+                }
+                {...buttonProps("primaryNav")}
+              >
                 Start for Free →
               </Link>
             </>
@@ -117,7 +150,14 @@ export default function Navbar() {
             <a
               key={label}
               href={href}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                captureClient(AnalyticsEvents.marketing_nav_link_clicked, {
+                  label,
+                  href,
+                  placement: "navbar_mobile",
+                });
+                setOpen(false);
+              }}
               className="text-sm text-[#374151] hover:text-[#E8720C] transition-colors"
               style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
             >
