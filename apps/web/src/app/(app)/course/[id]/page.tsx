@@ -8,6 +8,7 @@ import type { Course } from "@/lib/types";
 import { formatPrice, classRange, discountPercent } from "@/lib/courseUtils";
 import { SyllabusAccordion } from "@/components/course/SyllabusAccordion";
 import { PurchaseButton } from "@/components/course/PurchaseButton";
+import { VideoPlayer } from "@/components/lesson/VideoPlayer";
 import { getSiteUrl } from "@/lib/site";
 
 export async function generateMetadata({
@@ -149,41 +150,69 @@ export default async function CourseDetailPage({
       </Link>
 
       {/* Hero */}
-      <div
-        className="relative rounded-2xl overflow-hidden mb-6 flex items-center justify-center"
-        style={{
-          height: 220,
-          background: "linear-gradient(135deg, rgba(232,114,12,0.12) 0%, rgba(27,58,110,0.08) 100%)",
-        }}
-      >
-        {course.thumbnail_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover" />
-        ) : (
-          <BookOpen size={56} color="#E8720C" strokeWidth={1.5} />
-        )}
+      {course.intro_video_path ? (
+        <div className="relative mb-6 w-full max-h-[min(56vh,520px)] aspect-video rounded-2xl overflow-hidden border-2 border-[#E5E0D8] bg-[#0f172a] shadow-[0_16px_48px_-14px_rgba(27,58,110,0.22)]">
+          <VideoPlayer
+            videoId={course.intro_video_path}
+            title={`${course.title} Intro`}
+          />
+          {olympiad && (
+            <div
+              className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs uppercase tracking-widest z-40 pointer-events-none"
+              style={{ background: "#1B3A6E", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+            >
+              {olympiad}
+            </div>
+          )}
+          {purchased ? (
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 z-40 pointer-events-none">
+              <CheckCircle size={11} color="#22C55E" strokeWidth={2.5} />
+              <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
+            </div>
+          ) : course.is_featured ? (
+            <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 rounded-xl z-40 pointer-events-none" style={{ background: "#E8720C" }}>
+              <Star size={10} color="white" fill="white" strokeWidth={0} />
+              <span style={{ fontSize: 11, color: "white", fontWeight: 800, fontFamily: "var(--font-nunito-var)" }}>Featured</span>
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <div
+          className="relative rounded-2xl overflow-hidden mb-6 flex items-center justify-center"
+          style={{
+            height: 220,
+            background: "linear-gradient(135deg, rgba(232,114,12,0.12) 0%, rgba(27,58,110,0.08) 100%)",
+          }}
+        >
+          {course.thumbnail_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover" />
+          ) : (
+            <BookOpen size={56} color="#E8720C" strokeWidth={1.5} />
+          )}
 
-        {olympiad && (
-          <div
-            className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs uppercase tracking-widest"
-            style={{ background: "#1B3A6E", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
-            {olympiad}
-          </div>
-        )}
+          {olympiad && (
+            <div
+              className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs uppercase tracking-widest"
+              style={{ background: "#1B3A6E", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+            >
+              {olympiad}
+            </div>
+          )}
 
-        {purchased ? (
-          <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90">
-            <CheckCircle size={11} color="#22C55E" strokeWidth={2.5} />
-            <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
-          </div>
-        ) : course.is_featured ? (
-          <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 rounded-xl" style={{ background: "#E8720C" }}>
-            <Star size={10} color="white" fill="white" strokeWidth={0} />
-            <span style={{ fontSize: 11, color: "white", fontWeight: 800, fontFamily: "var(--font-nunito-var)" }}>Featured</span>
-          </div>
-        ) : null}
-      </div>
+          {purchased ? (
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90">
+              <CheckCircle size={11} color="#22C55E" strokeWidth={2.5} />
+              <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
+            </div>
+          ) : course.is_featured ? (
+            <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 rounded-xl" style={{ background: "#E8720C" }}>
+              <Star size={10} color="white" fill="white" strokeWidth={0} />
+              <span style={{ fontSize: 11, color: "white", fontWeight: 800, fontFamily: "var(--font-nunito-var)" }}>Featured</span>
+            </div>
+          ) : null}
+        </div>
+      )}
 
       {/* Meta + title */}
       {metaLine && (
