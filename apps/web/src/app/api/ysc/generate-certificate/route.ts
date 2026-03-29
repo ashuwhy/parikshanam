@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
 import {
-  certificateTypeFromScore,
+  certificateTypeForYscRow,
   findStudentForCertificate,
   loadAllYscStudents,
 } from "@/lib/ysc/students";
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Student not found" }, { status: 404 });
     }
 
-    const certificateType = certificateTypeFromScore(row.score);
+    const certificateType = certificateTypeForYscRow(row.name, row.class, row.subject);
     const templateFile = YSC_TEMPLATE_FILES[certificateType];
     const templatePath = path.join(process.cwd(), "public", "pdfs", templateFile);
 

@@ -3,8 +3,25 @@ import path from "path";
 
 import type { YscCertificateType, YscStudentRecord } from "@/lib/ysc/types";
 
-/** Scores at or above this value receive the merit certificate template. */
-export const YSC_MERIT_SCORE_THRESHOLD = 15;
+/**
+ * Explicit merit recipients (APS Kolkata YSC). Everyone else gets participation.
+ * Key: normalized name | class | subject (subject uppercased).
+ */
+const YSC_MERIT_ROW_KEYS = new Set<string>([
+  "ANKUR DAS|7|SCIENCE",
+  "AYUSMIT GHOSH|7|SCIENCE",
+  "RYAN MICHAEL|7|SCIENCE",
+  "AKSHIT SHARMA|8|SCIENCE",
+  "SARTHAK CHAKARBORTY|8|SCIENCE",
+  "SUBHRABARAN MAJUMDAR|8|SCIENCE",
+  "ANINDITA KHATUA|9|SCIENCE",
+  "DIPESH DAS|9|SCIENCE",
+  "NIRJHAR CHAKARBORTY|9|SCIENCE",
+  "SRIJINA PAL|9|SCIENCE",
+  "SUSHRITA SINGHA|9|SCIENCE",
+  "NIRJHAR CHAKRABORTY|9|MATHS",
+  "NIYATI JOIS|9|MATHS",
+]);
 
 export const YSC_CSV_FILENAMES = [
   "20260203_YSC_APS_Kolkata - CLASS 6.csv",
@@ -20,18 +37,18 @@ function normalizeNameKey(s: string): string {
   return s.trim().toUpperCase().replace(/\s+/g, " ");
 }
 
-function parseScoreNumber(score: string): number {
-  const n = Number.parseInt(score.trim(), 10);
-  return Number.isFinite(n) ? n : NaN;
+function yscMeritRowKey(name: string, cls: string, subject: string): string {
+  return `${normalizeNameKey(name)}|${cls.trim()}|${subject.trim().toUpperCase()}`;
 }
 
-export function certificateTypeFromScore(
-  score: string,
-  threshold: number = YSC_MERIT_SCORE_THRESHOLD,
+export function certificateTypeForYscRow(
+  name: string,
+  cls: string,
+  subject: string,
 ): YscCertificateType {
-  const n = parseScoreNumber(score);
-  if (!Number.isFinite(n)) return "participation";
-  return n >= threshold ? "merit" : "participation";
+  return YSC_MERIT_ROW_KEYS.has(yscMeritRowKey(name, cls, subject))
+    ? "merit"
+    : "participation";
 }
 
 /** Split a single CSV row on commas (fields are not quoted in YSC exports). */
@@ -71,7 +88,7 @@ function parseYscCsv(text: string): YscStudentRecord[] {
       score: score ?? "",
       class: cls ?? "",
       subject: subject ?? "",
-      certificateType: certificateTypeFromScore(score ?? ""),
+      certificateType: certificateTypeForYscRow(name, cls ?? "", subject ?? ""),
     });
   }
   return records;
