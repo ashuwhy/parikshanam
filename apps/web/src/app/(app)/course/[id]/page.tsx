@@ -151,7 +151,7 @@ export default async function CourseDetailPage({
 
       {/* Hero */}
       {course.intro_video_path ? (
-        <div className="relative mb-6 w-full max-h-[min(56vh,520px)] aspect-video rounded-2xl overflow-hidden border-2 border-[#E5E0D8] bg-[#0f172a] shadow-[0_16px_48px_-14px_rgba(27,58,110,0.22)]">
+        <div className="relative z-0 mb-8 w-full max-h-[min(56vh,520px)] aspect-video rounded-2xl overflow-hidden border-2 border-[#E5E0D8] bg-[#0f172a] shadow-[0_16px_48px_-14px_rgba(27,58,110,0.22)]">
           <VideoPlayer
             videoId={course.intro_video_path}
             title={`${course.title} Intro`}
@@ -286,8 +286,8 @@ export default async function CourseDetailPage({
         completedIds={completedIds}
       />
 
-      {/* Sticky CTA */}
-      <div className="mt-8 sticky bottom-4">
+      {/* Enrollment / UPI — keep in normal flow so a tall panel does not overlap the intro video on short viewports (sticky + bottom nav caused overlap). */}
+      <div className="mt-8 relative z-10">
         <PurchaseButton
           course={course}
           purchased={purchased}

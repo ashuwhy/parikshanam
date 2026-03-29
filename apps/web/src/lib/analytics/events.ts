@@ -1,5 +1,7 @@
 /**
  * PostHog event names (snake_case). Keep in sync with dashboard taxonomy.
+ *
+ * Dashboard (project 361562): https://us.posthog.com/project/361562/dashboard/1410517
  */
 export const AnalyticsEvents = {
   // Navigation & marketing
