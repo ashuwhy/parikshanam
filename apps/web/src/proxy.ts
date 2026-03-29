@@ -1,7 +1,11 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
+/**
+ * Auth gate for the App Router (Next.js 16+ `proxy` replaces `middleware`).
+ * Unauthenticated users hitting protected routes are sent to /login with ?next=…
+ */
+export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -25,21 +29,25 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  // Always call getUser() - this refreshes the session if needed
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
 
   // Public course landing: /course/<id> only (lessons/quizzes stay behind auth)
   const isCourseDetailOnly = /^\/course\/[^/]+\/?$/.test(pathname);
 
-  // Authenticated user trying to visit login → redirect to dashboard
   if (user && pathname.startsWith("/login")) {
+    const next = request.nextUrl.searchParams.get("next");
+    if (next && next.startsWith("/") && !next.startsWith("//")) {
+      return NextResponse.redirect(new URL(next, request.url));
+    }
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // Unauthenticated user trying to visit protected app or onboarding routes → login
-  const isProtected = pathname.startsWith("/dashboard") ||
+  const isProtected =
+    pathname.startsWith("/dashboard") ||
     pathname.startsWith("/explore") ||
     pathname.startsWith("/my-courses") ||
     pathname.startsWith("/profile") ||
@@ -47,7 +55,10 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/onboarding");
 
   if (!user && isProtected) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const login = new URL("/login", request.url);
+    const returnPath = `${pathname}${request.nextUrl.search}`;
+    login.searchParams.set("next", returnPath);
+    return NextResponse.redirect(login);
   }
 
   return supabaseResponse;

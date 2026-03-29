@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   let next = url.searchParams.get("next") ?? "/dashboard";
-  if (!next.startsWith("/")) {
+  if (!next.startsWith("/") || next.startsWith("//")) {
     next = "/dashboard";
   }
 

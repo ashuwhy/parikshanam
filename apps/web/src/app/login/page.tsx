@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 
 export const metadata: Metadata = {
@@ -55,7 +56,15 @@ export default function LoginPage() {
             Continue to your courses and keep your streak alive.
           </p>
 
-          <GoogleSignInButton />
+          <Suspense
+            fallback={
+              <div className="rounded-[var(--radius-button)] border-2 border-[#E5E0D8] bg-white/80 px-6 py-4 text-center text-sm text-[#9CA3AF]">
+                Loading sign-in…
+              </div>
+            }
+          >
+            <GoogleSignInButton />
+          </Suspense>
 
           <p
             className="mt-6 text-xs text-[#9CA3AF] text-center leading-relaxed"

@@ -1,19 +1,29 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 
+function safeNextParam(raw: string | null): string {
+  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return "/dashboard";
+  return raw;
+}
+
 export default function GoogleSignInButton() {
+  const searchParams = useSearchParams();
   const supabase = useMemo(() => getSupabaseBrowserClient(), []);
   const [loading, setLoading] = useState(false);
 
   const signInWithGoogle = async () => {
     setLoading(true);
+    const next = safeNextParam(searchParams.get("next"));
+    const callback = new URL("/api/auth/callback", window.location.origin);
+    callback.searchParams.set("next", next);
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: callback.toString(),
       },
     });
     // No need to setLoading(false) - page redirects

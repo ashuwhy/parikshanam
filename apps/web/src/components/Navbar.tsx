@@ -124,7 +124,7 @@ export default function Navbar() {
               {label}
             </a>
           ))}
-          <div className="flex flex-col gap-3 pt-2 border-t border-[#E5E0D8]">
+          <div className="flex flex-col gap-3 pt-2">
             {session ? (
               <>
                 <Link
