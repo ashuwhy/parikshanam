@@ -81,12 +81,14 @@ export function Button({
         variant === 'primary' && 'bg-brand-primary',
         variant === 'outline' &&
           'bg-white dark:bg-neutral-800 border-2 border-ui-border dark:border-neutral-600',
-        isDisabled && 'opacity-50',
         className
       )}
       {...rest}
     >
-      <View className={cn("flex-row items-center justify-center gap-2", loading && "opacity-0")}>
+      {isDisabled && (
+        <View className="absolute inset-0 bg-white/60 dark:bg-black/50" />
+      )}
+      <View className={cn("flex-row items-center justify-center gap-2 z-10", loading && "opacity-0", isDisabled && "opacity-50")}>
         {leftIcon ?? null}
         <Text
           className={cn(
@@ -103,7 +105,7 @@ export function Button({
       </View>
 
       {loading && (
-        <View className="absolute inset-0 items-center justify-center">
+        <View className="absolute inset-0 z-20 items-center justify-center">
           <ActivityIndicator
             color={variant === 'primary' ? colors.text.inverse : brand.primary}
           />
