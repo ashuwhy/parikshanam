@@ -1,12 +1,26 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { getSupabasePublicConfig } from '@/lib/env'
+
 export async function middleware(request: NextRequest) {
+  let supabaseUrl: string
+  let anonKey: string
+  try {
+    const cfg = getSupabasePublicConfig()
+    supabaseUrl = cfg.url
+    anonKey = cfg.anonKey
+  } catch {
+    return new NextResponse(
+      'Admin misconfigured: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your host (e.g. Vercel → Environment Variables) for Production and Preview, then redeploy.',
+      { status: 503, headers: { 'content-type': 'text/plain; charset=utf-8' } },
+    )
+  }
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    anonKey,
     {
       cookies: {
         getAll: () => request.cookies.getAll(),

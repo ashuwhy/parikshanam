@@ -53,7 +53,7 @@ export async function generateMetadata({
   const description =
     (descFromDb && descFromDb.length > 0 ? descFromDb.slice(0, 160) : null) ??
     [
-      olympiadLabel ? `${olympiadLabel} on Parikshanam — ${course.title}.` : `${course.title} on Parikshanam.`,
+      olympiadLabel ? `${olympiadLabel} on Parikshanam - ${course.title}.` : `${course.title} on Parikshanam.`,
       stats,
       "Video lessons, quizzes, and progress tracking for Grades 6–10.",
     ]
@@ -70,7 +70,7 @@ export async function generateMetadata({
       description,
       url: `${site}/course/${id}`,
       type: "website",
-      images: [{ url: ogImagePath, alt: `${title} — Parikshanam` }],
+      images: [{ url: ogImagePath, alt: `${title} - Parikshanam` }],
     },
     twitter: {
       card: "summary_large_image",

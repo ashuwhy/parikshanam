@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { memo } from "react";
 import {
   BookOpen,
   Compass,
@@ -20,7 +21,7 @@ const NAV = [
   { href: "/profile", label: "Profile", Icon: User },
 ];
 
-export function AppSidebar() {
+function AppSidebarInner() {
   const pathname = usePathname();
   const { profile, signOut } = useAuth();
 
@@ -49,7 +50,7 @@ export function AppSidebar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all hover:scale-[1.02] ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
                 active
                   ? "bg-[#E8720C]/10 text-[#E8720C]"
                   : "text-[#6B7280] hover:text-[#1B3A6E] hover:bg-[#F9F7F5]"
@@ -104,3 +105,5 @@ export function AppSidebar() {
     </aside>
   );
 }
+
+export const AppSidebar = memo(AppSidebarInner);

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { memo } from "react";
 import { BookOpen, Clock } from "lucide-react";
 import type { Course } from "@/lib/types";
 import { formatPrice, classRange, discountPercent } from "@/lib/courseUtils";
@@ -7,7 +8,7 @@ function getOlympiadLabel(course: Course): string | null {
   return course.olympiad_type?.label ?? null;
 }
 
-export function CourseCard({ course }: { course: Course }) {
+function CourseCardInner({ course }: { course: Course }) {
   const olympiad = getOlympiadLabel(course);
   const cls = classRange(course);
   const metaLine = [olympiad, cls].filter(Boolean).join(" • ");
@@ -16,7 +17,7 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <Link
       href={`/course/${course.id}`}
-      className="group flex flex-col rounded-[var(--radius-card)] bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] hover:-translate-y-0.5 transition-all"
+      className="group flex flex-col rounded-[var(--radius-card)] bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] hover:-translate-y-0.5 transition-[border-color,transform] duration-200"
     >
       {/* Thumbnail */}
       <div
@@ -28,7 +29,13 @@ export function CourseCard({ course }: { course: Course }) {
       >
         {course.thumbnail_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover" />
+          <img
+            src={course.thumbnail_url}
+            alt=""
+            className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <BookOpen size={36} color="#E8720C" strokeWidth={1.5} />
         )}
@@ -110,3 +117,5 @@ export function CourseCard({ course }: { course: Course }) {
     </Link>
   );
 }
+
+export const CourseCard = memo(CourseCardInner);

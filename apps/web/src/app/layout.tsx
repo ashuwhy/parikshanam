@@ -25,23 +25,23 @@ const site = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(site),
   title: {
-    default: "Parikshanam — Olympiad prep for Grades 6–10",
+    default: "Parikshanam - Olympiad prep for Grades 6–10",
     template: "%s | Parikshanam",
   },
   description:
-    "Master every Olympiad. Expert-crafted courses for Grades 6–10 — video lessons, interactive quizzes, and progress tracking.",
+    "Master every Olympiad. Expert-crafted courses for Grades 6–10 - video lessons, interactive quizzes, and progress tracking.",
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: "Parikshanam",
-    title: "Parikshanam — Olympiad prep for Grades 6–10",
+    title: "Parikshanam - Olympiad prep for Grades 6–10",
     description:
-      "Expert-crafted courses for Grades 6–10. Video lessons, quizzes, and progress tracking — join thousands of students.",
+      "Expert-crafted courses for Grades 6–10. Video lessons, quizzes, and progress tracking - join thousands of students.",
     images: [{ url: "/og/parikshanam-share.png", alt: "Parikshanam" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Parikshanam — Olympiad prep for Grades 6–10",
+    title: "Parikshanam - Olympiad prep for Grades 6–10",
     description:
       "Expert-crafted Olympiad courses for Grades 6–10. Video lessons, quizzes, and progress tracking.",
     images: ["/og/parikshanam-share.png"],
@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${roboto.variable} h-full antialiased scroll-smooth`}
+      className={`${nunito.variable} ${roboto.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#F9F7F5]">
         <QueryProvider>

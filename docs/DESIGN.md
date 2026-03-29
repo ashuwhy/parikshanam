@@ -1,4 +1,4 @@
-# Parikshanam — Universal design system
+# Parikshanam - Universal design system
 
 Cross-app visual and UX rules for Parikshanam (web, admin, teacher, mobile). **Implementation details for the Expo app** also live in [`apps/mobile/docs/DESIGN.md`](../apps/mobile/docs/DESIGN.md).
 
@@ -7,8 +7,8 @@ Cross-app visual and UX rules for Parikshanam (web, admin, teacher, mobile). **I
 ## Non-negotiable: no emoji in the product UI
 
 - **Do not use emoji** in user-facing copy, buttons, labels, empty states, toasts, marketing sections, navigation, or errors.
-- **Always use icons** instead: on web use **Lucide React** (`lucide-react`) with consistent stroke weight and sizing; on mobile use the same family via **Lucide-compatible** or **@expo/vector-icons** only where the set matches the intended metaphor—prefer Lucide exports when available.
-- Decorative “flair” belongs in **illustrations, doodles, or SVG**—not Unicode emoji.
+- **Always use icons** instead: on web use **Lucide React** (`lucide-react`) with consistent stroke weight and sizing; on mobile use the same family via **Lucide-compatible** or **@expo/vector-icons** only where the set matches the intended metaphor-prefer Lucide exports when available.
+- Decorative “flair” belongs in **illustrations, doodles, or SVG**-not Unicode emoji.
 
 This keeps rendering predictable across OS fonts, improves accessibility, and matches a premium ed-tech brand.
 
@@ -48,10 +48,10 @@ In JSX/Tailwind prefer `rounded-[var(--radius-card)]` (etc.) over mixing arbitra
 
 ## Components & motion (web)
 
-- **Primary buttons:** Orange fill + **extruded bottom lip** (darker shadow block) + slight `translateY` on press; motion lives in `.btn-press-motion` in `globals.css`—avoid layout-shifting hover (no jumping borders).
+- **Primary buttons:** Orange fill + **extruded bottom lip** (darker shadow block) + slight `translateY` on press; motion lives in `.btn-press-motion` in `globals.css`-avoid layout-shifting hover (no jumping borders).
 - **Outline / secondary:** White (or near-white) fill, `#E5E0D8` border, matching **lip** shadow language so pairs read as one system (e.g. hero + download CTAs).
 - **Focus:** Visible focus ring (orange); do not override `border-radius` on `:focus-visible` in a way that fights Tailwind `rounded-*` on inputs.
-- **Background doodles:** A **single** full-page doodle layer (root layout); section washes only—**no second doodle stack** inside sections (avoids double moiré).
+- **Background doodles:** A **single** full-page doodle layer (root layout); section washes only-**no second doodle stack** inside sections (avoids double moiré).
 - **Marketing sections:** Eyebrow label (small caps, tracked, orange), then Nunito headline, then Roboto body; generous spacing; grid breakpoints consistent (`sm` / `md` / `lg`).
 
 ---
@@ -81,7 +81,7 @@ In JSX/Tailwind prefer `rounded-[var(--radius-card)]` (etc.) over mixing arbitra
 
 ---
 
-## Quick reference — hex
+## Quick reference - hex
 
 | Role | Hex |
 |------|-----|

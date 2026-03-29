@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
 
+import { getSupabasePublicConfig, getSupabaseServiceRoleKey } from '@/lib/env'
+
 // Only import this in API routes (server-side). Never expose to client.
 export function createAdminClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
-  )
+  const { url } = getSupabasePublicConfig()
+  return createClient(url, getSupabaseServiceRoleKey(), {
+    auth: { autoRefreshToken: false, persistSession: false },
+  })
 }

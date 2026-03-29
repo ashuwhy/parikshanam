@@ -24,7 +24,7 @@ export function DashboardClient({
   return (
     <Link
       href={`/course/${featuredCourse.id}`}
-      className="block rounded-2xl bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] transition-all hover:-translate-y-0.5"
+      className="block rounded-2xl bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] transition-[border-color,transform] duration-200 hover:-translate-y-0.5"
     >
       {/* Thumbnail */}
       <div
@@ -40,6 +40,8 @@ export function DashboardClient({
             src={featuredCourse.thumbnail_url}
             alt=""
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         ) : (
           <BookOpen size={48} color="#E8720C" strokeWidth={1.5} />

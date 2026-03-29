@@ -10,7 +10,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center gap-2.5">
-            <Image src="/icon.png" width={36} height={36} alt="Parikshanam" className="rounded-[var(--radius-icon-tile)]" />
+            {/* <Image src="/icon.png" width={36} height={36} alt="Parikshanam" className="rounded-[var(--radius-icon-tile)]" /> */}
             <h2
               className="text-xl text-white"
               style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}

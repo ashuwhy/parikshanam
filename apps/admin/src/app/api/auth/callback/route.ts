@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 
+import { getSupabasePublicConfig } from '@/lib/env'
+
 /**
  * OAuth PKCE callback. Session cookies must be set on the returned NextResponse.
  * createClient() from server.ts uses cookies() which often cannot set cookies in Route Handlers
@@ -22,10 +24,11 @@ export async function GET(request: NextRequest) {
   }
 
   const pendingCookies: { name: string; value: string; options: CookieOptions }[] = []
+  const { url: supabaseUrl, anonKey } = getSupabasePublicConfig()
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    anonKey,
     {
       cookies: {
         getAll: () => request.cookies.getAll(),
