@@ -45,7 +45,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="bg-surface-elevated rounded-[var(--radius-card)] p-8 border border-ui-border w-full max-w-sm shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_12px_40px_-16px_rgba(27,58,110,0.15)]">
+      <div className="bg-surface-elevated rounded-[var(--radius-card)] p-8 border border-ui-border w-full max-w-sm">
         <div className="mb-6 text-center">
           <div className="inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1 rounded-[var(--radius-control-sm)] mb-3">
             <Hexagon className="size-3.5 shrink-0 stroke-[2.5]" aria-hidden />
@@ -61,7 +61,7 @@ export default function LoginPage() {
           type="button"
           onClick={handleGoogle}
           disabled={googleLoading || loading}
-          className="btn-press-motion w-full flex items-center justify-center gap-3 rounded-[var(--radius-button)] border-2 border-ui-border bg-surface-elevated py-2.5 text-sm font-semibold text-text-body shadow-[0_3px_0_0_#ddd8cf] hover:bg-surface-subtle active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#ddd8cf] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#ddd8cf] mb-4"
+          className="btn-press-motion w-full flex items-center justify-center gap-3 rounded-[var(--radius-button)] border-2 border-ui-border bg-surface-elevated py-2.5 text-sm font-semibold text-text-body hover:bg-surface-subtle active:translate-y-[1px] motion-reduce:active:translate-y-0 disabled:opacity-60 disabled:active:translate-y-0 mb-4"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
             <path
@@ -117,7 +117,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading || googleLoading}
-            className="btn-press-motion w-full rounded-[var(--radius-button)] bg-brand-primary text-white font-bold py-2.5 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_4px_0_0_#a04f08]"
+            className="btn-press-motion w-full rounded-[var(--radius-button)] bg-brand-primary text-white font-bold py-2.5 hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0 disabled:opacity-60 disabled:active:translate-y-0"
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>

@@ -30,7 +30,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
           <h2 className="font-bold text-brand-navy mb-3">Profile</h2>
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between gap-4"><dt className="text-text-muted">Email</dt><dd className="text-text-body text-right">{emailRow?.email ?? '-'}</dd></div>
@@ -47,7 +47,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           )}
         </div>
 
-        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
           <h2 className="font-bold text-brand-navy mb-3">Purchases ({purchases?.length ?? 0})</h2>
           <ul className="divide-y divide-ui-border text-sm">
             {purchases?.map((p) => (
@@ -60,7 +60,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
         </div>
       </div>
 
-      <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+      <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
         <h2 className="font-bold text-brand-navy mb-3">Progress ({progress?.length ?? 0} items completed)</h2>
         <ul className="divide-y divide-ui-border text-sm max-h-64 overflow-y-auto">
           {progress?.map((p) => (

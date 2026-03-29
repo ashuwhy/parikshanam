@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
+  Activity,
   BookOpen,
   CreditCard,
   GraduationCap,
@@ -20,6 +21,7 @@ const NAV: { href: string; label: string; Icon: typeof LayoutDashboard }[] = [
   { href: '/students', label: 'Students', Icon: GraduationCap },
   { href: '/teachers', label: 'Teachers', Icon: UserRound },
   { href: '/purchases', label: 'Purchases', Icon: CreditCard },
+  { href: '/activity', label: 'Activity', Icon: Activity },
   { href: '/settings', label: 'Settings', Icon: Settings },
 ]
 
@@ -36,8 +38,8 @@ export function Sidebar() {
   return (
     <aside className="hidden md:flex flex-col w-64 shrink-0 h-full bg-white border-r border-[#E5E0D8] px-4 py-6">
       {/* Logo Section */}
-      <Link href="/dashboard" className="flex items-center gap-2.5 px-2 mb-8">
-        <div className="size-8 rounded-lg bg-brand-navy flex items-center justify-center shadow-sm">
+      <Link href="/dashboard" className="flex items-center gap-2.5 px-2 mb-8 text-brand-navy">
+        <div className="size-8 rounded-lg bg-brand-navy flex items-center justify-center">
           <Hexagon className="size-5 text-white stroke-[2.5]" aria-hidden />
         </div>
         <div className="flex flex-col">

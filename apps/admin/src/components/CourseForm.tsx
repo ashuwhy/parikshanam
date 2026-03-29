@@ -91,7 +91,7 @@ export function CourseForm({ defaultValues, olympiadTypes, classLevels, onSubmit
       <button
         type="submit"
         disabled={isSubmitting}
-        className="btn-press-motion rounded-[var(--radius-button)] bg-brand-primary text-white font-bold px-6 py-2.5 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_4px_0_0_#a04f08]"
+        className="btn-press-motion rounded-[var(--radius-button)] bg-brand-primary text-white font-bold px-6 py-2.5 hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0 disabled:opacity-60 disabled:active:translate-y-0"
       >
         {isSubmitting ? 'Saving…' : submitLabel}
       </button>

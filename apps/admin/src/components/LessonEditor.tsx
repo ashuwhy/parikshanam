@@ -86,7 +86,7 @@ function LessonYoutubeField({
         type="button"
         onClick={() => void save()}
         disabled={saving}
-        className="btn-press-motion text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-50 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
+        className="btn-press-motion text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 disabled:opacity-50 disabled:active:translate-y-0"
       >
         {saving ? 'Saving…' : 'Save video ID'}
       </button>
@@ -145,7 +145,7 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
       )}
 
       {modules.map((mod) => (
-        <div key={mod.id} className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+        <div key={mod.id} className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-4">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy">
               {mod.title}
@@ -209,7 +209,7 @@ export function LessonEditor({ courseId, modules: initialModules }: LessonEditor
       <button
         type="button"
         onClick={addModule}
-        className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]"
+        className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0"
       >
         <Plus className="size-4 shrink-0 stroke-[2]" aria-hidden />
         Add module

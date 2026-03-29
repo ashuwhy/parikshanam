@@ -7,7 +7,7 @@ export function AdminHeader() {
   return (
     <header className="md:hidden sticky top-0 left-0 right-0 z-50 bg-white border-b border-[#E5E0D8] px-5 py-4 flex items-center justify-between">
       <Link href="/dashboard" className="flex items-center gap-2">
-        <div className="size-8 rounded-lg bg-brand-navy flex items-center justify-center shadow-sm">
+        <div className="size-8 rounded-lg bg-brand-navy flex items-center justify-center">
           <Hexagon className="size-5 text-white stroke-[2.5]" aria-hidden />
         </div>
         <div className="flex flex-col">

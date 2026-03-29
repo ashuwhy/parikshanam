@@ -16,7 +16,7 @@ export function DataTable<T>({ columns, data }: DataTableProps<T>) {
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() })
 
   return (
-    <div className="overflow-x-auto rounded-[var(--radius-card)] border border-ui-border bg-surface-elevated shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+    <div className="overflow-x-auto rounded-[var(--radius-card)] border border-ui-border bg-surface-elevated">
       <table className="w-full text-sm">
         <thead className="bg-brand-navy/5 sticky top-0">
           {table.getHeaderGroups().map((hg) => (

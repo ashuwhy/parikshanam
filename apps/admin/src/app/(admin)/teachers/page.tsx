@@ -69,7 +69,7 @@ export default function TeachersPage() {
         <button
           type="button"
           onClick={() => setShowInvite(true)}
-          className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 shadow-[0_4px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[3px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]"
+          className="btn-press-motion inline-flex items-center gap-2 rounded-[var(--radius-button)] bg-brand-primary text-white text-sm font-bold px-4 py-2 hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0"
         >
           <UserPlus className="size-4 shrink-0 stroke-[2]" aria-hidden />
           Invite Teacher
@@ -80,7 +80,7 @@ export default function TeachersPage() {
 
       {showInvite && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface-elevated rounded-[var(--radius-card)] p-6 w-full max-w-sm shadow-[0_20px_50px_-20px_rgba(27,58,110,0.35)] border border-ui-border">
+          <div className="bg-surface-elevated rounded-[var(--radius-card)] p-6 w-full max-w-sm border border-ui-border">
             <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy text-lg mb-4">
               Invite Teacher
             </h2>
@@ -103,14 +103,14 @@ export default function TeachersPage() {
                 <button
                   type="button"
                   onClick={() => setShowInvite(false)}
-                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] border-2 border-ui-border bg-surface-elevated py-2 text-sm text-text-body shadow-[0_3px_0_0_#ddd8cf] hover:bg-surface-subtle active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#ddd8cf]"
+                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] border-2 border-ui-border bg-surface-elevated py-2 text-sm text-text-body hover:bg-surface-subtle active:translate-y-[1px] motion-reduce:active:translate-y-0"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={sending}
-                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] bg-brand-primary text-white py-2 text-sm font-bold shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-60 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
+                  className="btn-press-motion flex-1 rounded-[var(--radius-button)] bg-brand-primary text-white py-2 text-sm font-bold hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0 disabled:opacity-60 disabled:active:translate-y-0"
                 >
                   {sending ? 'Sending…' : 'Send Invite'}
                 </button>

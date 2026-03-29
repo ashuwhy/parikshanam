@@ -24,7 +24,7 @@ export default async function PurchasesPage() {
             Manage course enrollments and payment verifications
           </p>
         </div>
-        <div className="bg-white border border-[#E5E0D8] rounded-2xl px-5 py-3 shadow-sm flex items-center gap-3 self-start md:self-auto animate-fade-in-up delay-2">
+        <div className="bg-white border border-[#E5E0D8] rounded-2xl px-5 py-3 flex items-center gap-3 self-start md:self-auto animate-fade-in-up delay-2">
           <div className="size-10 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
             <CreditCard size={20} strokeWidth={2.5} />
           </div>

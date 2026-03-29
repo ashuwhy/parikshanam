@@ -60,7 +60,7 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Class Levels */}
-        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">Class Levels</h2>
           <ul className="divide-y divide-ui-border text-sm mb-4">
             {classLevels.map((c) => (
@@ -78,7 +78,7 @@ export default function SettingsPage() {
               <input type="number" value={newClass.min_age} onChange={(e) => setNewClass({ ...newClass, min_age: e.target.value })} placeholder="Min age" className={fieldClass} />
               <input type="number" value={newClass.max_age} onChange={(e) => setNewClass({ ...newClass, max_age: e.target.value })} placeholder="Max age" className={fieldClass} />
             </div>
-            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]">
+            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0">
               <Plus className="size-3.5 shrink-0 stroke-[2.5]" aria-hidden />
               Add
             </button>
@@ -86,7 +86,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Olympiad Types */}
-        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+        <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
           <h2 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-3">Olympiad Types</h2>
           <ul className="divide-y divide-ui-border text-sm mb-4">
             {olympiadTypes.map((o) => (
@@ -107,7 +107,7 @@ export default function SettingsPage() {
               <input type="color" value={newOlympiad.color_hex} onChange={(e) => setNewOlympiad({ ...newOlympiad, color_hex: e.target.value })} className="h-8 w-10 rounded-[var(--radius-control-sm)] border border-ui-border p-0.5" />
               <span className="text-xs text-text-muted">{newOlympiad.color_hex}</span>
             </div>
-            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08]">
+            <button type="submit" className="btn-press-motion inline-flex items-center gap-1.5 bg-brand-primary text-white text-xs font-bold px-3 py-1.5 rounded-[var(--radius-button)] hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0">
               <Plus className="size-3.5 shrink-0 stroke-[2.5]" aria-hidden />
               Add
             </button>

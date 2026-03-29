@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
+  Activity,
   BookOpen,
   CreditCard,
   GraduationCap,
@@ -15,6 +16,7 @@ const NAV = [
   { href: '/courses', label: 'Courses', Icon: BookOpen },
   { href: '/students', label: 'Students', Icon: GraduationCap },
   { href: '/purchases', label: 'Sales', Icon: CreditCard },
+  { href: '/activity', label: 'Activity', Icon: Activity },
   { href: '/settings', label: 'Settings', Icon: Settings },
 ]
 

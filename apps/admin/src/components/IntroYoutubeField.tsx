@@ -42,7 +42,7 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
   const previewId = value.trim()
 
   return (
-    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
       <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-1">
         Intro / preview video (YouTube)
       </h3>
@@ -67,7 +67,7 @@ export function IntroYoutubeField({ courseId, introPath }: Props) {
         type="button"
         onClick={() => void save()}
         disabled={saving}
-        className="btn-press-motion mt-3 text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white shadow-[0_3px_0_0_#a04f08] hover:bg-[#d4640a] active:translate-y-[2px] motion-reduce:active:translate-y-0 active:shadow-[0_1px_0_0_#a04f08] disabled:opacity-50 disabled:active:translate-y-0 disabled:active:shadow-[0_3px_0_0_#a04f08]"
+        className="btn-press-motion mt-3 text-sm font-bold px-4 py-2 rounded-[var(--radius-button)] bg-brand-primary text-white hover:bg-[#d4640a] active:translate-y-[1px] motion-reduce:active:translate-y-0 disabled:opacity-50 disabled:active:translate-y-0"
       >
         {saving ? 'Saving…' : 'Save intro video'}
       </button>

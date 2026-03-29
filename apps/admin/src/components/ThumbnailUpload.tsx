@@ -68,7 +68,7 @@ export function ThumbnailUpload({ courseId, currentUrl }: Props) {
   }
 
   return (
-    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.85),0_8px_24px_-12px_rgba(27,58,110,0.08)]">
+    <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">
       <h3 className="font-[family-name:var(--font-nunito-var)] font-bold text-brand-navy mb-1">
         Course Thumbnail
       </h3>
