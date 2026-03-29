@@ -87,7 +87,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
             className="text-2xl sm:text-3xl text-[#1B3A6E] mb-2"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
-            {quiz.label} — {competitionAbbr} results
+            {quiz.label} - {competitionAbbr} results
           </h1>
           <p className="text-4xl font-black text-[#E8720C] tabular-nums mb-1" style={{ fontFamily: "var(--font-nunito-var)" }}>
             {scorePct}%

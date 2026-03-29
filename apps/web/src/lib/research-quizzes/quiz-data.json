@@ -10,7 +10,7 @@
       {
         "slug": "class-7",
         "label": "Class VII",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -293,7 +293,7 @@
       {
         "slug": "class-8",
         "label": "Class VIII",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -320,7 +320,7 @@
           },
           {
             "id": "q3",
-            "prompt": "Five students — A, B, C, D, and E — are standing in a straight line. A is not at either end. B stands somewhere to the left of C. D is not standing next to E. E is not standing at either end. C is standing somewhere to the right of A. Which student must definitely be standing at the far left?",
+            "prompt": "Five students - A, B, C, D, and E - are standing in a straight line. A is not at either end. B stands somewhere to the left of C. D is not standing next to E. E is not standing at either end. C is standing somewhere to the right of A. Which student must definitely be standing at the far left?",
             "options": [
               "A",
               "B",
@@ -576,7 +576,7 @@
       {
         "slug": "class-9",
         "label": "Class IX",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -859,7 +859,7 @@
       {
         "slug": "class-10",
         "label": "Class X",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -1142,7 +1142,7 @@
       {
         "slug": "class-11",
         "label": "Class XI",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -1425,7 +1425,7 @@
       {
         "slug": "class-12",
         "label": "Class XII",
-        "subtitle": "YMRC sample paper — Mathematics",
+        "subtitle": "YMRC sample paper - Mathematics",
         "questionCount": 25,
         "questions": [
           {
@@ -1716,7 +1716,7 @@
       {
         "slug": "class-7",
         "label": "Class VII",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {
@@ -1999,7 +1999,7 @@
       {
         "slug": "class-8",
         "label": "Class VIII",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {
@@ -2282,7 +2282,7 @@
       {
         "slug": "class-9",
         "label": "Class IX",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {
@@ -2565,7 +2565,7 @@
       {
         "slug": "class-10",
         "label": "Class X",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {
@@ -2848,7 +2848,7 @@
       {
         "slug": "class-11",
         "label": "Class XI",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {
@@ -3131,7 +3131,7 @@
       {
         "slug": "class-12",
         "label": "Class XII",
-        "subtitle": "YSRC sample paper — Science",
+        "subtitle": "YSRC sample paper - Science",
         "questionCount": 25,
         "questions": [
           {

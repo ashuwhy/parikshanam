@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const abbr = researchQuizData[competition].abbr;
   return {
     title: `${quiz.label} ${abbr} quiz - Parikshanam`,
-    description: `${quiz.subtitle} — ${quiz.questions.length} practice questions.`,
+    description: `${quiz.subtitle} - ${quiz.questions.length} practice questions.`,
   };
 }
 

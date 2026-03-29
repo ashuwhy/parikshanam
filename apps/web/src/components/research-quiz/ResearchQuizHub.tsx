@@ -104,7 +104,7 @@ export function ResearchQuizHub() {
           Free practice quizzes
         </h1>
         <p className="text-[#6B7280] max-w-lg mx-auto" style={{ fontFamily: "var(--font-roboto-var)" }}>
-          YMRC mathematics and YSRC science — sample papers from your materials. Sign in required. Scores are not
+          YMRC mathematics and YSRC science - sample papers from your materials. Sign in required. Scores are not
           stored.
         </p>
       </div>
@@ -132,7 +132,7 @@ export function ResearchQuizHub() {
       </div>
 
       <p className="mt-10 text-xs text-center text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
-        Questions are extracted from the official sample papers. For practice only.
+        For practice only.
       </p>
     </div>
   );

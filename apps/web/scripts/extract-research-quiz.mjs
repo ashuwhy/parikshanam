@@ -5,9 +5,9 @@
  * Run from apps/web: node scripts/extract-research-quiz.mjs
  *
  * Handles three option formats without data loss:
- *   Format 1 — parenthesis : (A) opt  (B) opt  (C) opt  (D) opt       [all YMRC + YSRC 7/8/10/11/12]
- *   Format 2 — dot         :  A. opt   B. opt   C. opt   D. opt        [YSRC CLASS 9, all Qs except Q13]
- *   Format 3 — keyword     :  Option X  Option X  Option X  Option X   [YSRC CLASS 9, Q13 only]
+ *   Format 1 - parenthesis : (A) opt  (B) opt  (C) opt  (D) opt       [all YMRC + YSRC 7/8/10/11/12]
+ *   Format 2 - dot         :  A. opt   B. opt   C. opt   D. opt        [YSRC CLASS 9, all Qs except Q13]
+ *   Format 3 - keyword     :  Option X  Option X  Option X  Option X   [YSRC CLASS 9, Q13 only]
  *
  * YSRC CLASS 9 Q4, Q5, Q15, Q22: some blocks lack A./(A) labels in the Word export; normalizeYsrcClass9UnlabeledOptions
  * injects (A)–(D). Q15 trailing empty E. (if present) is stripped in cleanLastOption; Q22 keeps lowercase “because” inside option (A).
@@ -79,7 +79,7 @@ function parseAnswerKey(text) {
 // ── option parsers (three strategies) ────────────────────────────────────────
 
 /**
- * Strategy 1 — (A) (B) (C) (D) parenthesis format.
+ * Strategy 1 - (A) (B) (C) (D) parenthesis format.
  * Non-greedy capture handles options that run together without newlines
  * (common in YSRC 10, 11, 12 after XML flattening).
  */
@@ -100,7 +100,7 @@ function tryParenFormat(rest) {
 }
 
 /**
- * Strategy 2 — A.  B.  C.  D. dot format.
+ * Strategy 2 - A.  B.  C.  D. dot format.
  * Used throughout YSRC CLASS 9 (except Q13).
  * Requires at least one whitespace character before each letter label to
  * avoid false matches on "A black hole…" at the start of rest.
@@ -122,7 +122,7 @@ function tryDotFormat(rest) {
 }
 
 /**
- * Strategy 3 — "Option X" keyword format.
+ * Strategy 3 - "Option X" keyword format.
  * Used only in YSRC CLASS 9 Q13, where option labels are the word "Option"
  * followed by the numeric value (e.g. "Option 0.15").
  */
@@ -266,14 +266,14 @@ const output = {
     name: "Young Mathematical Research Challenge",
     abbr: "YMRC",
     subject: "Mathematics",
-    quizzes: buildQuizzes(YMRC_SPECS, "YMRC sample paper — Mathematics", "YMRC"),
+    quizzes: buildQuizzes(YMRC_SPECS, "YMRC sample paper - Mathematics", "YMRC"),
   },
   ysrc: {
     id: "ysrc",
     name: "Young Scientific Research Challenge",
     abbr: "YSRC",
     subject: "Science",
-    quizzes: buildQuizzes(YSRC_SPECS, "YSRC sample paper — Science", "YSRC"),
+    quizzes: buildQuizzes(YSRC_SPECS, "YSRC sample paper - Science", "YSRC"),
   },
 };
 
