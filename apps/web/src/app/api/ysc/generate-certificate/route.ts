@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 
+import { createClient } from "@/lib/supabase/server";
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
 import {
   certificateTypeForYscRow,
@@ -43,6 +44,14 @@ type Body = {
 
 export async function POST(request: Request) {
   try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = (await request.json()) as Body;
     const rollNo = typeof body.rollNo === "string" ? body.rollNo : "";
     const name = typeof body.name === "string" ? body.name : "";

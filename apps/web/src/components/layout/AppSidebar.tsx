@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo } from "react";
 import {
+  Award,
   BookOpen,
   Compass,
   Home,
@@ -18,6 +19,7 @@ const NAV = [
   { href: "/dashboard", label: "Dashboard", Icon: Home },
   { href: "/explore", label: "Explore", Icon: Compass },
   { href: "/my-courses", label: "My Courses", Icon: BookOpen },
+  { href: "/ysc", label: "YSC certificate", Icon: Award },
   { href: "/profile", label: "Profile", Icon: User },
 ];
 
@@ -30,7 +32,7 @@ function AppSidebarInner() {
   };
 
   return (
-    <aside className="hidden md:flex flex-col w-64 shrink-0 min-h-screen bg-white border-r border-[#E5E0D8] px-4 py-6">
+    <aside className="hidden md:flex flex-col w-64 shrink-0 h-full bg-white border-r border-[#E5E0D8] px-4 py-6">
       {/* Logo */}
       <Link href="/dashboard" className="flex items-center gap-2.5 px-2 mb-8">
         <Image src="/icon.png" width={32} height={32} alt="Parikshanam" className="rounded-lg" />

@@ -54,6 +54,7 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith("/explore") ||
     pathname.startsWith("/my-courses") ||
     pathname.startsWith("/profile") ||
+    pathname.startsWith("/ysc") ||
     (pathname.startsWith("/course/") && !isCourseDetailOnly) ||
     pathname.startsWith("/onboarding");
 
