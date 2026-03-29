@@ -246,7 +246,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full min-h-[160px] overflow-hidden bg-[#050505] select-none group ${!barShown && hasStarted && playing ? "cursor-none" : ""}`}
+      className="relative h-full w-full min-h-[160px] overflow-hidden bg-black select-none"
       onContextMenu={(e) => e.preventDefault()}
       onMouseMove={resetHideTimer}
       onTouchStart={resetHideTimer}
@@ -256,13 +256,13 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
     >
       {/* YouTube mount: clip overflow; iframe never receives pointer events */}
       <div
-        className="absolute inset-0 z-0 overflow-hidden [&_iframe]:pointer-events-none transition-transform duration-700 ease-out"
+        className="absolute inset-0 z-0 overflow-hidden [&_iframe]:pointer-events-none"
         data-yt-mount={playerId}
       >
-        <div id={playerId} className="h-full w-full" style={{ pointerEvents: "none", opacity: hasStarted || awaitingPlayback ? 1 : 0, transition: "opacity 0.5s ease-in-out" }} />
+        <div id={playerId} className="h-full w-full" style={{ pointerEvents: "none" }} />
       </div>
 
-      {/* Full-area tap-to-pause (invisible while playing) */}
+      {/* While playing: full-area tap-to-pause; only a short bottom fade (not full-frame) to soften native YT chrome */}
       {hasStarted && playing && (
         <button
           type="button"
@@ -271,17 +271,16 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
           aria-label="Pause video"
         >
           <span
-            className={`pointer-events-none absolute inset-x-0 bottom-0 h-[30%] max-h-[12rem] bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ease-out ${barShown ? "opacity-100" : "opacity-0"}`}
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[22%] max-h-[7.5rem] bg-gradient-to-t from-black/45 to-transparent"
             style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
             aria-hidden
           />
         </button>
       )}
 
-      {/* Paused state overlay */}
       {hasStarted && !playing && ready && (
         <div
-          className="absolute inset-0 z-20 flex cursor-pointer items-center justify-center bg-black/40 backdrop-blur-[2px] touch-none transition-all duration-500"
+          className="absolute inset-0 z-20 flex cursor-pointer items-center justify-center bg-black/70 touch-none"
           onClick={togglePlay}
           role="button"
           tabIndex={0}
@@ -294,19 +293,18 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
           aria-label="Play video"
         >
           <span
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-500"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent"
             aria-hidden
           />
-          <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-[#E8720C]/90 hover:scale-110 hover:border-[#E8720C]/50 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group">
-            <Play size={40} className="ml-1.5 text-white transition-transform duration-300 group-hover:scale-110 group-active:scale-95" fill="white" aria-hidden />
+          <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm ring-1 ring-white/20">
+            <Play size={28} className="ml-0.5 text-white" fill="white" aria-hidden />
           </div>
         </div>
       )}
 
-      {/* Pre-play Loading / Play Button Curtain */}
       {showPrePlayCurtain && (
         <div
-          className="absolute inset-0 z-[22] flex cursor-pointer items-center justify-center bg-[#050505] transition-opacity duration-700"
+          className="absolute inset-0 z-[22] flex cursor-pointer items-center justify-center bg-black"
           onClick={() => {
             if (ready) void togglePlay();
           }}
@@ -321,39 +319,28 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
           aria-label={ready ? "Play video" : "Loading video"}
         >
           {!ready || awaitingPlayback ? (
-            <div className="flex flex-col items-center gap-4">
-              <Loader2 className="animate-spin text-[#E8720C]" size={42} aria-hidden strokeWidth={2} />
-              <span className="text-white/50 text-xs font-semibold uppercase tracking-widest animate-pulse" style={{ fontFamily: "var(--font-nunito-var)" }}>Loading</span>
-            </div>
+            <Loader2 className="animate-spin text-white/60" size={28} aria-hidden />
           ) : (
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 transition-all duration-300 hover:bg-[#E8720C]/90 hover:scale-110 hover:border-[#E8720C]/50 hover:shadow-[0_0_40px_rgba(232,114,12,0.4)] group">
-              <Play size={40} className="ml-1.5 text-white transition-transform duration-300 group-hover:scale-110 group-active:scale-95" fill="white" aria-hidden />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-md transition-colors hover:bg-[#E8720C]">
+              <Play size={28} className="ml-0.5 text-white" fill="white" aria-hidden />
             </div>
           )}
         </div>
       )}
 
-      {/* Floating Control Bar */}
       <div
-        className={`absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-5 md:left-5 md:right-5 z-30 transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] transform ${
-          barShown ? "opacity-100 translate-y-0 scale-100" : "pointer-events-none opacity-0 translate-y-4 scale-[0.98]"
+        className={`absolute bottom-0 left-0 right-0 z-30 transition-opacity duration-300 ${
+          barShown ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
         <div
-          className="mx-auto max-w-5xl rounded-2xl bg-[#0a0f1a]/80 backdrop-blur-2xl border border-white/15 px-3 py-2.5 sm:px-4 sm:py-3 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.6)] relative"
+          className="relative px-3 pb-3 pt-8 sm:px-4"
           onClick={(e) => e.stopPropagation()}
           onPointerDown={(e) => e.stopPropagation()}
         >
-          {/* Seek Bar */}
-          <div className="group/seek relative w-full flex items-center h-4 sm:h-5 mb-1.5 sm:mb-2 cursor-pointer touch-none">
-            {/* Background Track */}
-            <div className="absolute inset-x-0 h-1 sm:h-1.5 rounded-full bg-white/20 transition-all duration-300 ease-out group-hover/seek:h-1.5 sm:group-hover/seek:h-2" />
-            {/* Progress Track */}
-            <div 
-              className="absolute left-0 h-1 sm:h-1.5 rounded-full bg-gradient-to-r from-[#FF9D42] to-[#E8720C] transition-all duration-300 ease-out group-hover/seek:h-1.5 sm:group-hover/seek:h-2 pointer-events-none shadow-[0_0_12px_rgba(232,114,12,0.6)]"
-              style={{ width: `${progress}%` }}
-            />
-            {/* Input Slider */}
+          <div className="group/seek relative mb-3">
             <input
               type="range"
               min={0}
@@ -361,130 +348,109 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
               step={0.1}
               value={Math.min(currentTime, seekMax)}
               onChange={handleSeek}
-              aria-label="Seek sequence"
-              className="absolute inset-0 w-full h-full cursor-pointer appearance-none bg-transparent m-0 outline-none
-                         [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none 
-                         [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_0_12px_rgba(232,114,12,0.8)] 
-                         [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-300 [&::-webkit-slider-thumb]:ease-out 
-                         [&::-webkit-slider-thumb]:scale-0 group-hover/seek:[&::-webkit-slider-thumb]:scale-125 z-10"
+              aria-label="Seek"
+              className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/30 accent-[#E8720C] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#E8720C] [&::-webkit-slider-thumb]:opacity-0 [&::-webkit-slider-thumb]:transition-opacity group-hover/seek:[&::-webkit-slider-thumb]:opacity-100"
+              style={{
+                background: `linear-gradient(to right, #E8720C ${progress}%, rgba(255,255,255,0.3) ${progress}%)`,
+              }}
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-1 sm:gap-3">
-            {/* Playback Controls */}
-            <div className="flex items-center gap-0 sm:gap-1">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePlay();
-                }}
-                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white transition-all duration-200 hover:bg-white/10 hover:text-[#E8720C] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#E8720C] focus-visible:outline-none"
-                aria-label={playing ? "Pause" : "Play"}
-              >
-                {playing ? (
-                  <Pause size={20} fill="currentColor" aria-hidden className="sm:w-6 sm:h-6" />
-                ) : (
-                  <Play size={20} fill="currentColor" aria-hidden className="sm:w-6 sm:h-6" />
-                )}
-              </button>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                togglePlay();
+              }}
+              className="text-white transition-colors hover:text-[#E8720C]"
+              aria-label={playing ? "Pause" : "Play"}
+            >
+              {playing ? (
+                <Pause size={20} fill="currentColor" aria-hidden />
+              ) : (
+                <Play size={20} fill="currentColor" aria-hidden />
+              )}
+            </button>
 
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  skip(-10);
-                }}
-                className="w-8 h-8 sm:w-10 sm:h-10 hidden sm:flex items-center justify-center rounded-full text-white/90 transition-all duration-200 hover:bg-white/10 hover:text-[#E8720C] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#E8720C] focus-visible:outline-none"
-                aria-label="Rewind 10 seconds"
-              >
-                <RotateCcw size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
-              </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                skip(-10);
+              }}
+              className="text-white transition-colors hover:text-[#E8720C]"
+              aria-label="Rewind 10 seconds"
+            >
+              <RotateCcw size={18} aria-hidden />
+            </button>
 
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  skip(10);
-                }}
-                className="w-8 h-8 sm:w-10 sm:h-10 hidden sm:flex items-center justify-center rounded-full text-white/90 transition-all duration-200 hover:bg-white/10 hover:text-[#E8720C] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#E8720C] focus-visible:outline-none"
-                aria-label="Forward 10 seconds"
-              >
-                <FastForward size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                skip(10);
+              }}
+              className="text-white transition-colors hover:text-[#E8720C]"
+              aria-label="Forward 10 seconds"
+            >
+              <FastForward size={18} aria-hidden />
+            </button>
 
-            {/* Volume Control */}
-            <div className="group/vol flex items-center ml-1 sm:ml-2 relative">
+            <div className="group/vol flex items-center gap-2">
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleMute();
                 }}
-                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full text-white transition-all duration-200 hover:bg-white/10 hover:text-[#E8720C] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#E8720C] focus-visible:outline-none"
+                className="text-white transition-colors hover:text-[#E8720C]"
                 aria-label={muted || volume === 0 ? "Unmute" : "Mute"}
               >
                 {muted || volume === 0 ? (
-                  <VolumeX size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
+                  <VolumeX size={18} aria-hidden />
                 ) : (
-                  <Volume2 size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
+                  <Volume2 size={18} aria-hidden />
                 )}
               </button>
-              <div className="w-0 overflow-hidden opacity-0 group-hover/vol:w-16 group-hover/vol:ml-1 group-hover/vol:opacity-100 transition-all duration-300 ease-out origin-left flex items-center">
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={muted ? 0 : volume}
-                  onChange={handleVolumeChange}
-                  onClick={(e) => e.stopPropagation()}
-                  aria-label="Volume level"
-                  className="w-14 h-1 cursor-pointer appearance-none rounded-full bg-white/20 outline-none
-                             [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:appearance-none 
-                             [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white
-                             [&::-webkit-slider-thumb]:shadow-[0_0_8px_rgba(232,114,12,0.8)]"
-                  style={{
-                    background: `linear-gradient(to right, #E8720C ${muted ? 0 : volume}%, rgba(255,255,255,0.2) ${muted ? 0 : volume}%)`,
-                  }}
-                />
-              </div>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={muted ? 0 : volume}
+                onChange={handleVolumeChange}
+                onClick={(e) => e.stopPropagation()}
+                aria-label="Volume"
+                className="h-1 w-14 overflow-hidden accent-[#E8720C] transition-all duration-200 sm:w-0 sm:group-hover/vol:w-16"
+              />
             </div>
 
-            {/* Timestamps */}
-            <div
-              className="ml-2 font-mono tracking-wide text-[11px] text-white/80 sm:text-xs font-medium cursor-default"
+            <span
+              className="ml-0.5 font-mono text-[11px] text-white/80 sm:text-xs"
               aria-live="polite"
             >
-              {formatTime(currentTime)}
-              <span className="mx-1 text-white/40">/</span>
-              {formatTime(duration)}
-            </div>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </span>
 
-            <div className="flex-1 min-w-[1rem]" />
+            <div className="min-w-[1rem] flex-1" />
 
-            {/* Title Display */}
-            <span 
-               className="hidden md:inline-block max-w-[160px] lg:max-w-[240px] truncate text-[12px] font-semibold text-white/60 cursor-default"
-               style={{ fontFamily: "var(--font-nunito-var)" }}
-            >
+            <span className="max-w-[120px] truncate text-[10px] text-white/60 sm:max-w-[200px] sm:text-xs">
               {title}
             </span>
 
-            {/* Fullscreen Toggle */}
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 void toggleFullscreen();
               }}
-              className="w-8 h-8 sm:w-10 sm:h-10 ml-1 sm:ml-2 flex items-center justify-center rounded-full text-white transition-all duration-200 hover:bg-white/10 hover:text-[#E8720C] hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[#E8720C] focus-visible:outline-none"
+              className="text-white transition-colors hover:text-[#E8720C]"
               aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
             >
               {isFullscreen ? (
-                <Minimize size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
+                <Minimize size={18} aria-hidden />
               ) : (
-                <Maximize size={18} aria-hidden strokeWidth={2.5} className="sm:w-5 sm:h-5" />
+                <Maximize size={18} aria-hidden />
               )}
             </button>
           </div>

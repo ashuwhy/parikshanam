@@ -5,17 +5,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
 
-import type { YmrcQuizSet } from "@/lib/ymrc-quiz/types";
+import type { ResearchQuizPaper } from "@/lib/research-quizzes/types";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
 const LABELS = ["A", "B", "C", "D"] as const;
 
+const HUB_PATH = "/research-quiz";
+
 type Props = {
-  quiz: YmrcQuizSet;
+  quiz: ResearchQuizPaper;
+  competitionAbbr: string;
 };
 
-export default function YmrcQuizPlayerClient({ quiz }: Props) {
+export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Props) {
   const router = useRouter();
   const { questions } = quiz;
   const [index, setIndex] = useState(0);
@@ -59,12 +62,12 @@ export default function YmrcQuizPlayerClient({ quiz }: Props) {
     return (
       <div className="max-w-2xl mx-auto px-5 py-6 pb-24 md:pb-6">
         <Link
-          href="/ymrc-quiz"
+          href={HUB_PATH}
           className="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1B3A6E] mb-6 transition-colors"
           style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
         >
           <ArrowLeft size={16} aria-hidden />
-          All classes
+          All quizzes
         </Link>
 
         <div className="text-center mb-8">
@@ -84,7 +87,7 @@ export default function YmrcQuizPlayerClient({ quiz }: Props) {
             className="text-2xl sm:text-3xl text-[#1B3A6E] mb-2"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
-            {quiz.label} — results
+            {quiz.label} — {competitionAbbr} results
           </h1>
           <p className="text-4xl font-black text-[#E8720C] tabular-nums mb-1" style={{ fontFamily: "var(--font-nunito-var)" }}>
             {scorePct}%
@@ -133,9 +136,9 @@ export default function YmrcQuizPlayerClient({ quiz }: Props) {
             type="button"
             variant="primaryCompact"
             className="sm:flex-1 w-full"
-            onClick={() => router.push("/ymrc-quiz")}
+            onClick={() => router.push(HUB_PATH)}
           >
-            Choose another class
+            Choose another paper
           </Button>
         </div>
       </div>
@@ -146,12 +149,12 @@ export default function YmrcQuizPlayerClient({ quiz }: Props) {
     <div className="max-w-2xl mx-auto px-5 py-6 pb-24 md:pb-6">
       <div className="flex items-center justify-between gap-3 mb-6">
         <Link
-          href="/ymrc-quiz"
+          href={HUB_PATH}
           className="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#1B3A6E] transition-colors"
           style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
         >
           <ArrowLeft size={16} aria-hidden />
-          All classes
+          All quizzes
         </Link>
         <span className="text-sm text-[#9CA3AF] tabular-nums" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
           {index + 1} / {questions.length}
@@ -160,7 +163,7 @@ export default function YmrcQuizPlayerClient({ quiz }: Props) {
 
       <div className="mb-2">
         <p className="text-xs uppercase tracking-wider text-[#C65F0A] font-black mb-1" style={{ fontFamily: "var(--font-nunito-var)" }}>
-          {quiz.label}
+          {competitionAbbr} · {quiz.label}
         </p>
         <h1
           className="text-xl sm:text-2xl text-[#1B3A6E] leading-snug"

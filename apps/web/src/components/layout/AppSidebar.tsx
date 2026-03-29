@@ -7,7 +7,7 @@ import { memo } from "react";
 import {
   Award,
   BookOpen,
-  Brain,
+  BookOpenCheck,
   Compass,
   Home,
   LogOut,
@@ -21,7 +21,7 @@ const NAV = [
   { href: "/explore", label: "Explore", Icon: Compass },
   { href: "/my-courses", label: "My Courses", Icon: BookOpen },
   { href: "/ysc", label: "YSC certificate", Icon: Award },
-  { href: "/ymrc-quiz", label: "YMRC quiz", Icon: Brain },
+  { href: "/research-quiz", label: "Free quizzes", Icon: BookOpenCheck },
   { href: "/profile", label: "Profile", Icon: User },
 ];
 
