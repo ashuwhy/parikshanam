@@ -1,6 +1,7 @@
 import { createAdminClient } from '@/lib/supabase/admin'
 import { PurchasesTable } from '@/components/PurchasesTable'
 import { CreditCard } from 'lucide-react'
+export const dynamic = 'force-dynamic'
 
 export default async function PurchasesPage() {
   const admin = createAdminClient()
