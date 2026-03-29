@@ -2,7 +2,10 @@ import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument, rgb } from "pdf-lib";
 import fs from "fs";
 import path from "path";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+
+import { AnalyticsEvents } from "@/lib/analytics/events";
+import { captureServerEvent } from "@/lib/analytics/posthog-server";
 
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
@@ -114,6 +117,14 @@ export async function POST(request: Request) {
     const pdfBytes = await pdfDoc.save();
     const buffer = Buffer.from(pdfBytes);
     const safe = sanitizeDownloadFilePart(row.name);
+
+    after(async () => {
+      await captureServerEvent(user.id, AnalyticsEvents.ysc_certificate_generated_server, {
+        certificate_type: certificateType,
+        roll_no: row.rollNo,
+        subject: row.subject,
+      });
+    });
 
     return new NextResponse(buffer, {
       status: 200,

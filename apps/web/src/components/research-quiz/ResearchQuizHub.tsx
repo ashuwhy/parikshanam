@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { ArrowLeft, Brain, ChevronRight, Microscope } from "lucide-react";
@@ -6,6 +8,8 @@ import type { CompetitionId } from "@/lib/research-quizzes";
 import { researchQuizData, YMRC_QUIZZES, YSRC_QUIZZES } from "@/lib/research-quizzes";
 import type { ResearchQuizPaper } from "@/lib/research-quizzes/types";
 import { cn } from "@/lib/cn";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 function QuizSection({
   competition,
@@ -53,6 +57,13 @@ function QuizSection({
           <li key={`${competition}-${q.slug}`}>
             <Link
               href={`/research-quiz/${competition}/${q.slug}`}
+              onClick={() =>
+                captureClient(AnalyticsEvents.research_quiz_hub_paper_clicked, {
+                  competition,
+                  slug: q.slug,
+                  label: q.label,
+                })
+              }
               className={cn(
                 "group flex items-center justify-between gap-4 rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white p-4 sm:p-5 shadow-sm",
                 "transition-colors hover:border-[#E8720C] hover:bg-[#FFFBF7]",

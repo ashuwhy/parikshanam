@@ -7,6 +7,8 @@ import { useAuth } from "@/context/AuthContext";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { ClassLevel } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 interface Props {
   initialClassLevels: ClassLevel[];
@@ -75,6 +77,9 @@ export default function OnboardingClient({
       return;
     }
 
+    captureClient(AnalyticsEvents.onboarding_completed, {
+      class_level_id: classLevelId,
+    });
     // Do not await: refresh can hang on slow auth/session while the DB write already succeeded.
     void refreshProfile();
     router.push("/dashboard");

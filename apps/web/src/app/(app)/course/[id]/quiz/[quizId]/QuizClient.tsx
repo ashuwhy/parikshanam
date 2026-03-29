@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
@@ -9,6 +9,8 @@ import { useMemo } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Quiz, QuizQuestion } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 interface Props {
   quiz: Quiz;
@@ -27,35 +29,36 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
   const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
   const [result, setResult] = useState<{ score: number; passed: boolean } | null>(null);
+  const startedLogged = useRef(false);
 
-  if (!questions.length) {
-    return (
-      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center gap-4">
-        <p className="text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
-          No questions in this quiz yet.
-        </p>
-        <Link
-          href={`/course/${courseId}`}
-          className="text-sm text-[#E8720C] underline"
-          style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-        >
-          Back to course
-        </Link>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!questions.length || startedLogged.current) return;
+    startedLogged.current = true;
+    captureClient(AnalyticsEvents.course_quiz_started, {
+      quiz_id: quiz.id,
+      course_id: courseId,
+      question_count: questions.length,
+      previous_score: previousScore,
+    });
+  }, [questions.length, quiz.id, courseId, previousScore]);
 
-  const currentQ = questions[currentIndex];
-  const isLast = currentIndex === questions.length - 1;
-  const currentAnswer = answers[currentQ.id];
+  const activeIndex =
+    questions.length > 0 ? Math.min(currentIndex, questions.length - 1) : 0;
+  const currentQ = questions.length > 0 ? questions[activeIndex] : undefined;
+  const isLast = questions.length > 0 && activeIndex === questions.length - 1;
+  const currentAnswer = currentQ ? answers[currentQ.id] : undefined;
   const isAnswered = currentAnswer !== undefined;
 
-  const handleSelect = (idx: number) => {
-    if (submitted) return;
-    setAnswers((prev) => ({ ...prev, [currentQ.id]: idx }));
-  };
+  const handleSelect = useCallback(
+    (idx: number) => {
+      if (submitted || !currentQ) return;
+      setAnswers((prev) => ({ ...prev, [currentQ.id]: idx }));
+    },
+    [submitted, currentQ],
+  );
 
   const handleNext = useCallback(async () => {
+    if (!questions.length) return;
     if (submitted) {
       if (isLast) return;
       setSubmitted(false);
@@ -90,10 +93,34 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
       if (error) {
         toast.error("Failed to save quiz result");
       } else {
+        captureClient(AnalyticsEvents.course_quiz_completed, {
+          quiz_id: quiz.id,
+          course_id: courseId,
+          score,
+          passed,
+          previous_score: previousScore,
+        });
         toast.success(passed ? "Quiz passed." : `Quiz complete - ${score}%`);
       }
     }
-  }, [submitted, isLast, questions, answers, quiz.passing_score, quiz.id, supabase, userId]);
+  }, [submitted, isLast, questions, answers, quiz.passing_score, quiz.id, supabase, userId, courseId, previousScore]);
+
+  if (!questions.length) {
+    return (
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center gap-4">
+        <p className="text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+          No questions in this quiz yet.
+        </p>
+        <Link
+          href={`/course/${courseId}`}
+          className="text-sm text-[#E8720C] underline"
+          style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+        >
+          Back to course
+        </Link>
+      </div>
+    );
+  }
 
   // Results screen
   if (result) {
@@ -165,7 +192,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
             {quiz.title}
           </p>
           <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>
-            Question {currentIndex + 1} of {questions.length}
+            Question {activeIndex + 1} of {questions.length}
           </p>
         </div>
         {previousScore !== null && (
@@ -179,7 +206,7 @@ export function QuizClient({ quiz, questions, courseId, userId, previousScore }:
       <div className="h-1 bg-[#E5E0D8]">
         <div
           className="h-1 bg-[#E8720C] transition-all"
-          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          style={{ width: `${((activeIndex + 1) / questions.length) * 100}%` }}
         />
       </div>
 

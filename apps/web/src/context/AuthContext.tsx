@@ -11,6 +11,8 @@ import {
   type ReactNode,
 } from "react";
 
+import posthog from "posthog-js";
+
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types";
 
@@ -137,6 +139,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setSession(null);
     setProfile(null);
+    if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN) {
+      posthog.reset();
+    }
     window.location.assign(redirectTo);
   }, [supabase]);
 

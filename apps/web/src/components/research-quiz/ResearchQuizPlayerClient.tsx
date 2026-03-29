@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
@@ -8,6 +8,8 @@ import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
 import type { ResearchQuizPaper } from "@/lib/research-quizzes/types";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 const LABELS = ["A", "B", "C", "D"] as const;
 
@@ -24,6 +26,19 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [phase, setPhase] = useState<"taking" | "results">("taking");
+  const sessionLogged = useRef(false);
+  const resultsLogged = useRef(false);
+
+  useEffect(() => {
+    if (sessionLogged.current) return;
+    sessionLogged.current = true;
+    captureClient(AnalyticsEvents.research_quiz_session_started, {
+      competition: competitionAbbr,
+      quiz_slug: quiz.slug,
+      quiz_label: quiz.label,
+      question_count: questions.length,
+    });
+  }, [competitionAbbr, quiz.slug, quiz.label, questions.length]);
 
   const current = questions[index];
   const isLast = index === questions.length - 1;
@@ -37,7 +52,26 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
     return Math.round((n / questions.length) * 100);
   }, [questions, answers]);
 
+  useEffect(() => {
+    if (phase !== "results" || resultsLogged.current) return;
+    resultsLogged.current = true;
+    captureClient(AnalyticsEvents.research_quiz_completed, {
+      competition: competitionAbbr,
+      quiz_slug: quiz.slug,
+      quiz_label: quiz.label,
+      score_pct: scorePct,
+      total_questions: questions.length,
+    });
+  }, [phase, competitionAbbr, quiz.slug, quiz.label, scorePct, questions.length]);
+
   const handlePick = (optIdx: number) => {
+    captureClient(AnalyticsEvents.research_quiz_question_answered, {
+      competition: competitionAbbr,
+      quiz_slug: quiz.slug,
+      question_id: current.id,
+      question_index: index,
+      option_index: optIdx,
+    });
     setAnswers((prev) => ({ ...prev, [current.id]: optIdx }));
   };
 
@@ -50,6 +84,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
   };
 
   const handleRetake = () => {
+    resultsLogged.current = false;
     setIndex(0);
     setAnswers({});
     setPhase("taking");

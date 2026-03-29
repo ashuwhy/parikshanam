@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 function safeNextParam(raw: string | null): string {
   if (!raw || !raw.startsWith("/") || raw.startsWith("//")) return "/dashboard";
@@ -18,6 +20,7 @@ export default function GoogleSignInButton() {
   const signInWithGoogle = async () => {
     setLoading(true);
     const next = safeNextParam(searchParams.get("next"));
+    captureClient(AnalyticsEvents.google_sign_in_clicked, { next_path: next });
     const callback = new URL("/api/auth/callback", window.location.origin);
     callback.searchParams.set("next", next);
     await supabase.auth.signInWithOAuth({

@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard", Icon: Home },
@@ -54,6 +56,13 @@ function AppSidebarInner() {
             <Link
               key={href}
               href={href}
+              onClick={() =>
+                captureClient(AnalyticsEvents.app_nav_clicked, {
+                  placement: "sidebar",
+                  href,
+                  label,
+                })
+              }
               className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
                 active
                   ? "bg-[#E8720C]/10 text-[#E8720C]"

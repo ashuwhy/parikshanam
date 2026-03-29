@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BookOpen, Clock, Star } from "lucide-react";
+import { ShowcaseCourseLink } from "@/components/marketing/ShowcaseCourseLink";
 import { buttonProps } from "@/components/ui/buttonStyles";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice, classRange, discountPercent, olympiadLabel } from "@/lib/courseUtils";
@@ -24,8 +25,9 @@ function CourseCard({ course }: { course: Course }) {
   const hasDiscount = course.mrp != null && course.mrp > course.price;
 
   return (
-    <Link
-      href="/login"
+    <ShowcaseCourseLink
+      courseId={course.id}
+      courseTitle={course.title}
       className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-white border border-[#E5E0D8] shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_12px_40px_-18px_rgba(27,58,110,0.09)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/45 hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_22px_52px_-14px_rgba(232,114,12,0.15)]"
     >
       {/* Thumbnail */}
@@ -146,7 +148,7 @@ function CourseCard({ course }: { course: Course }) {
           </span>
         </div>
       </div>
-    </Link>
+    </ShowcaseCourseLink>
   );
 }
 

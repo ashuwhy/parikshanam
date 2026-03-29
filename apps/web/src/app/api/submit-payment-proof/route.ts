@@ -1,7 +1,10 @@
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+
+import { AnalyticsEvents } from "@/lib/analytics/events";
+import { captureServerEvent } from "@/lib/analytics/posthog-server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -113,5 +116,13 @@ export async function POST(request: Request) {
   }
 
   console.log("[submit-payment-proof] Finished");
+
+  after(async () => {
+    await captureServerEvent(user.id, AnalyticsEvents.payment_proof_received_server, {
+      course_id,
+      amount_paise: amount,
+    });
+  });
+
   return NextResponse.json({ ok: true });
 }

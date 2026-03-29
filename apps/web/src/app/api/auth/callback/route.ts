@@ -1,4 +1,7 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
+
+import { AnalyticsEvents } from "@/lib/analytics/events";
+import { captureServerEvent } from "@/lib/analytics/posthog-server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
 import { supabaseSsrCookieOptions } from "@/lib/supabase/ssrCookie";
@@ -64,6 +67,14 @@ export async function GET(request: NextRequest) {
   pendingCookies.forEach(({ name, value, options }) => {
     response.cookies.set(name, value, options);
   });
+
+  if (user) {
+    after(async () => {
+      await captureServerEvent(user.id, AnalyticsEvents.oauth_sign_in_success_server, {
+        destination,
+      });
+    });
+  }
 
   return response;
 }

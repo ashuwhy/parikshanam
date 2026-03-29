@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ArrowLeft, CheckCircle, Clock, Play } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { VideoPlayer } from "@/components/lesson/VideoPlayer";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 interface Lesson {
   id: string;
@@ -34,6 +36,15 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
   const [completed, setCompleted] = useState(alreadyDone);
   const [marking, setMarking] = useState(false);
 
+  useEffect(() => {
+    captureClient(AnalyticsEvents.lesson_viewed, {
+      course_id: courseId,
+      lesson_id: lesson.id,
+      lesson_title: lesson.title,
+      is_preview: lesson.is_preview,
+    });
+  }, [courseId, lesson.id, lesson.title, lesson.is_preview]);
+
   const markComplete = useCallback(async () => {
     if (completed || marking) return;
     setMarking(true);
@@ -52,9 +63,14 @@ export function LessonClient({ lesson, courseId, userId, alreadyDone }: Props) {
     } else {
       setCompleted(true);
       void queryClient.invalidateQueries({ queryKey: ["progress", userId] });
+      captureClient(AnalyticsEvents.lesson_marked_complete, {
+        course_id: courseId,
+        lesson_id: lesson.id,
+        lesson_title: lesson.title,
+      });
       toast.success("Lesson completed.");
     }
-  }, [completed, marking, userId, lesson.id, courseId, queryClient]);
+  }, [completed, marking, userId, lesson.id, lesson.title, courseId, queryClient]);
 
   return (
     <div className="min-h-full bg-transparent">

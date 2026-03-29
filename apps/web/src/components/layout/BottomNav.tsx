@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo } from "react";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 import { Award, BookOpen, BookOpenCheck, Compass, Home } from "lucide-react";
 
 const NAV = [
@@ -24,6 +26,13 @@ function BottomNavInner() {
           <Link
             key={href}
             href={href}
+            onClick={() =>
+              captureClient(AnalyticsEvents.app_nav_clicked, {
+                placement: "bottom_nav",
+                href,
+                label,
+              })
+            }
             className={`flex-1 flex flex-col items-center justify-center py-3 gap-0.5 transition-colors ${
               active ? "text-[#E8720C]" : "text-[#9CA3AF]"
             }`}

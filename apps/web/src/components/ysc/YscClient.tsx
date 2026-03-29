@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 import type { YscStudentRecord } from "@/lib/ysc/types";
 import { sanitizeDownloadFilePart } from "@/lib/ysc/sanitizeFilename";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 function findStudentsByNameQuery(
   students: YscStudentRecord[],
@@ -36,6 +38,10 @@ export default function YscClient({ students }: Props) {
     e.preventDefault();
     setSearched(true);
     const found = findStudentsByNameQuery(students, searchName);
+    captureClient(AnalyticsEvents.ysc_name_search_submitted, {
+      query_length: searchName.trim().length,
+      match_count: found.length,
+    });
     setMatches(found);
     if (found.length === 1) {
       setSelected(found[0]!);
@@ -79,6 +85,10 @@ export default function YscClient({ students }: Props) {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+      captureClient(AnalyticsEvents.ysc_certificate_download_clicked, {
+        certificate_type: student.certificateType,
+        roll_no: student.rollNo,
+      });
       toast.success("Certificate downloaded");
     } catch {
       toast.error("Could not download the certificate. Please try again.");

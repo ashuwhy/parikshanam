@@ -3,6 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
+
 type Props = {
   src: string;
   className?: string;
@@ -10,7 +13,14 @@ type Props = {
 
 export function HeroVideo({ src, className = "" }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const playLogged = useRef(false);
   const [muted, setMuted] = useState(true);
+
+  const onVideoPlay = useCallback(() => {
+    if (playLogged.current) return;
+    playLogged.current = true;
+    captureClient(AnalyticsEvents.hero_video_play, { surface: "hero" });
+  }, []);
 
   const unmute = useCallback(() => {
     const el = videoRef.current;
@@ -51,6 +61,7 @@ export function HeroVideo({ src, className = "" }: Props) {
         controlsList="nodownload"
         preload="auto"
         aria-label="Parikshanam introduction video"
+        onPlay={onVideoPlay}
       />
 
       {muted ? (

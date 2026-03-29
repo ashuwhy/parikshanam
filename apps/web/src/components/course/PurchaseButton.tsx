@@ -12,6 +12,8 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { resolveButtonVariant } from "@/components/ui/buttonStyles";
 import { cn } from "@/lib/cn";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 declare global {
   interface Window {
@@ -46,6 +48,10 @@ export function PurchaseButton({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleContinue = () => {
+    captureClient(AnalyticsEvents.continue_learning_clicked, {
+      course_id: course.id,
+      course_title: course.title,
+    });
     for (const mod of modules) {
       for (const lesson of mod.lessons) {
         if (!completedIds.has(lesson.id)) {
@@ -105,6 +111,10 @@ export function PurchaseButton({
       console.log("API response status:", res.status);
       if (!res.ok) throw new Error("Submission failed");
 
+      captureClient(AnalyticsEvents.payment_proof_submitted_client, {
+        course_id: course.id,
+        amount_paise: course.price,
+      });
       toast.success("Payment submitted! You'll be enrolled within 24 hours.");
       setUpiFile(null);
       setUpiPreview(null);

@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Search, X, BookOpen } from "lucide-react";
 import type { Course, OlympiadType } from "@/lib/types";
 import { CourseCard } from "@/components/course/CourseCard";
 import { Button } from "@/components/ui/Button";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 interface Props {
   initialCourses: Course[];
@@ -14,6 +16,28 @@ interface Props {
 export default function ExploreClient({ initialCourses, olympiadTypes }: Props) {
   const [query, setQuery] = useState("");
   const [olympiadFilter, setOlympiadFilter] = useState<string | null>(null);
+  const skipOlympiadMount = useRef(true);
+
+  useEffect(() => {
+    if (skipOlympiadMount.current) {
+      skipOlympiadMount.current = false;
+      return;
+    }
+    captureClient(AnalyticsEvents.explore_olympiad_filter_changed, {
+      olympiad_type_id: olympiadFilter,
+    });
+  }, [olympiadFilter]);
+
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) return;
+    const t = window.setTimeout(() => {
+      captureClient(AnalyticsEvents.explore_search_submitted, {
+        query_length: q.length,
+      });
+    }, 1000);
+    return () => window.clearTimeout(t);
+  }, [query]);
 
   const filtered = useMemo(() => {
     let list = initialCourses;
@@ -127,7 +151,7 @@ export default function ExploreClient({ initialCourses, olympiadTypes }: Props) 
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filtered.map((course) => (
-            <CourseCard key={course.id} course={course} />
+            <CourseCard key={course.id} course={course} listSource="explore" />
           ))}
         </div>
       )}

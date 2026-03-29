@@ -4,6 +4,8 @@ import "./globals.css";
 
 import { DoodleBackground } from "@/components/layout/DoodleBackground";
 import { getSiteUrl } from "@/lib/site";
+import { AnalyticsProvider } from "@/components/analytics/AnalyticsProvider";
+import { PostHogIdentify } from "@/components/analytics/PostHogIdentify";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "sonner";
@@ -58,13 +60,16 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-[#F9F7F5]">
         <QueryProvider>
-          <AuthProvider>
-            <div className="relative min-h-full">
-              <DoodleBackground />
-              <div className="relative z-10">{children}</div>
-              <Toaster richColors position="top-right" />
-            </div>
-          </AuthProvider>
+          <AnalyticsProvider>
+            <AuthProvider>
+              <PostHogIdentify />
+              <div className="relative min-h-full">
+                <DoodleBackground />
+                <div className="relative z-10">{children}</div>
+                <Toaster richColors position="top-right" />
+              </div>
+            </AuthProvider>
+          </AnalyticsProvider>
         </QueryProvider>
       </body>
     </html>

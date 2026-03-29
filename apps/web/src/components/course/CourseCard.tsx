@@ -1,14 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { memo } from "react";
 import { BookOpen, Clock } from "lucide-react";
 import type { Course } from "@/lib/types";
 import { formatPrice, classRange, discountPercent } from "@/lib/courseUtils";
+import { captureClient } from "@/lib/analytics/capture";
+import { AnalyticsEvents } from "@/lib/analytics/events";
 
 function getOlympiadLabel(course: Course): string | null {
   return course.olympiad_type?.label ?? null;
 }
 
-function CourseCardInner({ course }: { course: Course }) {
+function CourseCardInner({
+  course,
+  listSource = "unknown",
+}: {
+  course: Course;
+  /** Where the card was rendered (explore, showcase, etc.). */
+  listSource?: string;
+}) {
   const olympiad = getOlympiadLabel(course);
   const cls = classRange(course);
   const metaLine = [olympiad, cls].filter(Boolean).join(" • ");
@@ -17,6 +28,14 @@ function CourseCardInner({ course }: { course: Course }) {
   return (
     <Link
       href={`/course/${course.id}`}
+      onClick={() =>
+        captureClient(AnalyticsEvents.course_card_clicked, {
+          course_id: course.id,
+          title: course.title,
+          list_source: listSource,
+          olympiad_type_id: course.olympiad_type_id ?? undefined,
+        })
+      }
       className="group flex flex-col rounded-[var(--radius-card)] bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] hover:-translate-y-0.5 transition-[border-color,transform] duration-200"
     >
       {/* Thumbnail */}
