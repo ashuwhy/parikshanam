@@ -1,0 +1,1026 @@
+{
+  "quizzes": [
+    {
+      "slug": "class-7",
+      "label": "Class VII",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A sequence is formed in the following way: 2, 6, 12, 20, 30, 42, 56, ... A student notices that the difference between consecutive terms is itself increasing by 2 each time. Another student claims that this sequence can be represented by the expression n(n + 1). If the same pattern continues for several more terms, what will be the 10th term of the sequence?",
+          "options": ["90", "96", "110", "132"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q2",
+          "prompt": "A teacher writes down all whole numbers from 1 to 100. How many of these numbers are divisible by both 2 and 5?",
+          "options": ["5", "10", "20", "25"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q3",
+          "prompt": "Four students named A, B, C, and D are standing in a straight line facing forward. A is not standing at either end of the line. C is somewhere to the right of B. D is not standing next to A. B is not standing at the far right. Based on all of these conditions together, which student must definitely be standing at the far left end of the line?",
+          "options": ["A", "B", "C", "D"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q4",
+          "prompt": "A set P contains all multiples of 3 less than 30, and a set Q contains all multiples of 5 less than 30. How many numbers belong to both sets?",
+          "options": ["1", "2", "3", "4"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q5",
+          "prompt": "A graph shows that a car travels 60 km in the first hour, 120 km in the second hour, and 180 km in the third hour. If the pattern continues in the same way, how far will the car travel in the fifth hour?",
+          "options": ["240 km", "300 km", "360 km", "420 km"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 5 red balls, 3 blue balls, and 2 green balls. One ball is selected at random. What is the probability that the selected ball is neither blue nor green?",
+          "options": ["1/10", "1/5", "1/2", "⅗"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q7",
+          "prompt": "A right triangle has one angle measuring 30°. What is the measure of the third angle?",
+          "options": ["30°", "45°", "60°", "90°"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q8",
+          "prompt": "A square has side length 12 cm. A larger square has side length twice as large. By what factor does the area increase?",
+          "options": ["2", "3", "4", "8"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q9",
+          "prompt": "A positive whole number leaves remainder 1 when divided by 4, leaves remainder 2 when divided by 5, and also leaves remainder 5 when divided by 8. Which of the following numbers satisfies all three conditions at the same time?",
+          "options": ["21", "29", "37", "45"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q10",
+          "prompt": "A sequence is defined as: 1, 4, 9, 16, 25, ... Which of the following best describes the nth term of the sequence?",
+          "options": ["n + 2", "2n", "n²", "n³"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q11",
+          "prompt": "A student tosses a fair coin three times. What is the probability of getting exactly two heads?",
+          "options": ["1/8", "1/4", "3/8", "½"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q12",
+          "prompt": "Two sets are given: A = {2, 4, 6, 8, 10} B = {1, 2, 3, 4, 5, 6} How many elements are there in A ∩ B?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q13",
+          "prompt": "A train leaves Station X at exactly 9:00 AM and travels in a straight line at a constant speed of 60 km/h. Another train leaves the same station at exactly 10:00 AM and travels in the same direction at a speed of 90 km/h. Assuming both trains continue without stopping and maintain constant speeds, at what exact time will the second train catch up with the first train?",
+          "options": ["11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q14",
+          "prompt": "A number pattern follows this rule: Each term is obtained by multiplying the previous term by 2 and then adding 1. If the first term is 3, what is the fourth term?",
+          "options": ["15", "23", "31", "47"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q15",
+          "prompt": "A rectangle has length 15 cm and width 8 cm. Another rectangle has all dimensions multiplied by 3. By what factor does the area increase?",
+          "options": ["3", "6", "9", "12"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q16",
+          "prompt": "In a class of 40 students, 22 students like cricket, 18 students like football, and 7 students like both sports. How many students like only cricket?",
+          "options": ["7", "11", "15", "22"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q17",
+          "prompt": "A spinner has 8 equal sections numbered 1 to 8. If the spinner is spun once, what is the probability of landing on a prime number?",
+          "options": ["1/4", "3/8", "1/2", "⅝"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q18",
+          "prompt": "A triangle has side lengths 5 cm, 12 cm, and 13 cm. Which statement is true?",
+          "options": [
+            "It is an equilateral triangle",
+            "It is an isosceles triangle",
+            "It is a right triangle",
+            "It cannot form a triangle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "A plant is observed over several weeks, and the amount it grows each week follows this pattern: 2 cm in Week 1, 4 cm in Week 2, 8 cm in Week 3, 16 cm in Week 4. If the pattern continues in exactly the same way, how much will the plant grow during Week 6 alone?",
+          "options": ["24 cm", "32 cm", "48 cm", "64 cm"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q20",
+          "prompt": "A number is chosen from 1 to 50. What is the probability that the number is divisible by both 2 and 3?",
+          "options": ["1/6", "2/25", "4/25", "⅓"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q21",
+          "prompt": "A sequence is given by: 5, 9, 13, 17, 21, ... What is the 20th term of the sequence?",
+          "options": ["77", "81", "85", "89"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q22",
+          "prompt": "A boy walks 3 km north, then 4 km east. How far is he from his starting point?",
+          "options": ["5 km", "6 km", "7 km", "8 km"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q23",
+          "prompt": "If 3x + 7 = 25, what is the value of x?",
+          "options": ["4", "5", "6", "7"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q24",
+          "prompt": "A fair six-sided die is rolled two times. The two numbers obtained are added together. What is the probability that the total sum of the two numbers is exactly 7?",
+          "options": ["1/12", "1/9", "1/6", "⅓"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q25",
+          "prompt": "A pattern is formed using dots: 1, 3, 6, 10, 15, ... If the same pattern continues, what will be the 8th term?",
+          "options": ["28", "32", "36", "45"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "slug": "class-8",
+      "label": "Class VIII",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A number sequence begins as follows: 3, 8, 15, 24, 35, 48, 63, ... A student observes that the difference between consecutive terms follows another sequence that increases regularly. Another student claims that the nth term of the sequence can be represented in the form n² + 2n. If the same pattern continues, what will be the value of the 12th term?",
+          "options": ["156", "168", "180", "195"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q2",
+          "prompt": "A positive whole number is divided by 5, 6, and 8. When divided by 5, it leaves remainder 2. When divided by 6, it leaves remainder 3. When divided by 8, it leaves remainder 5. Which of the following numbers satisfies all three conditions at the same time?",
+          "options": ["53", "77", "93", "117"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q3",
+          "prompt": "Five students — A, B, C, D, and E — are standing in a straight line. A is not at either end. B stands somewhere to the left of C. D is not standing next to E. E is not standing at either end. C is standing somewhere to the right of A. Which student must definitely be standing at the far left?",
+          "options": ["A", "B", "D", "E"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q4",
+          "prompt": "Set P contains all multiples of 4 less than 50. Set Q contains all multiples of 6 less than 50. How many numbers belong to both sets?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q5",
+          "prompt": "A graph shows that a company earns profits of ₹10,000 in the first month, ₹20,000 in the second month, ₹40,000 in the third month, and ₹80,000 in the fourth month. If the same pattern continues, what will be the company's profit in the seventh month?",
+          "options": ["₹3,20,000", "₹4,80,000", "₹6,40,000", "₹12,80,000"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 6 red balls, 5 blue balls, 4 green balls, and 3 yellow balls, making a total of 18 balls altogether. One ball is selected at random without looking inside the bag. What is the probability that the selected ball is neither blue nor yellow?",
+          "options": ["5/18", "7/18", "10/18", "11/18"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q7",
+          "prompt": "In a right triangle, one of the acute angles measures 35°. Since the sum of all angles in a triangle is 180° and one angle in a right triangle is always 90°, what must be the measure of the remaining acute angle?",
+          "options": ["45°", "50°", "55°", "65°"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q8",
+          "prompt": "A square has side length 15 cm. Another square has side length three times as large. By what factor does the area increase?",
+          "options": ["3", "6", "9", "12"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q9",
+          "prompt": "A positive whole number leaves remainder 1 when divided by 3, remainder 2 when divided by 4, and remainder 4 when divided by 5. Which of the following numbers satisfies all three conditions?",
+          "options": ["14", "29", "44", "59"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q10",
+          "prompt": "A sequence is defined as follows: 2, 6, 12, 20, 30, 42, ... A student claims that the nth term can be written as n(n + 1). Using this expression, what will be the value of the 15th term?",
+          "options": ["210", "225", "240", "255"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q11",
+          "prompt": "A fair coin is tossed four times in a row. What is the probability that exactly three of the tosses show heads and the remaining toss shows tails?",
+          "options": ["1/16", "1/8", "1/4", "3/8"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q12",
+          "prompt": "Two sets are given as follows: A = {2, 4, 6, 8, 10, 12, 14} B = {1, 2, 3, 4, 5, 6, 7, 8, 9} How many elements belong to A ∩ B?",
+          "options": ["3", "4", "5", "6"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q13",
+          "prompt": "A car leaves City X at 8:00 AM and travels toward City Y at a speed of 50 km/h. Another car leaves City X at 10:00 AM and travels in the same direction at a speed of 80 km/h. Assuming both cars move continuously at constant speeds, at what exact time will the second car catch up with the first?",
+          "options": ["12:00 PM", "1:00 PM", "1:20 PM", "2:00 PM"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q14",
+          "prompt": "A number pattern follows this rule: each term is obtained by multiplying the previous term by 3 and then subtracting 2. If the first term is 4, what will be the fourth term?",
+          "options": ["70", "88", "94", "100"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q15",
+          "prompt": "A rectangle has length 18 cm and width 12 cm. Another rectangle has all dimensions multiplied by 4. By what factor does the area increase?",
+          "options": ["4", "8", "12", "16"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q16",
+          "prompt": "In a class of 60 students, 35 students say they like cricket, 28 students say they like football, and 12 students say they like both cricket and football. Based on this information, how many students like only cricket and not football?",
+          "options": ["12", "23", "28", "35"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q17",
+          "prompt": "A spinner has 10 equal sections numbered from 1 to 10. If the spinner is spun once, what is the probability that it lands on either a prime number or an even number?",
+          "options": ["3/10", "6/10", "7/10", "8/10"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q18",
+          "prompt": "A triangle has side lengths 8 cm, 15 cm, and 17 cm. A student notices that the square of the longest side is equal to the sum of the squares of the other two sides. Based on this observation, which statement about the triangle must be correct?",
+          "options": [
+            "It is an equilateral triangle",
+            "It is an isosceles triangle",
+            "It is a right triangle",
+            "It cannot form a triangle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "A graph shows that a bacterial colony doubles in size every hour. If the colony contains 20 bacteria at the beginning, how many bacteria will be present after 6 hours?",
+          "options": ["320", "640", "1,280", "2,560"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q20",
+          "prompt": "A number is chosen completely at random from all whole numbers between 1 and 100, including both 1 and 100. What is the probability that the selected number is divisible by both 2 and 5 at the same time?",
+          "options": ["1/5", "1/10", "3/20", "¼"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q21",
+          "prompt": "A sequence is given below: 7, 12, 17, 22, 27, ... If the same pattern continues, what will be the 25th term of the sequence?",
+          "options": ["122", "127", "132", "137"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q22",
+          "prompt": "A person walks 5 km north from their starting point and then walks 12 km east. If they now travel back to the starting point using the shortest possible straight-line route, what distance will they have to travel?",
+          "options": ["11 km", "12 km", "13 km", "17 km"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q23",
+          "prompt": "If 4x + 9 = 37, what is the value of x?",
+          "options": ["5", "6", "7", "8"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q24",
+          "prompt": "A fair six-sided die is rolled three times. What is the probability that all three rolls show even numbers, given that the even numbers on a die are 2, 4, and 6?",
+          "options": ["1/4", "1/6", "1/8", "1/12"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q25",
+          "prompt": "A dot pattern begins as follows: 1, 3, 6, 10, 15, 21, ... If the same triangular number pattern continues, what will be the 10th term?",
+          "options": ["45", "50", "55", "60"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "slug": "class-9",
+      "label": "Class IX",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A sequence is defined as follows: 4, 10, 18, 28, 40, 54, 70, ... A student notices that the difference between consecutive terms increases by 2 every time. Another student claims that the nth term of the sequence can be written in the form n² + 3n. If the sequence continues in exactly the same pattern, what will be the value of the 15th term?",
+          "options": ["240", "255", "270", "285"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q2",
+          "prompt": "A positive integer leaves remainder 2 when divided by 3, remainder 3 when divided by 5, and remainder 5 when divided by 7. In addition, the same number is less than 150. A student tries several numbers one by one and notices that most of them satisfy one or two conditions but not all three together. Which of the following numbers satisfies all the given conditions at the same time?",
+          "options": ["23", "47", "68", "103"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q3",
+          "prompt": "Five students named A, B, C, D, and E are standing in a straight line. A is standing somewhere to the left of C. B is not at either end. D is not standing next to E. C is standing to the right of A but not at the extreme right. E is not at either end. Which student must definitely be standing at the far left?",
+          "options": ["A", "B", "D", "E"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q4",
+          "prompt": "Set P contains all multiples of 6 less than 100. Set Q contains all multiples of 8 less than 100. How many numbers belong to both sets?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q5",
+          "prompt": "A graph shows that the population of a city increases from 5,000 to 10,000 in one year, then to 20,000 in the next year, then to 40,000 in the following year. If the same pattern continues, what will be the population after 6 years?",
+          "options": ["80,000", "1,60,000", "3,20,000", "6,40,000"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 8 red balls, 6 blue balls, 5 green balls, and 1 yellow ball, making a total of 20 balls altogether. Two balls are selected one after another without replacement. What is the probability that both selected balls are blue?",
+          "options": ["3/95", "5/57", "6/95", "15/95"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q7",
+          "prompt": "A triangle has its three interior angles in the ratio 2 : 3 : 4. A student first finds the total number of equal parts represented in the ratio and then uses the fact that the sum of all angles in a triangle is 180°. Based on this information, what is the exact measure of the largest angle of the triangle?",
+          "options": ["60°", "70°", "80°", "90°"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q8",
+          "prompt": "A square has side length 18 cm. Another square has side length four times as large. By what factor does the area increase?",
+          "options": ["4", "8", "12", "16"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q9",
+          "prompt": "A positive whole number leaves remainder 1 when divided by 4, remainder 2 when divided by 5, and remainder 3 when divided by 6. Which of the following numbers satisfies all three conditions?",
+          "options": ["46", "57", "58", "82"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q10",
+          "prompt": "A sequence is defined using the following rule: each term is obtained by multiplying the previous term by 2 and then adding 3. If the first term is 2, the sequence begins as 2, 7, 17, 37, ... Continuing in the same way, what will be the exact value of the sixth term?",
+          "options": ["93", "125", "157", "189"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q11",
+          "prompt": "A fair coin is tossed five times in succession. What is the probability that exactly three of the tosses show heads and the remaining two tosses show tails?",
+          "options": ["5/32", "10/32", "15/32", "20/32"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q12",
+          "prompt": "Two sets are defined as follows: A = {all even numbers from 2 to 20} B = {all multiples of 3 from 3 to 21} How many numbers belong to A ∩ B?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q13",
+          "prompt": "A train leaves Station X at exactly 7:00 AM and travels in a straight line at a constant speed of 80 km/h. Another train leaves the same station at exactly 9:00 AM and travels along the same route in the same direction at a speed of 120 km/h. Assuming both trains continue moving without stopping, at what exact time will the second train catch up with the first train?",
+          "options": ["12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q14",
+          "prompt": "A pattern is formed by squares: 1, 4, 9, 16, 25, … A student claims that the nth term is n². Using this rule, what will be the sum of the 10th term and the 12th term?",
+          "options": ["220", "244", "260", "288"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q15",
+          "prompt": "A rectangle has length 24 cm and width 18 cm. Another rectangle has all dimensions multiplied by 5. By what factor does the area increase?",
+          "options": ["5", "10", "20", "25"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q16",
+          "prompt": "In a class of 80 students, 50 students like cricket, 35 students like football, and 18 students like both sports. How many students like only cricket?",
+          "options": ["18", "25", "32", "50"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q17",
+          "prompt": "A spinner has 12 equal sections numbered from 1 to 12. A student is asked to calculate the probability that the spinner lands on a number which is both even and also a multiple of 3. Which of the following probabilities is correct?",
+          "options": ["1/12", "1/6", "1/4", "⅓"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q18",
+          "prompt": "A triangle has side lengths 7 cm, 24 cm, and 25 cm. Which statement is correct?",
+          "options": [
+            "It is an equilateral triangle",
+            "It is an isosceles triangle",
+            "It is a right triangle",
+            "It cannot form a triangle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "A bacterial colony triples in size every hour. If the colony initially contains exactly 15 bacteria at the beginning of the observation, how many bacteria will be present after 5 complete hours if the same pattern continues without interruption?",
+          "options": ["1,215", "2,430", "3,645", "4,860"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q20",
+          "prompt": "A number is chosen randomly from 1 to 120. What is the probability that it is divisible by both 3 and 4?",
+          "options": ["1/10", "1/12", "1/15", "1/20"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q21",
+          "prompt": "A sequence is given as follows: 11, 18, 25, 32, 39, ... If the same pattern continues, what will be the value of the 30th term?",
+          "options": ["207", "214", "221", "228"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q22",
+          "prompt": "A person walks 8 km north and then 15 km east. What is the shortest straight-line distance from the final point back to the starting point?",
+          "options": ["15 km", "17 km", "19 km", "23 km"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q23",
+          "prompt": "If the equation 5x + 13 = 58 is solved carefully step by step, first by subtracting 13 from both sides and then dividing by 5, what value of x is obtained?",
+          "options": ["7", "8", "9", "10"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q24",
+          "prompt": "Assertion (A): If a fair die is rolled three times, the probability that all three rolls show odd numbers is 1/8. Reason (R): On a fair die, exactly half of the numbers are odd, so the probability of an odd number on one roll is 1/2.",
+          "options": [
+            "Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+            "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+            "Assertion is true, but Reason is false",
+            "Assertion is false, but Reason is true"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q25",
+          "prompt": "A triangular number pattern begins as follows: 1, 3, 6, 10, 15, 21, 28, ... A student notices that the difference between consecutive terms increases by exactly 1 each time. Another student claims that the nth triangular number can be written using the formula n(n + 1)/2. If the same pattern continues, what will be the exact value of the 12th term?",
+          "options": ["66", "72", "78", "84"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "slug": "class-10",
+      "label": "Class X",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A sequence begins as follows: 5, 13, 25, 41, 61, 85, ... A student notices that the difference between consecutive terms forms another arithmetic sequence. Another student claims that the nth term can be represented by the expression n² + 3n + 1. If the same pattern continues exactly, what will be the value of the 20th term?",
+          "options": ["441", "461", "481", "501"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q2",
+          "prompt": "A positive integer leaves remainder 1 when divided by 4, remainder 2 when divided by 5, remainder 3 when divided by 6, and remainder 4 when divided by 7. In addition, the same number leaves remainder 5 when divided by 8 and is less than 1000. A student tests many numbers manually but finds that most satisfy only some of the conditions. Which of the following numbers satisfies all the given conditions simultaneously?",
+          "options": ["419", "539", "659", "779"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q3",
+          "prompt": "Six students named A, B, C, D, E, and F are standing in a straight line. A is somewhere to the left of D. B is not standing at either end. C is standing somewhere between A and E. D is not standing next to F. E is not standing at the extreme right. F is somewhere to the right of B. Which student must definitely be standing at the extreme left?",
+          "options": ["A", "B", "C", "E"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q4",
+          "prompt": "Set P contains all multiples of 8 less than 150, while Set Q contains all multiples of 12 less than 150. A third set R contains all multiples of 18 less than 150. How many numbers belong to both P and Q but do not belong to R?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q5",
+          "prompt": "A city has a population of 12,000 in Year 1. The population doubles every year for the next four years, and then increases by 50% every year for the following two years. What will be the population at the end of Year 6?",
+          "options": ["2,88,000", "4,32,000", "6,48,000", "8,64,000"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 10 red balls, 8 blue balls, 6 green balls, and 4 yellow balls, making a total of 28 balls. Three balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are green and the third ball is yellow?",
+          "options": ["5/819", "10/819", "15/819", "20/819"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q7",
+          "prompt": "A right triangle has one acute angle equal to 30°. A student recalls that the sum of the angles in a triangle is always 180° and that one angle in a right triangle is 90°. If the triangle has hypotenuse 20 cm, what is the length of the side opposite the 30° angle?",
+          "options": ["5 cm", "10 cm", "15 cm", "20 cm"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q8",
+          "prompt": "A square has side length 24 cm. Another square has side length five times as large. By what factor does the area increase?",
+          "options": ["5", "10", "20", "25"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q9",
+          "prompt": "A positive whole number leaves remainder 2 when divided by 5, remainder 3 when divided by 7, and remainder 4 when divided by 9. Which of the following numbers satisfies all three conditions at the same time?",
+          "options": ["58", "103", "148", "193"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q10",
+          "prompt": "A sequence is defined using the following rule: each term is obtained by multiplying the previous term by 3 and then subtracting 2. If the first term is 4, the sequence begins as 4, 10, 28, 82, ... Continuing in the same manner, what will be the exact value of the seventh term?",
+          "options": ["2,188", "2,194", "2,200", "2,206"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q11",
+          "prompt": "A fair coin is tossed six times in succession. What is the probability that exactly four of the tosses show heads and the remaining two tosses show tails?",
+          "options": ["3/16", "5/16", "15/64", "25/64"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q12",
+          "prompt": "Two sets are defined as follows: A = {all multiples of 4 from 4 to 40} B = {all multiples of 6 from 6 to 42} How many elements belong to A ∩ B? In addition, how many elements belong to A ∪ B?",
+          "options": [
+            "Intersection = 3, Union = 14",
+            "Intersection = 4, Union = 13",
+            "Intersection = 3, Union = 15",
+            "Intersection = 4, Union = 14"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q13",
+          "prompt": "A train leaves Station X at exactly 6:00 AM and travels at a constant speed of 90 km/h. Another train leaves the same station at exactly 8:00 AM and travels in the same direction at a speed of 150 km/h. A third train leaves the same station at exactly 9:00 AM and travels in the same direction at a speed of 210 km/h. Assuming all three trains move continuously without stopping, at what exact time will the third train catch the first train?",
+          "options": ["10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q14",
+          "prompt": "Assertion (A): The 15th term of the sequence 2, 5, 8, 11, 14, ... is 44. Reason (R): The nth term of this arithmetic sequence is given by 3n - 1.",
+          "options": [
+            "Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+            "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+            "Assertion is true, but Reason is false",
+            "Assertion is false, but Reason is true"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "id": "q15",
+          "prompt": "A rectangle has length 28 cm and width 16 cm. Another rectangle has all dimensions multiplied by 6. By what factor does the area increase?",
+          "options": ["6", "12", "24", "36"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q16",
+          "prompt": "In a class of 100 students, 65 students like cricket, 48 students like football, and 20 students like both sports. Based on this information, how many students like only cricket?",
+          "options": ["20", "35", "45", "65"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q17",
+          "prompt": "A spinner has 15 equal sections numbered from 1 to 15. What is the probability that the spinner lands on a number which is both odd and also a multiple of 3?",
+          "options": ["1/15", "2/15", "1/5", "4/15"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q18",
+          "prompt": "A triangle has side lengths 9 cm, 40 cm, and 41 cm. A student notices that the square of the largest side is equal to the sum of the squares of the other two sides. Based on this observation, which statement about the triangle must be true?",
+          "options": [
+            "It is an equilateral triangle",
+            "It is an isosceles triangle",
+            "It is a right triangle",
+            "It cannot form a triangle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "A bacterial colony quadruples in size every hour. If the colony initially contains exactly 12 bacteria at the beginning of the observation, how many bacteria will be present after 6 complete hours if the same pattern continues without interruption?",
+          "options": ["12,288", "24,576", "49,152", "98,304"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q20",
+          "prompt": "A number is selected randomly from all whole numbers between 1 and 180, including both 1 and 180. What is the probability that the selected number is divisible by both 4 and 9?",
+          "options": ["1/18", "1/20", "1/24", "1/36"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q21",
+          "prompt": "A sequence is given below: 13, 21, 29, 37, 45, ... If the same pattern continues, what will be the value of the 40th term? In addition, what will be the difference between the 40th term and the 25th term?",
+          "options": [
+            "317 and 120",
+            "321 and 120",
+            "325 and 120",
+            "329 and 120"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q22",
+          "prompt": "A person walks 9 km north, then 12 km east, and finally 20 km south. After this, the person walks 5 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+          "options": ["10 km", "12 km", "13 km", "15 km"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q23",
+          "prompt": "The graph of a linear equation passes through the points (2, 7) and (6, 19). A student wants to calculate the slope of the line using the formula m = (y₂ − y₁)/(x₂ − x₁). What is the slope of the line?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q24",
+          "prompt": "A fair die is rolled four times. What is the probability that exactly three of the rolls show numbers greater than 4 and the remaining roll shows a number less than or equal to 4? In how many different arrangements can this happen?",
+          "options": [
+            "Probability = 8/1296, Arrangements = 2",
+            "Probability = 24/1296, Arrangements = 4",
+            "Probability = 32/1296, Arrangements = 4",
+            "Probability = 48/1296, Arrangements = 8"
+          ],
+          "correctIndex": 1
+        },
+        {
+          "id": "q25",
+          "prompt": "A function is defined as f(x) = 3x² + 2x − 1. A student is asked to calculate the average rate of change of the function between x = 1 and x = 3. Which of the following values is correct?",
+          "options": ["8", "10", "14", "16"],
+          "correctIndex": 1
+        }
+      ]
+    },
+    {
+      "slug": "class-11",
+      "label": "Class XI",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A sequence is defined by the relation: a₁ = 3 and aₙ₊₁ = 2aₙ + 5. A student calculates the first few terms as 3, 11, 27, 59, ... If the same recursive rule continues, what will be the exact value of the 8th term?",
+          "options": ["1,019", "1,275", "1,531", "1,787"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q2",
+          "prompt": "A positive integer leaves remainder 1 when divided by 3, remainder 2 when divided by 4, remainder 3 when divided by 5, remainder 4 when divided by 6, and remainder 5 when divided by 7. In addition, the number is less than 1000. A student notices that numbers satisfying one or two of the conditions are very common, but numbers satisfying all five conditions simultaneously are much rarer. Which of the following numbers satisfies all of the given conditions at the same time?",
+          "options": ["119", "239", "359", "719"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q3",
+          "prompt": "Seven students named A, B, C, D, E, F, and G are standing in a straight line. A is somewhere to the left of D. B is not at either end. C is somewhere between A and E. D is not standing next to G. E is not standing at the extreme right. F is somewhere to the right of B but to the left of G. Which student must definitely be standing at the extreme left?",
+          "options": ["A", "B", "C", "E"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q4",
+          "prompt": "Set P contains all multiples of 6 less than 200, Set Q contains all multiples of 8 less than 200, and Set R contains all multiples of 12 less than 200. A student is asked to determine how many numbers belong to exactly two of the three sets, meaning they belong to two sets but not all three together. Which of the following values is correct?",
+          "options": ["4", "6", "8", "10"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q5",
+          "prompt": "A town has population 20,000 in Year 1. It doubles every year for the next three years, then grows by 50% every year for the next two years, and finally increases by 25% in the last year. What will be the population at the end of Year 6?",
+          "options": ["2,70,000", "3,60,000", "4,50,000", "5,40,000"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 12 red balls, 10 blue balls, 8 green balls, and 5 yellow balls, making a total of 35 balls altogether. Three balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are blue and the third ball is green, regardless of the order in which they are selected?",
+          "options": ["18/1309", "24/1309", "30/1309", "36/1309"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q7",
+          "prompt": "In a triangle, the three interior angles are in the ratio 2 : 5 : 8. The smallest side of the triangle measures 9 cm. If the side lengths are proportional to the sine of their opposite angles, what is the approximate length of the largest side?",
+          "options": ["18 cm", "21 cm", "24 cm", "27 cm"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q8",
+          "prompt": "A square has side length 15 cm. Another square has side length six times as large. By what factor does the area increase?",
+          "options": ["12", "24", "36", "48"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q9",
+          "prompt": "A positive whole number leaves remainder 2 when divided by 5, remainder 4 when divided by 7, remainder 6 when divided by 9, and remainder 8 when divided by 11. Which of the following numbers satisfies all of these conditions simultaneously?",
+          "options": ["173", "208", "313", "418"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q10",
+          "prompt": "A recursive sequence is defined by multiplying each term by 4 and then subtracting 3 to obtain the next term. If the first term is 5, then the sequence begins as 5, 17, 65, 257, ... A student continues this process carefully term by term. What will be the exact value of the seventh term of the sequence?",
+          "options": ["15,377", "16,381", "16,445", "16,637"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q11",
+          "prompt": "A fair coin is tossed seven times. What is the probability that exactly four tosses show heads and exactly three tosses show tails?",
+          "options": ["21/128", "35/128", "42/128", "56/128"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q12",
+          "prompt": "Two sets are defined as follows: A = {all multiples of 5 from 5 to 100} B = {all multiples of 8 from 8 to 96} How many elements belong to A ∩ B, and how many belong to A ∪ B?",
+          "options": ["2 and 30", "3 and 29", "2 and 31", "3 and 30"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q13",
+          "prompt": "A train leaves Station X at exactly 5:00 AM and travels at a constant speed of 100 km/h. A second train leaves the same station at exactly 7:00 AM and travels at 160 km/h. A third train leaves the same station at exactly 8:00 AM and travels at 220 km/h. Assuming all three trains continue moving in the same direction without stopping, at what exact time will the third train catch up with the first train?",
+          "options": ["10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q14",
+          "prompt": "Assertion (A): The 20th term of the arithmetic sequence 7, 12, 17, 22, ... is 102. Reason (R): The nth term of the sequence is given by 5n + 2.",
+          "options": [
+            "Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+            "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+            "Assertion is true, but Reason is false",
+            "Assertion is false, but Reason is true"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "id": "q15",
+          "prompt": "A rectangle has length 36 cm and width 22 cm. Another rectangle has all dimensions multiplied by 8. By what factor does the area increase?",
+          "options": ["16", "32", "64", "128"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q16",
+          "prompt": "In a class of 120 students, 75 students like cricket, 62 students like football, and 28 students like both sports. How many students like only cricket?",
+          "options": ["28", "37", "47", "75"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q17",
+          "prompt": "A spinner has 20 equal sections numbered from 1 to 20. A student is asked to calculate the probability that the spinner lands on a number which is both prime and even at the same time. Since only one number between 1 and 20 satisfies both conditions, which of the following probabilities is correct?",
+          "options": ["1/20", "1/10", "3/20", "1/5"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q18",
+          "prompt": "A triangle has side lengths 11 cm, 60 cm, and 61 cm. Which statement about the triangle must be true?",
+          "options": [
+            "It is an equilateral triangle",
+            "It is an isosceles triangle",
+            "It is a right triangle",
+            "It cannot form a triangle"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "A bacterial colony grows by a factor of 5 every hour. If the colony initially contains 8 bacteria, how many bacteria will be present after 5 complete hours?",
+          "options": ["12,500", "20,000", "25,000", "31,250"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q20",
+          "prompt": "A number is selected randomly from all whole numbers between 1 and 300. What is the probability that the selected number is divisible by both 6 and 10?",
+          "options": ["1/15", "1/20", "1/25", "1/30"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q21",
+          "prompt": "A sequence is given below: 15, 24, 33, 42, 51, ... A student observes that the sequence increases by the same amount each time and therefore forms an arithmetic progression. If the same pattern continues, what will be the value of the 50th term, and what will be the difference between the 50th term and the 30th term?",
+          "options": [
+            "456 and 180",
+            "456 and 200",
+            "465 and 180",
+            "465 and 200"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "id": "q22",
+          "prompt": "A person walks 12 km north, then 16 km east, then 30 km south, and finally 9 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+          "options": ["15 km", "17 km", "21 km", "25 km"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q23",
+          "prompt": "The graph of a linear equation passes through the points (3, 8) and (9, 26). Using the formula for slope, what is the slope of the line?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q24",
+          "prompt": "A fair die is rolled five times. What is the probability that exactly four of the rolls show numbers greater than 3 and the remaining roll shows a number less than or equal to 3?",
+          "options": ["80/7776", "160/7776", "240/7776", "320/7776"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q25",
+          "prompt": "A function is defined as f(x) = 2x² + 5x − 3. A student is asked to calculate the average rate of change of the function between x = 2 and x = 6. To do this, the student first finds the values of the function at x = 2 and x = 6 and then divides the change in the function values by the change in x. Which of the following values is correct?",
+          "options": ["17", "19", "21", "23"],
+          "correctIndex": 2
+        }
+      ]
+    },
+    {
+      "slug": "class-12",
+      "label": "Class XII",
+      "subtitle": "YMRC sample paper — Mathematics",
+      "questions": [
+        {
+          "id": "q1",
+          "prompt": "A sequence is defined recursively by: a₁ = 3 and aₙ₊₁ = 4aₙ − 5. A student observes that the first few terms are 3, 7, 23, 87, ... and then claims that the sequence can also be expressed in the form aₙ = A(4ⁿ) + B for suitable constants A and B. If the same recursive pattern continues exactly, what will be the value of a₈?",
+          "options": ["19,659", "20,139", "20,619", "21,099"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q2",
+          "prompt": "A positive integer N leaves remainder 1 when divided by 2, remainder 2 when divided by 3, remainder 3 when divided by 4, remainder 4 when divided by 5, remainder 5 when divided by 6, remainder 6 when divided by 7, and remainder 7 when divided by 8. In addition, N is less than 10,000. Which of the following numbers satisfies all the conditions simultaneously?",
+          "options": ["839", "1679", "2519", "5039"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q3",
+          "prompt": "A student is given the condition that sin θ + cos θ = 1/2, where θ lies in the second quadrant. Since θ lies in the second quadrant, the student knows that sin θ is positive while cos θ is negative. Using the identity (sin θ + cos θ)² = sin² θ + cos² θ + 2sin θ cos θ, the student attempts to calculate the exact value of sin 2θ. Which of the following values is correct?",
+          "options": ["-3/4", "-7/8", "-1/4", "-½"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q4",
+          "prompt": "A function is defined as: f(x) = |x − 2| + |x + 3| A student studies the graph of the function and notices that the function behaves differently in three separate intervals. What is the minimum possible value of f(x)?",
+          "options": ["3", "4", "5", "6"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q5",
+          "prompt": "Three sets are defined as follows: A = {all multiples of 4 from 1 to 120} B = {all multiples of 6 from 1 to 120} C = {all multiples of 9 from 1 to 120} How many elements belong to exactly two of the three sets but not all three together?",
+          "options": ["7", "8", "9", "10"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q6",
+          "prompt": "A bag contains 8 red balls, 7 blue balls, 6 green balls, and 5 yellow balls. Four balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are blue, one is green, and one is yellow?",
+          "options": ["2520/14950", "2940/14950", "3360/14950", "3780/14950"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q7",
+          "prompt": "A triangle has sides 13 cm, 14 cm, and 15 cm. Using Heron's formula, what is the exact area of the triangle?",
+          "options": ["72 cm²", "84 cm²", "96 cm²", "108 cm²"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q8",
+          "prompt": "If tan θ = 3/4 and θ lies in the first quadrant, a student first constructs a right triangle with opposite side 3 and adjacent side 4, and then uses the Pythagorean theorem to determine the hypotenuse. Using this information, what is the exact value of sec θ + cosec θ?",
+          "options": ["11/3", "17/4", "29/12", "37/12"],
+          "correctIndex": 3
+        },
+        {
+          "id": "q9",
+          "prompt": "A quadratic function passes through the points (1, 2), (2, 5), and (3, 10). If the function is of the form y = ax² + bx + c, what is the value of a + b + c?",
+          "options": ["1", "2", "3", "4"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q10",
+          "prompt": "A recursive sequence is defined by multiplying each term by 3 and then adding 2. If the first term is 4, then the sequence begins as 4, 14, 44, 134, ... What is the value of the 9th term?",
+          "options": ["32,804", "32,806", "32,810", "32,816"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q11",
+          "prompt": "A fair coin is tossed 10 times in succession. A student wants to calculate the probability that exactly 6 tosses show heads and exactly 4 tosses show tails. Since the number of ways of choosing which 6 tosses are heads is important, combinations must be used in the calculation. Which of the following probabilities is correct?",
+          "options": ["105/512", "115/512", "125/512", "135/512"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q12",
+          "prompt": "A student draws the graph of y = x² − 6x + 5 and notices that the graph cuts the x-axis at two points. What is the distance between those two x-intercepts?",
+          "options": ["2", "3", "4", "5"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q13",
+          "prompt": "A train leaves Station A at 5:00 AM with speed 80 km/h. Another train leaves the same station at 6:00 AM with speed 120 km/h. A third train leaves at 7:00 AM with speed 160 km/h. At what exact time will the third train catch the first train?",
+          "options": ["9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q14",
+          "prompt": "Assertion (A): The derivative of x³ − 4x² + 7x − 1 is 3x² − 8x + 7. Reason (R): The derivative of xⁿ with respect to x is nxⁿ⁻¹, and constants disappear when differentiated.",
+          "options": [
+            "Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+            "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+            "Assertion is true, but Reason is false",
+            "Assertion is false, but Reason is true"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "id": "q15",
+          "prompt": "If f(x) = 2x³ − 9x² + 12x + 1, a student differentiates the function term by term to obtain the derivative function. The student then substitutes x = 2 into the derivative to determine the instantaneous rate of change of the function at that point. What is the exact value of f'(2)?",
+          "options": ["-3", "-1", "0", "3"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q16",
+          "prompt": "A number is selected randomly from the integers between 1 and 500. What is the probability that the number is divisible by both 6 and 14?",
+          "options": ["1/21", "1/35", "1/42", "1/84"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q17",
+          "prompt": "If y = x² + 4x + 7, then the slope of the tangent to the curve at any point x is obtained by differentiating the function. After finding the derivative, a student substitutes x = 1 to obtain the slope and then uses the point-slope form of a straight line to determine the equation of the tangent. Which of the following equations is correct?",
+          "options": ["y = 6x + 2", "y = 6x + 4", "y = 8x + 2", "y = 8x + 4"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q18",
+          "prompt": "A person walks 20 km north, then 21 km east, then 48 km south, and finally 7 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+          "options": ["20 km", "24 km", "28 km", "36 km"],
+          "correctIndex": 2
+        },
+        {
+          "id": "q19",
+          "prompt": "If f(x) = x³ − 6x² + 9x + 1, then the stationary points of the function occur where the derivative is equal to zero. A student differentiates the function and solves the resulting quadratic equation carefully. At which value or values of x does the function have a stationary point?",
+          "options": [
+            "x = 1 only",
+            "x = 2 only",
+            "x = 1 and x = 3",
+            "x = 1 and x = 2"
+          ],
+          "correctIndex": 2
+        },
+        {
+          "id": "q20",
+          "prompt": "A spinner has numbers from 1 to 24. What is the probability that the spinner lands on a number which is both even and prime?",
+          "options": ["1/24", "1/12", "1/8", "⅙"],
+          "correctIndex": 0
+        },
+        {
+          "id": "q21",
+          "prompt": "The graph of the function y = x² − 4x + 3 is shifted 2 units to the right and 5 units upward. A student first replaces x by (x − 2) to represent the horizontal shift and then adds 5 to represent the vertical shift. Which of the following is the new equation of the transformed graph?",
+          "options": [
+            "y = x² − 8x + 16",
+            "y = x² − 8x + 20",
+            "y = x² − 8x + 24",
+            "y = x² − 8x + 28"
+          ],
+          "correctIndex": 3
+        },
+        {
+          "id": "q22",
+          "prompt": "If f(x) = x² − 5x + 6, then the function can be factorised into two linear factors. A student studies the graph and notices that the parabola opens upward, meaning the function will be positive outside its roots and negative between them. For which values of x is f(x) positive?",
+          "options": [
+            "x < 2 or x > 3",
+            "2 < x < 3",
+            "x < 2 only",
+            "x > 3 only"
+          ],
+          "correctIndex": 0
+        },
+        {
+          "id": "q23",
+          "prompt": "A function is defined by f(x) = 1/x. A student is asked to calculate the average rate of change of the function between x = 1 and x = 4. The student first finds the values of the function at x = 1 and x = 4, then divides the change in function values by the change in x. Which of the following values is correct?",
+          "options": ["-1/3", "-1/4", "-1/2", "-3/4"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q24",
+          "prompt": "A fair die is rolled 5 times. What is the probability that exactly 3 rolls show a number greater than 4?",
+          "options": ["80/7776", "240/7776", "480/7776", "720/7776"],
+          "correctIndex": 1
+        },
+        {
+          "id": "q25",
+          "prompt": "If y = x⁴ − 8x² + 5, a student first differentiates the function once to obtain the first derivative and then differentiates again to obtain the second derivative. After simplifying the expression for the second derivative, the student substitutes x = 1. What is the exact value of d²y/dx² at x = 1?",
+          "options": ["-8", "-4", "0", "4"],
+          "correctIndex": 0
+        }
+      ]
+    }
+  ]
+}

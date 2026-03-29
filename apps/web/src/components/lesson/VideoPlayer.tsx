@@ -179,6 +179,9 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
       p.pauseVideo();
     } else {
       if (!hasStarted) setAwaitingPlayback(true);
+      if (state === YT.PlayerState.ENDED) {
+        p.seekTo(0, true);
+      }
       p.playVideo();
     }
   }, [hasStarted]);

@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { memo } from "react";
-import { Award, BookOpen, Compass, Home, User } from "lucide-react";
+import { Award, BookOpen, Brain, Compass, Home } from "lucide-react";
 
 const NAV = [
   { href: "/dashboard", label: "Home", Icon: Home },
   { href: "/explore", label: "Explore", Icon: Compass },
   { href: "/my-courses", label: "My Courses", Icon: BookOpen },
   { href: "/ysc", label: "YSC", Icon: Award },
-  { href: "/profile", label: "Profile", Icon: User },
+  { href: "/ymrc-quiz", label: "YMRC", Icon: Brain },
 ];
 
 function BottomNavInner() {
