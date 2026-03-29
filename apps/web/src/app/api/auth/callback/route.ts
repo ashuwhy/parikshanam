@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 
+import { supabaseSsrCookieOptions } from "@/lib/supabase/ssrCookie";
+
 /**
  * OAuth PKCE callback. Session cookies must be set on the same NextResponse we return.
  * Using cookies() from next/headers here often fails silently (see server.ts try/catch),
@@ -27,6 +29,7 @@ export async function GET(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...supabaseSsrCookieOptions,
       cookies: {
         getAll() {
           return request.cookies.getAll();

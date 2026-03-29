@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 
 import { getSupabasePublicConfig } from '@/lib/env'
+import { supabaseSsrCookieOptions } from '@/lib/supabase/ssrCookie'
 
 /**
  * OAuth PKCE callback. Session cookies must be set on the returned NextResponse.
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
   const url = new URL(request.url)
   const code = url.searchParams.get('code')
   let next = url.searchParams.get('next') ?? '/dashboard'
-  if (!next.startsWith('/')) {
+  if (!next.startsWith('/') || next.startsWith('//')) {
     next = '/dashboard'
   }
 
@@ -30,6 +31,7 @@ export async function GET(request: NextRequest) {
     supabaseUrl,
     anonKey,
     {
+      ...supabaseSsrCookieOptions,
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll: (cookiesToSet: { name: string; value: string; options: CookieOptions }[]) => {

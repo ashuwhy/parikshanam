@@ -2,6 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { getSupabasePublicConfig } from '@/lib/env'
+import { supabaseSsrCookieOptions } from '@/lib/supabase/ssrCookie'
 
 export async function middleware(request: NextRequest) {
   let supabaseUrl: string
@@ -22,6 +23,7 @@ export async function middleware(request: NextRequest) {
     supabaseUrl,
     anonKey,
     {
+      ...supabaseSsrCookieOptions,
       cookies: {
         getAll: () => request.cookies.getAll(),
         setAll: (cookiesToSet: { name: string; value: string; options: CookieOptions }[]) => {

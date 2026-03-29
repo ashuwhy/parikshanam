@@ -1,6 +1,8 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { supabaseSsrCookieOptions } from "@/lib/supabase/ssrCookie";
+
 /**
  * Auth gate for the App Router (Next.js 16+ `proxy` replaces `middleware`).
  * Unauthenticated users hitting protected routes are sent to /login with ?next=…
@@ -12,6 +14,7 @@ export async function proxy(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...supabaseSsrCookieOptions,
       cookies: {
         getAll() {
           return request.cookies.getAll();
