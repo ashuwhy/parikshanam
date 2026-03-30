@@ -5,7 +5,15 @@ import { cn } from "@/lib/cn";
 /** Hero promo video (YouTube ID). */
 const HERO_VIDEO_ID = "SQX03U2Kjes";
 
-const STATS = [
+type HeroStat = {
+  delay: string;
+  highlight: string;
+  lines: readonly string[];
+  /** Split highlight onto two lines on mobile only */
+  highlightMobile?: readonly [string, string];
+};
+
+const STATS: readonly HeroStat[] = [
   {
     delay: "delay-1",
     highlight: "40%",
@@ -14,6 +22,7 @@ const STATS = [
   {
     delay: "delay-2",
     highlight: "< 1000 ranker",
+    highlightMobile: ["< 1000", "ranker"],
     lines: ["give gov", "olympiad!"],
   },
   {
@@ -21,15 +30,15 @@ const STATS = [
     highlight: "ISRO /",
     lines: ["TIFR", "CAMP", "BY GOI"],
   },
-] as const;
+];
 
-/** Matches `FeaturesSection` marketing cards (border, surface, shadow, hover). */
+/** Desktop hero stat tiles — compact padding at lg+ (overrides sm/xl below). */
 const statCardClass =
-  "group min-w-0 flex flex-col items-center justify-center rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FAF8F6] py-3 px-1.5 text-center shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_10px_36px_-18px_rgba(27,58,110,0.08)] transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/40 hover:bg-white hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_18px_44px_-14px_rgba(232,114,12,0.12)] sm:px-4 sm:py-5 xl:py-6 2xl:px-5 2xl:py-7";
+  "group min-w-0 flex flex-col items-center justify-center rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FAF8F6] py-3 px-1.5 text-center shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_10px_36px_-18px_rgba(27,58,110,0.08)] transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/40 hover:bg-white hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_18px_44px_-14px_rgba(232,114,12,0.12)] sm:px-4 sm:py-5 xl:py-6 2xl:px-5 2xl:py-7 lg:px-2.5 lg:py-3 xl:px-3 xl:py-3.5 2xl:px-3.5 2xl:py-4";
 
 /** Compact stat tiles for the mobile hero row beside portrait video. */
 const statCardClassMobile =
-  "group min-w-0 flex flex-1 flex-col items-center justify-center rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FAF8F6] px-1.5 py-2 text-center shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_8px_28px_-14px_rgba(27,58,110,0.08)] transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/40 hover:bg-white";
+  "group min-w-0 flex flex-1 flex-col items-center justify-center rounded-[var(--radius-card)] border border-[#E5E0D8] bg-[#FAF8F6] px-2 py-2.5 text-center shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_8px_28px_-14px_rgba(27,58,110,0.08)] transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/40 hover:bg-white sm:px-2.5 sm:py-3";
 
 function PortraitVideo({ videoId }: { videoId: string }) {
   return (
@@ -70,10 +79,12 @@ function HeroFortuneBlock({ className }: { className?: string }) {
         Fortune favour the <span className="text-[#E8720C]">EARLY</span> prepared
       </p>
       <p
-        className="mt-2 text-[11px] uppercase leading-relaxed tracking-[0.14em] text-[#4B5563] sm:mt-3 md:mt-4 sm:text-xs sm:tracking-[0.16em] md:text-sm"
+        className="mt-2 text-[11px] uppercase tracking-[0.12em] text-[#4B5563] sm:mt-3 sm:text-xs sm:tracking-[0.16em] md:mt-4 md:text-sm"
         style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
       >
-        Prepare for government olympiad and fix your top rank in life
+        <span className="block md:inline">Prepare for government olympiad</span>
+        <span className="hidden md:inline"> </span>
+        <span className="block md:inline">and fix your top rank in life</span>
       </p>
     </div>
   );
@@ -83,7 +94,7 @@ function StatCards({ mobile }: { mobile: boolean }) {
   const cardClass = mobile ? statCardClassMobile : statCardClass;
   return (
     <>
-      {STATS.map(({ delay, highlight, lines }) => (
+      {STATS.map(({ delay, highlight, highlightMobile, lines }) => (
         <div
           key={delay}
           className={cn(
@@ -92,21 +103,39 @@ function StatCards({ mobile }: { mobile: boolean }) {
             "cursor-default",
           )}
         >
-          <p
-            className={cn(
-              "mb-0.5 leading-tight text-[#E8720C] tabular-nums tracking-tight",
-              mobile ? "text-[0.8rem] sm:mb-1 sm:text-[0.95rem]" : "mb-1 text-[0.95rem] sm:mb-1.5 sm:text-2xl xl:text-[1.75rem] 2xl:text-3xl",
-            )}
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-          >
-            {highlight}
-          </p>
+          {mobile && highlightMobile ? (
+            <div
+              className={cn(
+                "mb-0.5 text-[#E8720C] tabular-nums tracking-tight",
+                "text-sm sm:mb-1 sm:text-base",
+              )}
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+            >
+              {highlightMobile.map((line) => (
+                <span key={line} className="block leading-tight">
+                  {line}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p
+              className={cn(
+                "mb-0.5 leading-tight text-[#E8720C] tabular-nums tracking-tight",
+                mobile
+                  ? "text-sm sm:mb-1 sm:text-base"
+                  : "mb-1 text-[0.95rem] sm:mb-1.5 sm:text-2xl lg:mb-0.5 xl:text-[1.75rem] 2xl:text-3xl",
+              )}
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+            >
+              {highlight}
+            </p>
+          )}
           {lines.map((line) => (
             <p
               key={line}
               className={cn(
                 "leading-snug text-[#6B7280]",
-                mobile ? "text-[9px] sm:text-[10px]" : "text-[10px] sm:text-[13px] xl:text-sm 2xl:text-[0.95rem]",
+                mobile ? "text-xs sm:text-sm" : "text-[10px] sm:text-[13px] xl:text-sm 2xl:text-[0.95rem]",
               )}
               style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}
             >
@@ -137,7 +166,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <HeroFortuneBlock className="mt-4 px-1 sm:mt-5" />
+        <HeroFortuneBlock className="mt-[14px] px-1 sm:mt-7" />
 
         <div className="mt-4 w-full">
           <HeroCtaLinks />
@@ -151,26 +180,20 @@ export default function HeroSection() {
         */}
         <div className="mx-auto grid w-full max-w-[58rem] grid-cols-1 lg:max-w-[68rem] lg:grid-cols-[minmax(0,1fr)_minmax(280px,360px)] lg:gap-x-10 lg:items-start lg:gap-y-8 xl:max-w-[76rem] xl:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] xl:gap-x-16 xl:gap-y-10 2xl:max-w-[88rem] 2xl:grid-cols-[minmax(0,1fr)_minmax(360px,440px)] 2xl:gap-x-24 2xl:gap-y-12">
           <div className="mx-auto max-w-2xl text-center sm:mb-10 lg:col-start-1 lg:row-start-1 lg:mx-0 lg:mb-0 lg:max-w-2xl lg:text-left xl:max-w-none">
-            <p
-              className="animate-fade-in-up mb-4 text-[11px] uppercase tracking-[0.2em] text-[#C65F0A] sm:text-xs"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-            >
-              PARIKSHANAM.
-            </p>
             <HeroHeadline className="animate-fade-in-up mb-4 text-3xl leading-[1.1] sm:mb-5 sm:text-4xl md:text-5xl lg:mb-5 lg:text-[2.75rem] lg:leading-[1.06] xl:text-[3.5rem] 2xl:text-[4rem] 2xl:leading-[1.02]" />
           </div>
 
-          <div className="animate-fade-in-up delay-1 flex justify-center sm:mb-12 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:self-start lg:justify-end">
+          <div className="animate-fade-in-up delay-1 flex justify-center sm:mb-12 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-4 lg:self-start lg:justify-end">
             <HeroVideo videoId={HERO_VIDEO_ID} />
           </div>
 
           <div className="animate-fade-in-up delay-2 mt-4 mb-2 sm:mt-10 sm:mb-12 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:mb-0">
-            <div className="grid grid-cols-3 gap-2 sm:gap-3 xl:gap-4 2xl:gap-5">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-2 xl:gap-2.5 2xl:gap-3">
               <StatCards mobile={false} />
             </div>
           </div>
 
-          <HeroFortuneBlock className="lg:col-start-1 lg:row-start-3 lg:mx-0 lg:mt-2 lg:max-w-xl lg:text-left xl:mt-4 2xl:mt-6" />
+          <HeroFortuneBlock className="lg:col-start-1 lg:row-start-3 lg:mx-0 lg:mt-2.5 lg:max-w-xl lg:text-left lg:pb-1" />
 
           <HeroCtaLinks />
         </div>

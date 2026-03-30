@@ -13,7 +13,7 @@ export function HeroCtaLinks() {
   };
 
   return (
-    <div className="animate-fade-in-up delay-3 mt-2 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3.5 md:gap-4 lg:col-start-1 lg:row-start-3 lg:mt-4 lg:flex-nowrap lg:justify-start lg:gap-3 xl:mt-8 xl:gap-5 2xl:mt-10 2xl:gap-6">
+    <div className="animate-fade-in-up delay-3 mt-2 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3.5 md:gap-4 lg:col-start-1 lg:row-start-4 lg:mt-0 lg:flex-nowrap lg:justify-start lg:gap-3 xl:gap-5 2xl:gap-6">
       <Link
         href="/login"
         onClick={() => track("start_learning", "/login")}
