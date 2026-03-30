@@ -150,19 +150,19 @@ function StatCards({ mobile }: { mobile: boolean }) {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-[100dvh] flex-col overflow-hidden border-b border-[#E5E0D8]/90 bg-transparent px-5 pt-20 pb-10 sm:px-8 sm:pt-24 sm:pb-12 md:pb-14 lg:pt-28 xl:px-10 2xl:px-12">
+    <section className="relative flex min-h-[100dvh] flex-col overflow-hidden border-b border-[#E5E0D8]/90 bg-transparent px-5 pt-16 pb-10 sm:px-8 sm:pt-24 sm:pb-12 md:pb-14 lg:pt-28 xl:px-10 2xl:px-12">
       {/* Mobile */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-start md:hidden">
         <div className="mx-auto w-full max-w-lg text-center">
-          <HeroHeadline className="animate-fade-in-up mb-4 text-[1.65rem] leading-[1.12] sm:text-3xl sm:leading-[1.1]" />
+          <HeroHeadline className="animate-fade-in-up mb-2 text-[1.65rem] leading-[1.1] sm:mb-4 sm:text-3xl sm:leading-[1.1]" />
         </div>
 
-        <div className="animate-fade-in-up delay-1 mx-auto mt-2 flex w-full max-w-lg items-start justify-center gap-2.5 sm:mt-4 sm:gap-3.5">
-          <div className="w-[66%] min-w-[10.5rem] max-w-[16rem] shrink-0 sm:w-[66%] sm:max-w-[18rem]">
+        <div className="animate-fade-in-up delay-1 mx-auto mt-1.5 flex w-full max-w-lg items-stretch justify-center gap-2.5 sm:mt-4 sm:gap-3.5">
+          <div className="w-[61%] min-w-[10rem] max-w-[15.2rem] shrink-0 sm:w-[61%] sm:max-w-[17rem]">
             <PortraitVideo videoId={HERO_VIDEO_ID} />
           </div>
-          <div className="flex min-w-0 basis-[34%] flex-1 flex-col justify-between gap-2 sm:gap-2.5">
-            <div className="flex min-h-0 flex-1 flex-col gap-2 sm:gap-2.5">
+          <div className="flex min-w-0 basis-[39%] flex-1 self-stretch flex-col justify-between gap-2 sm:gap-2.5">
+            <div className="flex h-full min-h-0 flex-1 flex-col gap-2 sm:gap-2.5">
               <StatCards mobile />
             </div>
           </div>
