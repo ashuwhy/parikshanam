@@ -24,16 +24,25 @@ export function DashboardClient({
   const metaLine = [olympiad, cls].filter(Boolean).join(" • ");
   const hasDiscount = featuredCourse.mrp != null && featuredCourse.mrp > featuredCourse.price;
 
+  const courseProgress = progress.filter((p) => p.course_id === featuredCourse.id);
+  const completionPercentage =
+    featuredCourse.total_lessons > 0
+      ? Math.round((courseProgress.length / featuredCourse.total_lessons) * 100)
+      : 0;
+
   return (
     <Link
       href={`/course/${featuredCourse.id}`}
-      className="block rounded-2xl bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] transition-[border-color,transform] duration-200 hover:-translate-y-0.5"
+      className="block h-full flex flex-col rounded-2xl bg-white border border-[#E5E0D8] overflow-hidden hover:border-[#E8720C] transition-[border-color,transform] duration-200 hover:-translate-y-0.5"
     >
       {/* Thumbnail */}
       <div
-        className="relative flex items-center justify-center"
+        className={`relative flex items-center justify-center ${
+          variant === "featured" 
+            ? "h-[200px] sm:h-[350px]" 
+            : "h-[160px] sm:h-[180px]"
+        }`}
         style={{
-          height: variant === "featured" ? 350 : 200,
           background: "linear-gradient(135deg, rgba(232,114,12,0.10) 0%, rgba(27,58,110,0.06) 100%)",
         }}
       >
@@ -70,15 +79,17 @@ export function DashboardClient({
         )}
 
         {purchased && (
-          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90">
+          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/95 shadow-sm border border-[#E5E0D8]/50">
             <CheckCircle size={10} color="#22C55E" strokeWidth={2.5} />
-            <span style={{ fontSize: 10, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
+            <span style={{ fontSize: 10, color: "#22C55E", fontWeight: 850, fontFamily: "var(--font-nunito-var)" }}>
+              {completionPercentage > 0 ? `${completionPercentage}% Done` : "Enrolled"}
+            </span>
           </div>
         )}
       </div>
 
       {/* Body */}
-      <div className="px-5 pt-4 pb-5">
+      <div className="px-5 pt-4 pb-5 flex flex-col flex-1">
         {metaLine && (
           <p className="text-[11px] uppercase tracking-widest text-[#9CA3AF] mb-1.5" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
             {metaLine}

@@ -137,7 +137,7 @@ export default async function DashboardPage() {
                     key={course.id} 
                     featuredCourse={course} 
                     purchases={purchases} 
-                    progress={progress} 
+                    progress={progress}
                     variant="grid"
                   />
                 ))}
