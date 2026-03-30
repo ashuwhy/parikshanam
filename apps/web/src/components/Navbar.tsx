@@ -50,10 +50,10 @@ export default function Navbar() {
             className="h-8 w-8 shrink-0 rounded-[var(--radius-icon-tile)]"
           />
           <span
-            className="text-[1.2rem] text-[#1B3A6E]"
+            className="text-[1.2rem] text-[#1B3A6E] uppercase"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
-            Parikshanam
+            Parikshanam.
           </span>
         </Link>
 
