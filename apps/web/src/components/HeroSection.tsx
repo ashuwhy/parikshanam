@@ -159,13 +159,13 @@ export default function HeroSection() {
 
         <div className="animate-fade-in-up delay-1 mx-auto mt-1.5 flex w-full max-w-lg items-stretch justify-center gap-2.5 sm:mt-4 sm:gap-3.5">
           <div className="w-[61%] min-w-[10rem] max-w-[15.2rem] shrink-0 sm:w-[61%] sm:max-w-[17rem]">
+            <PortraitVideo videoId={HERO_VIDEO_ID} />
             <p
-              className="mb-1 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:mb-1.5 sm:text-xs"
+              className="mt-1 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:mt-1.5 sm:text-xs"
               style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
             >
               Introduction Video
             </p>
-            <PortraitVideo videoId={HERO_VIDEO_ID} />
           </div>
           <div className="flex min-w-0 basis-[39%] flex-1 self-stretch flex-col justify-between gap-2 sm:gap-2.5">
             <div className="flex h-full min-h-0 flex-1 flex-col gap-2 sm:gap-2.5">
@@ -193,13 +193,13 @@ export default function HeroSection() {
 
           <div className="animate-fade-in-up delay-1 flex justify-center sm:mb-12 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-4 lg:self-start lg:justify-end">
             <div className="w-full">
+              <HeroVideo videoId={HERO_VIDEO_ID} />
               <p
-                className="mb-2 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:text-xs"
+                className="mt-2 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:text-xs"
                 style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
               >
                 Introduction Video
               </p>
-              <HeroVideo videoId={HERO_VIDEO_ID} />
             </div>
           </div>
 
