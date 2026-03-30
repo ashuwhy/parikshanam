@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+import { createClient } from "@/lib/supabase/server";
+
 export default async function ResearchQuizPlayPage({ params }: Props) {
   const { competition, slug } = await params;
   if (!isCompetitionId(competition)) notFound();
@@ -36,5 +38,28 @@ export default async function ResearchQuizPlayPage({ params }: Props) {
 
   const competitionAbbr = researchQuizData[competition].abbr;
 
-  return <ResearchQuizPlayerClient quiz={quiz} competitionAbbr={competitionAbbr} />;
+  // Check for existing attempt
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  let hasAttempted = false;
+  if (user) {
+    const { data } = await supabase
+      .from("research_quiz_results")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("competition", competition)
+      .eq("quiz_slug", slug)
+      .maybeSingle();
+    
+    if (data) hasAttempted = true;
+  }
+
+  return (
+    <ResearchQuizPlayerClient 
+      quiz={quiz} 
+      competitionAbbr={competitionAbbr} 
+      hasAttempted={hasAttempted} 
+    />
+  );
 }

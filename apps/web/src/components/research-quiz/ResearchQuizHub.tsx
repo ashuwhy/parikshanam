@@ -20,6 +20,7 @@ function QuizSection({
   Icon,
   iconWrapClass,
   quizzes,
+  completedSlugs,
 }: {
   competition: CompetitionId;
   title: string;
@@ -28,6 +29,7 @@ function QuizSection({
   Icon: LucideIcon;
   iconWrapClass: string;
   quizzes: ResearchQuizPaper[];
+  completedSlugs: string[];
 }) {
   return (
     <section className="min-w-0">
@@ -54,47 +56,67 @@ function QuizSection({
       </div>
 
       <ul className="flex flex-col gap-2">
-        {quizzes.map((q) => (
-          <li key={`${competition}-${q.slug}`}>
-            <Link
-              href={`/research-quiz/${competition}/${q.slug}`}
-              onClick={() =>
-                captureClient(AnalyticsEvents.research_quiz_hub_paper_clicked, {
-                  competition,
-                  slug: q.slug,
-                  label: q.label,
-                })
-              }
-              className={cn(
-                "group flex items-center justify-between gap-4 rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white p-4 sm:p-5 shadow-sm",
-                "transition-colors hover:border-[#E8720C] hover:bg-[#FFFBF7]",
-              )}
-            >
-              <div className="min-w-0 text-left">
-                <p
-                  className="text-base sm:text-lg text-[#111827] group-hover:text-[#1B3A6E]"
-                  style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-                >
-                  {q.label}
-                </p>
-                <p className="text-xs sm:text-sm text-[#6B7280] mt-0.5" style={{ fontFamily: "var(--font-roboto-var)" }}>
-                  {q.subtitle}
-                </p>
-              </div>
-              <ChevronRight
-                className="shrink-0 text-[#9CA3AF] group-hover:text-[#E8720C] transition-colors"
-                size={22}
-                aria-hidden
-              />
-            </Link>
-          </li>
-        ))}
+        {quizzes.map((q) => {
+          const isCompleted = completedSlugs.includes(q.slug);
+          return (
+            <li key={`${competition}-${q.slug}`}>
+              <Link
+                href={`/research-quiz/${competition}/${q.slug}`}
+                onClick={() =>
+                  captureClient(AnalyticsEvents.research_quiz_hub_paper_clicked, {
+                    competition,
+                    slug: q.slug,
+                    label: q.label,
+                  })
+                }
+                className={cn(
+                  "group flex items-center justify-between gap-4 rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white p-4 sm:p-5 shadow-sm",
+                  "transition-colors hover:border-[#E8720C] hover:bg-[#FFFBF7]",
+                  isCompleted && "border-[#22C55E]/30 bg-[#22C55E]/5"
+                )}
+              >
+                <div className="min-w-0 text-left">
+                  <div className="flex items-center gap-2">
+                    <p
+                      className="text-base sm:text-lg text-[#111827] group-hover:text-[#1B3A6E]"
+                      style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
+                    >
+                      {q.label}
+                    </p>
+                    {isCompleted && (
+                      <span className="inline-flex items-center rounded-full bg-[#22C55E]/10 px-2 py-0.5 text-[10px] font-bold text-[#15803D] uppercase tracking-wider">
+                        Completed
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#6B7280] mt-0.5" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                    {q.subtitle}
+                  </p>
+                </div>
+                <ChevronRight
+                  className={cn(
+                    "shrink-0 text-[#9CA3AF] group-hover:text-[#E8720C] transition-colors",
+                    isCompleted && "text-[#22C55E]"
+                  )}
+                  size={22}
+                  aria-hidden
+                />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
 }
 
-export function ResearchQuizHub({ userProfile }: { userProfile: Profile | null }) {
+export function ResearchQuizHub({ 
+  userProfile, 
+  completedQuizSlugs = [] 
+}: { 
+  userProfile: Profile | null;
+  completedQuizSlugs?: string[];
+}) {
   const { ymrc, ysrc } = researchQuizData;
   const userClass = userProfile?.class_level_id;
 
@@ -142,6 +164,7 @@ export function ResearchQuizHub({ userProfile }: { userProfile: Profile | null }
             Icon={Brain}
             iconWrapClass="bg-[#1B3A6E]/10 text-[#1B3A6E]"
             quizzes={filteredYmrc}
+            completedSlugs={completedQuizSlugs}
           />
         )}
 
@@ -154,6 +177,7 @@ export function ResearchQuizHub({ userProfile }: { userProfile: Profile | null }
             Icon={Microscope}
             iconWrapClass="bg-emerald-700/10 text-emerald-800"
             quizzes={filteredYsrc}
+            completedSlugs={completedQuizSlugs}
           />
         )}
       </div>

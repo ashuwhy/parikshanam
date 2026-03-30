@@ -18,19 +18,20 @@ const HUB_PATH = "/research-quiz";
 type Props = {
   quiz: ResearchQuizPaper;
   competitionAbbr: string;
+  hasAttempted?: boolean;
 };
 
-export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Props) {
+export default function ResearchQuizPlayerClient({ quiz, competitionAbbr, hasAttempted = false }: Props) {
   const router = useRouter();
   const { questions } = quiz;
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [phase, setPhase] = useState<"taking" | "results">("taking");
+  const [phase, setPhase] = useState<"taking" | "results">(hasAttempted ? "results" : "taking");
   const sessionLogged = useRef(false);
   const resultsLogged = useRef(false);
 
   useEffect(() => {
-    if (sessionLogged.current) return;
+    if (sessionLogged.current || hasAttempted) return;
     sessionLogged.current = true;
     captureClient(AnalyticsEvents.research_quiz_session_started, {
       competition: competitionAbbr,
@@ -38,7 +39,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
       quiz_label: quiz.label,
       question_count: questions.length,
     });
-  }, [competitionAbbr, quiz.slug, quiz.label, questions.length]);
+  }, [competitionAbbr, quiz.slug, quiz.label, questions.length, hasAttempted]);
 
   const current = questions[index];
   const isLast = index === questions.length - 1;
@@ -53,7 +54,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
   }, [questions, answers]);
 
   useEffect(() => {
-    if (phase !== "results" || resultsLogged.current) return;
+    if (phase !== "results" || resultsLogged.current || hasAttempted) return;
     resultsLogged.current = true;
     
     // Detailed results for the DB
@@ -83,7 +84,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
       score_pct: scorePct,
       total_questions: questions.length,
     });
-  }, [phase, competitionAbbr, quiz.slug, quiz.label, scorePct, questions, answers]);
+  }, [phase, competitionAbbr, quiz.slug, quiz.label, scorePct, questions, answers, hasAttempted]);
 
   const handlePick = (optIdx: number) => {
     captureClient(AnalyticsEvents.research_quiz_question_answered, {
@@ -102,13 +103,6 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
       return;
     }
     setIndex((i) => i + 1);
-  };
-
-  const handleRetake = () => {
-    resultsLogged.current = false;
-    setIndex(0);
-    setAnswers({});
-    setPhase("taking");
   };
 
   if (phase === "results") {
@@ -131,7 +125,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
             className="text-2xl sm:text-3xl text-[#1B3A6E] mb-4"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
-            Quiz Submitted Successfully!
+            {hasAttempted ? "You have already completed this quiz!" : "Thank You For Your Attempt!"}
           </h1>
           <p className="text-lg text-[#111827] mb-6" style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}>
             Your responses for <span className="text-[#E8720C] font-bold">{quiz.label}</span> have been recorded.
@@ -143,17 +137,22 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button type="button" variant="secondaryCompact" className="sm:flex-1" onClick={handleRetake}>
-            Retake Practice
-          </Button>
+        <div className="flex flex-col gap-3">
           <Button
             type="button"
             variant="primaryCompact"
-            className="sm:flex-1 w-full"
-            onClick={() => router.push(HUB_PATH)}
+            className="w-full min-h-14"
+            onClick={() => router.push("/explore")}
           >
-            Try another topic
+            Browse Foundation Courses
+          </Button>
+          <Button
+            type="button"
+            variant="secondaryCompact"
+            className="w-full min-h-14"
+            onClick={() => router.push("/explore?tab=labs")}
+          >
+            Explore Research Labs
           </Button>
         </div>
       </div>

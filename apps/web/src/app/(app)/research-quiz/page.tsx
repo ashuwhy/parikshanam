@@ -14,10 +14,17 @@ export default async function ResearchQuizPage() {
   const { data: { user } } = await supabase.auth.getUser();
   
   let profile = null;
+  let completedQuizSlugs: string[] = [];
+
   if (user) {
-    const { data } = await supabase.from("profiles").select("*").eq("id", user.id).maybeSingle();
-    profile = data;
+    const [profileRes, resultsRes] = await Promise.all([
+      supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
+      supabase.from("research_quiz_results").select("quiz_slug").eq("user_id", user.id)
+    ]);
+    
+    profile = profileRes.data;
+    completedQuizSlugs = (resultsRes.data || []).map(r => r.quiz_slug);
   }
 
-  return <ResearchQuizHub userProfile={profile} />;
+  return <ResearchQuizHub userProfile={profile} completedQuizSlugs={completedQuizSlugs} />;
 }
