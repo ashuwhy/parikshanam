@@ -122,11 +122,22 @@ export default async function CourseDetailPage({
   if (!course) notFound();
 
   const purchased = !!purchaseRes.data;
-  const modules = (modulesRes.data ?? []).map((m: any) => ({
-    ...m,
-    lessons: (m.lessons ?? []).sort((a: any, b: any) => a.order_index - b.order_index),
-    quizzes: (m.quizzes ?? []).sort((a: any, b: any) => a.order_index - b.order_index),
-  }));
+  const modules = (modulesRes.data ?? []).map((m) => {
+    const rm = m as unknown as {
+      id: string;
+      title: string;
+      order_index: number;
+      lessons: { id: string; title: string; duration_minutes: number; is_preview: boolean; order_index: number }[];
+      quizzes: { id: string; title: string; order_index: number }[];
+    };
+    return {
+      id: rm.id,
+      title: rm.title,
+      order_index: rm.order_index,
+      lessons: [...(rm.lessons ?? [])].sort((a, b) => a.order_index - b.order_index),
+      quizzes: [...(rm.quizzes ?? [])].sort((a, b) => a.order_index - b.order_index),
+    };
+  });
   const completedIds = new Set([
     ...(progressRes.data ?? []).map((p) => p.lesson_id).filter(Boolean),
     ...(progressRes.data ?? []).map((p) => p.quiz_id).filter(Boolean),

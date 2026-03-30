@@ -2,8 +2,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BookOpen, Play } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { formatPrice, classRange, olympiadLabel } from "@/lib/courseUtils";
+import { classRange, olympiadLabel } from "@/lib/courseUtils";
 import { buttonProps } from "@/components/ui/buttonStyles";
+import type { Purchase } from "@/lib/types";
 
 export default async function MyCoursesPage() {
   const supabase = await createClient();
@@ -23,7 +24,7 @@ export default async function MyCoursesPage() {
       .not("lesson_id", "is", null),
   ]);
 
-  const purchases = purchasesRes.data ?? [];
+  const purchases = (purchasesRes.data ?? []) as unknown as Purchase[];
   const progress = progressRes.data ?? [];
   const totalCompleted = progress.length;
 
@@ -91,7 +92,7 @@ export default async function MyCoursesPage() {
         ) : (
           <div className="flex flex-col gap-4">
             {purchases.map((p) => {
-              const course = p.course as any;
+              const course = p.course;
               if (!course) return null;
 
               const completed = progress.filter((pr) => pr.course_id === p.course_id).length;
