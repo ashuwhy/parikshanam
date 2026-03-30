@@ -17,7 +17,7 @@ const STATS: readonly HeroStat[] = [
   {
     delay: "delay-1",
     highlight: "40%",
-    lines: ["IITIANS", "are dropper"],
+    lines: ["IITIANS / AIIMS", "are dropper"],
   },
   {
     delay: "delay-2",
@@ -159,6 +159,12 @@ export default function HeroSection() {
 
         <div className="animate-fade-in-up delay-1 mx-auto mt-1.5 flex w-full max-w-lg items-stretch justify-center gap-2.5 sm:mt-4 sm:gap-3.5">
           <div className="w-[61%] min-w-[10rem] max-w-[15.2rem] shrink-0 sm:w-[61%] sm:max-w-[17rem]">
+            <p
+              className="mb-1 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:mb-1.5 sm:text-xs"
+              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+            >
+              Introduction Video
+            </p>
             <PortraitVideo videoId={HERO_VIDEO_ID} />
           </div>
           <div className="flex min-w-0 basis-[39%] flex-1 self-stretch flex-col justify-between gap-2 sm:gap-2.5">
@@ -186,7 +192,15 @@ export default function HeroSection() {
           </div>
 
           <div className="animate-fade-in-up delay-1 flex justify-center sm:mb-12 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-4 lg:self-start lg:justify-end">
-            <HeroVideo videoId={HERO_VIDEO_ID} />
+            <div className="w-full">
+              <p
+                className="mb-2 text-center text-[11px] uppercase tracking-[0.11em] text-[#1B3A6E] sm:text-xs"
+                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              >
+                Introduction Video
+              </p>
+              <HeroVideo videoId={HERO_VIDEO_ID} />
+            </div>
           </div>
 
           <div className="animate-fade-in-up delay-2 mt-4 mb-2 sm:mt-10 sm:mb-12 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:mb-0">
