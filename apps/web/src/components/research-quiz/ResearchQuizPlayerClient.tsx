@@ -14,6 +14,38 @@ import { AnalyticsEvents } from "@/lib/analytics/events";
 const LABELS = ["A", "B", "C", "D"] as const;
 
 const HUB_PATH = "/research-quiz";
+const INTRO_QUESTION_IDS = new Set(["q1", "q2", "q3", "q4"]);
+
+function shuffle<T>(arr: T[]): T[] {
+  const next = [...arr];
+  for (let i = next.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [next[i], next[j]] = [next[j], next[i]];
+  }
+  return next;
+}
+
+function mixIntroQuestions<T extends { id: string }>(allQuestions: T[]): T[] {
+  const intro: T[] = [];
+  const regular: T[] = [];
+
+  for (const q of allQuestions) {
+    if (INTRO_QUESTION_IDS.has(q.id)) {
+      intro.push(q);
+      continue;
+    }
+    regular.push(q);
+  }
+
+  if (!intro.length || !regular.length) return allQuestions;
+
+  const mixed = [...regular];
+  for (const q of shuffle(intro)) {
+    const insertAt = Math.floor(Math.random() * (mixed.length + 1));
+    mixed.splice(insertAt, 0, q);
+  }
+  return mixed;
+}
 
 type Props = {
   quiz: ResearchQuizPaper;
@@ -23,7 +55,7 @@ type Props = {
 
 export default function ResearchQuizPlayerClient({ quiz, competitionAbbr, hasAttempted = false }: Props) {
   const router = useRouter();
-  const { questions } = quiz;
+  const questions = useMemo(() => mixIntroQuestions(quiz.questions), [quiz.questions]);
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [phase, setPhase] = useState<"taking" | "results">(hasAttempted ? "results" : "taking");
