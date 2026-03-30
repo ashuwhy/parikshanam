@@ -166,26 +166,27 @@ export default async function CourseDetailPage({
           <VideoPlayer
             videoId={course.intro_video_path}
             title={`${course.title} Intro`}
-          />
-          {olympiad && (
-            <div
-              className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs uppercase tracking-widest z-40 pointer-events-none"
-              style={{ background: "#1B3A6E", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-            >
-              {olympiad}
-            </div>
-          )}
-          {purchased ? (
-            <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 z-40 pointer-events-none">
-              <CheckCircle size={11} color="#22C55E" strokeWidth={2.5} />
-              <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
-            </div>
-          ) : course.is_featured ? (
-            <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 rounded-xl z-40 pointer-events-none" style={{ background: "#E8720C" }}>
-              <Star size={10} color="white" fill="white" strokeWidth={0} />
-              <span style={{ fontSize: 11, color: "white", fontWeight: 800, fontFamily: "var(--font-nunito-var)" }}>Featured</span>
-            </div>
-          ) : null}
+          >
+            {olympiad && (
+              <div
+                className="absolute top-4 left-4 px-3 py-1.5 rounded-xl text-xs uppercase tracking-widest z-40 pointer-events-none"
+                style={{ background: "#1B3A6E", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
+              >
+                {olympiad}
+              </div>
+            )}
+            {purchased ? (
+              <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 z-40 pointer-events-none">
+                <CheckCircle size={11} color="#22C55E" strokeWidth={2.5} />
+                <span style={{ fontSize: 11, color: "#22C55E", fontWeight: 700, fontFamily: "var(--font-nunito-var)" }}>Enrolled</span>
+              </div>
+            ) : course.is_featured ? (
+              <div className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 rounded-xl z-40 pointer-events-none" style={{ background: "#E8720C" }}>
+                <Star size={10} color="white" fill="white" strokeWidth={0} />
+                <span style={{ fontSize: 11, color: "white", fontWeight: 800, fontFamily: "var(--font-nunito-var)" }}>Featured</span>
+              </div>
+            ) : null}
+          </VideoPlayer>
         </div>
       ) : (
         <div

@@ -32,9 +32,8 @@ function CourseCard({ course }: { course: Course }) {
     >
       {/* Thumbnail */}
       <div
-        className="relative flex items-center justify-center overflow-hidden"
+        className="relative aspect-video flex items-center justify-center overflow-hidden"
         style={{
-          height: 168,
           background: "linear-gradient(135deg, rgba(232,114,12,0.12) 0%, rgba(27,58,110,0.08) 100%)",
         }}
       >

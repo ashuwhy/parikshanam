@@ -42,7 +42,7 @@ function CourseCardInner({
       <div
         className="relative flex items-center justify-center"
         style={{
-          height: 148,
+          height: 192,
           background: "linear-gradient(135deg, rgba(232,114,12,0.08) 0%, rgba(27,58,110,0.04) 100%)",
         }}
       >

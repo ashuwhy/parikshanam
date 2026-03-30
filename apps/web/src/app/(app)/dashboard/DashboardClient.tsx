@@ -30,7 +30,7 @@ export function DashboardClient({
       <div
         className="relative flex items-center justify-center"
         style={{
-          height: 180,
+          height: 220,
           background: "linear-gradient(135deg, rgba(232,114,12,0.10) 0%, rgba(27,58,110,0.06) 100%)",
         }}
       >

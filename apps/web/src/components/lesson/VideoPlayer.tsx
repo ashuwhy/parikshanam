@@ -25,6 +25,7 @@ interface Props {
   videoId: string;
   title: string;
   onEnded?: () => void;
+  children?: React.ReactNode;
 }
 
 function formatTime(seconds: number): string {
@@ -34,7 +35,7 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function VideoPlayer({ videoId, title, onEnded }: Props) {
+export function VideoPlayer({ videoId, title, onEnded, children }: Props) {
   const playerId = useId().replace(/:/g, "");
   const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YT.Player | null>(null);
@@ -125,6 +126,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
               startProgress();
             } else if (e.data === YT.PlayerState.PAUSED) {
               setPlaying(false);
+              setShowControls(true);
               setAwaitingPlayback(false);
               clearProgressInterval();
             } else if (e.data === YT.PlayerState.BUFFERING) {
@@ -132,6 +134,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
             } else if (e.data === YT.PlayerState.ENDED) {
               setPlaying(false);
               setHasStarted(false);
+              setShowControls(true);
               setAwaitingPlayback(false);
               clearProgressInterval();
               onEndedRef.current?.();
@@ -161,13 +164,28 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
     };
   }, [videoId, playerId, startProgress, clearProgressInterval]);
 
-  const resetHideTimer = useCallback(() => {
-    setShowControls(true);
+  const startHideTimer = useCallback(() => {
     if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
     hideTimeoutRef.current = setTimeout(() => {
       if (playing) setShowControls(false);
     }, 3000);
   }, [playing]);
+
+  const resetHideTimer = useCallback(() => {
+    setShowControls(true);
+    startHideTimer();
+  }, [startHideTimer]);
+
+  useEffect(() => {
+    if (playing) {
+      startHideTimer();
+    } else {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+    }
+  }, [playing, startHideTimer]);
 
   const barShown = !playing || showControls;
 
@@ -328,6 +346,15 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
         </div>
       )}
 
+      {/* Top/Overlay content that hides with controls */}
+      <div
+        className={`absolute inset-0 z-40 pointer-events-none transition-opacity duration-300 ${
+          barShown ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {children}
+      </div>
+
       <div
         className={`absolute bottom-0 left-0 right-0 z-30 transition-opacity duration-300 ${
           barShown ? "opacity-100" : "pointer-events-none opacity-0"
@@ -356,7 +383,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-3">
             <button
               type="button"
               onClick={(e) => {
@@ -421,7 +448,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
                 onChange={handleVolumeChange}
                 onClick={(e) => e.stopPropagation()}
                 aria-label="Volume"
-                className="h-1 w-14 overflow-hidden accent-[#E8720C] transition-all duration-200 sm:w-0 sm:group-hover/vol:w-16"
+                className="h-1 w-0 overflow-hidden accent-[#E8720C] transition-all duration-200 sm:group-hover/vol:w-16"
               />
             </div>
 
@@ -434,7 +461,7 @@ export function VideoPlayer({ videoId, title, onEnded }: Props) {
 
             <div className="min-w-[1rem] flex-1" />
 
-            <span className="max-w-[120px] truncate text-[10px] text-white/60 sm:max-w-[200px] sm:text-xs">
+            <span className="hidden max-w-[120px] truncate text-[10px] text-white/60 sm:block sm:max-w-[200px] sm:text-xs">
               {title}
             </span>
 
