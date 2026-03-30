@@ -28,7 +28,7 @@ const STATS: readonly HeroStat[] = [
   {
     delay: "delay-3",
     highlight: "ISRO / TIFR",
-    lines: ["CAMP", "BY GOI"],
+    lines: ["CAMP", "BY GOVERNMENT OF INDIA"],
   },
 ];
 
