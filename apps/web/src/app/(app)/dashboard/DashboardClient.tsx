@@ -56,13 +56,15 @@ export function DashboardClient({
           </div>
         )}
 
-        <div
-          className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-lg"
-          style={{ background: "#E8720C", fontFamily: "var(--font-nunito-var)" }}
-        >
-          <Star size={9} color="white" fill="white" strokeWidth={0} />
-          <span style={{ fontSize: 10, color: "white", fontWeight: 800 }}>Featured</span>
-        </div>
+        {featuredCourse.is_featured && (
+          <div
+            className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-lg"
+            style={{ background: "#E8720C", fontFamily: "var(--font-nunito-var)" }}
+          >
+            <Star size={9} color="white" fill="white" strokeWidth={0} />
+            <span style={{ fontSize: 10, color: "white", fontWeight: 800 }}>Featured</span>
+          </div>
+        )}
 
         {purchased && (
           <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/90">
