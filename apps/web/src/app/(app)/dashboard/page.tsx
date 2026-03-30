@@ -138,6 +138,7 @@ export default async function DashboardPage() {
                     featuredCourse={course} 
                     purchases={purchases} 
                     progress={progress} 
+                    variant="grid"
                   />
                 ))}
               </div>

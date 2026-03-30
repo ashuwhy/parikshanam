@@ -8,10 +8,13 @@ import { formatPrice, classRange, discountPercent, olympiadLabel } from "@/lib/c
 export function DashboardClient({
   featuredCourse,
   purchases,
+  progress,
+  variant = "featured",
 }: {
   featuredCourse: Course;
   purchases: Purchase[];
   progress: UserProgress[];
+  variant?: "featured" | "grid";
 }) {
   const purchased = purchases.some(
     (p) => p.course_id === featuredCourse.id && p.status === "completed",
@@ -30,7 +33,7 @@ export function DashboardClient({
       <div
         className="relative flex items-center justify-center"
         style={{
-          height: 400,
+          height: variant === "featured" ? 350 : 200,
           background: "linear-gradient(135deg, rgba(232,114,12,0.10) 0%, rgba(27,58,110,0.06) 100%)",
         }}
       >
