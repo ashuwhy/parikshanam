@@ -157,10 +157,6 @@ export function ResearchQuizHub({ userProfile }: { userProfile: Profile | null }
           />
         )}
       </div>
-
-      <p className="mt-10 text-xs text-center text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>
-        For practice only.
-      </p>
     </div>
   );
 }
