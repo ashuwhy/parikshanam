@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Search, X, BookOpen } from "lucide-react";
 import type { Course, OlympiadType } from "@/lib/types";
 import { CourseCard } from "@/components/course/CourseCard";
@@ -14,8 +15,11 @@ interface Props {
 }
 
 export default function ExploreClient({ initialCourses, olympiadTypes }: Props) {
+  const searchParams = useSearchParams();
+  const initialOlympiad = searchParams.get("olympiad");
+
   const [query, setQuery] = useState("");
-  const [olympiadFilter, setOlympiadFilter] = useState<string | null>(null);
+  const [olympiadFilter, setOlympiadFilter] = useState<string | null>(initialOlympiad);
   const skipOlympiadMount = useRef(true);
 
   useEffect(() => {

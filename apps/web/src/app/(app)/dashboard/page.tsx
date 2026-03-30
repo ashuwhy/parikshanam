@@ -1,35 +1,33 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Calculator, Compass, Flame, FlaskConical, Globe, Laptop, Sparkles } from "lucide-react";
+import { BookOpen, Compass, Flame, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { COURSE_LIST_SELECT, PURCHASE_LIST_SELECT } from "@/lib/supabase/selects";
-import type { Course, Purchase, UserProgress } from "@/lib/types";
+import type { Course, Purchase, UserProgress, OlympiadType } from "@/lib/types";
 import { DashboardClient } from "./DashboardClient";
 import { buttonProps } from "@/components/ui/buttonStyles";
 
-const SUBJECT_TILES = [
-  { label: "Math", Icon: Calculator, color: "#3B82F6", bg: "#EFF6FF", border: "#BFDBFE" },
-  { label: "Science", Icon: FlaskConical, color: "#22C55E", bg: "#F0FDF4", border: "#BBF7D0" },
-  { label: "Geography", Icon: Globe, color: "#F59E0B", bg: "#FFFBEB", border: "#FDE68A" },
-  { label: "Computing", Icon: Laptop, color: "#8B5CF6", bg: "#F5F3FF", border: "#DDD6FE" },
-];
+
 
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [profileRes, coursesRes, purchasesRes, progressRes] = await Promise.all([
+  const [profileRes, coursesRes, purchasesRes, progressRes, olympiadsRes] = await Promise.all([
     supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
-    supabase.from("courses").select(COURSE_LIST_SELECT).eq("is_active", true).eq("is_featured", true).maybeSingle(),
+    supabase.from("courses").select(COURSE_LIST_SELECT).eq("is_active", true).order("is_featured", { ascending: false }),
     supabase.from("purchases").select(PURCHASE_LIST_SELECT).eq("user_id", user.id).eq("status", "completed"),
     supabase.from("user_progress").select("*").eq("user_id", user.id),
+    supabase.from("olympiad_types").select("*").order("id"),
   ]);
 
   const profile = profileRes.data;
-  const featuredCourse = coursesRes.data as Course | null;
+  const allCourses = (coursesRes.data ?? []) as Course[];
+  const featuredCourse = allCourses.find(c => c.is_featured) || allCourses[0] || null;
   const purchases = (purchasesRes.data ?? []) as Purchase[];
   const progress = (progressRes.data ?? []) as UserProgress[];
+  const olympiadTypes = (olympiadsRes.data ?? []) as OlympiadType[];
 
   const h = new Date().getHours();
   const greeting = h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening";
@@ -39,13 +37,10 @@ export default async function DashboardPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-5 py-6">
-      {/* Header */}
+      {/* Header, Stats... (unchanged) */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1
-            className="text-2xl text-[#111827]"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-          >
+          <h1 className="text-2xl text-[#111827]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}>
             {greeting}, {name}!
           </h1>
           <p className="text-sm text-[#6B7280] mt-0.5" style={{ fontFamily: "var(--font-roboto-var)" }}>
@@ -53,7 +48,6 @@ export default async function DashboardPage() {
           </p>
         </div>
         {profile?.avatar_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={profile.avatar_url} alt="" className="w-10 h-10 rounded-full object-cover" />
         ) : (
           <div className="w-10 h-10 rounded-full bg-[#E8720C] flex items-center justify-center text-white font-bold">
@@ -70,26 +64,17 @@ export default async function DashboardPage() {
             { val: lessonsCount, label: "Lessons Done" },
           ].map(({ val, label }) => (
             <div key={label} className="flex flex-col items-center py-4 rounded-2xl bg-white border border-[#E5E0D8]">
-              <span
-                className="text-2xl text-[#E8720C]"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-              >
+              <span className="text-2xl text-[#E8720C]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}>
                 {val}
               </span>
-              <span
-                className="text-[10px] text-[#9CA3AF] uppercase tracking-wider mt-1"
-                style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
-              >
+              <span className="text-[10px] text-[#9CA3AF] uppercase tracking-wider mt-1" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
                 {label}
               </span>
             </div>
           ))}
           <div className="flex flex-col items-center justify-center py-4 rounded-2xl bg-[#E8720C]">
             <Flame size={22} color="white" strokeWidth={2.2} className="opacity-95" aria-hidden />
-            <span
-              className="text-[10px] text-white/80 uppercase tracking-wider mt-1"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}
-            >
+            <span className="text-[10px] text-white/80 uppercase tracking-wider mt-1" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
               Keep it up
             </span>
           </div>
@@ -97,75 +82,68 @@ export default async function DashboardPage() {
       )}
 
       {/* Featured course */}
-      <div className="mb-6">
+      <div className="mb-8">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-1.5">
             <Sparkles size={14} color="#E8720C" strokeWidth={2.5} />
-            <span
-              className="text-sm uppercase tracking-wider text-[#111827]"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-            >
+            <span className="text-sm uppercase tracking-wider text-[#111827]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>
               Featured
             </span>
           </div>
-          <Link
-            href="/explore"
-            className="text-sm text-[#E8720C] hover:underline"
-            style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 600 }}
-          >
+          <Link href="/explore" className="text-sm text-[#E8720C] hover:underline" style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 600 }}>
             See all →
           </Link>
         </div>
 
         {featuredCourse ? (
-          <DashboardClient
-            featuredCourse={featuredCourse}
-            purchases={purchases}
-            progress={progress}
-          />
+          <DashboardClient featuredCourse={featuredCourse} purchases={purchases} progress={progress} />
         ) : (
-          <Link
-            href="/explore"
-            className="block rounded-2xl bg-white border border-[#E5E0D8] p-6 text-center hover:border-[#E8720C] transition-colors"
-          >
+          <Link href="/explore" className="block rounded-2xl bg-white border border-[#E5E0D8] p-6 text-center hover:border-[#E8720C] transition-colors">
             <BookOpen size={36} color="#D1D5DB" strokeWidth={1.5} className="mx-auto mb-3" />
-            <p
-              className="text-base text-[#111827]"
-              style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-            >
-              Courses coming soon
-            </p>
-            <p className="text-sm text-[#6B7280] mt-1" style={{ fontFamily: "var(--font-roboto-var)" }}>
-              Explore all available courses
-            </p>
+            <p className="text-base text-[#111827]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>Courses coming soon</p>
           </Link>
         )}
       </div>
 
-      {/* Browse by subject */}
-      <div className="mb-6">
-        <div className="flex items-center gap-1.5 mb-3">
+      {/* Topics & Grouped Courses */}
+      <div className="space-y-8 mb-6">
+        <div className="flex items-center gap-1.5 mb-2">
           <BookOpen size={14} color="#1B3A6E" strokeWidth={2.5} />
-          <span
-            className="text-sm uppercase tracking-wider text-[#111827]"
-            style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}
-          >
+          <span className="text-sm uppercase tracking-wider text-[#111827]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 800 }}>
             Browse Topics
           </span>
         </div>
-        <div className="flex gap-2 flex-wrap">
-          {SUBJECT_TILES.map(({ label, Icon, color, bg, border }) => (
-            <Link
-              key={label}
-              href="/explore"
-              className="flex items-center gap-2 px-3 py-2 rounded-2xl border text-xs font-bold transition-all hover:scale-[1.02]"
-              style={{ background: bg, borderColor: border, color: "#374151", fontFamily: "var(--font-nunito-var)" }}
-            >
-              <Icon size={14} color={color} strokeWidth={2.2} />
-              {label}
-            </Link>
-          ))}
-        </div>
+
+        {olympiadTypes.map((type) => {
+          const typeCourses = allCourses.filter(c => c.olympiad_type_id === type.id);
+          if (typeCourses.length === 0) return null;
+
+          return (
+            <div key={type.id} className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-[#1B3A6E]" style={{ fontFamily: "var(--font-nunito-var)" }}>
+                  {type.label}
+                </h3>
+                <Link 
+                  href={`/explore?olympiad=${type.id}`}
+                  className="text-xs text-[#E8720C] font-semibold hover:underline"
+                >
+                  View all ({typeCourses.length})
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {typeCourses.slice(0, 2).map((course) => (
+                  <DashboardClient 
+                    key={course.id} 
+                    featuredCourse={course} 
+                    purchases={purchases} 
+                    progress={progress} 
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Resume CTA */}
