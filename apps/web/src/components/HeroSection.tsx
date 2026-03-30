@@ -1,9 +1,8 @@
 import { HeroVideo } from "@/components/HeroVideo";
 import { HeroCtaLinks } from "@/components/marketing/HeroCtaLinks";
 
-/** Hero promo video (CloudFront signed URL - rotate or host a stable asset when it expires). */
-const HERO_VIDEO_SRC =
-  "https://d2cv1vlhdw3yo8.cloudfront.net/j6dweo%2Ffile%2F9054eaaaf8c58ac7ae68b1fb65e93220_f00710f4f4a85b53746c300311d45e6c.mp4?response-content-disposition=inline%3Bfilename%3D%229054eaaaf8c58ac7ae68b1fb65e93220_f00710f4f4a85b53746c300311d45e6c.mp4%22%3B&response-content-type=video%2Fmp4&Expires=1774835237&Signature=Aol2eNJ1xOYEVSL~c7Oe6MBQjbojgvSugONMrjSyaKMYghUO5fmf~02KZeZ2tPHQWi9vg-0spHpKkS5XO-DUrTBP-T2B1vEEBqcmJ0wQJ8aBra~6qUXo6wCsLRfbN0RTI~499dLv7ng9BvgVDRZQAQVXunVTg6Cpgx5MCHp4YR-lxLd9Lf~P4Uwy24OGgoup7BLEFnW-uJoBOXCTv8sPRMCHBLBLuaqhMAkd~MpknjHGkw2DBDsjFfbAhExw3RMw2ZMk~NoXJ3tECK4lhAb0GSWt-z0ZShgzewkc-oPfvZcB11VnquR26ouD5NNkbrO7jM9UI4uIOWvsX3FgITJs1w__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ";
+/** Hero promo video (YouTube ID). */
+const HERO_VIDEO_ID = "SQX03U2Kjes";
 
 const STATS = [
   { value: "40%+", label: "Of IITians with top ranks took a drop year", delay: "delay-1" },
@@ -47,7 +46,7 @@ export default function HeroSection() {
           </div>
 
           <div className="animate-fade-in-up delay-1 flex justify-center sm:mb-12 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:self-start lg:justify-end">
-            <HeroVideo src={HERO_VIDEO_SRC} />
+            <HeroVideo videoId={HERO_VIDEO_ID} />
           </div>
 
           <div className="animate-fade-in-up delay-2 mt-4 mb-2 sm:mt-10 sm:mb-12 lg:col-start-1 lg:row-start-2 lg:mt-12 lg:mb-0">

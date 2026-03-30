@@ -356,6 +356,22 @@ const VARIANTS = {
       "inline border-0 bg-transparent p-0 cursor-pointer text-sm font-mono text-[#1B3A6E] hover:text-[#E8720C] transition-colors duration-100",
     style: {},
   },
+  videoUnmute: {
+    className: cn(
+      "inline-flex items-center gap-2 rounded-full border border-white/30 bg-[#1B3A6E]/95 px-4 py-2.5 text-sm text-white shadow-lg backdrop-blur-sm transition hover:bg-[#152d57] select-none",
+      transPress,
+      "active:translate-y-px motion-reduce:active:translate-y-0 active:shadow-none",
+    ),
+    style: nunitoBlack,
+  },
+  videoMute: {
+    className: cn(
+      "inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E5E0D8] bg-white/95 text-[#1B3A6E] shadow-md backdrop-blur-sm transition hover:bg-white select-none",
+      transPress,
+      "active:translate-y-px motion-reduce:active:translate-y-0 active:shadow-none",
+    ),
+    style: {},
+  },
 } as const satisfies Record<string, { className: string; style: CSSProperties }>;
 
 export type ButtonVariant = keyof typeof VARIANTS;
