@@ -66,7 +66,7 @@ const pushNavy = cn(
 const primaryBase = cn(
   "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] bg-[#E8720C] text-white hover:bg-[#d4640a] select-none",
   transPress,
-  "disabled:opacity-50 disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.01] disabled:brightness-100",
+  "disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.01] disabled:brightness-100",
 );
 
 const primaryCore = cn(primaryBase, pushOrange);
@@ -90,7 +90,7 @@ const VARIANTS = {
       transPress,
       "px-4 py-2",
       pushOrangeSm,
-      "disabled:opacity-50 disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.01] disabled:brightness-100",
+      "disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.01] disabled:brightness-100",
     ),
     style: nunitoExtrabold,
   },
@@ -120,7 +120,7 @@ const VARIANTS = {
       transPress,
       pushNavy,
       "px-10 sm:px-12 py-5 sm:py-6 text-base sm:text-lg",
-      "disabled:opacity-50 disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.02] disabled:brightness-100",
+      "disabled:cursor-not-allowed active:brightness-[0.98] hover:brightness-[1.02] disabled:brightness-100",
     ),
     style: nunitoBlack,
   },
@@ -292,7 +292,7 @@ const VARIANTS = {
       transPress,
       "shadow-[0_4px_0_0_#D1D5DB]",
       depth4,
-      "active:shadow-[0_1px_0_0_#D1D5DB] hover:border-[#E8720C] active:brightness-[0.99] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:translate-y-0 disabled:active:shadow-[0_4px_0_0_#D1D5DB]",
+      "active:shadow-[0_1px_0_0_#D1D5DB] hover:border-[#E8720C] active:brightness-[0.99] disabled:cursor-not-allowed disabled:active:translate-y-0 disabled:active:shadow-[0_4px_0_0_#D1D5DB]",
     ),
     style: nunitoExtrabold,
   },
