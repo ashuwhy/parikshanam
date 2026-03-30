@@ -21,14 +21,14 @@ const STATS: readonly HeroStat[] = [
   },
   {
     delay: "delay-2",
-    highlight: "< 1000 ranker",
-    highlightMobile: ["< 1000", "ranker"],
-    lines: ["give gov", "olympiad!"],
+    highlight: "< 600 ranker",
+    highlightMobile: ["< 600", "ranker"],
+    lines: ["give government", "olympiad!"],
   },
   {
     delay: "delay-3",
-    highlight: "ISRO /",
-    lines: ["TIFR", "CAMP", "BY GOI"],
+    highlight: "ISRO / TIFR",
+    lines: ["CAMP", "BY GOI"],
   },
 ];
 
@@ -44,7 +44,7 @@ function PortraitVideo({ videoId }: { videoId: string }) {
   return (
     <HeroVideo
       videoId={videoId}
-      className="mx-0 shrink-0 max-w-[min(10.5rem,38vw)] max-h-[min(50dvh,22rem)] sm:max-w-[min(12.5rem,42vw)] sm:max-h-[min(54dvh,24rem)]"
+      className="mx-0 shrink-0 w-[min(9.75rem,35vw)] max-w-none max-h-[min(50dvh,22rem)] sm:w-[min(11.5rem,37vw)] sm:max-h-[min(54dvh,24rem)]"
     />
   );
 }
@@ -157,7 +157,7 @@ export default function HeroSection() {
           <HeroHeadline className="animate-fade-in-up mb-4 text-[1.65rem] leading-[1.12] sm:text-3xl sm:leading-[1.1]" />
         </div>
 
-        <div className="animate-fade-in-up delay-1 mx-auto mt-2 flex w-full max-w-lg items-stretch justify-center gap-3 sm:mt-4 sm:gap-4">
+        <div className="animate-fade-in-up delay-1 mx-auto mt-2 flex w-full max-w-lg items-start justify-center gap-2.5 sm:mt-4 sm:gap-3.5">
           <PortraitVideo videoId={HERO_VIDEO_ID} />
           <div className="flex min-w-0 flex-1 flex-col justify-between gap-2 sm:gap-2.5">
             <div className="flex min-h-0 flex-1 flex-col gap-2 sm:gap-2.5">
