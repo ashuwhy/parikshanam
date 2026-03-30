@@ -10,6 +10,7 @@ import type { ResearchQuizPaper } from "@/lib/research-quizzes/types";
 import { cn } from "@/lib/cn";
 import { captureClient } from "@/lib/analytics/capture";
 import { AnalyticsEvents } from "@/lib/analytics/events";
+import type { Profile } from "@/lib/types";
 
 function QuizSection({
   competition,
@@ -93,8 +94,19 @@ function QuizSection({
   );
 }
 
-export function ResearchQuizHub() {
+export function ResearchQuizHub({ userProfile }: { userProfile: Profile | null }) {
   const { ymrc, ysrc } = researchQuizData;
+  const userClass = userProfile?.class_level_id;
+
+  // Filter quizzes based on user's class level (e.g. "class-7")
+  const filterByClass = (quizzes: ResearchQuizPaper[]) => {
+    if (!userClass) return quizzes;
+    const targetSlug = `class-${userClass}`;
+    return quizzes.filter((q) => q.slug === targetSlug);
+  };
+
+  const filteredYmrc = filterByClass(YMRC_QUIZZES);
+  const filteredYsrc = filterByClass(YSRC_QUIZZES);
 
   return (
     <div className="max-w-6xl mx-auto px-5 py-6 pb-24 md:pb-6">
@@ -115,31 +127,35 @@ export function ResearchQuizHub() {
           Free practice quizzes
         </h1>
         <p className="text-[#6B7280] max-w-lg mx-auto" style={{ fontFamily: "var(--font-roboto-var)" }}>
-          YMRC mathematics and YSRC science - sample papers from your materials. Sign in required. Scores are not
-          stored.
+          Practice quizzes tailored for your grade level. Complete these to test your skills - results are saved
+          privately for merit list selection.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-8 xl:gap-10 lg:items-start">
-        <QuizSection
-          competition="ymrc"
-          title={ymrc.abbr}
-          subjectLine={ymrc.subject}
-          fullName={ymrc.name}
-          Icon={Brain}
-          iconWrapClass="bg-[#1B3A6E]/10 text-[#1B3A6E]"
-          quizzes={YMRC_QUIZZES}
-        />
+        {filteredYmrc.length > 0 && (
+          <QuizSection
+            competition="ymrc"
+            title={ymrc.abbr}
+            subjectLine={ymrc.subject}
+            fullName={ymrc.name}
+            Icon={Brain}
+            iconWrapClass="bg-[#1B3A6E]/10 text-[#1B3A6E]"
+            quizzes={filteredYmrc}
+          />
+        )}
 
-        <QuizSection
-          competition="ysrc"
-          title={ysrc.abbr}
-          subjectLine={ysrc.subject}
-          fullName={ysrc.name}
-          Icon={Microscope}
-          iconWrapClass="bg-emerald-700/10 text-emerald-800"
-          quizzes={YSRC_QUIZZES}
-        />
+        {filteredYsrc.length > 0 && (
+          <QuizSection
+            competition="ysrc"
+            title={ysrc.abbr}
+            subjectLine={ysrc.subject}
+            fullName={ysrc.name}
+            Icon={Microscope}
+            iconWrapClass="bg-emerald-700/10 text-emerald-800"
+            quizzes={filteredYsrc}
+          />
+        )}
       </div>
 
       <p className="mt-10 text-xs text-center text-[#9CA3AF]" style={{ fontFamily: "var(--font-roboto-var)" }}>

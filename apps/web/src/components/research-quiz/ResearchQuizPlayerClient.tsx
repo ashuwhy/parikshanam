@@ -3,7 +3,7 @@
 import { useMemo, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle } from "lucide-react";
 
 import type { ResearchQuizPaper } from "@/lib/research-quizzes/types";
 import { Button } from "@/components/ui/Button";
@@ -55,6 +55,27 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
   useEffect(() => {
     if (phase !== "results" || resultsLogged.current) return;
     resultsLogged.current = true;
+    
+    // Detailed results for the DB
+    const detailed = questions.map((q) => ({
+      question_id: q.id,
+      picked: answers[q.id],
+      correct: q.correctIndex,
+      prompt: q.prompt,
+      options: q.options,
+    }));
+
+    // Save to DB
+    import("@/app/(app)/research-quiz/actions").then(({ saveResearchQuizResult }) => {
+      saveResearchQuizResult({
+        competition: competitionAbbr,
+        quiz_slug: quiz.slug,
+        score_pct: scorePct,
+        answers,
+        detailed_results: detailed,
+      });
+    });
+
     captureClient(AnalyticsEvents.research_quiz_completed, {
       competition: competitionAbbr,
       quiz_slug: quiz.slug,
@@ -62,7 +83,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
       score_pct: scorePct,
       total_questions: questions.length,
     });
-  }, [phase, competitionAbbr, quiz.slug, quiz.label, scorePct, questions.length]);
+  }, [phase, competitionAbbr, quiz.slug, quiz.label, scorePct, questions, answers]);
 
   const handlePick = (optIdx: number) => {
     captureClient(AnalyticsEvents.research_quiz_question_answered, {
@@ -91,9 +112,6 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
   };
 
   if (phase === "results") {
-    const correctCount = questions.filter((q) => answers[q.id] === q.correctIndex).length;
-    const passed = scorePct >= 50;
-
     return (
       <div className="max-w-2xl mx-auto px-5 py-6 pb-24 md:pb-6">
         <Link
@@ -105,67 +123,29 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
           All quizzes
         </Link>
 
-        <div className="text-center mb-8">
-          <div
-            className={cn(
-              "w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6",
-              passed ? "bg-green-100" : "bg-amber-50",
-            )}
-          >
-            {passed ? (
-              <CheckCircle size={40} color="#22C55E" strokeWidth={2} />
-            ) : (
-              <XCircle size={40} color="#D97706" strokeWidth={2} />
-            )}
+        <div className="text-center mb-10 py-10 px-6 rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white shadow-sm">
+          <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={40} color="#22C55E" strokeWidth={2} />
           </div>
           <h1
-            className="text-2xl sm:text-3xl text-[#1B3A6E] mb-2"
+            className="text-2xl sm:text-3xl text-[#1B3A6E] mb-4"
             style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
           >
-            {quiz.label} - {competitionAbbr} results
+            Quiz Submitted Successfully!
           </h1>
-          <p className="text-4xl font-black text-[#E8720C] tabular-nums mb-1" style={{ fontFamily: "var(--font-nunito-var)" }}>
-            {scorePct}%
+          <p className="text-lg text-[#111827] mb-6" style={{ fontFamily: "var(--font-roboto-var)", fontWeight: 500 }}>
+            Your responses for <span className="text-[#E8720C] font-bold">{quiz.label}</span> have been recorded.
           </p>
-          <p className="text-[#6B7280]" style={{ fontFamily: "var(--font-roboto-var)" }}>
-            {correctCount} of {questions.length} correct
-          </p>
+          <div className="max-w-md mx-auto p-4 bg-[#1B3A6E]/5 rounded-xl border border-[#1B3A6E]/10">
+            <p className="text-[#1B3A6E] font-bold" style={{ fontFamily: "var(--font-nunito-var)" }}>
+              If you reach the merit list, we will email you.
+            </p>
+          </div>
         </div>
 
-        <div className="rounded-[var(--radius-card)] border-2 border-[#E5E0D8] bg-white overflow-hidden mb-6 max-h-[min(50vh,420px)] overflow-y-auto">
-          <ul className="divide-y divide-[#E5E0D8]">
-            {questions.map((q, i) => {
-              const a = answers[q.id];
-              const ok = a === q.correctIndex;
-              return (
-                <li key={q.id} className="px-4 py-3 text-sm">
-                  <div className="flex items-start gap-2">
-                    <span className="shrink-0 font-bold text-[#9CA3AF] w-7" style={{ fontFamily: "var(--font-nunito-var)" }}>
-                      {i + 1}.
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[#111827] mb-1" style={{ fontFamily: "var(--font-roboto-var)" }}>
-                        {q.prompt}
-                      </p>
-                      <p className={cn("text-xs font-bold", ok ? "text-green-700" : "text-red-700")}>
-                        {ok ? "Correct" : a === undefined ? "Skipped" : "Incorrect"}
-                        {!ok && (
-                          <span className="font-normal text-[#6B7280] ml-1">
-                            (answer: {LABELS[q.correctIndex]})
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-3">
           <Button type="button" variant="secondaryCompact" className="sm:flex-1" onClick={handleRetake}>
-            Try again
+            Retake Practice
           </Button>
           <Button
             type="button"
@@ -173,7 +153,7 @@ export default function ResearchQuizPlayerClient({ quiz, competitionAbbr }: Prop
             className="sm:flex-1 w-full"
             onClick={() => router.push(HUB_PATH)}
           >
-            Choose another paper
+            Try another topic
           </Button>
         </div>
       </div>
