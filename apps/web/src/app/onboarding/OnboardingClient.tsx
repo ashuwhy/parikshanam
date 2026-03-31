@@ -47,13 +47,14 @@ export default function OnboardingClient({
       updateResult = await Promise.race([
         supabase
           .from("profiles")
-          .update({
+          .upsert({
+            id: session.user.id,
+            role: "student",
             full_name: name.trim(),
             phone: phone.trim(),
             class_level_id: classLevelId,
             onboarding_completed: true,
-          })
-          .eq("id", session.user.id),
+          }),
         new Promise<never>((_, reject) => {
           setTimeout(() => reject(new Error("SAVE_TIMEOUT")), saveTimeoutMs);
         }),
