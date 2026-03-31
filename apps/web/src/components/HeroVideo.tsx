@@ -22,49 +22,64 @@ export function HeroVideo({ videoId, className = "" }: Props) {
 
   useEffect(() => {
     let cancelled = false;
-    void loadYouTubeIframeAPI().then(() => {
-      if (cancelled || !window.YT?.Player) return;
 
-      new window.YT.Player(playerId, {
-        videoId,
-        width: "100%",
-        height: "100%",
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          controls: 0,
-          disablekb: 1,
-          rel: 0,
-          modestbranding: 1,
-          iv_load_policy: 3,
-          fs: 0,
-          playsinline: 1,
-          loop: 1,
-          playlist: videoId,
-          origin: window.location.origin,
-        },
-        events: {
-          onReady: (e) => {
-            if (cancelled) return;
-            playerRef.current = e.target;
-            setReady(true);
+    const initPlayer = () => {
+      void loadYouTubeIframeAPI().then(() => {
+        if (cancelled || !window.YT?.Player) return;
+
+        new window.YT.Player(playerId, {
+          videoId,
+          width: "100%",
+          height: "100%",
+          playerVars: {
+            autoplay: 1,
+            mute: 1,
+            controls: 0,
+            disablekb: 1,
+            rel: 0,
+            modestbranding: 1,
+            iv_load_policy: 3,
+            fs: 0,
+            playsinline: 1,
+            loop: 1,
+            playlist: videoId,
+            origin: window.location.origin,
           },
-          onStateChange: (e) => {
-            if (cancelled) return;
-            if (e.data === YT.PlayerState.PLAYING && !playLogged.current) {
-              playLogged.current = true;
-              captureClient(AnalyticsEvents.hero_video_play, { surface: "hero" });
-            }
-            if (e.data === YT.PlayerState.ENDED) {
-              e.target.playVideo();
-            }
+          events: {
+            onReady: (e) => {
+              if (cancelled) return;
+              playerRef.current = e.target;
+              setReady(true);
+            },
+            onStateChange: (e) => {
+              if (cancelled) return;
+              if (e.data === YT.PlayerState.PLAYING && !playLogged.current) {
+                playLogged.current = true;
+                captureClient(AnalyticsEvents.hero_video_play, { surface: "hero" });
+              }
+              if (e.data === YT.PlayerState.ENDED) {
+                e.target.playVideo();
+              }
+            },
           },
-        },
+        });
       });
-    });
+    };
+
+    let idleId: number | ReturnType<typeof setTimeout>;
+    if (typeof requestIdleCallback !== "undefined") {
+      idleId = requestIdleCallback(initPlayer, { timeout: 2000 });
+    } else {
+      idleId = setTimeout(initPlayer, 0);
+    }
 
     return () => {
       cancelled = true;
+      if (typeof requestIdleCallback !== "undefined") {
+        cancelIdleCallback(idleId as number);
+      } else {
+        clearTimeout(idleId as ReturnType<typeof setTimeout>);
+      }
       try {
         playerRef.current?.destroy();
       } catch {
