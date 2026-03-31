@@ -5,11 +5,20 @@ export const dynamic = 'force-dynamic'
 
 export default async function ActivityPage() {
   const admin = createAdminClient()
-  const { data: events } = await admin
-    .from('tracking_events')
-    .select('*, profile:profiles(full_name)')
-    .order('created_at', { ascending: false })
-    .limit(100)
+  const [{ data: events }, { data: profiles }] = await Promise.all([
+    admin
+      .from('tracking_events')
+      .select('id, event_name, created_at, source, user_id, properties')
+      .order('created_at', { ascending: false })
+      .limit(100),
+    admin
+      .from('profiles')
+      .select('id, full_name'),
+  ])
+
+  const nameById = Object.fromEntries(
+    (profiles ?? []).map((p) => [p.id, p.full_name])
+  )
 
   return (
     <div className="animate-fade-in">
@@ -24,6 +33,12 @@ export default async function ActivityPage() {
 
       <div className="bg-white rounded-2xl overflow-hidden">
         <div className="divide-y divide-ui-border">
+          {!events && (
+            <div className="p-12 text-center">
+              <Activity className="size-10 text-text-muted/30 mx-auto mb-3" />
+              <p className="text-text-muted font-medium">Could not load events.</p>
+            </div>
+          )}
           {events?.length === 0 && (
             <div className="p-12 text-center">
               <Activity className="size-10 text-text-muted/30 mx-auto mb-3" />
@@ -48,7 +63,7 @@ export default async function ActivityPage() {
                 <div className="flex items-center gap-3 mt-1">
                   <div className="flex items-center gap-1 text-xs text-text-muted">
                     <User size={12} />
-                    {e.profile?.full_name ?? 'Anonymous'}
+                    {(e.user_id && nameById[e.user_id]) ?? 'Anonymous'}
                   </div>
                   <span className="text-[10px] uppercase font-black tracking-widest text-brand-primary/60">
                     {e.source}
