@@ -14,12 +14,14 @@ const nunito = Nunito({
   variable: "--font-nunito-var",
   subsets: ["latin"],
   weight: ["400", "500", "700", "800", "900"],
+  display: "swap",
 });
 
 const roboto = Roboto({
   variable: "--font-roboto-var",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 const site = getSiteUrl();

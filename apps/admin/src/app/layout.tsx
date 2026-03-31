@@ -6,12 +6,14 @@ const nunito = Nunito({
   variable: '--font-nunito-var',
   subsets: ['latin'],
   weight: ['400', '700', '800', '900'],
+  display: 'swap',
 })
 
 const roboto = Roboto({
   variable: '--font-roboto-var',
   subsets: ['latin'],
   weight: ['400', '500', '700'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {

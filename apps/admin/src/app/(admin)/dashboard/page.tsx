@@ -15,24 +15,20 @@ export default async function DashboardPage() {
     { count: courseCount },
     { data: purchases },
     { data: pendingCourses },
+    { data: recentEvents },
   ] = await Promise.all([
     supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student'),
     supabase.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'teacher'),
     supabase.from('courses').select('*', { count: 'exact', head: true }).eq('status', 'active'),
     admin.from('purchases').select('amount').eq('status', 'completed'),
     supabase.from('courses').select('id, title, status').eq('status', 'pending_review').limit(10),
+    admin.from('tracking_events').select('event_name, created_at, source').order('created_at', { ascending: false }).limit(5),
   ])
 
   const revenueRupees = (purchases?.reduce((sum, p) => sum + p.amount, 0) ?? 0) / 100
   const revenueDisplay = revenueRupees >= 100000
     ? `₹${(revenueRupees / 100000).toFixed(1)}L`
     : `₹${revenueRupees.toLocaleString('en-IN')}`
-
-  const { data: recentEvents } = await admin
-    .from('tracking_events')
-    .select('event_name, created_at, source')
-    .order('created_at', { ascending: false })
-    .limit(5)
 
   return (
     <div className="animate-fade-in">
