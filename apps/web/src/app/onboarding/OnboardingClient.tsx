@@ -25,17 +25,19 @@ export default function OnboardingClient({
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [school, setSchool] = useState("");
   const [classLevelId, setClassLevelId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const phoneComplete = phone.length === 10;
   const nameValid = name.trim().length > 0;
-  const canSubmit = nameValid && !!classLevelId && phoneComplete && !saving;
+  const schoolValid = school.trim().length > 0;
+  const canSubmit = nameValid && schoolValid && !!classLevelId && phoneComplete && !saving;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!session?.user || !classLevelId || !phoneComplete || !name.trim()) return;
+    if (!session?.user || !classLevelId || !phoneComplete || !name.trim() || !school.trim()) return;
     setSaving(true);
     setError(null);
 
@@ -52,6 +54,7 @@ export default function OnboardingClient({
             role: "student",
             full_name: name.trim(),
             phone: phone.trim(),
+            school: school.trim(),
             class_level_id: classLevelId,
             onboarding_completed: true,
           }),
@@ -130,6 +133,27 @@ export default function OnboardingClient({
                 aria-required="true"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] placeholder-[#9CA3AF] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
+                style={{ fontFamily: "var(--font-roboto-var)", caretColor: "#E8720C" }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              className="block text-xs font-bold uppercase tracking-widest text-[#6B7280] mb-2"
+              style={{ fontFamily: "var(--font-nunito-var)" }}
+            >
+              School *
+            </label>
+            <div className="flex min-h-[3.25rem] items-stretch rounded-2xl border-2 border-[#E5E0D8] bg-white focus-within:border-[#E8720C] transition-colors overflow-hidden">
+              <input
+                type="text"
+                placeholder="e.g. Delhi Public School"
+                required
+                aria-required="true"
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
                 className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] placeholder-[#9CA3AF] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
                 style={{ fontFamily: "var(--font-roboto-var)", caretColor: "#E8720C" }}
               />

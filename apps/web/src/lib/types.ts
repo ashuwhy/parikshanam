@@ -5,6 +5,11 @@ export interface ClassLevel {
   max_age?: number | null;
 }
 
+export interface School {
+  id: string;
+  name: string;
+}
+
 export interface OlympiadType {
   id: string;
   label: string;
@@ -17,6 +22,7 @@ export interface Profile {
   full_name: string | null;
   avatar_url: string | null;
   class_level_id: string | null;
+  school_id: string | null;
   onboarding_completed: boolean;
   created_at: string;
   updated_at?: string;

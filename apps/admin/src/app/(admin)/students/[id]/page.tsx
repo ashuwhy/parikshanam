@@ -35,6 +35,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
           <dl className="space-y-2 text-sm">
             <div className="flex justify-between gap-4"><dt className="text-text-muted">Email</dt><dd className="text-text-body text-right">{emailRow?.email ?? '-'}</dd></div>
             <div className="flex justify-between gap-4"><dt className="text-text-muted">Phone</dt><dd className="text-text-body text-right">{profile.phone ?? '-'}</dd></div>
+            <div className="flex justify-between gap-4"><dt className="text-text-muted">School</dt><dd className="text-text-body text-right">{profile.school ?? '-'}</dd></div>
             <div className="flex justify-between gap-4"><dt className="text-text-muted">Class</dt><dd className="text-text-body text-right">{profile.class_level_id ? `Class ${profile.class_level_id}` : '-'}</dd></div>
             <div className="flex justify-between gap-4"><dt className="text-text-muted">Status</dt>
               <dd><span className={`text-xs px-2 py-0.5 rounded-full ${profile.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>{profile.is_active ? 'Active' : 'Inactive'}</span></dd>
