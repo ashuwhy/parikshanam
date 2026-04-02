@@ -12,6 +12,7 @@ import {
   ListChecks,
   LogOut,
   Phone,
+  School,
   Shield,
   User,
 } from "lucide-react";
@@ -285,6 +286,18 @@ export default function ProfilePage() {
               </p>
               <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
                 {profile?.phone?.trim() ? profile.phone : "Not added"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 px-5 py-4">
+            <School size={16} color="#9CA3AF" strokeWidth={2} />
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-wider text-[#9CA3AF]" style={{ fontFamily: "var(--font-nunito-var)", fontWeight: 700 }}>
+                School
+              </p>
+              <p className="text-sm text-[#111827]" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                {profile?.school_name?.trim() ? profile.school_name : "Not set"}
               </p>
             </div>
           </div>

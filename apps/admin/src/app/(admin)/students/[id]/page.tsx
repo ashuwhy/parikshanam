@@ -1,6 +1,7 @@
 import { createAdminClient } from '@/lib/supabase/admin'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { BackLink } from '@/components/BackLink'
+import { StudentActions } from '@/components/StudentActions'
 
 export default async function StudentDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -18,6 +19,13 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
     'use server'
     const admin = createAdminClient()
     await admin.from('profiles').update({ is_active: false }).eq('id', id)
+  }
+
+  async function deleteUser() {
+    'use server'
+    const admin = createAdminClient()
+    await admin.auth.admin.deleteUser(id)
+    redirect('/students')
   }
 
   return (
@@ -41,11 +49,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
               <dd><span className={`text-xs px-2 py-0.5 rounded-full ${profile.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>{profile.is_active ? 'Active' : 'Inactive'}</span></dd>
             </div>
           </dl>
-          {profile.is_active && (
-            <form action={deactivate} className="mt-4">
-              <button type="submit" className="text-xs text-red-500 hover:underline">Deactivate account</button>
-            </form>
-          )}
+          <StudentActions isActive={profile.is_active} onDeactivate={deactivate} onDelete={deleteUser} />
         </div>
 
         <div className="bg-surface-elevated border border-ui-border rounded-[var(--radius-card)] p-5">

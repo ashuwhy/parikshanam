@@ -21,7 +21,7 @@ const columns = [
     </Link>
   )}),
   col.accessor('phone', { header: 'Phone', cell: (i) => i.getValue() ?? '-' }),
-  col.accessor('school_name', { header: 'School', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('school_name', { header: 'School', cell: (i) => i.getValue() ?? <span className="text-text-muted italic text-xs">Not set</span> }),
   col.accessor('is_active', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full ${i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
       {i.getValue() ? 'Active' : 'Inactive'}
