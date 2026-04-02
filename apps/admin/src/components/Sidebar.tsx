@@ -10,6 +10,7 @@ import {
   Hexagon,
   LayoutDashboard,
   LogOut,
+  School,
   Settings,
   UserRound,
 } from 'lucide-react'
@@ -20,6 +21,7 @@ const NAV: { href: string; label: string; Icon: typeof LayoutDashboard }[] = [
   { href: '/courses', label: 'Courses', Icon: BookOpen },
   { href: '/students', label: 'Students', Icon: GraduationCap },
   { href: '/teachers', label: 'Teachers', Icon: UserRound },
+  { href: '/schools', label: 'Schools', Icon: School },
   { href: '/purchases', label: 'Purchases', Icon: CreditCard },
   { href: '/activity', label: 'Activity', Icon: Activity },
   { href: '/settings', label: 'Settings', Icon: Settings },
