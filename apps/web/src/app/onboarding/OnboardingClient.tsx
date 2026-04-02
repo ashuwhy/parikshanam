@@ -29,18 +29,24 @@ export default function OnboardingClient({
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [schoolId, setSchoolId] = useState<string | null>(null);
+  const [selectedSchoolId, setSelectedSchoolId] = useState<string | null>(null);
+  const [customSchoolName, setCustomSchoolName] = useState("");
   const [classLevelId, setClassLevelId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const selectedSchool = initialSchools.find((s) => s.id === selectedSchoolId) ?? null;
+  const isOther = selectedSchool?.name === "Other";
+  const resolvedSchoolName = isOther ? customSchoolName.trim() : (selectedSchool?.name ?? null);
+
   const phoneComplete = phone.length === 10;
   const nameValid = name.trim().length > 0;
-  const canSubmit = nameValid && !!schoolId && !!classLevelId && phoneComplete && !saving;
+  const schoolValid = !!selectedSchoolId && (!isOther || customSchoolName.trim().length > 0);
+  const canSubmit = nameValid && schoolValid && !!classLevelId && phoneComplete && !saving;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!session?.user || !classLevelId || !phoneComplete || !name.trim() || !schoolId) return;
+    if (!session?.user || !classLevelId || !phoneComplete || !name.trim() || !resolvedSchoolName) return;
     setSaving(true);
     setError(null);
 
@@ -57,7 +63,7 @@ export default function OnboardingClient({
             role: "student",
             full_name: name.trim(),
             phone: phone.trim(),
-            school_id: schoolId,
+            school_name: resolvedSchoolName,
             class_level_id: classLevelId,
             onboarding_completed: true,
           }),
@@ -165,8 +171,8 @@ export default function OnboardingClient({
                   id="school-select"
                   required
                   aria-required="true"
-                  value={schoolId ?? ""}
-                  onChange={(e) => setSchoolId(e.target.value || null)}
+                  value={selectedSchoolId ?? ""}
+                  onChange={(e) => { setSelectedSchoolId(e.target.value || null); setCustomSchoolName(""); }}
                   className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0 appearance-none cursor-pointer"
                   style={{ fontFamily: "var(--font-roboto-var)" }}
                 >
@@ -175,6 +181,20 @@ export default function OnboardingClient({
                     <option key={s.id} value={s.id}>{s.name}</option>
                   ))}
                 </select>
+              </div>
+            )}
+            {isOther && (
+              <div className="mt-3 flex min-h-[3.25rem] items-stretch rounded-2xl border-2 border-[#E5E0D8] bg-white focus-within:border-[#E8720C] transition-colors overflow-hidden">
+                <input
+                  type="text"
+                  placeholder="Enter your school name"
+                  required
+                  aria-required="true"
+                  value={customSchoolName}
+                  onChange={(e) => setCustomSchoolName(e.target.value)}
+                  className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] placeholder-[#9CA3AF] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
+                  style={{ fontFamily: "var(--font-roboto-var)", caretColor: "#E8720C" }}
+                />
               </div>
             )}
           </div>

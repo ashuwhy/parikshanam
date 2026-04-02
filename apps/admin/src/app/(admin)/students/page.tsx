@@ -1,11 +1,11 @@
 import { createAdminClient } from '@/lib/supabase/admin'
-import { StudentsTable, type StudentRow } from '@/components/StudentsTable'
+import { StudentsTable } from '@/components/StudentsTable'
 
 export default async function StudentsPage() {
   const admin = createAdminClient()
   const { data: students } = await admin
     .from('profiles')
-    .select('id, full_name, phone, is_active, created_at, school:schools(name)')
+    .select('id, full_name, phone, is_active, created_at, school_name')
     .eq('role', 'student')
     .order('created_at', { ascending: false })
 
@@ -14,7 +14,7 @@ export default async function StudentsPage() {
       <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-6">
         Students ({students?.length ?? 0})
       </h1>
-      <StudentsTable students={(students ?? []) as unknown as StudentRow[]} />
+      <StudentsTable students={students ?? []} />
     </div>
   )
 }

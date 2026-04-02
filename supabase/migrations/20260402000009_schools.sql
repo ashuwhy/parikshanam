@@ -1,7 +1,6 @@
--- Schools lookup table + FK on profiles
--- Replaces the free-text `school` column added in 20260402000009
+-- Schools dropdown options + single school_name text on profiles
 
--- ── 1. schools table ──────────────────────────────────────────
+-- ── 1. schools lookup table (for onboarding dropdown) ─────────
 CREATE TABLE IF NOT EXISTS public.schools (
   id         uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   name       text NOT NULL UNIQUE,
@@ -26,10 +25,6 @@ INSERT INTO public.schools (name) VALUES
   ('Other')
 ON CONFLICT (name) DO NOTHING;
 
--- ── 3. Add school_id FK on profiles ───────────────────────────
+-- ── 3. Single text column on profiles ────────────────────────
 ALTER TABLE public.profiles
-  ADD COLUMN IF NOT EXISTS school_id uuid REFERENCES public.schools(id);
-
--- ── 4. Drop the old free-text school column ───────────────────
-ALTER TABLE public.profiles
-  DROP COLUMN IF EXISTS school;
+  ADD COLUMN IF NOT EXISTS school_name text;
