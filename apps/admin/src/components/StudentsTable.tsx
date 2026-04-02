@@ -4,11 +4,11 @@ import { DataTable } from '@/components/DataTable'
 import { createColumnHelper } from '@tanstack/react-table'
 import Link from 'next/link'
 
-type StudentRow = {
+export type StudentRow = {
   id: string
   full_name: string | null
   phone: string | null
-  school: string | null
+  school: { name: string } | null
   is_active: boolean
   created_at: string
 }
@@ -21,7 +21,7 @@ const columns = [
     </Link>
   )}),
   col.accessor('phone', { header: 'Phone', cell: (i) => i.getValue() ?? '-' }),
-  col.accessor('school', { header: 'School', cell: (i) => i.getValue() ?? '-' }),
+  col.accessor('school', { header: 'School', cell: (i) => i.getValue()?.name ?? '-' }),
   col.accessor('is_active', { header: 'Status', cell: (i) => (
     <span className={`text-xs px-2 py-0.5 rounded-full ${i.getValue() ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
       {i.getValue() ? 'Active' : 'Inactive'}

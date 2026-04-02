@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
-import type { ClassLevel } from "@/lib/types";
+import type { ClassLevel, School } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { captureClient } from "@/lib/analytics/capture";
 import { AnalyticsEvents } from "@/lib/analytics/events";
@@ -13,11 +13,15 @@ import { AnalyticsEvents } from "@/lib/analytics/events";
 interface Props {
   initialClassLevels: ClassLevel[];
   classLevelsFetchFailed: boolean;
+  initialSchools: School[];
+  schoolsFetchFailed: boolean;
 }
 
 export default function OnboardingClient({
   initialClassLevels,
   classLevelsFetchFailed,
+  initialSchools,
+  schoolsFetchFailed,
 }: Props) {
   const router = useRouter();
   const { session, refreshProfile } = useAuth();
@@ -25,19 +29,18 @@ export default function OnboardingClient({
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [school, setSchool] = useState("");
+  const [schoolId, setSchoolId] = useState<string | null>(null);
   const [classLevelId, setClassLevelId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const phoneComplete = phone.length === 10;
   const nameValid = name.trim().length > 0;
-  const schoolValid = school.trim().length > 0;
-  const canSubmit = nameValid && schoolValid && !!classLevelId && phoneComplete && !saving;
+  const canSubmit = nameValid && !!schoolId && !!classLevelId && phoneComplete && !saving;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!session?.user || !classLevelId || !phoneComplete || !name.trim() || !school.trim()) return;
+    if (!session?.user || !classLevelId || !phoneComplete || !name.trim() || !schoolId) return;
     setSaving(true);
     setError(null);
 
@@ -54,7 +57,7 @@ export default function OnboardingClient({
             role: "student",
             full_name: name.trim(),
             phone: phone.trim(),
-            school: school.trim(),
+            school_id: schoolId,
             class_level_id: classLevelId,
             onboarding_completed: true,
           }),
@@ -141,23 +144,39 @@ export default function OnboardingClient({
 
           <div>
             <label
+              htmlFor="school-select"
               className="block text-xs font-bold uppercase tracking-widest text-[#6B7280] mb-2"
               style={{ fontFamily: "var(--font-nunito-var)" }}
             >
               School *
             </label>
-            <div className="flex min-h-[3.25rem] items-stretch rounded-2xl border-2 border-[#E5E0D8] bg-white focus-within:border-[#E8720C] transition-colors overflow-hidden">
-              <input
-                type="text"
-                placeholder="e.g. Delhi Public School"
-                required
-                aria-required="true"
-                value={school}
-                onChange={(e) => setSchool(e.target.value)}
-                className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] placeholder-[#9CA3AF] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0"
-                style={{ fontFamily: "var(--font-roboto-var)", caretColor: "#E8720C" }}
-              />
-            </div>
+            {schoolsFetchFailed ? (
+              <div className="flex flex-col gap-2">
+                <p className="text-sm text-red-600" style={{ fontFamily: "var(--font-roboto-var)" }}>
+                  Couldn&apos;t load school list. Check your connection and try again.
+                </p>
+                <Button type="button" variant="outlineAccent" onClick={() => router.refresh()}>
+                  Try again
+                </Button>
+              </div>
+            ) : (
+              <div className="flex min-h-[3.25rem] items-stretch rounded-2xl border-2 border-[#E5E0D8] bg-white focus-within:border-[#E8720C] transition-colors overflow-hidden">
+                <select
+                  id="school-select"
+                  required
+                  aria-required="true"
+                  value={schoolId ?? ""}
+                  onChange={(e) => setSchoolId(e.target.value || null)}
+                  className="min-w-0 flex-1 border-0 bg-transparent px-4 py-3 text-sm text-[#111827] shadow-none ring-0 focus:border-0 focus:outline-none focus:ring-0 focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0 appearance-none cursor-pointer"
+                  style={{ fontFamily: "var(--font-roboto-var)" }}
+                >
+                  <option value="" disabled>Select your school…</option>
+                  {initialSchools.map((s) => (
+                    <option key={s.id} value={s.id}>{s.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div>
