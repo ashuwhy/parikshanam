@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { Linking, Pressable, ScrollView, Text, TextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 
@@ -194,6 +194,16 @@ export default function ProfileScreen() {
           className="mx-5 mt-5 items-center rounded-2xl border-2 border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 py-4"
         >
           <Text className="text-sm font-display-black text-red-600 dark:text-red-400">Sign Out</Text>
+        </Pressable>
+
+        {/* Delete account */}
+        <Pressable
+          onPress={() => void Linking.openURL('https://www.parikshanam.com/delete-account')}
+          className="mx-5 mt-3 mb-2 items-center py-3"
+        >
+          <Text className="text-xs font-sans-medium text-neutral-400 dark:text-neutral-500 underline">
+            Request account deletion
+          </Text>
         </Pressable>
 
       </ScrollView>

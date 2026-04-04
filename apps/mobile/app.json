@@ -38,7 +38,8 @@
     "plugins": [
       "expo-router",
       "expo-image",
-      "./plugins/withPodfileSwiftConcurrency.js"
+      "./plugins/withPodfileSwiftConcurrency.js",
+      "expo-sharing"
     ],
     "experiments": {
       "typedRoutes": true

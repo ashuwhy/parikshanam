@@ -1,0 +1,3944 @@
+{
+  "version": 1,
+  "generatedAt": "2026-03-29T21:51:16.535Z",
+  "ymrc": {
+    "id": "ymrc",
+    "name": "Young Mathematical Research Challenge",
+    "abbr": "YMRC",
+    "subject": "Mathematics",
+    "quizzes": [
+      {
+        "slug": "class-7",
+        "label": "Class VII",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A sequence is formed in the following way: 2, 6, 12, 20, 30, 42, 56, ... A student notices that the difference between consecutive terms is itself increasing by 2 each time. Another student claims that this sequence can be represented by the expression n(n + 1). If the same pattern continues for several more terms, what will be the 10th term of the sequence?",
+            "options": [
+              "90",
+              "96",
+              "110",
+              "132"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q6",
+            "prompt": "A teacher writes down all whole numbers from 1 to 100. How many of these numbers are divisible by both 2 and 5?",
+            "options": [
+              "5",
+              "10",
+              "20",
+              "25"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Four students named A, B, C, and D are standing in a straight line facing forward. A is not standing at either end of the line. C is somewhere to the right of B. D is not standing next to A. B is not standing at the far right. Based on all of these conditions together, which student must definitely be standing at the far left end of the line?",
+            "options": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q8",
+            "prompt": "A set P contains all multiples of 3 less than 30, and a set Q contains all multiples of 5 less than 30. How many numbers belong to both sets?",
+            "options": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q9",
+            "prompt": "A graph shows that a car travels 60 km in the first hour, 120 km in the second hour, and 180 km in the third hour. If the pattern continues in the same way, how far will the car travel in the fifth hour?",
+            "options": [
+              "240 km",
+              "300 km",
+              "360 km",
+              "420 km"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 5 red balls, 3 blue balls, and 2 green balls. One ball is selected at random. What is the probability that the selected ball is neither blue nor green?",
+            "options": [
+              "1/10",
+              "1/5",
+              "1/2",
+              "⅗"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q11",
+            "prompt": "A right triangle has one angle measuring 30°. What is the measure of the third angle?",
+            "options": [
+              "30°",
+              "45°",
+              "60°",
+              "90°"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q12",
+            "prompt": "A square has side length 12 cm. A larger square has side length twice as large. By what factor does the area increase?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q13",
+            "prompt": "A positive whole number leaves remainder 1 when divided by 4, leaves remainder 2 when divided by 5, and also leaves remainder 5 when divided by 8. Which of the following numbers satisfies all three conditions at the same time?",
+            "options": [
+              "21",
+              "29",
+              "37",
+              "45"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A sequence is defined as: 1, 4, 9, 16, 25, ... Which of the following best describes the nth term of the sequence?",
+            "options": [
+              "n + 2",
+              "2n",
+              "n²",
+              "n³"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A student tosses a fair coin three times. What is the probability of getting exactly two heads?",
+            "options": [
+              "1/8",
+              "1/4",
+              "3/8",
+              "½"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q16",
+            "prompt": "Two sets are given: A = {2, 4, 6, 8, 10} B = {1, 2, 3, 4, 5, 6} How many elements are there in A ∩ B?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "A train leaves Station X at exactly 9:00 AM and travels in a straight line at a constant speed of 60 km/h. Another train leaves the same station at exactly 10:00 AM and travels in the same direction at a speed of 90 km/h. Assuming both trains continue without stopping and maintain constant speeds, at what exact time will the second train catch up with the first train?",
+            "options": [
+              "11:00 AM",
+              "12:00 PM",
+              "1:00 PM",
+              "2:00 PM"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q18",
+            "prompt": "A number pattern follows this rule: Each term is obtained by multiplying the previous term by 2 and then adding 1. If the first term is 3, what is the fourth term?",
+            "options": [
+              "15",
+              "23",
+              "31",
+              "47"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q19",
+            "prompt": "A rectangle has length 15 cm and width 8 cm. Another rectangle has all dimensions multiplied by 3. By what factor does the area increase?",
+            "options": [
+              "3",
+              "6",
+              "9",
+              "12"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q20",
+            "prompt": "In a class of 40 students, 22 students like cricket, 18 students like football, and 7 students like both sports. How many students like only cricket?",
+            "options": [
+              "7",
+              "11",
+              "15",
+              "22"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "A spinner has 8 equal sections numbered 1 to 8. If the spinner is spun once, what is the probability of landing on a prime number?",
+            "options": [
+              "1/4",
+              "3/8",
+              "1/2",
+              "⅝"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q22",
+            "prompt": "A triangle has side lengths 5 cm, 12 cm, and 13 cm. Which statement is true?",
+            "options": [
+              "It is an equilateral triangle",
+              "It is an isosceles triangle",
+              "It is a right triangle",
+              "It cannot form a triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "A plant is observed over several weeks, and the amount it grows each week follows this pattern: 2 cm in Week 1, 4 cm in Week 2, 8 cm in Week 3, 16 cm in Week 4. If the pattern continues in exactly the same way, how much will the plant grow during Week 6 alone?",
+            "options": [
+              "24 cm",
+              "32 cm",
+              "48 cm",
+              "64 cm"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q24",
+            "prompt": "A number is chosen from 1 to 50. What is the probability that the number is divisible by both 2 and 3?",
+            "options": [
+              "1/6",
+              "2/25",
+              "4/25",
+              "⅓"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q25",
+            "prompt": "A sequence is given by: 5, 9, 13, 17, 21, ... What is the 20th term of the sequence?",
+            "options": [
+              "77",
+              "81",
+              "85",
+              "89"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A boy walks 3 km north, then 4 km east. How far is he from his starting point?",
+            "options": [
+              "5 km",
+              "6 km",
+              "7 km",
+              "8 km"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q27",
+            "prompt": "If 3x + 7 = 25, what is the value of x?",
+            "options": [
+              "4",
+              "5",
+              "6",
+              "7"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q28",
+            "prompt": "A fair six-sided die is rolled two times. The two numbers obtained are added together. What is the probability that the total sum of the two numbers is exactly 7?",
+            "options": [
+              "1/12",
+              "1/9",
+              "1/6",
+              "⅓"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q29",
+            "prompt": "A pattern is formed using dots: 1, 3, 6, 10, 15, ... If the same pattern continues, what will be the 8th term?",
+            "options": [
+              "28",
+              "32",
+              "36",
+              "45"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-8",
+        "label": "Class VIII",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A number sequence begins as follows: 3, 8, 15, 24, 35, 48, 63, ... A student observes that the difference between consecutive terms follows another sequence that increases regularly. Another student claims that the nth term of the sequence can be represented in the form n² + 2n. If the same pattern continues, what will be the value of the 12th term?",
+            "options": [
+              "156",
+              "168",
+              "180",
+              "195"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A positive whole number is divided by 5, 6, and 8. When divided by 5, it leaves remainder 2. When divided by 6, it leaves remainder 3. When divided by 8, it leaves remainder 5. Which of the following numbers satisfies all three conditions at the same time?",
+            "options": [
+              "53",
+              "77",
+              "93",
+              "117"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Five students - A, B, C, D, and E - are standing in a straight line. A is not at either end. B stands somewhere to the left of C. D is not standing next to E. E is not standing at either end. C is standing somewhere to the right of A. Which student must definitely be standing at the far left?",
+            "options": [
+              "A",
+              "B",
+              "D",
+              "E"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q8",
+            "prompt": "Set P contains all multiples of 4 less than 50. Set Q contains all multiples of 6 less than 50. How many numbers belong to both sets?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q9",
+            "prompt": "A graph shows that a company earns profits of ₹10,000 in the first month, ₹20,000 in the second month, ₹40,000 in the third month, and ₹80,000 in the fourth month. If the same pattern continues, what will be the company's profit in the seventh month?",
+            "options": [
+              "₹3,20,000",
+              "₹4,80,000",
+              "₹6,40,000",
+              "₹12,80,000"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 6 red balls, 5 blue balls, 4 green balls, and 3 yellow balls, making a total of 18 balls altogether. One ball is selected at random without looking inside the bag. What is the probability that the selected ball is neither blue nor yellow?",
+            "options": [
+              "5/18",
+              "7/18",
+              "10/18",
+              "11/18"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q11",
+            "prompt": "In a right triangle, one of the acute angles measures 35°. Since the sum of all angles in a triangle is 180° and one angle in a right triangle is always 90°, what must be the measure of the remaining acute angle?",
+            "options": [
+              "45°",
+              "50°",
+              "55°",
+              "65°"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q12",
+            "prompt": "A square has side length 15 cm. Another square has side length three times as large. By what factor does the area increase?",
+            "options": [
+              "3",
+              "6",
+              "9",
+              "12"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q13",
+            "prompt": "A positive whole number leaves remainder 1 when divided by 3, remainder 2 when divided by 4, and remainder 4 when divided by 5. Which of the following numbers satisfies all three conditions?",
+            "options": [
+              "14",
+              "29",
+              "44",
+              "59"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q14",
+            "prompt": "A sequence is defined as follows: 2, 6, 12, 20, 30, 42, ... A student claims that the nth term can be written as n(n + 1). Using this expression, what will be the value of the 15th term?",
+            "options": [
+              "210",
+              "225",
+              "240",
+              "255"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A fair coin is tossed four times in a row. What is the probability that exactly three of the tosses show heads and the remaining toss shows tails?",
+            "options": [
+              "1/16",
+              "1/8",
+              "1/4",
+              "3/8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q16",
+            "prompt": "Two sets are given as follows: A = {2, 4, 6, 8, 10, 12, 14} B = {1, 2, 3, 4, 5, 6, 7, 8, 9} How many elements belong to A ∩ B?",
+            "options": [
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "A car leaves City X at 8:00 AM and travels toward City Y at a speed of 50 km/h. Another car leaves City X at 10:00 AM and travels in the same direction at a speed of 80 km/h. Assuming both cars move continuously at constant speeds, at what exact time will the second car catch up with the first?",
+            "options": [
+              "12:00 PM",
+              "1:00 PM",
+              "1:20 PM",
+              "2:00 PM"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q18",
+            "prompt": "A number pattern follows this rule: each term is obtained by multiplying the previous term by 3 and then subtracting 2. If the first term is 4, what will be the fourth term?",
+            "options": [
+              "70",
+              "88",
+              "94",
+              "100"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q19",
+            "prompt": "A rectangle has length 18 cm and width 12 cm. Another rectangle has all dimensions multiplied by 4. By what factor does the area increase?",
+            "options": [
+              "4",
+              "8",
+              "12",
+              "16"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q20",
+            "prompt": "In a class of 60 students, 35 students say they like cricket, 28 students say they like football, and 12 students say they like both cricket and football. Based on this information, how many students like only cricket and not football?",
+            "options": [
+              "12",
+              "23",
+              "28",
+              "35"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q21",
+            "prompt": "A spinner has 10 equal sections numbered from 1 to 10. If the spinner is spun once, what is the probability that it lands on either a prime number or an even number?",
+            "options": [
+              "3/10",
+              "6/10",
+              "7/10",
+              "8/10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q22",
+            "prompt": "A triangle has side lengths 8 cm, 15 cm, and 17 cm. A student notices that the square of the longest side is equal to the sum of the squares of the other two sides. Based on this observation, which statement about the triangle must be correct?",
+            "options": [
+              "It is an equilateral triangle",
+              "It is an isosceles triangle",
+              "It is a right triangle",
+              "It cannot form a triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "A graph shows that a bacterial colony doubles in size every hour. If the colony contains 20 bacteria at the beginning, how many bacteria will be present after 6 hours?",
+            "options": [
+              "320",
+              "640",
+              "1,280",
+              "2,560"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A number is chosen completely at random from all whole numbers between 1 and 100, including both 1 and 100. What is the probability that the selected number is divisible by both 2 and 5 at the same time?",
+            "options": [
+              "1/5",
+              "1/10",
+              "3/20",
+              "¼"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "A sequence is given below: 7, 12, 17, 22, 27, ... If the same pattern continues, what will be the 25th term of the sequence?",
+            "options": [
+              "122",
+              "127",
+              "132",
+              "137"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A person walks 5 km north from their starting point and then walks 12 km east. If they now travel back to the starting point using the shortest possible straight-line route, what distance will they have to travel?",
+            "options": [
+              "11 km",
+              "12 km",
+              "13 km",
+              "17 km"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q27",
+            "prompt": "If 4x + 9 = 37, what is the value of x?",
+            "options": [
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q28",
+            "prompt": "A fair six-sided die is rolled three times. What is the probability that all three rolls show even numbers, given that the even numbers on a die are 2, 4, and 6?",
+            "options": [
+              "1/4",
+              "1/6",
+              "1/8",
+              "1/12"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q29",
+            "prompt": "A dot pattern begins as follows: 1, 3, 6, 10, 15, 21, ... If the same triangular number pattern continues, what will be the 10th term?",
+            "options": [
+              "45",
+              "50",
+              "55",
+              "60"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-9",
+        "label": "Class IX",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A sequence is defined as follows: 4, 10, 18, 28, 40, 54, 70, ... A student notices that the difference between consecutive terms increases by 2 every time. Another student claims that the nth term of the sequence can be written in the form n² + 3n. If the sequence continues in exactly the same pattern, what will be the value of the 15th term?",
+            "options": [
+              "240",
+              "255",
+              "270",
+              "285"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q6",
+            "prompt": "A positive integer leaves remainder 2 when divided by 3, remainder 3 when divided by 5, and remainder 5 when divided by 7. In addition, the same number is less than 150. A student tries several numbers one by one and notices that most of them satisfy one or two conditions but not all three together. Which of the following numbers satisfies all the given conditions at the same time?",
+            "options": [
+              "23",
+              "47",
+              "68",
+              "103"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q7",
+            "prompt": "Five students named A, B, C, D, and E are standing in a straight line. A is standing somewhere to the left of C. B is not at either end. D is not standing next to E. C is standing to the right of A but not at the extreme right. E is not at either end. Which student must definitely be standing at the far left?",
+            "options": [
+              "A",
+              "B",
+              "D",
+              "E"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q8",
+            "prompt": "Set P contains all multiples of 6 less than 100. Set Q contains all multiples of 8 less than 100. How many numbers belong to both sets?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q9",
+            "prompt": "A graph shows that the population of a city increases from 5,000 to 10,000 in one year, then to 20,000 in the next year, then to 40,000 in the following year. If the same pattern continues, what will be the population after 6 years?",
+            "options": [
+              "80,000",
+              "1,60,000",
+              "3,20,000",
+              "6,40,000"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 8 red balls, 6 blue balls, 5 green balls, and 1 yellow ball, making a total of 20 balls altogether. Two balls are selected one after another without replacement. What is the probability that both selected balls are blue?",
+            "options": [
+              "3/95",
+              "5/57",
+              "6/95",
+              "15/95"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q11",
+            "prompt": "A triangle has its three interior angles in the ratio 2 : 3 : 4. A student first finds the total number of equal parts represented in the ratio and then uses the fact that the sum of all angles in a triangle is 180°. Based on this information, what is the exact measure of the largest angle of the triangle?",
+            "options": [
+              "60°",
+              "70°",
+              "80°",
+              "90°"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q12",
+            "prompt": "A square has side length 18 cm. Another square has side length four times as large. By what factor does the area increase?",
+            "options": [
+              "4",
+              "8",
+              "12",
+              "16"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q13",
+            "prompt": "A positive whole number leaves remainder 1 when divided by 4, remainder 2 when divided by 5, and remainder 3 when divided by 6. Which of the following numbers satisfies all three conditions?",
+            "options": [
+              "46",
+              "57",
+              "58",
+              "82"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q14",
+            "prompt": "A sequence is defined using the following rule: each term is obtained by multiplying the previous term by 2 and then adding 3. If the first term is 2, the sequence begins as 2, 7, 17, 37, ... Continuing in the same way, what will be the exact value of the sixth term?",
+            "options": [
+              "93",
+              "125",
+              "157",
+              "189"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A fair coin is tossed five times in succession. What is the probability that exactly three of the tosses show heads and the remaining two tosses show tails?",
+            "options": [
+              "5/32",
+              "10/32",
+              "15/32",
+              "20/32"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q16",
+            "prompt": "Two sets are defined as follows: A = {all even numbers from 2 to 20} B = {all multiples of 3 from 3 to 21} How many numbers belong to A ∩ B?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "A train leaves Station X at exactly 7:00 AM and travels in a straight line at a constant speed of 80 km/h. Another train leaves the same station at exactly 9:00 AM and travels along the same route in the same direction at a speed of 120 km/h. Assuming both trains continue moving without stopping, at what exact time will the second train catch up with the first train?",
+            "options": [
+              "12:00 PM",
+              "1:00 PM",
+              "2:00 PM",
+              "3:00 PM"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q18",
+            "prompt": "A pattern is formed by squares: 1, 4, 9, 16, 25, … A student claims that the nth term is n². Using this rule, what will be the sum of the 10th term and the 12th term?",
+            "options": [
+              "220",
+              "244",
+              "260",
+              "288"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q19",
+            "prompt": "A rectangle has length 24 cm and width 18 cm. Another rectangle has all dimensions multiplied by 5. By what factor does the area increase?",
+            "options": [
+              "5",
+              "10",
+              "20",
+              "25"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q20",
+            "prompt": "In a class of 80 students, 50 students like cricket, 35 students like football, and 18 students like both sports. How many students like only cricket?",
+            "options": [
+              "18",
+              "25",
+              "32",
+              "50"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "A spinner has 12 equal sections numbered from 1 to 12. A student is asked to calculate the probability that the spinner lands on a number which is both even and also a multiple of 3. Which of the following probabilities is correct?",
+            "options": [
+              "1/12",
+              "1/6",
+              "1/4",
+              "⅓"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "A triangle has side lengths 7 cm, 24 cm, and 25 cm. Which statement is correct?",
+            "options": [
+              "It is an equilateral triangle",
+              "It is an isosceles triangle",
+              "It is a right triangle",
+              "It cannot form a triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "A bacterial colony triples in size every hour. If the colony initially contains exactly 15 bacteria at the beginning of the observation, how many bacteria will be present after 5 complete hours if the same pattern continues without interruption?",
+            "options": [
+              "1,215",
+              "2,430",
+              "3,645",
+              "4,860"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A number is chosen randomly from 1 to 120. What is the probability that it is divisible by both 3 and 4?",
+            "options": [
+              "1/10",
+              "1/12",
+              "1/15",
+              "1/20"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q25",
+            "prompt": "A sequence is given as follows: 11, 18, 25, 32, 39, ... If the same pattern continues, what will be the value of the 30th term?",
+            "options": [
+              "207",
+              "214",
+              "221",
+              "228"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A person walks 8 km north and then 15 km east. What is the shortest straight-line distance from the final point back to the starting point?",
+            "options": [
+              "15 km",
+              "17 km",
+              "19 km",
+              "23 km"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q27",
+            "prompt": "If the equation 5x + 13 = 58 is solved carefully step by step, first by subtracting 13 from both sides and then dividing by 5, what value of x is obtained?",
+            "options": [
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q28",
+            "prompt": "Assertion",
+            "options": [
+              ": If a fair die is rolled three times, the probability that all three rolls show odd numbers is 1/8. Reason (R): On a fair die, exactly half of the numbers are odd, so the probability of an odd number on one roll is 1/2. (A) Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+              "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+              "Assertion is true, but Reason is false",
+              "Assertion is false, but Reason is true"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q29",
+            "prompt": "A triangular number pattern begins as follows: 1, 3, 6, 10, 15, 21, 28, ... A student notices that the difference between consecutive terms increases by exactly 1 each time. Another student claims that the nth triangular number can be written using the formula n(n + 1)/2. If the same pattern continues, what will be the exact value of the 12th term?",
+            "options": [
+              "66",
+              "72",
+              "78",
+              "84"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-10",
+        "label": "Class X",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A sequence begins as follows: 5, 13, 25, 41, 61, 85, ... A student notices that the difference between consecutive terms forms another arithmetic sequence. Another student claims that the nth term can be represented by the expression n² + 3n + 1. If the same pattern continues exactly, what will be the value of the 20th term?",
+            "options": [
+              "441",
+              "461",
+              "481",
+              "501"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A positive integer leaves remainder 1 when divided by 4, remainder 2 when divided by 5, remainder 3 when divided by 6, and remainder 4 when divided by 7. In addition, the same number leaves remainder 5 when divided by 8 and is less than 1000. A student tests many numbers manually but finds that most satisfy only some of the conditions. Which of the following numbers satisfies all the given conditions simultaneously?",
+            "options": [
+              "419",
+              "539",
+              "659",
+              "779"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Six students named A, B, C, D, E, and F are standing in a straight line. A is somewhere to the left of D. B is not standing at either end. C is standing somewhere between A and E. D is not standing next to F. E is not standing at the extreme right. F is somewhere to the right of B. Which student must definitely be standing at the extreme left?",
+            "options": [
+              "A",
+              "B",
+              "C",
+              "E"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q8",
+            "prompt": "Set P contains all multiples of 8 less than 150, while Set Q contains all multiples of 12 less than 150. A third set R contains all multiples of 18 less than 150. How many numbers belong to both P and Q but do not belong to R?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q9",
+            "prompt": "A city has a population of 12,000 in Year 1. The population doubles every year for the next four years, and then increases by 50% every year for the following two years. What will be the population at the end of Year 6?",
+            "options": [
+              "2,88,000",
+              "4,32,000",
+              "6,48,000",
+              "8,64,000"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 10 red balls, 8 blue balls, 6 green balls, and 4 yellow balls, making a total of 28 balls. Three balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are green and the third ball is yellow?",
+            "options": [
+              "5/819",
+              "10/819",
+              "15/819",
+              "20/819"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q11",
+            "prompt": "A right triangle has one acute angle equal to 30°. A student recalls that the sum of the angles in a triangle is always 180° and that one angle in a right triangle is 90°. If the triangle has hypotenuse 20 cm, what is the length of the side opposite the 30° angle?",
+            "options": [
+              "5 cm",
+              "10 cm",
+              "15 cm",
+              "20 cm"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q12",
+            "prompt": "A square has side length 24 cm. Another square has side length five times as large. By what factor does the area increase?",
+            "options": [
+              "5",
+              "10",
+              "20",
+              "25"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q13",
+            "prompt": "A positive whole number leaves remainder 2 when divided by 5, remainder 3 when divided by 7, and remainder 4 when divided by 9. Which of the following numbers satisfies all three conditions at the same time?",
+            "options": [
+              "58",
+              "103",
+              "148",
+              "193"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q14",
+            "prompt": "A sequence is defined using the following rule: each term is obtained by multiplying the previous term by 3 and then subtracting 2. If the first term is 4, the sequence begins as 4, 10, 28, 82, ... Continuing in the same manner, what will be the exact value of the seventh term?",
+            "options": [
+              "2,188",
+              "2,194",
+              "2,200",
+              "2,206"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q15",
+            "prompt": "A fair coin is tossed six times in succession. What is the probability that exactly four of the tosses show heads and the remaining two tosses show tails?",
+            "options": [
+              "3/16",
+              "5/16",
+              "15/64",
+              "25/64"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q16",
+            "prompt": "Two sets are defined as follows: A = {all multiples of 4 from 4 to 40} B = {all multiples of 6 from 6 to 42} How many elements belong to A ∩ B? In addition, how many elements belong to A ∪ B?",
+            "options": [
+              "Intersection = 3, Union = 14",
+              "Intersection = 4, Union = 13",
+              "Intersection = 3, Union = 15",
+              "Intersection = 4, Union = 14"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q17",
+            "prompt": "A train leaves Station X at exactly 6:00 AM and travels at a constant speed of 90 km/h. Another train leaves the same station at exactly 8:00 AM and travels in the same direction at a speed of 150 km/h. A third train leaves the same station at exactly 9:00 AM and travels in the same direction at a speed of 210 km/h. Assuming all three trains move continuously without stopping, at what exact time will the third train catch the first train?",
+            "options": [
+              "10:30 AM",
+              "11:00 AM",
+              "11:30 AM",
+              "12:00 PM"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q18",
+            "prompt": "Assertion",
+            "options": [
+              ": The 15th term of the sequence 2, 5, 8, 11, 14, ... is 44. Reason (R): The nth term of this arithmetic sequence is given by 3n - 1. (A) Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+              "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+              "Assertion is true, but Reason is false",
+              "Assertion is false, but Reason is true"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "A rectangle has length 28 cm and width 16 cm. Another rectangle has all dimensions multiplied by 6. By what factor does the area increase?",
+            "options": [
+              "6",
+              "12",
+              "24",
+              "36"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q20",
+            "prompt": "In a class of 100 students, 65 students like cricket, 48 students like football, and 20 students like both sports. Based on this information, how many students like only cricket?",
+            "options": [
+              "20",
+              "35",
+              "45",
+              "65"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "A spinner has 15 equal sections numbered from 1 to 15. What is the probability that the spinner lands on a number which is both odd and also a multiple of 3?",
+            "options": [
+              "1/15",
+              "2/15",
+              "1/5",
+              "4/15"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q22",
+            "prompt": "A triangle has side lengths 9 cm, 40 cm, and 41 cm. A student notices that the square of the largest side is equal to the sum of the squares of the other two sides. Based on this observation, which statement about the triangle must be true?",
+            "options": [
+              "It is an equilateral triangle",
+              "It is an isosceles triangle",
+              "It is a right triangle",
+              "It cannot form a triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "A bacterial colony quadruples in size every hour. If the colony initially contains exactly 12 bacteria at the beginning of the observation, how many bacteria will be present after 6 complete hours if the same pattern continues without interruption?",
+            "options": [
+              "12,288",
+              "24,576",
+              "49,152",
+              "98,304"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A number is selected randomly from all whole numbers between 1 and 180, including both 1 and 180. What is the probability that the selected number is divisible by both 4 and 9?",
+            "options": [
+              "1/18",
+              "1/20",
+              "1/24",
+              "1/36"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q25",
+            "prompt": "A sequence is given below: 13, 21, 29, 37, 45, ... If the same pattern continues, what will be the value of the 40th term? In addition, what will be the difference between the 40th term and the 25th term?",
+            "options": [
+              "317 and 120",
+              "321 and 120",
+              "325 and 120",
+              "329 and 120"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q26",
+            "prompt": "A person walks 9 km north, then 12 km east, and finally 20 km south. After this, the person walks 5 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+            "options": [
+              "10 km",
+              "12 km",
+              "13 km",
+              "15 km"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q27",
+            "prompt": "The graph of a linear equation passes through the points (2, 7) and (6, 19). A student wants to calculate the slope of the line using the formula m = (y₂ − y₁)/(x₂ − x₁). What is the slope of the line?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q28",
+            "prompt": "A fair die is rolled four times. What is the probability that exactly three of the rolls show numbers greater than 4 and the remaining roll shows a number less than or equal to 4? In how many different arrangements can this happen?",
+            "options": [
+              "Probability = 8/1296, Arrangements = 2",
+              "Probability = 24/1296, Arrangements = 4",
+              "Probability = 32/1296, Arrangements = 4",
+              "Probability = 48/1296, Arrangements = 8"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "A function is defined as f(x) = 3x² + 2x − 1. A student is asked to calculate the average rate of change of the function between x = 1 and x = 3. Which of the following values is correct?",
+            "options": [
+              "8",
+              "10",
+              "14",
+              "16"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "slug": "class-11",
+        "label": "Class XI",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A sequence is defined by the relation: a₁ = 3 and aₙ₊₁ = 2aₙ + 5. A student calculates the first few terms as 3, 11, 27, 59, ... If the same recursive rule continues, what will be the exact value of the 8th term?",
+            "options": [
+              "1,019",
+              "1,275",
+              "1,531",
+              "1,787"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q6",
+            "prompt": "A positive integer leaves remainder 1 when divided by 3, remainder 2 when divided by 4, remainder 3 when divided by 5, remainder 4 when divided by 6, and remainder 5 when divided by 7. In addition, the number is less than 1000. A student notices that numbers satisfying one or two of the conditions are very common, but numbers satisfying all five conditions simultaneously are much rarer. Which of the following numbers satisfies all of the given conditions at the same time?",
+            "options": [
+              "119",
+              "239",
+              "359",
+              "719"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Seven students named A, B, C, D, E, F, and G are standing in a straight line. A is somewhere to the left of D. B is not at either end. C is somewhere between A and E. D is not standing next to G. E is not standing at the extreme right. F is somewhere to the right of B but to the left of G. Which student must definitely be standing at the extreme left?",
+            "options": [
+              "A",
+              "B",
+              "C",
+              "E"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q8",
+            "prompt": "Set P contains all multiples of 6 less than 200, Set Q contains all multiples of 8 less than 200, and Set R contains all multiples of 12 less than 200. A student is asked to determine how many numbers belong to exactly two of the three sets, meaning they belong to two sets but not all three together. Which of the following values is correct?",
+            "options": [
+              "4",
+              "6",
+              "8",
+              "10"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q9",
+            "prompt": "A town has population 20,000 in Year 1. It doubles every year for the next three years, then grows by 50% every year for the next two years, and finally increases by 25% in the last year. What will be the population at the end of Year 6?",
+            "options": [
+              "2,70,000",
+              "3,60,000",
+              "4,50,000",
+              "5,40,000"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 12 red balls, 10 blue balls, 8 green balls, and 5 yellow balls, making a total of 35 balls altogether. Three balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are blue and the third ball is green, regardless of the order in which they are selected?",
+            "options": [
+              "18/1309",
+              "24/1309",
+              "30/1309",
+              "36/1309"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q11",
+            "prompt": "In a triangle, the three interior angles are in the ratio 2 : 5 : 8. The smallest side of the triangle measures 9 cm. If the side lengths are proportional to the sine of their opposite angles, what is the approximate length of the largest side?",
+            "options": [
+              "18 cm",
+              "21 cm",
+              "24 cm",
+              "27 cm"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q12",
+            "prompt": "A square has side length 15 cm. Another square has side length six times as large. By what factor does the area increase?",
+            "options": [
+              "12",
+              "24",
+              "36",
+              "48"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q13",
+            "prompt": "A positive whole number leaves remainder 2 when divided by 5, remainder 4 when divided by 7, remainder 6 when divided by 9, and remainder 8 when divided by 11. Which of the following numbers satisfies all of these conditions simultaneously?",
+            "options": [
+              "173",
+              "208",
+              "313",
+              "418"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q14",
+            "prompt": "A recursive sequence is defined by multiplying each term by 4 and then subtracting 3 to obtain the next term. If the first term is 5, then the sequence begins as 5, 17, 65, 257, ... A student continues this process carefully term by term. What will be the exact value of the seventh term of the sequence?",
+            "options": [
+              "15,377",
+              "16,381",
+              "16,445",
+              "16,637"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A fair coin is tossed seven times. What is the probability that exactly four tosses show heads and exactly three tosses show tails?",
+            "options": [
+              "21/128",
+              "35/128",
+              "42/128",
+              "56/128"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q16",
+            "prompt": "Two sets are defined as follows: A = {all multiples of 5 from 5 to 100} B = {all multiples of 8 from 8 to 96} How many elements belong to A ∩ B, and how many belong to A ∪ B?",
+            "options": [
+              "2 and 30",
+              "3 and 29",
+              "2 and 31",
+              "3 and 30"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q17",
+            "prompt": "A train leaves Station X at exactly 5:00 AM and travels at a constant speed of 100 km/h. A second train leaves the same station at exactly 7:00 AM and travels at 160 km/h. A third train leaves the same station at exactly 8:00 AM and travels at 220 km/h. Assuming all three trains continue moving in the same direction without stopping, at what exact time will the third train catch up with the first train?",
+            "options": [
+              "10:00 AM",
+              "10:30 AM",
+              "11:00 AM",
+              "11:30 AM"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q18",
+            "prompt": "Assertion",
+            "options": [
+              ": The 20th term of the arithmetic sequence 7, 12, 17, 22, ... is 102. Reason (R): The nth term of the sequence is given by 5n + 2. (A) Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+              "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+              "Assertion is true, but Reason is false",
+              "Assertion is false, but Reason is true"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "A rectangle has length 36 cm and width 22 cm. Another rectangle has all dimensions multiplied by 8. By what factor does the area increase?",
+            "options": [
+              "16",
+              "32",
+              "64",
+              "128"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q20",
+            "prompt": "In a class of 120 students, 75 students like cricket, 62 students like football, and 28 students like both sports. How many students like only cricket?",
+            "options": [
+              "28",
+              "37",
+              "47",
+              "75"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "A spinner has 20 equal sections numbered from 1 to 20. A student is asked to calculate the probability that the spinner lands on a number which is both prime and even at the same time. Since only one number between 1 and 20 satisfies both conditions, which of the following probabilities is correct?",
+            "options": [
+              "1/20",
+              "1/10",
+              "3/20",
+              "1/5"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q22",
+            "prompt": "A triangle has side lengths 11 cm, 60 cm, and 61 cm. Which statement about the triangle must be true?",
+            "options": [
+              "It is an equilateral triangle",
+              "It is an isosceles triangle",
+              "It is a right triangle",
+              "It cannot form a triangle"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "A bacterial colony grows by a factor of 5 every hour. If the colony initially contains 8 bacteria, how many bacteria will be present after 5 complete hours?",
+            "options": [
+              "12,500",
+              "20,000",
+              "25,000",
+              "31,250"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A number is selected randomly from all whole numbers between 1 and 300. What is the probability that the selected number is divisible by both 6 and 10?",
+            "options": [
+              "1/15",
+              "1/20",
+              "1/25",
+              "1/30"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "A sequence is given below: 15, 24, 33, 42, 51, ... A student observes that the sequence increases by the same amount each time and therefore forms an arithmetic progression. If the same pattern continues, what will be the value of the 50th term, and what will be the difference between the 50th term and the 30th term?",
+            "options": [
+              "456 and 180",
+              "456 and 200",
+              "465 and 180",
+              "465 and 200"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q26",
+            "prompt": "A person walks 12 km north, then 16 km east, then 30 km south, and finally 9 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+            "options": [
+              "15 km",
+              "17 km",
+              "21 km",
+              "25 km"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q27",
+            "prompt": "The graph of a linear equation passes through the points (3, 8) and (9, 26). Using the formula for slope, what is the slope of the line?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q28",
+            "prompt": "A fair die is rolled five times. What is the probability that exactly four of the rolls show numbers greater than 3 and the remaining roll shows a number less than or equal to 3?",
+            "options": [
+              "80/7776",
+              "160/7776",
+              "240/7776",
+              "320/7776"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "A function is defined as f(x) = 2x² + 5x − 3. A student is asked to calculate the average rate of change of the function between x = 2 and x = 6. To do this, the student first finds the values of the function at x = 2 and x = 6 and then divides the change in the function values by the change in x. Which of the following values is correct?",
+            "options": [
+              "17",
+              "19",
+              "21",
+              "23"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-12",
+        "label": "Class XII",
+        "subtitle": "YMRC sample paper - Mathematics",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A sequence is defined recursively by: a₁ = 3 and aₙ₊₁ = 4aₙ − 5. A student observes that the first few terms are 3, 7, 23, 87, ... and then claims that the sequence can also be expressed in the form aₙ = A(4ⁿ) + B for suitable constants A and B. If the same recursive pattern continues exactly, what will be the value of a₈?",
+            "options": [
+              "19,659",
+              "20,139",
+              "20,619",
+              "21,099"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A positive integer N leaves remainder 1 when divided by 2, remainder 2 when divided by 3, remainder 3 when divided by 4, remainder 4 when divided by 5, remainder 5 when divided by 6, remainder 6 when divided by 7, and remainder 7 when divided by 8. In addition, N is less than 10,000. Which of the following numbers satisfies all the conditions simultaneously?",
+            "options": [
+              "839",
+              "1679",
+              "2519",
+              "5039"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q7",
+            "prompt": "A student is given the condition that sin θ + cos θ = 1/2, where θ lies in the second quadrant. Since θ lies in the second quadrant, the student knows that sin θ is positive while cos θ is negative. Using the identity (sin θ + cos θ)² = sin² θ + cos² θ + 2sin θ cos θ, the student attempts to calculate the exact value of sin 2θ. Which of the following values is correct?",
+            "options": [
+              "-3/4",
+              "-7/8",
+              "-1/4",
+              "-½"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "A function is defined as: f(x) = |x − 2| + |x + 3| A student studies the graph of the function and notices that the function behaves differently in three separate intervals. What is the minimum possible value of f(x)?",
+            "options": [
+              "3",
+              "4",
+              "5",
+              "6"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q9",
+            "prompt": "Three sets are defined as follows: A = {all multiples of 4 from 1 to 120} B = {all multiples of 6 from 1 to 120} C = {all multiples of 9 from 1 to 120} How many elements belong to exactly two of the three sets but not all three together?",
+            "options": [
+              "7",
+              "8",
+              "9",
+              "10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q10",
+            "prompt": "A bag contains 8 red balls, 7 blue balls, 6 green balls, and 5 yellow balls. Four balls are selected one after another without replacement. What is the probability that exactly two of the selected balls are blue, one is green, and one is yellow?",
+            "options": [
+              "2520/14950",
+              "2940/14950",
+              "3360/14950",
+              "3780/14950"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q11",
+            "prompt": "A triangle has sides 13 cm, 14 cm, and 15 cm. Using Heron's formula, what is the exact area of the triangle?",
+            "options": [
+              "72 cm²",
+              "84 cm²",
+              "96 cm²",
+              "108 cm²"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q12",
+            "prompt": "If tan θ = 3/4 and θ lies in the first quadrant, a student first constructs a right triangle with opposite side 3 and adjacent side 4, and then uses the Pythagorean theorem to determine the hypotenuse. Using this information, what is the exact value of sec θ + cosec θ?",
+            "options": [
+              "11/3",
+              "17/4",
+              "29/12",
+              "37/12"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q13",
+            "prompt": "A quadratic function passes through the points (1, 2), (2, 5), and (3, 10). If the function is of the form y = ax² + bx + c, what is the value of a + b + c?",
+            "options": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q14",
+            "prompt": "A recursive sequence is defined by multiplying each term by 3 and then adding 2. If the first term is 4, then the sequence begins as 4, 14, 44, 134, ... What is the value of the 9th term?",
+            "options": [
+              "32,804",
+              "32,806",
+              "32,810",
+              "32,816"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A fair coin is tossed 10 times in succession. A student wants to calculate the probability that exactly 6 tosses show heads and exactly 4 tosses show tails. Since the number of ways of choosing which 6 tosses are heads is important, combinations must be used in the calculation. Which of the following probabilities is correct?",
+            "options": [
+              "105/512",
+              "115/512",
+              "125/512",
+              "135/512"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q16",
+            "prompt": "A student draws the graph of y = x² − 6x + 5 and notices that the graph cuts the x-axis at two points. What is the distance between those two x-intercepts?",
+            "options": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "A train leaves Station A at 5:00 AM with speed 80 km/h. Another train leaves the same station at 6:00 AM with speed 120 km/h. A third train leaves at 7:00 AM with speed 160 km/h. At what exact time will the third train catch the first train?",
+            "options": [
+              "9:00 AM",
+              "9:30 AM",
+              "10:00 AM",
+              "10:30 AM"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q18",
+            "prompt": "Assertion",
+            "options": [
+              ": The derivative of x³ − 4x² + 7x − 1 is 3x² − 8x + 7. Reason (R): The derivative of xⁿ with respect to x is nxⁿ⁻¹, and constants disappear when differentiated. (A) Both Assertion and Reason are true, and Reason is the correct explanation of Assertion",
+              "Both Assertion and Reason are true, but Reason is not the correct explanation of Assertion",
+              "Assertion is true, but Reason is false",
+              "Assertion is false, but Reason is true"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "If f(x) = 2x³ − 9x² + 12x + 1, a student differentiates the function term by term to obtain the derivative function. The student then substitutes x = 2 into the derivative to determine the instantaneous rate of change of the function at that point. What is the exact value of f'(2)?",
+            "options": [
+              "-3",
+              "-1",
+              "0",
+              "3"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q20",
+            "prompt": "A number is selected randomly from the integers between 1 and 500. What is the probability that the number is divisible by both 6 and 14?",
+            "options": [
+              "1/21",
+              "1/35",
+              "1/42",
+              "1/84"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "If y = x² + 4x + 7, then the slope of the tangent to the curve at any point x is obtained by differentiating the function. After finding the derivative, a student substitutes x = 1 to obtain the slope and then uses the point-slope form of a straight line to determine the equation of the tangent. Which of the following equations is correct?",
+            "options": [
+              "y = 6x + 2",
+              "y = 6x + 4",
+              "y = 8x + 2",
+              "y = 8x + 4"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q22",
+            "prompt": "A person walks 20 km north, then 21 km east, then 48 km south, and finally 7 km west. What is the shortest straight-line distance from the final position back to the starting point?",
+            "options": [
+              "20 km",
+              "24 km",
+              "28 km",
+              "36 km"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "If f(x) = x³ − 6x² + 9x + 1, then the stationary points of the function occur where the derivative is equal to zero. A student differentiates the function and solves the resulting quadratic equation carefully. At which value or values of x does the function have a stationary point?",
+            "options": [
+              "x = 1 only",
+              "x = 2 only",
+              "x = 1 and x = 3",
+              "x = 1 and x = 2"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A spinner has numbers from 1 to 24. What is the probability that the spinner lands on a number which is both even and prime?",
+            "options": [
+              "1/24",
+              "1/12",
+              "1/8",
+              "⅙"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q25",
+            "prompt": "The graph of the function y = x² − 4x + 3 is shifted 2 units to the right and 5 units upward. A student first replaces x by (x − 2) to represent the horizontal shift and then adds 5 to represent the vertical shift. Which of the following is the new equation of the transformed graph?",
+            "options": [
+              "y = x² − 8x + 16",
+              "y = x² − 8x + 20",
+              "y = x² − 8x + 24",
+              "y = x² − 8x + 28"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q26",
+            "prompt": "If f(x) = x² − 5x + 6, then the function can be factorised into two linear factors. A student studies the graph and notices that the parabola opens upward, meaning the function will be positive outside its roots and negative between them. For which values of x is f(x) positive?",
+            "options": [
+              "x < 2 or x > 3",
+              "2 < x < 3",
+              "x < 2 only",
+              "x > 3 only"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q27",
+            "prompt": "A function is defined by f(x) = 1/x. A student is asked to calculate the average rate of change of the function between x = 1 and x = 4. The student first finds the values of the function at x = 1 and x = 4, then divides the change in function values by the change in x. Which of the following values is correct?",
+            "options": [
+              "-1/3",
+              "-1/4",
+              "-1/2",
+              "-3/4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q28",
+            "prompt": "A fair die is rolled 5 times. What is the probability that exactly 3 rolls show a number greater than 4?",
+            "options": [
+              "80/7776",
+              "240/7776",
+              "480/7776",
+              "720/7776"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "If y = x⁴ − 8x² + 5, a student first differentiates the function once to obtain the first derivative and then differentiates again to obtain the second derivative. After simplifying the expression for the second derivative, the student substitutes x = 1. What is the exact value of d²y/dx² at x = 1?",
+            "options": [
+              "-8",
+              "-4",
+              "0",
+              "4"
+            ],
+            "correctIndex": 0
+          }
+        ]
+      }
+    ]
+  },
+  "ysrc": {
+    "id": "ysrc",
+    "name": "Young Scientific Research Challenge",
+    "abbr": "YSRC",
+    "subject": "Science",
+    "quizzes": [
+      {
+        "slug": "class-7",
+        "label": "Class VII",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A rigid metal chamber is completely filled with air and sealed tightly so that no air can escape. The chamber is then heated continuously while its volume remains fixed. After some time, the pressure inside the chamber becomes very high. Which explanation is the most scientifically accurate?",
+            "options": [
+              "The air particles become larger in size when heated",
+              "The air particles move faster and collide with the walls more frequently and with greater force",
+              "The number of air particles increases during heating",
+              "The air loses mass when heated, causing pressure to rise"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "During a total solar eclipse, the Moon moves directly between Earth and the Sun. Which explanation best describes why the sky becomes dark for a short period of time?",
+            "options": [
+              "The Moon blocks sunlight from reaching part of Earth",
+              "The Sun stops producing light for a few minutes",
+              "Earth moves farther away from the Sun during the eclipse",
+              "The Moon begins producing its own light"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q7",
+            "prompt": "Scientists use particle accelerators to study matter at very small scales. Why are these machines useful?",
+            "options": [
+              "They allow scientists to break particles apart and study what matter is made of",
+              "They permanently increase the number of atoms in the universe",
+              "They prove that atoms cannot be divided further",
+              "They create stars and planets inside laboratories"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "A distant galaxy is observed through a telescope, and its spectral lines are shifted toward the red end of the spectrum. Which conclusion is most scientifically correct?",
+            "options": [
+              "The galaxy is moving toward Earth",
+              "The galaxy is moving away from Earth",
+              "The galaxy contains no hydrogen",
+              "The galaxy is shrinking in size"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q9",
+            "prompt": "A telescope magnifies an object 50 times. If a crater on the Moon appears to be 10 cm wide through the telescope, what would its apparent width be without magnification?",
+            "options": [
+              "0.1 cm",
+              "0.2 cm",
+              "0.5 cm",
+              "2 cm"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "Nanoparticles often behave differently from larger particles of the same material. Why does this happen?",
+            "options": [
+              "They have a much larger surface-area-to-volume ratio",
+              "They contain no electrons",
+              "They are unaffected by gravity",
+              "They cannot react chemically"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q11",
+            "prompt": "A scientist repeats the same experiment many times in different places and gets the same result every time. Why is this important?",
+            "options": [
+              "It shows that the result is reliable and can be repeated",
+              "It proves that the result is true forever",
+              "It means that no more experiments are needed",
+              "It shows that experiments are more important than theories"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q12",
+            "prompt": "A metal spoon and a wooden spoon are kept in the same room for several hours. When touched, the metal spoon feels colder. Which explanation is most accurate?",
+            "options": [
+              "The metal spoon has a much lower temperature than the wooden spoon",
+              "The metal spoon removes heat from the hand faster than the wooden spoon",
+              "The wooden spoon creates heat on its own",
+              "The metal spoon contains less energy than the wooden spoon"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q13",
+            "prompt": "Light travels at approximately 300,000 km/s. If light from a distant object takes 20 seconds to reach Earth, approximately how far away is the object?",
+            "options": [
+              "6,000,000 km",
+              "60,000,000 km",
+              "600,000 km",
+              "600,000,000 km"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A black hole forms after the collapse of a very massive star. Which statement is scientifically correct?",
+            "options": [
+              "Black holes have no gravity",
+              "Black holes can attract planets but not light",
+              "The gravity of a black hole is so strong that even light cannot escape",
+              "Black holes are giant empty holes filled with gases"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q15",
+            "prompt": "A student wants to compare whether red light or blue light helps plants grow faster. Why should the student keep the same amount of water, soil, and temperature for all plants?",
+            "options": [
+              "To make sure only the color of light affects the result",
+              "To make sure all plants grow equally",
+              "To make the experiment faster",
+              "To make the answer easier to predict"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q16",
+            "prompt": "A car moves with a constant speed of 20 m/s for 5 minutes. How far does the car travel?",
+            "options": [
+              "1,000 m",
+              "3,000 m",
+              "6,000 m",
+              "10,000 m"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q17",
+            "prompt": "An atom contains 17 protons and 17 electrons. If the atom loses 2 electrons, what will be its new charge?",
+            "options": [
+              "+2",
+              "-2",
+              "+17",
+              "Neutral"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q18",
+            "prompt": "Scientists use spectroscopy to study stars. Why is spectroscopy useful?",
+            "options": [
+              "It helps scientists identify the elements present in stars",
+              "It helps scientists count the number of planets in a galaxy",
+              "It helps scientists determine the age of Earth exactly",
+              "It helps scientists find the mass of the Moon"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "A rocket travels 2,400 km in 30 minutes. What is its average speed in km/h?",
+            "options": [
+              "2,400 km/h",
+              "4,800 km/h",
+              "6,000 km/h",
+              "8,000 km/h"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q20",
+            "prompt": "Graphene is often called a two-dimensional material. Why?",
+            "options": [
+              "It is made of carbon atoms arranged in a sheet only one atom thick",
+              "It can move in only two directions",
+              "It is made from exactly two elements",
+              "It always forms two layers"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q21",
+            "prompt": "An element contains exactly 8 protons in every atom. Which statement must be true?",
+            "options": [
+              "Every atom also has exactly 8 neutrons",
+              "Every atom belongs to the same element because the number of protons is fixed",
+              "Every atom must be positively charged",
+              "Every atom must be a metal"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "A beam of light travels around Earth 5 times in one second. If Earth's circumference is approximately 40,000 km, what is the speed of the beam?",
+            "options": [
+              "20,000 km/s",
+              "200,000 km/s",
+              "2,000,000 km/s",
+              "200 km/s"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q23",
+            "prompt": "A company develops an AI system that decides which students should receive scholarships. Why can this be risky?",
+            "options": [
+              "The AI system may make biased or unfair decisions if it uses incomplete or unfair data",
+              "The AI system cannot store information",
+              "The AI system does not use mathematics",
+              "The AI system always stops working after some time"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q24",
+            "prompt": "A scientist observes the pattern 2, 6, 12, 20, 30, __. Which number should come next?",
+            "options": [
+              "36",
+              "40",
+              "42",
+              "44"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q25",
+            "prompt": "A galaxy is found to be moving away from Earth very rapidly. What does this observation suggest about the universe?",
+            "options": [
+              "The universe is shrinking",
+              "The universe is expanding",
+              "Earth is at the center of the universe",
+              "Galaxies are falling into black holes"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A box weighs 90 N on Earth. On another planet, gravity is only one-third as strong. What will be the weight of the box on that planet?",
+            "options": [
+              "15 N",
+              "30 N",
+              "45 N",
+              "60 N"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q27",
+            "prompt": "A hydrogen atom has one proton and one electron. Why is the atom electrically neutral overall?",
+            "options": [
+              "The positive charge of the proton is balanced by the negative charge of the electron",
+              "The proton has no charge",
+              "The electron has no charge",
+              "Hydrogen atoms do not contain electrons"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q28",
+            "prompt": "A rock currently contains equal numbers of parent radioactive nuclei and daughter nuclei, and no daughter nuclei were present initially. How many half-lives have passed?",
+            "options": [
+              "0.5",
+              "1",
+              "2",
+              "4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "A planet orbits its star at a distance of 4 AU. Using the simplified form of Kepler's third law, T² = a³, what is the orbital period of the planet?",
+            "options": [
+              "4 years",
+              "8 years",
+              "16 years",
+              "64 years"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "slug": "class-8",
+        "label": "Class VIII",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A rigid metal chamber is completely filled with gas and sealed tightly so that no gas can escape. The chamber is then heated continuously while its volume remains constant. After some time, the pressure inside becomes dangerously high. Which explanation is the most scientifically accurate?",
+            "options": [
+              "The gas particles become larger in size when heated",
+              "The gas particles gain kinetic energy, move faster, and collide with the walls more frequently and with greater force",
+              "The number of gas particles increases during heating",
+              "The gas loses mass when heated, which increases the pressure"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A distant galaxy is observed through a telescope, and its spectral lines are shifted toward the red end of the spectrum. Scientists notice that galaxies farther away generally show greater redshift. Which conclusion is most scientifically correct?",
+            "options": [
+              "The galaxy is moving toward Earth",
+              "The galaxy is moving away from Earth, supporting the idea that the universe is expanding",
+              "The galaxy contains much more hydrogen than nearby galaxies",
+              "The galaxy is shrinking with time"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Scientists working in particle accelerators collide protons at extremely high energies. Why are such collisions useful?",
+            "options": [
+              "They allow scientists to study smaller particles inside matter",
+              "They permanently increase the number of atoms in the universe",
+              "They prove that atoms cannot be divided further",
+              "They create stars and planets inside laboratories"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "During a total solar eclipse, the Moon passes directly between Earth and the Sun. Which statement best explains why the sky becomes dark for a short period of time?",
+            "options": [
+              "The Moon blocks sunlight from reaching part of Earth",
+              "The Sun stops producing light for a few minutes",
+              "Earth moves farther away from the Sun during the eclipse",
+              "The Moon begins producing its own light"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q9",
+            "prompt": "A hydrogen atom emits a photon when its electron falls from the n = 4 energy level to the n = 2 energy level. Which statement is most accurate about the emitted photon?",
+            "options": [
+              "The photon has more energy than the electron originally absorbed",
+              "The photon has exactly the energy difference between the two levels",
+              "The photon must always be infrared radiation",
+              "The electron cannot move directly between these levels"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "A scientist studies graphene and finds that electrons move through it extremely quickly. Which property of graphene is mainly responsible for this unusual behaviour?",
+            "options": [
+              "Its carbon atoms are radioactive",
+              "Its honeycomb atomic arrangement creates a nearly linear energy-momentum relation for electrons",
+              "Its electrons are trapped permanently in bonds",
+              "Its thickness prevents all collisions between electrons"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q11",
+            "prompt": "A machine learning model is trained to identify exoplanets from telescope data. It has high precision but low recall. Which interpretation is most accurate?",
+            "options": [
+              "The model misses many real exoplanets, even though most planets it predicts are correct",
+              "The model finds nearly every real exoplanet",
+              "The model never makes false positives",
+              "The model is completely useless because its recall is not 100%"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q12",
+            "prompt": "A massive star eventually exhausts its nuclear fuel and collapses under its own gravity. Which final outcome is most likely for a star with much greater mass than the Sun?",
+            "options": [
+              "A white dwarf",
+              "A black hole or neutron star",
+              "A rocky planet",
+              "A comet"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q13",
+            "prompt": "A scientist trains an AI system using historical hiring data from scientific institutions. The system begins ranking applicants from certain backgrounds lower because they were hired less often in the past. Why is this ethically problematic?",
+            "options": [
+              "The system is reproducing historical bias present in the training data",
+              "The system uses too much electricity",
+              "The system is too slow to make decisions",
+              "The system should never use mathematics"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A telescope observes light with wavelength 500 nm and has a mirror diameter of 2 m. Using the approximate formula θ ≈ 1.22λ/D, which value is closest to the telescope's angular resolution?",
+            "options": [
+              "3.0 × 10⁻⁷ radians",
+              "3.0 × 10⁻⁶ radians",
+              "6.1 × 10⁻⁷ radians",
+              "6.1 × 10⁻⁶ radians"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q15",
+            "prompt": "A radioactive isotope has a half-life of 10 years. If a sample initially contains 160 g, how much remains after 30 years?",
+            "options": [
+              "80 g",
+              "40 g",
+              "20 g",
+              "10 g"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q16",
+            "prompt": "A galaxy has a spectral line with rest wavelength 500 nm, but it is observed at 600 nm. What is the redshift of the galaxy?",
+            "options": [
+              "0.10",
+              "0.20",
+              "0.30",
+              "0.40"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "A particle is confined inside a one-dimensional box. If the width of the box is reduced to half its original value while the quantum number remains unchanged, by what factor does the energy increase?",
+            "options": [
+              "2",
+              "4",
+              "8",
+              "16"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q18",
+            "prompt": "A spherical nanoparticle has radius 2 nm, while another nanoparticle of the same material has radius 20 nm. By what factor is the surface-area-to-volume ratio greater for the smaller particle?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "100"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q19",
+            "prompt": "A planet orbits its star at a distance of 4 AU. Using the simplified form of Kepler's third law, T² = a³, what is the orbital period of the planet?",
+            "options": [
+              "4 years",
+              "8 years",
+              "16 years",
+              "64 years"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q20",
+            "prompt": "Hawking radiation is predicted to occur near black holes because of quantum effects. Which statement best explains this process?",
+            "options": [
+              "Quantum fluctuations near the event horizon can separate virtual particle pairs, allowing one particle to escape",
+              "Black holes reflect incoming radiation from nearby stars",
+              "Black holes contain hot gases that emit ordinary radiation",
+              "Hawking radiation occurs only when black holes collide"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q21",
+            "prompt": "A photon has energy 2.48 eV. Using hc = 1240 eV·nm, what is the wavelength of the photon?",
+            "options": [
+              "250 nm",
+              "400 nm",
+              "500 nm",
+              "620 nm"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q22",
+            "prompt": "A black hole has a Schwarzschild radius of 12 km. Given that the Schwarzschild radius of the Sun is about 3 km, what is the approximate mass of the black hole?",
+            "options": [
+              "2 solar masses",
+              "4 solar masses",
+              "8 solar masses",
+              "12 solar masses"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q23",
+            "prompt": "A rare disease affects only 0.1% of the population. A diagnostic model has high sensitivity and specificity, yet most positive results are still false positives. Why?",
+            "options": [
+              "Because false positives can outnumber true positives when the disease is extremely rare",
+              "Because sensitivity is more important than specificity",
+              "Because rare diseases cannot be detected accurately",
+              "Because high specificity makes all positive results unreliable"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q24",
+            "prompt": "A galaxy cluster contains much more gravitational mass than can be explained by visible matter alone. Which explanation is most widely accepted?",
+            "options": [
+              "The cluster contains a large amount of dark matter",
+              "The visible matter has no mass",
+              "The cluster contains only black holes",
+              "The lensing measurements must be wrong"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q25",
+            "prompt": "A quasar spectrum contains many absorption lines at wavelengths shorter than the quasar's own Ly-α emission line. What is the most likely explanation?",
+            "options": [
+              "Multiple hydrogen clouds at different redshifts absorb the light along the line of sight",
+              "The quasar emits many different Ly-α lines because of turbulence",
+              "The telescope creates extra spectral lines",
+              "The quasar is rotating very quickly"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q26",
+            "prompt": "A proton has rest mass energy 938 MeV and total energy 4690 MeV. What is its Lorentz factor γ?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "50"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q27",
+            "prompt": "If a single layer of graphene absorbs about 2.3% of visible light, approximately what percentage of light would pass through three layers?",
+            "options": [
+              "88.5%",
+              "91.0%",
+              "93.1%",
+              "97.7%"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q28",
+            "prompt": "A rock currently contains equal numbers of parent radioactive nuclei and daughter nuclei, and no daughter nuclei were present initially. How many half-lives have passed since the rock formed?",
+            "options": [
+              "0.5",
+              "1",
+              "2",
+              "4"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "A star has a planet orbiting at 9 AU. Using Kepler's third law, T² = a³, what is the orbital period of the planet?",
+            "options": [
+              "9 years",
+              "18 years",
+              "27 years",
+              "81 years"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-9",
+        "label": "Class IX",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A scientist seals a rigid steel chamber completely filled with gas and begins heating it continuously while keeping the volume constant. After some time, the pressure inside the chamber increases dramatically. Which explanation is the most scientifically accurate?",
+            "options": [
+              "The gas particles become larger in size when heated",
+              "The gas particles gain kinetic energy, move faster, and collide more frequently and forcefully with the walls of the chamber",
+              "The total number of gas particles increases during heating",
+              "Heating causes the gas to lose mass and therefore increase in pressure"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A distant galaxy is observed through a telescope, and its spectral lines are found to be shifted toward the red end of the spectrum. The larger the redshift, the farther away the galaxy appears to be. Which conclusion is most scientifically justified?",
+            "options": [
+              "The galaxy is moving toward Earth",
+              "The galaxy is moving away from Earth, supporting the idea that the universe is expanding",
+              "The galaxy contains more hydrogen than nearby galaxies",
+              "The galaxy is shrinking in size over time"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "Scientists working at particle accelerators can force protons to collide at extremely high energies. Why are these collisions useful for understanding matter?",
+            "options": [
+              "They allow scientists to break particles apart and study the smaller particles inside them",
+              "They increase the number of atoms in the universe",
+              "They prove that atoms are indivisible",
+              "They create planets and stars inside the laboratory"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "A black hole is formed after the collapse of a very massive star. Which statement is the most scientifically accurate?",
+            "options": [
+              "Black holes have no gravity because matter disappears completely inside them",
+              "Black holes attract planets but cannot affect light",
+              "The gravity of a black hole is so strong that even light cannot escape beyond the event horizon",
+              "Black holes are giant empty holes filled with gases"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q9",
+            "prompt": "A scientist studies graphene and notices that electrons move through it unusually quickly. Which property of graphene is mainly responsible for this behaviour?",
+            "options": [
+              "Its carbon atoms are radioactive",
+              "Its honeycomb structure creates a linear energy-momentum relation for electrons",
+              "Its thickness prevents electrons from colliding",
+              "Its electrons are trapped permanently in chemical bonds"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "A machine learning system is designed to identify exoplanets from telescope data. It has a precision of 0.88 and a recall of 0.42. Which interpretation is most accurate?",
+            "options": [
+              "The model correctly identifies most real exoplanets but produces many false positives",
+              "The model misses many real exoplanets even though most of its positive predictions are correct",
+              "The model is useless because precision is less than 1.0",
+              "The model has equal numbers of false positives and false negatives"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q11",
+            "prompt": "A hydrogen atom emits a photon when its electron falls from the n = 5 energy level to the n = 2 energy level. Using the hydrogen energy formula E_n = -13.6/n² eV, which value is closest to the energy of the emitted photon?",
+            "options": [
+              "1.89 eV",
+              "2.55 eV",
+              "2.86 eV",
+              "3.40 eV"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q12",
+            "prompt": "A star with a mass much larger than the Sun eventually runs out of nuclear fuel and undergoes gravitational collapse. Which final outcome is most likely for a star with about 20 times the Sun's mass?",
+            "options": [
+              "white dwarf",
+              "black hole or neutron star, depending on the remaining core mass",
+              "rocky planet",
+              "gas cloud with no gravity"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q13",
+            "prompt": "A scientist trains an AI system using historical scientific funding data. The system begins giving lower scores to proposals from certain institutions because such proposals were funded less often in the past. Why is this ethically problematic?",
+            "options": [
+              "The system is reproducing historical bias contained in the training data",
+              "The system is too slow to evaluate proposals",
+              "The system uses too much electricity",
+              "The system should never use mathematics"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A telescope observes light of wavelength 600 nm and has a mirror diameter of 3 m. Using θ ≈ 1.22λ/D, which value is closest to the telescope's angular resolution?",
+            "options": [
+              "2.4 × 10⁻⁷ radians",
+              "2.4 × 10⁻⁶ radians",
+              "7.3 × 10⁻⁷ radians",
+              "7.3 × 10⁻⁶ radians"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q15",
+            "prompt": "A proton has rest mass energy 938 MeV and total energy 9380 MeV. What is the Lorentz factor γ of the proton?",
+            "options": [
+              "5",
+              "10",
+              "50",
+              "100"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q16",
+            "prompt": "A radioactive isotope has a half-life of 8 years. If the sample initially contains 320 g, how much will remain after 24 years?",
+            "options": [
+              "160 g",
+              "80 g",
+              "40 g",
+              "20 g"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q17",
+            "prompt": "A galaxy has a spectral line with rest wavelength 500 nm, but it is observed at 650 nm. What is the redshift of the galaxy?",
+            "options": [
+              "0.15",
+              "0.20",
+              "0.30",
+              "0.50"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q18",
+            "prompt": "A quasar spectrum contains many absorption lines at wavelengths shorter than the quasar's own Ly-α emission line. What is the most likely explanation?",
+            "options": [
+              "Multiple hydrogen clouds at different redshifts absorb light along the line of sight",
+              "The quasar emits many different Ly-α lines because of turbulence",
+              "The telescope creates extra spectral lines through diffraction",
+              "The quasar is rotating so quickly that its spectrum splits apart"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "A particle physics experiment reports a local significance of 4σ for a possible new signal. Why might scientists still hesitate to claim a discovery?",
+            "options": [
+              "Because the signal may still arise from statistical fluctuations when many possible mass ranges are examined",
+              "Because 4σ is weaker than 2σ",
+              "Because all discoveries require direct visual observation",
+              "Because significance values greater than 3σ are unreliable"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q20",
+            "prompt": "A spherical nanoparticle has a radius of 3 nm, while another particle of the same material has a radius of 30 nm. By what factor is the surface-area-to-volume ratio greater for the smaller particle?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "100"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "A planet orbits its star at a distance of 4 AU. Using the simplified form of Kepler's third law, T² = a³, what is the orbital period of the planet?",
+            "options": [
+              "4 years",
+              "8 years",
+              "16 years",
+              "64 years"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "Hawking radiation is one of the most surprising predictions of quantum theory applied to black holes. Which statement best explains why Hawking radiation occurs?",
+            "options": [
+              "Black holes reflect light outward from the event horizon",
+              "Quantum fluctuations near the event horizon can separate virtual particle pairs, allowing one particle to escape",
+              "Black holes contain hot gas that emits ordinary radiation",
+              "Hawking radiation occurs only when black holes collide"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q23",
+            "prompt": "A photon has an energy of 3.10 eV. Using hc = 1240 eV·nm, what is the wavelength of the photon?",
+            "options": [
+              "200 nm",
+              "300 nm",
+              "400 nm",
+              "500 nm"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q24",
+            "prompt": "A particle is confined in a one-dimensional box. If the width of the box is reduced to half its original value while the quantum number remains unchanged, by what factor does the energy increase?",
+            "options": [
+              "2",
+              "4",
+              "8",
+              "16"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "A black hole has a Schwarzschild radius of 15 km. Given that the Schwarzschild radius of the Sun is about 3 km, what is the approximate mass of the black hole?",
+            "options": [
+              "3 solar masses",
+              "5 solar masses",
+              "10 solar masses",
+              "15 solar masses"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A rare disease affects only 0.1% of the population. A diagnostic model has very high sensitivity and specificity, yet most positive results are still false positives. Why?",
+            "options": [
+              "because false positives can outnumber true positives when the disease is extremely rare",
+              "Because sensitivity is more important than specificity",
+              "Because rare diseases cannot be detected accurately",
+              "Because high specificity makes all positive results unreliable"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q27",
+            "prompt": "A galaxy cluster contains much more gravitational mass than can be explained by its visible matter alone. Which explanation is most widely accepted?",
+            "options": [
+              "The cluster contains large amounts of dark matter",
+              "The visible matter has no mass",
+              "The cluster contains only black holes",
+              "The gravitational lensing measurements must be completely wrong"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q28",
+            "prompt": "If a single layer of graphene absorbs about 2.3% of visible light, approximately what percentage of light would pass through four graphene layers?",
+            "options": [
+              "88.5%",
+              "90.8%",
+              "95.4%",
+              "97.7%"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "A rock currently contains equal numbers of parent radioactive nuclei and daughter nuclei, and no daughter nuclei were present initially. How many half-lives have elapsed?",
+            "options": [
+              "0.5",
+              "1",
+              "2",
+              "4"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "slug": "class-10",
+        "label": "Class X",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A spacecraft is orbiting Earth at an altitude where gravity is still very strong, yet astronauts inside the spacecraft appear to float freely and experience apparent weightlessness. Which of the following explanations is the most scientifically accurate?",
+            "options": [
+              "Gravity no longer acts on the astronauts because they are above Earth's atmosphere",
+              "The astronauts and the spacecraft are both falling toward Earth at the same rate, creating the appearance of weightlessness",
+              "The spacecraft is moving so quickly that gravity is cancelled completely",
+              "The absence of air pressure inside the spacecraft causes astronauts to float"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A distant galaxy is observed through a powerful telescope, and its spectral lines are found to be shifted toward the red end of the spectrum. The farther away the galaxy is, the larger the redshift appears to be. Which conclusion is most scientifically justified?",
+            "options": [
+              "The galaxy is moving toward Earth and becoming hotter",
+              "The galaxy is moving away from Earth, supporting the idea that the universe is expanding",
+              "The galaxy contains unusually large amounts of hydrogen gas",
+              "The galaxy is becoming smaller with time"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "A hydrogen atom absorbs energy and its electron moves from the second energy level to the fifth energy level. Later, the electron returns directly to the second energy level and emits a photon. Which statement is the most scientifically correct?",
+            "options": [
+              "The emitted photon will have the same energy as the absorbed photon",
+              "The emitted photon will have less energy than the absorbed photon because energy is lost permanently",
+              "The emitted photon will always be visible light regardless of the transition",
+              "The electron cannot return directly to the second energy level"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "Scientists studying the Bullet Cluster observed that most of the visible gas was separated from the regions where most of the gravitational lensing occurred. Why is this considered strong evidence for dark matter?",
+            "options": [
+              "Because the visible matter and the gravitational mass are concentrated in different regions",
+              "Because the gas in the Bullet Cluster is hotter than in other clusters",
+              "Because dark matter can be observed directly through visible light",
+              "Because the Bullet Cluster contains no ordinary matter at all"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q9",
+            "prompt": "A machine learning system designed to identify exoplanets from telescope data has a recall of 0.92 but a precision of 0.61. Which interpretation is most accurate?",
+            "options": [
+              "The model correctly identifies most real exoplanets but also produces many false positives",
+              "The model rarely makes mistakes because its recall is high",
+              "The model misses most real exoplanets because its precision is low",
+              "The model is statistically useless because precision is less than recall"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q10",
+            "prompt": "A telescope with a diameter of 4 m observes light with wavelength 500 nm. Using the approximate resolution formula θ ≈ 1.22λ/D, which value is closest to the telescope's angular resolution?",
+            "options": [
+              "1.5 × 10⁻⁷ radians",
+              "1.5 × 10⁻⁶ radians",
+              "6.1 × 10⁻⁷ radians",
+              "6.1 × 10⁻⁶ radians"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q11",
+            "prompt": "A proton and an electron are accelerated toward one another and collide. Under certain conditions, they can form a neutron and emit another particle. Which particle must also be produced to conserve charge and lepton number?",
+            "options": [
+              "A photon",
+              "A positron",
+              "A neutrino",
+              "A gluon"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q12",
+            "prompt": "A semiconductor nanoparticle becomes smaller and smaller until its size reaches only a few nanometres. Which trend is most likely to occur as a result of quantum confinement?",
+            "options": [
+              "The band gap becomes smaller and the emitted light shifts toward red",
+              "The band gap becomes larger and the emitted light shifts toward blue",
+              "The density of the material becomes zero",
+              "The nanoparticle begins behaving exactly like the bulk material"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q13",
+            "prompt": "A researcher trains an AI model on historical scientific funding decisions. The model learns that proposals from certain institutions were historically less likely to be funded and begins lowering their scores automatically. Why is this ethically problematic?",
+            "options": [
+              "Because the AI system is reproducing historical bias present in the training data",
+              "Because the AI system is using too much computing power",
+              "Because all AI systems are less accurate than humans",
+              "Because research proposals should never be evaluated with data"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A star with approximately 25 times the mass of the Sun eventually exhausts its nuclear fuel and undergoes gravitational collapse. Which final outcome is most likely?",
+            "options": [
+              "A white dwarf",
+              "A black hole",
+              "A rocky planet",
+              "A red giant"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q15",
+            "prompt": "A radioactive isotope has a half-life of 6 years. If the sample initially contains 320 g of the isotope, how much will remain after 18 years?",
+            "options": [
+              "160 g",
+              "80 g",
+              "40 g",
+              "20 g"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q16",
+            "prompt": "A proton has a total energy of 9.38 GeV and a rest mass energy of 0.938 GeV. What is the Lorentz factor γ of the proton?",
+            "options": [
+              "5",
+              "10",
+              "50",
+              "100"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q17",
+            "prompt": "An astronomer observes a spectral line that normally has a wavelength of 500 nm, but in a distant galaxy it appears at 650 nm. What is the redshift of the galaxy?",
+            "options": [
+              "0.15",
+              "0.20",
+              "0.30",
+              "0.50"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q18",
+            "prompt": "A scientist is studying graphene and notices that electrons inside it behave as though they have no effective mass. Which feature of graphene is most responsible for this?",
+            "options": [
+              "Its atoms are arranged in a honeycomb lattice that produces a linear energy-momentum relation",
+              "Its carbon atoms are radioactive",
+              "Its thickness prevents electron motion",
+              "Its electrons are strongly bound to the nucleus"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q19",
+            "prompt": "A planet is located 9 AU away from its star. Using the simplified form of Kepler's third law, T² = a³, what is the orbital period of the planet?",
+            "options": [
+              "9 years",
+              "18 years",
+              "27 years",
+              "81 years"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q20",
+            "prompt": "A black hole emits Hawking radiation. Which explanation best describes why this occurs?",
+            "options": [
+              "Matter inside the black hole becomes extremely hot and radiates outward",
+              "Quantum fluctuations near the event horizon can separate virtual particle pairs, allowing one particle to escape",
+              "The black hole reflects incoming radiation from nearby stars",
+              "Hawking radiation is produced only when black holes collide"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q21",
+            "prompt": "A particle is confined inside a one-dimensional box. If the size of the box is reduced to half its original value while the quantum number remains unchanged, by what factor does the particle's energy change?",
+            "options": [
+              "2",
+              "4",
+              "8",
+              "16"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "A quasar spectrum contains many absorption lines at wavelengths shorter than the quasar's own Ly-α emission line. What is the most likely explanation for these absorption lines?",
+            "options": [
+              "Multiple hydrogen clouds at different redshifts absorb the quasar's light along the line of sight",
+              "The quasar emits many separate Ly-α lines because of turbulence",
+              "The telescope creates diffraction effects that split the spectral lines",
+              "The quasar is rotating so quickly that its spectrum becomes fragmented"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q23",
+            "prompt": "A particle physics experiment reports a local significance of 4σ for a possible new particle. Why might scientists still hesitate to claim a discovery?",
+            "options": [
+              "Because the result could still arise from statistical fluctuations, especially when many possible signals are examined",
+              "Because 4σ is weaker than 2σ",
+              "Because significance values larger than 3σ are unreliable",
+              "Because discoveries cannot be based on statistical evidence"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q24",
+            "prompt": "A galaxy has a spectral line with rest wavelength 656 nm, but it is observed at 918.4 nm. What is the redshift of the galaxy?",
+            "options": [
+              "0.20",
+              "0.40",
+              "0.60",
+              "1.40"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "A rare disease affects only 0.1% of the population. A diagnostic AI model has 99% sensitivity and 99% specificity. Why might most positive test results still be false positives?",
+            "options": [
+              "Because the disease is so rare that false positives can outnumber true positives even with high specificity",
+              "Because specificity is more important than sensitivity",
+              "Because sensitivity below 100% always makes a model useless",
+              "Because rare diseases cannot be detected accurately"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q26",
+            "prompt": "A spherical nanoparticle has a radius of 2 nm, while another particle of the same material has radius 20 nm. By what factor is the surface-area-to-volume ratio greater for the smaller particle?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "100"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q27",
+            "prompt": "A galaxy cluster contains visible matter with a total mass of 10¹⁴ solar masses, but gravitational lensing measurements indicate a total mass closer to 5 × 10¹⁴ solar masses. Which explanation is most scientifically accepted?",
+            "options": [
+              "The cluster contains a large amount of dark matter not directly visible through electromagnetic radiation",
+              "The lensing measurements must be completely wrong",
+              "The visible matter is being underestimated because stars have no mass",
+              "The missing mass is caused entirely by black holes in the cluster"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q28",
+            "prompt": "A photon has an energy of 2.48 eV. Using hc = 1240 eV·nm, what is the wavelength of the photon?",
+            "options": [
+              "250 nm",
+              "400 nm",
+              "500 nm",
+              "620 nm"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q29",
+            "prompt": "A rock sample currently contains equal numbers of parent radioactive nuclei and daughter nuclei, and no daughter nuclei were present initially. How many half-lives have passed since the rock formed?",
+            "options": [
+              "0.5",
+              "1",
+              "2",
+              "4"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      },
+      {
+        "slug": "class-11",
+        "label": "Class XI",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A spacecraft is placed in a stable circular orbit around a non-rotating Schwarzschild black hole at a radius of 3r_s, where r_s = 2GM/c² is the Schwarzschild radius. The astronauts aboard compare their onboard atomic clock with an identical clock far from the black hole. Which of the following statements is MOST scientifically rigorous?",
+            "options": [
+              "The onboard clock runs slower only because the spacecraft is moving rapidly; gravity does not directly affect the flow of time",
+              "The onboard clock runs slower due to a combination of gravitational time dilation and special relativistic time dilation; a distant observer would measure both effects simultaneously",
+              "The onboard clock runs at the same rate because all freely falling observers are equivalent in general relativity",
+              "Time dilation becomes important only after the spacecraft crosses the event horizon"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "Quantum Mechanics] An electron in a one-dimensional infinite potential well of width L has allowed energies proportional to n²/L². If the width of the well is reduced to L/2 while the electron remains in the same quantum state n, what happens to its energy?",
+            "options": [
+              "It doubles",
+              "It becomes four times larger",
+              "It becomes half as large",
+              "It remains unchanged because n is fixed"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q7",
+            "prompt": "A cosmologist proposes that dark matter does not exist and that all galactic rotation curves can be explained entirely by modifying Newton's law of gravity at large distances. Which observation would provide the strongest challenge to this claim?",
+            "options": [
+              "Spiral galaxies rotate more rapidly than expected from visible matter alone",
+              "Galaxy clusters exhibit gravitational lensing far stronger than visible matter can explain",
+              "Some stars orbit black holes at relativistic speeds",
+              "The Milky Way contains dark nebulae that block visible light"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q8",
+            "prompt": "A hydrogen atom emits a photon when its electron transitions from n = 6 to n = 2. Using the hydrogen energy level formula E_n = -13.6/n² eV, determine both the wavelength and the energy of the emitted photon. Use hc = 1240 eV·nm.",
+            "options": [
+              "E ≈ 2.86 eV; λ ≈ 434 nm",
+              "E ≈ 2.55 eV; λ ≈ 486 nm",
+              "E ≈ 3.02 eV; λ ≈ 411 nm",
+              "E ≈ 1.89 eV; λ ≈ 656 nm"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q9",
+            "prompt": "At very high energies, relativistic momentum is given by p = γmv. Why do particle accelerators such as the LHC mainly increase particle momentum rather than speed when energies become extremely large?",
+            "options": [
+              "Because particles reach speeds close to c, so additional energy mainly increases γ rather than v",
+              "Because the rest mass of particles decreases at high speed",
+              "Because the magnetic fields become too weak to affect speed",
+              "Because the speed of light itself increases at higher energy"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q10",
+            "prompt": "Quantum dots of cadmium selenide (CdSe) emit different colours depending on their size. Why do smaller dots emit bluer light?",
+            "options": [
+              "Smaller dots contain fewer atoms and therefore generate less heat",
+              "Smaller dots have larger band gaps due to quantum confinement, so they emit higher-energy photons",
+              "Smaller dots are more reflective than larger dots",
+              "Smaller dots emit more infrared radiation, which mixes with visible light"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q11",
+            "prompt": "Graphene's unusual electronic properties arise because electrons near the Dirac points obey a linear dispersion relation E = ħv_F |k| instead of the quadratic form E = p²/2m. What is the MOST important consequence of this?",
+            "options": [
+              "Electrons in graphene behave as if they are massless relativistic particles with extremely high mobility",
+              "Graphene becomes superconducting at room temperature automatically",
+              "Graphene's electrons move slower than in ordinary metals",
+              "Graphene cannot conduct electricity in two dimensions"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q12",
+            "prompt": "A star with an initial mass about 20 times that of the Sun undergoes gravitational collapse after exhausting its nuclear fuel. Which outcome is MOST likely?",
+            "options": [
+              "It becomes a white dwarf supported by electron degeneracy pressure",
+              "It becomes a neutron star or black hole, depending on the remaining core mass",
+              "It becomes a gas giant planet",
+              "It remains stable because gravity stops acting after fusion ends"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q13",
+            "prompt": "The Event Horizon Telescope combines radio observatories across Earth to form an interferometer with an effective baseline approximately equal to Earth's diameter. Which statement MOST accurately explains why this technique can resolve structures near the event horizon of a black hole such as M87*?",
+            "options": [
+              "The effective aperture becomes comparable to the maximum baseline, dramatically improving angular resolution to microarcsecond scales",
+              "Radio waves from different observatories interfere constructively and travel faster toward the black hole",
+              "Interferometry increases the brightness of the source rather than its angular resolution",
+              "The Earth's magnetic field focuses radio waves onto the target source"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "A machine learning model trained on historical scientific funding decisions systematically rejects interdisciplinary projects because historically they had lower acceptance rates. Which principle of AI ethics is MOST clearly violated?",
+            "options": [
+              "Transparency only",
+              "Fairness, because the model reinforces historical bias and reduces diversity in future research",
+              "Privacy, because project titles are visible to the model",
+              "Sustainability, because the model uses too much computing power"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q15",
+            "prompt": "The Schwarzschild radius of an object is given by r_s = 2GM/c². If the mass of a black hole doubles, what happens to its Schwarzschild radius?",
+            "options": [
+              "It doubles",
+              "It becomes four times larger",
+              "It becomes half as large",
+              "It remains unchanged"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q16",
+            "prompt": "A quasar spectrum contains a large number of absorption lines at wavelengths shorter than the quasar's own Ly-α emission line. This is known as the Ly-α forest. What causes these absorption features?",
+            "options": [
+              "Multiple hydrogen clouds at different redshifts along the line of sight absorb Ly-α photons",
+              "The quasar emits many separate Ly-α lines because of turbulence in its accretion disk",
+              "Gravitational lensing splits the quasar image into multiple spectra",
+              "Free electrons scatter the quasar light into discrete wavelength bands"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q17",
+            "prompt": "The Higgs boson was discovered in 2012 through its decay products. Why is the Higgs boson itself difficult to observe directly?",
+            "options": [
+              "Because it is electrically neutral and invisible to all detectors",
+              "Because it decays extremely rapidly into other particles almost immediately after being produced",
+              "Because it exists only inside black holes",
+              "Because it interacts only through gravity"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q18",
+            "prompt": "A radioactive isotope has a half-life of 12 years. If a sample initially contains 96 g, how much remains after 36 years?",
+            "options": [
+              "48 g",
+              "24 g",
+              "12 g",
+              "6 g"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q19",
+            "prompt": "A particle physics experiment scanning over thousands of possible invariant mass combinations finds a signal peak at 4.1σ local significance. One scientist argues that this is enough for a discovery, while another says the global significance is much lower because of the look-elsewhere effect. Which statement is MOST accurate?",
+            "options": [
+              "A 4.1σ local significance is always sufficient because the chance of a fluctuation is already extremely small",
+              "When many possible mass ranges are examined, random fluctuations are more likely to appear somewhere in the data; therefore, the global significance can be much lower than the local significance",
+              "The look-elsewhere effect applies only to astronomy, not particle physics",
+              "Statistical significance is unnecessary if the signal appears visually convincing on a graph"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q20",
+            "prompt": "A planet orbits its star at a distance of 9 AU. Using Kepler's third law in the form T² = a³, what is its orbital period?",
+            "options": [
+              "9 years",
+              "18 years",
+              "27 years",
+              "81 years"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "According to Heisenberg's uncertainty principle, if the uncertainty in a particle's position becomes extremely small, what happens to the uncertainty in its momentum?",
+            "options": [
+              "It also becomes extremely small",
+              "It becomes extremely large",
+              "It remains unchanged",
+              "It becomes zero"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "A spherical nanoparticle has a radius of 3 nm. Its surface area is given by 4πr² and its volume by (4/3)πr³. A second nanoparticle of the same material has radius 30 nm. By what factor is the surface-area-to-volume ratio larger for the smaller nanoparticle?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "100"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "Graphene absorbs about 2.3% of incident visible light per layer. Approximately what percentage of light would pass through three independent graphene layers?",
+            "options": [
+              "About 93.1%",
+              "About 95.4%",
+              "About 97.7%",
+              "About 90.0%"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q24",
+            "prompt": "A galaxy has an emission line with rest wavelength λ₀ = 656 nm, but the line is observed at λ = 918.4 nm. Using z = (λ − λ₀)/λ₀, determine the galaxy's redshift and identify the most likely cosmological interpretation.",
+            "options": [
+              "z = 0.20; the galaxy is moving toward Earth",
+              "z = 0.40; the galaxy is receding because of cosmic expansion",
+              "z = 0.60; the galaxy is approaching Earth at relativistic speed",
+              "z = 1.40; the galaxy is outside the observable universe"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "Observations of distant Type Ia supernovae indicate that the expansion of the universe is accelerating. Which property of dark energy is required to explain this?",
+            "options": [
+              "Positive pressure and positive density",
+              "Negative pressure that counteracts gravitational attraction on cosmic scales",
+              "Zero density and zero pressure",
+              "Infinite density concentrated inside black holes"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q26",
+            "prompt": "A proton has rest mass energy m₀c² = 938 MeV and total relativistic energy E = 9380 MeV. Calculate both the Lorentz factor γ and the approximate value of v/c.",
+            "options": [
+              "γ ≈ 5; v/c ≈ 0.98",
+              "γ ≈ 10; v/c ≈ 0.995",
+              "γ ≈ 50; v/c ≈ 0.9998",
+              "γ ≈ 100; v/c ≈ 0.99995"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q27",
+            "prompt": "An AI model achieves 98% accuracy in detecting a rare disease present in only 1% of the population. Why might this still be misleading?",
+            "options": [
+              "Because predicting 'no disease' for every patient would already give 99% accuracy",
+              "Because accuracy is always lower than recall",
+              "Because rare diseases cannot be detected by AI",
+              "Because 98% accuracy always implies high false positives"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q28",
+            "prompt": "A black hole's event horizon is often described as the point of no return. What does this mean physically?",
+            "options": [
+              "It is the distance at which gravity becomes infinite",
+              "It is the boundary beyond which no signal or particle can escape to a distant observer",
+              "It is the location where all matter is destroyed instantly",
+              "It is the surface where black holes emit visible light"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q29",
+            "prompt": "The critical density of the universe determines whether cosmic expansion continues forever or eventually reverses. If the actual density of the universe is much lower than the critical density, which outcome is MOST likely?",
+            "options": [
+              "The universe eventually recollapses in a Big Crunch",
+              "The universe remains static forever",
+              "The universe expands forever, with gravity too weak to halt expansion",
+              "The universe oscillates between expansion and contraction"
+            ],
+            "correctIndex": 2
+          }
+        ]
+      },
+      {
+        "slug": "class-12",
+        "label": "Class XII",
+        "subtitle": "YSRC sample paper - Science",
+        "questionCount": 29,
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "How many percent IITians are droppers?",
+            "options": [
+              "10%",
+              "20%",
+              "30%",
+              "40%"
+            ],
+            "correctIndex": 3
+          },
+          {
+            "id": "q2",
+            "prompt": "All India rankers from 1–600: from which class can they appear for the government olympiad?",
+            "options": [
+              "Class 12",
+              "Class 4",
+              "Class 8",
+              "Class 10"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q3",
+            "prompt": "Which olympiads are mentioned in the introduction video?",
+            "options": [
+              "NSE, ZCO, RMO",
+              "INSPIRE",
+              "NMMS",
+              "JNVS"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q4",
+            "prompt": "Where are students taken when they qualify the government olympiad?",
+            "options": [
+              "BARC",
+              "NASA",
+              "ISRO/TIFR",
+              "AIIMS/IITs"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q5",
+            "prompt": "A Schwarzschild black hole has mass M and Schwarzschild radius r_s = 2GM/c². A test particle is placed in a circular orbit at radius r = 1.5r_s around the black hole. According to general relativity, circular orbits become unstable at sufficiently small radii because spacetime curvature becomes extremely strong. Which of the following statements is the most scientifically accurate regarding the stability of this orbit?",
+            "options": [
+              "The orbit is stable because all circular orbits outside the event horizon are stable",
+              "The orbit is unstable because stable circular orbits exist only for radii greater than 3r_s",
+              "The orbit is stable because the particle's angular momentum prevents infall at all radii",
+              "The orbit lies inside the event horizon and therefore cannot physically exist"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q6",
+            "prompt": "A particle is confined in a one-dimensional infinite potential well of width L. The allowed energies of the particle are given by E_n = n²h²/8mL², where n is the quantum number. Suppose the width of the well is reduced to one-third of its original value while the particle remains in the same quantum state. By what factor does the particle's energy change?",
+            "options": [
+              "3",
+              "6",
+              "9",
+              "27"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q7",
+            "prompt": "The Bullet Cluster is frequently cited as one of the strongest pieces of evidence for the existence of dark matter. In this system, two galaxy clusters have collided, causing the hot X-ray-emitting gas to slow down while most of the galaxies pass through one another. Gravitational lensing measurements show that most of the mass is concentrated near the galaxies rather than near the hot gas. Why is this observation especially difficult to explain using only modified gravity theories?",
+            "options": [
+              "The visible galaxies and X-ray-emitting gas are spatially separated, while gravitational lensing follows the galaxies rather than the gas",
+              "The Bullet Cluster contains more galaxies than the Milky Way",
+              "The X-ray gas is hotter than the Sun",
+              "The galaxies in the Bullet Cluster are moving faster than light"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q8",
+            "prompt": "Using the Rydberg formula, determine the wavelength of the photon emitted when a hydrogen electron transitions from n = 7 to n = 2.",
+            "options": [
+              "397 nm",
+              "434 nm",
+              "486 nm",
+              "656 nm"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q9",
+            "prompt": "At sufficiently high energies, the relativistic kinetic energy of a particle greatly exceeds its rest mass energy. Which statement is MOST accurate?",
+            "options": [
+              "The particle's speed becomes much greater than c",
+              "The particle's momentum continues increasing rapidly while its speed approaches c asymptotically",
+              "The particle's rest mass physically increases",
+              "The particle's total energy becomes independent of momentum"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q10",
+            "prompt": "A semiconductor nanoparticle becomes smaller and smaller. Which of the following trends is MOST accurate?",
+            "options": [
+              "Its band gap decreases continuously and eventually becomes zero",
+              "Its band gap increases because confinement raises the energy of allowed electronic states",
+              "Its density decreases to zero",
+              "Its electrical conductivity becomes identical to that of the bulk material"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q11",
+            "prompt": "Graphene exhibits an unusual half-integer quantum Hall effect. Which feature of graphene is MOST directly responsible for this?",
+            "options": [
+              "The existence of massless Dirac fermions and a Berry phase of π",
+              "Its high thermal conductivity",
+              "The presence of strong nuclear interactions between carbon atoms",
+              "The fact that graphene is only one atom thick"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q12",
+            "prompt": "A star of initial mass 30 solar masses undergoes core collapse. Which outcome is MOST likely?",
+            "options": [
+              "White dwarf",
+              "Neutron star",
+              "Black hole",
+              "Brown dwarf"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q13",
+            "prompt": "An interferometer observes at wavelength λ with baseline B. Its angular resolution is approximately θ ≈ λ/B. If the wavelength is reduced by a factor of 2 and the baseline increased by a factor of 3, how does the angular resolution change?",
+            "options": [
+              "It improves by a factor of 6",
+              "It improves by a factor of 3",
+              "It worsens by a factor of 6",
+              "It remains unchanged"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q14",
+            "prompt": "An AI system is trained on decades of historical hiring data from scientific institutions. After deployment, it systematically ranks applicants from underrepresented groups lower, even when they have qualifications similar to other applicants. Investigators discover that the training data itself contained historical discrimination and unequal opportunities. Which concept best describes the resulting ethical problem?",
+            "options": [
+              "Quantum bias",
+              "Feedback-loop amplification of historical discrimination",
+              "Entropy maximization",
+              "Simpson's paradox"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q15",
+            "prompt": "A black hole has a Schwarzschild radius of 30 km. Using r_s = 2GM/c² and taking the Sun's Schwarzschild radius to be approximately 3 km, what is the mass of the black hole?",
+            "options": [
+              "3 solar masses",
+              "10 solar masses",
+              "30 solar masses",
+              "100 solar masses"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q16",
+            "prompt": "The Ly-α forest observed in quasar spectra is important because:",
+            "options": [
+              "It traces multiple intervening hydrogen clouds at different redshifts along the line of sight",
+              "It proves quasars are composed entirely of hydrogen",
+              "It is caused by diffraction inside telescopes",
+              "It measures only the quasar's internal turbulence"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q17",
+            "prompt": "The Higgs mechanism gives mass to elementary particles through spontaneous symmetry breaking. Why does the photon remain massless?",
+            "options": [
+              "Because it does not couple to the Higgs field",
+              "Because photons have no electric charge",
+              "Because photons travel at c",
+              "Because the Higgs field exists only inside nuclei"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q18",
+            "prompt": "A radioactive isotope has a half-life of 5 years. If 320 g are initially present, how much remains after 20 years?",
+            "options": [
+              "80 g",
+              "40 g",
+              "20 g",
+              "10 g"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q19",
+            "prompt": "A particle physics experiment scanning through thousands of possible invariant mass combinations reports a signal peak with a local significance of 4.8σ in a narrow mass window. Although this appears very significant, many physicists still hesitate to call it a discovery because of the look-elsewhere effect. Why is this caution scientifically justified?",
+            "options": [
+              "Because only integer values of σ are allowed in particle physics",
+              "Because scanning many possible mass ranges increases the probability that a random fluctuation will appear somewhere in the data",
+              "Because 4.8σ is statistically weaker than 3σ",
+              "Because all discoveries require direct visual observation"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q20",
+            "prompt": "Using Kepler's third law in the form T² = a³, determine the orbital period of a planet orbiting at 16 AU.",
+            "options": [
+              "16 years",
+              "32 years",
+              "64 years",
+              "128 years"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q21",
+            "prompt": "An electron is confined to a region of width 10⁻¹⁰ m. According to Heisenberg's uncertainty principle, what happens to the uncertainty in its momentum?",
+            "options": [
+              "It becomes extremely small",
+              "It becomes extremely large",
+              "It becomes exactly zero",
+              "It remains unchanged"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q22",
+            "prompt": "A nanoparticle has radius 2 nm. Another nanoparticle of the same material has radius 20 nm. By what factor is the surface-area-to-volume ratio greater for the smaller particle?",
+            "options": [
+              "2",
+              "5",
+              "10",
+              "100"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q23",
+            "prompt": "If a single graphene layer absorbs 2.3% of visible light, approximately what fraction of light passes through five independent graphene layers?",
+            "options": [
+              "88.5%",
+              "91.0%",
+              "95.0%",
+              "97.7%"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q24",
+            "prompt": "A galaxy has a spectral line observed at 984 nm, whereas its rest wavelength is 656 nm. What is its redshift?",
+            "options": [
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
+            ],
+            "correctIndex": 1
+          },
+          {
+            "id": "q25",
+            "prompt": "Dark energy is often modeled as a cosmological constant Λ. Which equation-of-state parameter w = p/ρc² corresponds to a true cosmological constant?",
+            "options": [
+              "w = 0",
+              "w = +1",
+              "w = -1",
+              "w = -⅓"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q26",
+            "prompt": "A proton has rest mass energy 938 MeV and total energy 93.8 GeV. What is its Lorentz factor γ?",
+            "options": [
+              "10",
+              "50",
+              "100",
+              "1000"
+            ],
+            "correctIndex": 2
+          },
+          {
+            "id": "q27",
+            "prompt": "A rare disease affects only 0.1% of the population. A model identifies positive cases with 99% sensitivity and 99% specificity. Why might most positive predictions still be false positives?",
+            "options": [
+              "Because the disease prevalence is extremely low, making false positives outnumber true positives despite high specificity",
+              "Because sensitivity is more important than specificity",
+              "Because specificity below 100% always makes the model useless",
+              "Because AI systems cannot handle rare events"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q28",
+            "prompt": "Hawking radiation is one of the most surprising predictions of quantum field theory in curved spacetime. Near the event horizon of a black hole, quantum fluctuations can create virtual particle-antiparticle pairs. Under certain conditions, one particle can escape while the other falls into the black hole. Which statement best explains this process?",
+            "options": [
+              "Virtual particle pairs near the event horizon can be separated, allowing one particle to escape to infinity",
+              "Black holes contain hot plasma that emits ordinary thermal radiation",
+              "Matter falling into the black hole is reflected outward by the event horizon",
+              "Photons can travel faster than the speed of light near the event horizon"
+            ],
+            "correctIndex": 0
+          },
+          {
+            "id": "q29",
+            "prompt": "A rock currently contains equal numbers of parent radioactive nuclei and daughter nuclei. Assuming no daughter nuclei were initially present, how many half-lives have elapsed?",
+            "options": [
+              "0.5",
+              "1",
+              "2",
+              "4"
+            ],
+            "correctIndex": 1
+          }
+        ]
+      }
+    ]
+  }
+}
