@@ -170,8 +170,8 @@ export default function PracticeScreen() {
           title={researchQuizData.ysrc.abbr}
           subjectLine={researchQuizData.ysrc.subject}
           fullName={researchQuizData.ysrc.name}
-          icon={<FlaskConical size={22} color="#059669" strokeWidth={2.25} />}
-          iconBg="#05966918"
+          icon={<FlaskConical size={22} color={brand.science} strokeWidth={2.25} />}
+          iconBg={brand.science + '18'}
           quizzes={filteredYsrc}
           completedSlugs={completedSlugs}
         />

@@ -7,7 +7,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BookOpen, Compass, House } from 'lucide-react-native';
+import { BookOpen, Brain, Compass, House } from 'lucide-react-native';
 
 import { brand, colors, darkColors } from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
@@ -141,6 +141,22 @@ export default function TabLayout() {
                 color={color}
                 strokeWidth={focused ? 2.5 : 1.8}
                 fill={focused ? brand.primary + '22' : 'transparent'}
+              />
+            </AnimatedTabIcon>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="practice"
+        options={{
+          tabBarLabel: 'Practice',
+          tabBarIcon: ({ color, focused }) => (
+            <AnimatedTabIcon focused={focused} color={color}>
+              <Brain
+                size={21}
+                color={color}
+                strokeWidth={focused ? 2.5 : 1.8}
               />
             </AnimatedTabIcon>
           ),

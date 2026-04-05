@@ -23,6 +23,7 @@ export const brand = {
   warning: '#F5C842',   // Gold - streak at risk, partial progress
   info: '#1B8A7A',      // Teal - informational states
   locked: '#9CA3AF',    // Gray - locked content, disabled states
+  science: '#059669',   // Emerald - YSRC science competition accent
 } as const;
 
 /**
@@ -240,6 +241,8 @@ export const iconColors = {
   empty: '#D1D5DB',     // neutral-300 - empty states
   onBrand: '#FFFFFF',   // white - icons on colored backgrounds
   onWarning: '#A04F08', // brand.dark - icons on warning/gold backgrounds
+  success: '#22C55E',   // green - completed states, correct answers
+  error: '#EF4444',     // red - errors, failed states
 } as const;
 
 /**

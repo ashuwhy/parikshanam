@@ -1,0 +1,67 @@
+diff --git a/node_modules/expo-av/ios/EXAV/EXAV.h b/node_modules/expo-av/ios/EXAV/EXAV.h
+index 42a79e1..c0d2c1b 100644
+--- a/node_modules/expo-av/ios/EXAV/EXAV.h
++++ b/node_modules/expo-av/ios/EXAV/EXAV.h
+@@ -7,7 +7,12 @@
+ #import <ExpoModulesCore/EXModuleRegistryConsumer.h>
+ #import <ExpoModulesCore/EXAppLifecycleListener.h>
+ #import <ExpoModulesCore/EXExportedModule.h>
+-#import <ExpoModulesCore/EXEventEmitter.h>
++// EXEventEmitter.h was removed in ExpoModulesCore SDK 55 — inline the protocol.
++@protocol EXEventEmitter <NSObject>
++- (NSArray<NSString *> *)supportedEvents;
++- (void)startObserving;
++- (void)stopObserving;
++@end
+ #import <EXAV/EXAVObject.h>
+ 
+ typedef NS_OPTIONS(NSUInteger, EXAudioInterruptionMode)
+diff --git a/node_modules/expo-av/ios/EXAV/EXAV.m b/node_modules/expo-av/ios/EXAV/EXAV.m
+index 7153d28..e58d3c1 100644
+--- a/node_modules/expo-av/ios/EXAV/EXAV.m
++++ b/node_modules/expo-av/ios/EXAV/EXAV.m
+@@ -3,7 +3,10 @@
+ #import <AVFoundation/AVFoundation.h>
+ 
+ #import <ExpoModulesCore/EXUIManager.h>
+-#import <ExpoModulesCore/EXEventEmitterService.h>
++// EXEventEmitterService.h was removed in ExpoModulesCore SDK 55 — inline the protocol.
++@protocol EXEventEmitterService <NSObject>
++- (void)sendEventWithName:(NSString *)name body:(id)body;
++@end
+ #import <ExpoModulesCore/EXAppLifecycleService.h>
+ #import <ExpoModulesCore/EXFileSystemInterface.h>
+ #import <ExpoModulesCore/EXPermissionsInterface.h>
+diff --git a/node_modules/expo-av/ios/EXAV/EXAVTV.m b/node_modules/expo-av/ios/EXAV/EXAVTV.m
+index b6fccda..24e762b 100644
+--- a/node_modules/expo-av/ios/EXAV/EXAVTV.m
++++ b/node_modules/expo-av/ios/EXAV/EXAVTV.m
+@@ -3,7 +3,10 @@
+ #import <AVFoundation/AVFoundation.h>
+ 
+ #import <ExpoModulesCore/EXUIManager.h>
+-#import <ExpoModulesCore/EXEventEmitterService.h>
++// EXEventEmitterService.h was removed in ExpoModulesCore SDK 55 — inline the protocol.
++@protocol EXEventEmitterService <NSObject>
++- (void)sendEventWithName:(NSString *)name body:(id)body;
++@end
+ #import <ExpoModulesCore/EXAppLifecycleService.h>
+ #import <ExpoModulesCore/EXFileSystemInterface.h>
+ #import <ExpoModulesCore/EXPermissionsInterface.h>
+diff --git a/node_modules/expo-av/ios/EXAV/Video/EXVideoView.h b/node_modules/expo-av/ios/EXAV/Video/EXVideoView.h
+index f7ff4ee..d17002c 100644
+--- a/node_modules/expo-av/ios/EXAV/Video/EXVideoView.h
++++ b/node_modules/expo-av/ios/EXAV/Video/EXVideoView.h
+@@ -1,7 +1,11 @@
+ // Copyright 2015-present 650 Industries. All rights reserved.
+ 
+ #import <ExpoModulesCore/EXModuleRegistry.h>
+-#import <ExpoModulesCore/EXLegacyExpoViewProtocol.h>
++// EXLegacyExpoViewProtocol.h was removed in ExpoModulesCore SDK 55 — inline the protocol.
++// Note: @property is intentionally omitted; EXVideoView.m's class extension declares it.
++@class EXModuleRegistry;
++@protocol EXLegacyExpoViewProtocol <NSObject>
++@end
+ 
+ #import <EXAV/EXAVObject.h>
+ #import <EXAV/EXVideoPlayerViewControllerDelegate.h>
