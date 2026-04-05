@@ -17,7 +17,7 @@ index 42a79e1..c0d2c1b 100644
  
  typedef NS_OPTIONS(NSUInteger, EXAudioInterruptionMode)
 diff --git a/node_modules/expo-av/ios/EXAV/EXAV.m b/node_modules/expo-av/ios/EXAV/EXAV.m
-index 7153d28..e58d3c1 100644
+index 7153d28..dcd2ee8 100644
 --- a/node_modules/expo-av/ios/EXAV/EXAV.m
 +++ b/node_modules/expo-av/ios/EXAV/EXAV.m
 @@ -3,7 +3,10 @@
@@ -32,6 +32,39 @@ index 7153d28..e58d3c1 100644
  #import <ExpoModulesCore/EXAppLifecycleService.h>
  #import <ExpoModulesCore/EXFileSystemInterface.h>
  #import <ExpoModulesCore/EXPermissionsInterface.h>
+@@ -1013,8 +1016,8 @@ - (void)sendEventWithName:(NSString *)eventName body:(NSDictionary *)body
+ }
+ 
+ EX_EXPORT_METHOD_AS(getAvailableInputs,
+-                    resolver:(UMPromiseResolveBlock)resolve
+-                    rejecter:(UMPromiseRejectBlock)reject)
++                    resolver:(EXPromiseResolveBlock)resolve
++                    rejecter:(EXPromiseRejectBlock)reject)
+ {
+   NSMutableArray *inputs = [NSMutableArray new];
+   for (AVAudioSessionPortDescription *desc in [_kernelAudioSessionManagerDelegate availableInputs]){
+@@ -1028,8 +1031,8 @@ - (void)sendEventWithName:(NSString *)eventName body:(NSDictionary *)body
+ }
+ 
+ EX_EXPORT_METHOD_AS(getCurrentInput,
+-                    getCurrentInput:(UMPromiseResolveBlock)resolve
+-                    rejecter:(UMPromiseRejectBlock)reject)
++                    getCurrentInput:(EXPromiseResolveBlock)resolve
++                    rejecter:(EXPromiseRejectBlock)reject)
+ {
+   AVAudioSessionPortDescription *desc = [_kernelAudioSessionManagerDelegate activeInput];
+   if (desc) {
+@@ -1045,8 +1048,8 @@ - (void)sendEventWithName:(NSString *)eventName body:(NSDictionary *)body
+ 
+ EX_EXPORT_METHOD_AS(setInput,
+                     setInput:(NSString*)input
+-                    resolver:(UMPromiseResolveBlock)resolve
+-                    rejecter:(UMPromiseRejectBlock)reject)
++                    resolver:(EXPromiseResolveBlock)resolve
++                    rejecter:(EXPromiseRejectBlock)reject)
+ {
+   AVAudioSessionPortDescription* preferredInput = nil;
+   for (AVAudioSessionPortDescription *desc in [_kernelAudioSessionManagerDelegate availableInputs]){
 diff --git a/node_modules/expo-av/ios/EXAV/EXAVTV.m b/node_modules/expo-av/ios/EXAV/EXAVTV.m
 index b6fccda..24e762b 100644
 --- a/node_modules/expo-av/ios/EXAV/EXAVTV.m
