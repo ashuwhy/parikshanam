@@ -46,7 +46,6 @@ export function CourseCard({ course, onPress, purchased }: Props) {
                 style={{ height: 156, width: '100%' }}
                 contentFit="cover"
               />
-              <View className="absolute bottom-0 left-0 right-0 h-12 bg-black/20" />
             </>
           ) : (
             <View className="h-36 w-full items-center justify-center bg-brand-primary/8 dark:bg-brand-primary/5">

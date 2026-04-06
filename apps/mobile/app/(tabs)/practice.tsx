@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, View, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Brain, ChevronRight, FlaskConical } from 'lucide-react-native';
+import { Brain, ChevronRight, FlaskConical, Award } from 'lucide-react-native';
 
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
@@ -27,7 +27,7 @@ function QuizItem({
         'flex-row items-center justify-between gap-4 rounded-2xl border-2 p-4 mb-2',
         isCompleted
           ? 'border-status-success/30 bg-status-success/5'
-          : 'border-ui-border bg-white dark:bg-neutral-800',
+          : 'border-neutral-700 bg-neutral-800',
       ].join(' ')}
     >
       <View className="flex-1 min-w-0">
@@ -109,6 +109,7 @@ function QuizSection({
 
 export default function PracticeScreen() {
   const { profile } = useAuth();
+  const router = useRouter();
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -140,7 +141,7 @@ export default function PracticeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top', 'bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 48 }}
@@ -148,11 +149,29 @@ export default function PracticeScreen() {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => void onRefresh()} />}
       >
         <Text className="text-2xl font-display-black tracking-tight text-neutral-900 dark:text-neutral-100 mb-1">
-          Practice Quizzes
+          Practice & Competitions
         </Text>
-        <Text className="text-sm font-sans-medium text-neutral-500 mb-8">
-          Free quizzes for your grade. Results are recorded for merit selection.
+        <Text className="text-sm font-sans-medium text-neutral-500 mb-6">
+          Access your quizzes and download competition certificates.
         </Text>
+
+        <Pressable
+          className="flex-row items-center gap-4 rounded-2xl border-2 border-brand-accent bg-brand-primary/5 p-4 mb-8"
+          onPress={() => router.push(href('/ysc'))}
+        >
+          <View className="w-10 h-10 rounded-xl items-center justify-center bg-brand-primary/10">
+            <Award size={20} color={brand.primary} strokeWidth={2.25} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100">
+              YSC Certificate Lookup
+            </Text>
+            <Text className="text-xs font-sans-medium text-neutral-500 mt-0.5" numberOfLines={1}>
+              Download your Young Scientist Challenge certificate
+            </Text>
+          </View>
+          <ChevronRight size={20} color={brand.primary} strokeWidth={2} />
+        </Pressable>
 
         <QuizSection
           competition="ymrc"

@@ -36,6 +36,7 @@ function YoutubeLessonPlayer({
   const { width } = useWindowDimensions();
   const height = Math.round((width * 9) / 16);
   const [playing, setPlaying] = useState(false);
+  const [ytReady, setYtReady] = useState(false);
   const playerRef = useRef<YoutubeIframeRef>(null);
 
   const onStateChange = useCallback(
@@ -45,7 +46,10 @@ function YoutubeLessonPlayer({
         onEnded?.();
       }
       if (state === 'paused') setPlaying(false);
-      if (state === 'playing') setPlaying(true);
+      if (state === 'playing') {
+        setPlaying(true);
+        setYtReady(true);
+      }
     },
     [onEnded],
   );
@@ -64,12 +68,47 @@ function YoutubeLessonPlayer({
           modestbranding: true,
           controls: true,
           iv_load_policy: 3,
+          cc_load_policy: 0,
         }}
         webViewProps={{
           allowsInlineMediaPlayback: true,
           mediaPlaybackRequiresUserAction: false,
+          injectedJavaScript: `
+            (function() {
+              var style = document.createElement('style');
+              style.textContent = [
+                '.ytp-chrome-top',
+                '.ytp-watermark',
+                '.ytp-youtube-button',
+                '.ytp-branding',
+                '.ytp-show-cards-title',
+                '.ytp-title',
+                '.ytp-title-channel',
+                '.ytp-pause-overlay',
+                '.iv-branding',
+                '.branding-img',
+                '.annotation',
+                '.ytp-ce-element',
+                '.ytp-endscreen-content',
+              ].join(',') + ' { display: none !important; opacity: 0 !important; visibility: hidden !important; }';
+              document.head.appendChild(style);
+            })();
+            true;
+          `,
         }}
       />
+
+      {/* Black curtain hides YouTube chrome until video is playing */}
+      {!ytReady && (
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center', zIndex: 5 }}>
+          <Pressable
+            onPress={() => setPlaying(true)}
+            className="w-16 h-16 rounded-full bg-white/10 items-center justify-center"
+          >
+            <Play color="white" fill="white" size={28} style={{ marginLeft: 4 }} />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 }

@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { CheckCircle } from 'lucide-react-native';
 
 import { Button } from '@/components/ui/Button';
+import { BackButton } from '@/components/ui/BackButton';
 import { brand, iconColors } from '@/constants/Colors';
 import { supabase } from '@/lib/supabase';
 import type { CompetitionId, ResearchQuestion } from '@/lib/research-quizzes';
@@ -72,8 +73,8 @@ export function ResearchQuizRunner({
 
   if (phase === 'results') {
     return (
-      <ScrollView className="flex-1 bg-ui-bg" contentContainerStyle={{ padding: 20, paddingBottom: 48 }}>
-        <View className="mt-10 rounded-3xl border-2 border-ui-border bg-white dark:bg-neutral-800 p-8 items-center">
+      <ScrollView className="flex-1 bg-ui-bg dark:bg-neutral-950" contentContainerStyle={{ padding: 20, paddingBottom: 48 }}>
+        <View className="mt-10 rounded-3xl border-2 border-neutral-700 bg-neutral-800 p-8 items-center">
           <View
             className="w-20 h-20 rounded-full items-center justify-center mb-6"
             style={{ backgroundColor: brand.primary + '18' }}
@@ -100,15 +101,25 @@ export function ResearchQuizRunner({
   }
 
   return (
-    <View className="flex-1 bg-ui-bg">
+    <View className="flex-1 bg-ui-bg dark:bg-neutral-950">
       {/* Header */}
-      <View className="flex-row items-center justify-between px-5 py-3 border-b border-ui-border bg-white dark:bg-neutral-900">
-        <Text className="text-xs font-display-black uppercase tracking-wider text-brand-primary">
-          {competitionAbbr} · {quizLabel}
-        </Text>
-        <Text className="text-sm font-display-extra text-neutral-500 tabular-nums">
-          {index + 1} / {questions.length}
-        </Text>
+      <View className="flex-row items-center px-4 pt-2 pb-4">
+        <BackButton variant="light" onPress={onBack} />
+        
+        <View className="flex-1 px-3">
+          <Text className="text-[10px] font-display-black uppercase tracking-widest text-brand-primary mb-0.5" numberOfLines={1}>
+            {competitionAbbr}
+          </Text>
+          <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100" numberOfLines={1}>
+            {quizLabel}
+          </Text>
+        </View>
+
+        <View className="bg-white dark:bg-neutral-800 border border-ui-border dark:border-neutral-700 px-3 py-1.5 rounded-xl shadow-sm">
+          <Text className="text-sm font-display-extra text-neutral-600 dark:text-neutral-300 tabular-nums">
+            {index + 1} <Text className="text-neutral-400 dark:text-neutral-500 font-sans-medium">/ {questions.length}</Text>
+          </Text>
+        </View>
       </View>
 
       <ScrollView className="flex-1" contentContainerStyle={{ padding: 20, paddingBottom: 32 }}>
@@ -116,7 +127,7 @@ export function ResearchQuizRunner({
           Question {index + 1}
         </Text>
 
-        <View className="rounded-2xl border-2 border-ui-border bg-white dark:bg-neutral-800 p-5 mb-6">
+        <View className="rounded-2xl border-2 border-neutral-700 bg-neutral-800 p-5 mb-6">
           <Text className="text-base font-sans-medium text-neutral-800 dark:text-neutral-200 leading-relaxed mb-5">
             {current.prompt}
           </Text>
@@ -132,7 +143,7 @@ export function ResearchQuizRunner({
                     'rounded-xl border-2 px-4 py-3 flex-row items-center',
                     selected
                       ? 'border-brand-primary bg-brand-primary/8'
-                      : 'border-ui-border bg-white dark:bg-neutral-700',
+                      : 'border-neutral-600 bg-neutral-700',
                   ].join(' ')}
                 >
                   <Text
@@ -151,7 +162,7 @@ export function ResearchQuizRunner({
         </View>
       </ScrollView>
 
-      <View className="px-5 pb-8 pt-3 border-t border-ui-border bg-white dark:bg-neutral-900">
+      <View className="px-5 pb-8 pt-3 border-t border-neutral-800 bg-neutral-900">
         <Button
           title={isLast ? 'See results' : 'Next question'}
           variant="primary"

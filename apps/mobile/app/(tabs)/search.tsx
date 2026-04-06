@@ -58,8 +58,8 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['bottom']}>
-      <View className="px-4 pt-2">
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+      <View className="px-4 pt-2 pb-3 border-b border-neutral-800">
         <TextInput
           accessibilityLabel="Search courses"
           placeholder="Search courses..."
@@ -69,7 +69,7 @@ export default function SearchScreen() {
           className="rounded-xl border border-neutral-200 bg-white px-4 py-3 text-base text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100"
         />
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4 flex-row">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-3 flex-row">
           <Pressable
             accessibilityRole="button"
             accessibilityState={{ selected: filters.olympiadTypeId === null }}

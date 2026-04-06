@@ -37,6 +37,7 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
   // ── Intro video auto-play ──────────────────────────────────────
   const [showVideo, setShowVideo] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [ytReady, setYtReady] = useState(false);
 
   const introIsYoutube = isYoutubeVideoId(course.intro_video_path);
   const { url: videoUrl } = useStorageUrl(introIsYoutube ? null : course.intro_video_path);
@@ -80,6 +81,7 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
         clearTimeout(timer);
         setShowVideo(false);
         setMuted(true);
+        setYtReady(false);
       };
     }, [course.intro_video_path]),
   );
@@ -92,22 +94,70 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
     >
         {/* ── Media area ─────────────────────────────────────────── */}
         <View
-          className="relative items-center justify-center bg-brand-primary/8 dark:bg-brand-primary/5"
-          style={{ height: 192 }}
+          className="relative items-center justify-center bg-black"
+          style={{ height: 192, overflow: 'hidden' }}
         >
-          {/* Thumbnail - shown while video is not yet active */}
-          {!activeVideoUrl && !showYoutubeIntro && course.thumbnail_url && (
-            <Image
-              source={{ uri: course.thumbnail_url }}
-              style={{ width: '100%', height: '100%' }}
-              contentFit="cover"
-            />
+          {/* YouTube player renders behind the curtain */}
+          {showYoutubeIntro && course.intro_video_path && (
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+              <YoutubePlayer
+                height={192}
+                width={windowWidth}
+                videoId={course.intro_video_path.trim()}
+                play
+                mute={muted}
+                forceAndroidAutoplay
+                onChangeState={(state: string) => {
+                  if (state === 'playing') setYtReady(true);
+                }}
+                initialPlayerParams={{
+                  loop: true,
+                  controls: false,
+                  rel: false,
+                  modestbranding: true,
+                  iv_load_policy: 3,
+                  fs: false,
+                  cc_load_policy: 0,
+                  disablekb: true,
+                }}
+                webViewProps={{
+                  pointerEvents: 'none',
+                  injectedJavaScript: `
+                    (function() {
+                      var style = document.createElement('style');
+                      style.textContent = [
+                        '.ytp-chrome-top',
+                        '.ytp-chrome-bottom',
+                        '.ytp-gradient-top',
+                        '.ytp-gradient-bottom',
+                        '.ytp-pause-overlay',
+                        '.ytp-watermark',
+                        '.ytp-share-button',
+                        '.ytp-youtube-button',
+                        '.ytp-branding',
+                        '.ytp-endscreen-content',
+                        '.ytp-ce-element',
+                        '.iv-branding',
+                        '.branding-img',
+                        '.branding-img-preload',
+                        '.ytp-embed',
+                        '.ytp-show-cards-title',
+                        '.ytp-title',
+                        '.ytp-title-channel',
+                        '.annotation',
+                      ].join(',') + ' { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }';
+                      document.head.appendChild(style);
+                    })();
+                    true;
+                  `,
+                  allowsInlineMediaPlayback: true,
+                  mediaPlaybackRequiresUserAction: false,
+                }}
+              />
+            </View>
           )}
 
-          {!activeVideoUrl && !showYoutubeIntro && !course.thumbnail_url && (
-            <BookOpen size={48} color={iconColors.primary} strokeWidth={1.2} />
-          )}
-
+          {/* Native video (non-YouTube) */}
           {activeVideoUrl && (
             <VideoView
               player={player}
@@ -117,21 +167,21 @@ export function FeaturedCourseCard({ course, purchased }: Props) {
             />
           )}
 
-          {showYoutubeIntro && course.intro_video_path && (
-            <YoutubePlayer
-              height={192}
-              width={windowWidth}
-              videoId={course.intro_video_path.trim()}
-              play
-              mute={muted}
-              forceAndroidAutoplay
-              initialPlayerParams={{
-                loop: true,
-                controls: false,
-                rel: false,
-              }}
-              webViewProps={{ pointerEvents: 'none' }}
-            />
+          {/* Curtain: thumbnail stays on top until YouTube is actually playing */}
+          {(!showYoutubeIntro || !ytReady) && !activeVideoUrl && (
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+              {course.thumbnail_url ? (
+                <Image
+                  source={{ uri: course.thumbnail_url }}
+                  style={{ width: '100%', height: '100%' }}
+                  contentFit="cover"
+                />
+              ) : (
+                <View className="flex-1 items-center justify-center">
+                  <BookOpen size={48} color={iconColors.primary} strokeWidth={1.2} />
+                </View>
+              )}
+            </View>
           )}
 
           {(activeVideoUrl || showYoutubeIntro) && (

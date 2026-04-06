@@ -28,7 +28,7 @@ export default function MyCoursesScreen() {
   const totalLessons = progress.filter((p) => p.lesson_id).length;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top', 'bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 40 }}

@@ -17,7 +17,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "supabase:push": "supabase db push",
     "supabase:link": "supabase link",
-    "postinstall": "patch-package"
+    "postinstall": "node scripts/postinstall.js"
   },
   "devDependencies": {
     "patch-package": "^8.0.1",

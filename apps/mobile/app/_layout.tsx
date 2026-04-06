@@ -67,9 +67,12 @@ function NavigationGuard({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const { loading } = useAuth();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (!loading) {
@@ -93,7 +96,7 @@ function RootLayoutNav() {
         </Stack>
       </NavigationGuard>
       <StatusBar style="auto" />
-      <Toast />
+      <Toast topOffset={insets.top + 10} />
     </NavigationThemeProvider>
   );
 }

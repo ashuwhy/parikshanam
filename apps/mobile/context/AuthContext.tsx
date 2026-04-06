@@ -22,6 +22,33 @@ export type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const BYPASS_AUTH = __DEV__ && process.env.EXPO_PUBLIC_BYPASS_AUTH === 'true';
+
+const MOCK_PROFILE: Profile = {
+  id: 'mock-user-id',
+  phone: '1234567890',
+  full_name: 'Mock User',
+  avatar_url: null,
+  class_level_id: '10',
+  onboarding_completed: true,
+  created_at: new Date().toISOString(),
+};
+
+const MOCK_SESSION: Session = {
+  access_token: 'mock-token',
+  refresh_token: 'mock-refresh-token',
+  expires_in: 3600,
+  token_type: 'bearer',
+  user: {
+    id: 'mock-user-id',
+    email: 'mock@example.com',
+    app_metadata: {},
+    user_metadata: {},
+    aud: 'authenticated',
+    created_at: new Date().toISOString(),
+  } as any,
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -80,6 +107,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let timeoutId: NodeJS.Timeout;
 
     const init = async () => {
+      if (BYPASS_AUTH) {
+        console.log('Auth bypass enabled - providing mock user');
+        setSession(MOCK_SESSION);
+        setProfile(MOCK_PROFILE);
+        setLoading(false);
+        return;
+      }
+
       try {
         // Add timeout to prevent infinite loading
         timeoutId = setTimeout(() => {
@@ -111,21 +146,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      setSession(nextSession);
-      if (nextSession?.user) {
-        setLoading(true);
-        void fetchProfile(
-          nextSession.user.id,
-          nextSession.user.user_metadata as Record<string, string | undefined>,
-        ).finally(() => {
-          if (!cancelled) setLoading(false);
+    } = BYPASS_AUTH
+      ? { data: { subscription: { unsubscribe: () => {} } } }
+      : supabase.auth.onAuthStateChange((_event, nextSession) => {
+          setSession(nextSession);
+          if (nextSession?.user) {
+            setLoading(true);
+            void fetchProfile(
+              nextSession.user.id,
+              nextSession.user.user_metadata as Record<string, string | undefined>,
+            ).finally(() => {
+              if (!cancelled) setLoading(false);
+            });
+          } else {
+            setProfile(null);
+            if (!cancelled) setLoading(false);
+          }
         });
-      } else {
-        setProfile(null);
-        if (!cancelled) setLoading(false);
-      }
-    });
 
     return () => {
       cancelled = true;

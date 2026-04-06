@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { AlertCircle, ArrowLeft, Award, ChevronRight, Download, Search } from 'lucide-react-native';
+import { AlertCircle, Award, ChevronRight, Download, Search } from 'lucide-react-native';
+
+import { BackButton } from '@/components/ui/BackButton';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 
@@ -106,7 +108,7 @@ export default function YscScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top', 'bottom']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -118,13 +120,9 @@ export default function YscScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Back */}
-          <Pressable
-            onPress={() => router.back()}
-            className="flex-row items-center gap-1 mb-6 -ml-1 self-start"
-          >
-            <ArrowLeft size={18} color={iconColors.muted} strokeWidth={2} />
-            <Text className="text-sm font-sans-medium text-neutral-500">Back</Text>
-          </Pressable>
+          <View className="mb-6">
+            <BackButton variant="light" />
+          </View>
 
           {/* Hero */}
           <View className="items-center mb-8">
@@ -143,13 +141,13 @@ export default function YscScreen() {
           </View>
 
           {/* Search */}
-          <View className="rounded-2xl border-2 border-ui-border bg-white dark:bg-neutral-800 p-5 mb-5">
+          <View className="rounded-2xl border-2 border-neutral-700 bg-neutral-800 p-5 mb-5">
             <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-500 mb-3">
               Enter your name
             </Text>
             <View className="flex-row gap-2">
               <TextInput
-                className="flex-1 rounded-xl border-2 border-ui-border px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 bg-ui-bg dark:bg-neutral-900"
+                className="flex-1 rounded-xl border-2 border-neutral-600 px-4 py-3 text-base font-sans-medium text-neutral-100 bg-neutral-900"
                 placeholder="e.g. PARIDHI JHA"
                 placeholderTextColor={iconColors.empty}
                 value={query}
@@ -183,7 +181,7 @@ export default function YscScreen() {
 
           {/* Multiple matches — pick one */}
           {searched && matches.length > 1 && !selected && (
-            <View className="rounded-2xl border-2 border-ui-border bg-white dark:bg-neutral-800 p-5 mb-5">
+            <View className="rounded-2xl border-2 border-neutral-700 bg-neutral-800 p-5 mb-5">
               <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100 mb-3">
                 Multiple matches — pick your row
               </Text>
@@ -191,7 +189,7 @@ export default function YscScreen() {
                 <Pressable
                   key={`${m.rollNo}-${m.class}-${m.subject}-${i}`}
                   onPress={() => setSelected(m)}
-                  className="flex-row items-center justify-between rounded-xl border-2 border-ui-border px-4 py-3 mb-2"
+                  className="flex-row items-center justify-between rounded-xl border-2 border-neutral-600 px-4 py-3 mb-2"
                 >
                   <View>
                     <Text className="font-display-extra text-neutral-900 dark:text-neutral-100">
@@ -209,7 +207,7 @@ export default function YscScreen() {
 
           {/* Certificate found */}
           {selected && (
-            <View className="rounded-2xl border-2 border-brand-accent bg-white dark:bg-neutral-800 p-5">
+            <View className="rounded-2xl border-2 border-brand-accent bg-neutral-800 p-5">
               <Text className="text-lg font-display-black text-neutral-900 dark:text-neutral-100 mb-4">
                 Certificate found
               </Text>
@@ -223,7 +221,7 @@ export default function YscScreen() {
                 ].map(({ label, value }) => (
                   <View
                     key={label}
-                    className="rounded-xl border border-ui-border bg-ui-bg dark:bg-neutral-900 p-3"
+                    className="rounded-xl border border-neutral-700 bg-neutral-900 p-3"
                     style={{ minWidth: '45%', flexGrow: 1 }}
                   >
                     <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-500 mb-1">
@@ -264,7 +262,7 @@ export default function YscScreen() {
                   <Pressable
                     onPress={() => setSelected(null)}
                     disabled={downloading}
-                    className="rounded-xl border-2 border-ui-border py-3 items-center"
+                    className="rounded-xl border-2 border-neutral-600 py-3 items-center"
                   >
                     <Text className="font-display-extra text-neutral-700 dark:text-neutral-300">
                       Choose another

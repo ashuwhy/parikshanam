@@ -55,17 +55,7 @@ export default function ResearchQuizPlayerScreen() {
   const competitionAbbr = researchQuizData[competition as CompetitionId].abbr;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top', 'bottom']}>
-      {/* Back bar */}
-      <View className="flex-row items-center px-4 py-3 border-b border-ui-border bg-white dark:bg-neutral-900">
-        <Pressable
-          onPress={() => router.back()}
-          className="flex-row items-center gap-1 p-1 -ml-1"
-        >
-          <ArrowLeft size={18} color={iconColors.muted} strokeWidth={2} />
-          <Text className="text-sm font-sans-medium text-neutral-500">All quizzes</Text>
-        </Pressable>
-      </View>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
 
       <ResearchQuizRunner
         quizSlug={slug}
