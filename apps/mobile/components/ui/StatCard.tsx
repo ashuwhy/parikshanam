@@ -15,7 +15,6 @@ export function StatCard({ highlight, lines }: Props) {
   return (
     <View
       className="flex-1 items-center justify-center rounded-2xl border border-neutral-700 bg-neutral-800 px-3 py-3.5"
-      style={isDark ? dimensionalShadows.sm.dark : dimensionalShadows.sm.light}
     >
       <Text
         className="text-sm font-display-black leading-tight mb-1"

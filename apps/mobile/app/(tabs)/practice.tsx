@@ -24,10 +24,10 @@ function QuizItem({
     <Pressable
       onPress={onPress}
       className={[
-        'flex-row items-center justify-between gap-4 rounded-2xl border-2 p-4 mb-2',
+        'flex-row items-center justify-between gap-4 rounded-2xl border p-4 mb-2',
         isCompleted
           ? 'border-status-success/30 bg-status-success/5'
-          : 'border-neutral-700 bg-neutral-800',
+          : 'border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800',
       ].join(' ')}
     >
       <View className="flex-1 min-w-0">
@@ -156,7 +156,7 @@ export default function PracticeScreen() {
         </Text>
 
         <Pressable
-          className="flex-row items-center gap-4 rounded-2xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-4 mb-8"
+          className="flex-row items-center gap-4 rounded-2xl border border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800 p-4 mb-8"
           onPress={() => router.push(href('/ysc'))}
         >
           <View className="w-10 h-10 rounded-xl items-center justify-center bg-brand-primary/10">

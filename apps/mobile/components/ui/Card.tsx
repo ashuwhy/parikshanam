@@ -13,7 +13,7 @@ export function Card({ variant = 'default', className, children, ...rest }: Card
     <View
       className={cn(
         // Base styles
-        'bg-white dark:bg-neutral-800 rounded-3xl p-6 shadow-sm',
+        'bg-white dark:bg-neutral-800 rounded-3xl p-6 border border-ui-border dark:border-neutral-700',
         // Default card
         variant === 'default' && 'border border-ui-border dark:border-neutral-700',
         // Interactive option card (for quiz answers, selections)

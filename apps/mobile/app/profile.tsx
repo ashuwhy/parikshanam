@@ -120,7 +120,7 @@ export default function ProfileScreen() {
                     placeholderTextColor={iconColors.subtle}
                     autoFocus
                     autoCapitalize="words"
-                    className="rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 text-center"
+                    className="rounded-2xl border border-ui-border dark:border-neutral-700 bg-ui-bg dark:bg-neutral-900 px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 text-center"
                   />
                 </View>
                 <View>
@@ -141,7 +141,7 @@ export default function ProfileScreen() {
                   </Pressable>
                   <Pressable
                     onPress={onCancel}
-                    className="flex-1 items-center rounded-2xl border-2 border-ui-border dark:border-neutral-600 bg-white dark:bg-neutral-800 py-3"
+                    className="flex-1 items-center rounded-2xl border border-ui-border dark:border-neutral-700 bg-white dark:bg-neutral-800 py-3"
                   >
                     <Text className="text-sm font-display-black text-neutral-700 dark:text-neutral-300">Cancel</Text>
                   </Pressable>
@@ -191,7 +191,7 @@ export default function ProfileScreen() {
         {/* Sign out */}
         <Pressable
           onPress={() => void onSignOut()}
-          className="mx-5 mt-5 items-center rounded-2xl border-2 border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950 py-4"
+          className="mx-5 mt-5 items-center rounded-2xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 py-4"
         >
           <Text className="text-sm font-display-black text-red-600 dark:text-red-400">Sign Out</Text>
         </Pressable>

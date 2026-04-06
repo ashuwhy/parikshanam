@@ -16,7 +16,6 @@ export function SubjectCard({ Icon, label, olympiad, color, bg, onPress }: Props
     <Pressable
       onPress={onPress}
       className="flex-1 overflow-hidden rounded-2xl border border-ui-border bg-white dark:bg-neutral-800 dark:border-neutral-700"
-      style={dimensionalShadows.sm.light}
     >
       {/* Color bar */}
       <View style={{ height: 4, backgroundColor: color }} />
