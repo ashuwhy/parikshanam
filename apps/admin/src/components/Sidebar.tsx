@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   Activity,
+  Bell,
   BookOpen,
   CreditCard,
   GraduationCap,
@@ -23,6 +24,7 @@ const NAV: { href: string; label: string; Icon: typeof LayoutDashboard }[] = [
   { href: '/teachers', label: 'Teachers', Icon: UserRound },
   { href: '/schools', label: 'Schools', Icon: School },
   { href: '/purchases', label: 'Purchases', Icon: CreditCard },
+  { href: '/notifications', label: 'Notifications', Icon: Bell },
   { href: '/activity', label: 'Activity', Icon: Activity },
   { href: '/settings', label: 'Settings', Icon: Settings },
 ]

@@ -39,7 +39,16 @@
       "expo-router",
       "expo-image",
       "./plugins/withPodfileSwiftConcurrency.js",
-      "expo-sharing"
+      "expo-sharing",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#E8720C",
+          "defaultChannel": "default",
+          "sounds": []
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

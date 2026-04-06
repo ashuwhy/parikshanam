@@ -68,11 +68,13 @@ function NavigationGuard({ children }: { children: React.ReactNode }) {
 }
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNotifications } from '@/hooks/useNotifications';
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
   const { loading } = useAuth();
   const insets = useSafeAreaInsets();
+  useNotifications();
 
   useEffect(() => {
     if (!loading) {
