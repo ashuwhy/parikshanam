@@ -42,7 +42,7 @@ export default function CourseDetailScreen() {
 
   if (error || !course) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-white px-6 dark:bg-neutral-950">
+      <SafeAreaView className="flex-1 items-center justify-center bg-white px-6 dark:bg-neutral-900">
         <Text className="text-center text-neutral-600">{error?.message ?? 'Course not found'}</Text>
         <Button title="Go back" className="mt-6" variant="outline" onPress={() => router.back()} />
       </SafeAreaView>
@@ -193,7 +193,7 @@ export default function CourseDetailScreen() {
         {/* Sticky bottom CTA with top shadow */}
         <SafeAreaView
           edges={['bottom']}
-          className="absolute bottom-0 left-0 right-0 bg-white dark:bg-neutral-950 px-4 pt-3"
+          className="absolute bottom-0 left-0 right-0 bg-white dark:bg-neutral-900 px-4 pt-3"
           style={{
             shadowColor: '#000',
             shadowOffset: { width: 0, height: -3 },

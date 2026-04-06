@@ -55,7 +55,7 @@ export default function ResearchQuizPlayerScreen() {
   const competitionAbbr = researchQuizData[competition as CompetitionId].abbr;
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
 
       <ResearchQuizRunner
         quizSlug={slug}

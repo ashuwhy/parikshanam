@@ -1,8 +1,10 @@
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
 import { useAuth } from '@/hooks/useAuth';
 import { href } from '@/lib/href';
+import { brand } from '@/constants/Colors';
 
 function initials(name: string | null | undefined, phone: string | null | undefined) {
   if (name?.trim()) {
@@ -17,10 +19,17 @@ function initials(name: string | null | undefined, phone: string | null | undefi
   return '?';
 }
 
-export function Avatar() {
+type AvatarProps = {
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+};
+
+/** Tappable avatar — goes to profile screen. Shows Google photo if available, falls back to initials. */
+export function Avatar({ size = 'md' }: AvatarProps) {
   const router = useRouter();
   const { profile } = useAuth();
   const label = initials(profile?.full_name, profile?.phone);
+  const dim = size === 'lg' ? 40 : size === 'md' ? 36 : 28;
 
   return (
     <Pressable
@@ -28,22 +37,63 @@ export function Avatar() {
       accessibilityLabel="Open profile"
       hitSlop={12}
       onPress={() => router.push(href('/profile'))}
-      className="mr-3 h-9 w-9 items-center justify-center rounded-full bg-brand-primaryLight dark:bg-brand-primaryDark">
-      <Text className="text-sm font-semibold text-brand-primary dark:text-brand-primary-light">{label}</Text>
+    >
+      {profile?.avatar_url ? (
+        <Image
+          source={{ uri: profile.avatar_url }}
+          style={{ width: dim, height: dim, borderRadius: dim / 2 }}
+          contentFit="cover"
+        />
+      ) : (
+        <View
+          style={{
+            width: dim,
+            height: dim,
+            borderRadius: dim / 2,
+            backgroundColor: brand.primary + '20',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ color: brand.primary, fontWeight: '700', fontSize: size === 'lg' ? 16 : size === 'md' ? 14 : 11 }}>
+            {label}
+          </Text>
+        </View>
+      )}
     </Pressable>
   );
 }
 
-/** Same initials logic without navigation - for profile screen */
+/** Non-tappable avatar circle — profile screen display. Shows Google photo or initials. */
 export function AvatarCircle({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
   const { profile } = useAuth();
   const label = initials(profile?.full_name, profile?.phone);
-  const dim = size === 'lg' ? 'h-20 w-20' : 'h-10 w-10';
-  const text = size === 'lg' ? 'text-2xl' : 'text-sm';
+  const dim = size === 'lg' ? 80 : 40;
+
+  if (profile?.avatar_url) {
+    return (
+      <Image
+        source={{ uri: profile.avatar_url }}
+        style={{ width: dim, height: dim, borderRadius: dim / 2 }}
+        contentFit="cover"
+      />
+    );
+  }
 
   return (
-    <View className={`${dim} items-center justify-center rounded-full bg-brand-primaryLight dark:bg-brand-primaryDark`}>
-      <Text className={`font-semibold text-brand-primary dark:text-brand-primary-light ${text}`}>{label}</Text>
+    <View
+      style={{
+        width: dim,
+        height: dim,
+        borderRadius: dim / 2,
+        backgroundColor: brand.primary + '20',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text style={{ color: brand.primary, fontWeight: '700', fontSize: size === 'lg' ? 24 : 14 }}>
+        {label}
+      </Text>
     </View>
   );
 }

@@ -73,7 +73,7 @@ export default function HomeScreen() {
   const otherCourses = allCourses.filter((c) => c.id !== featuredCourse?.id);
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
       <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
 
         {/* ── 1. Hero Banner ──────────────────────────────────────── */}

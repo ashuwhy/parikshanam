@@ -128,7 +128,7 @@ export const darkColors = {
 
   // Borders
   border: {
-    default: '#374151', // Darker border
+    default: '#404040', // Matches Tailwind's neutral-700
     strong: '#F5A623',  // brand.secondary amber - visible on dark
     subtle: '#4B5563',
   },

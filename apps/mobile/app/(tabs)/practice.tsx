@@ -141,7 +141,7 @@ export default function PracticeScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 16, paddingBottom: 48 }}
@@ -156,7 +156,7 @@ export default function PracticeScreen() {
         </Text>
 
         <Pressable
-          className="flex-row items-center gap-4 rounded-2xl border-2 border-brand-accent bg-brand-primary/5 p-4 mb-8"
+          className="flex-row items-center gap-4 rounded-2xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-4 mb-8"
           onPress={() => router.push(href('/ysc'))}
         >
           <View className="w-10 h-10 rounded-xl items-center justify-center bg-brand-primary/10">

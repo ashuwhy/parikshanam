@@ -15,7 +15,7 @@ import { useRouter } from 'expo-router';
 import { AlertCircle, Award, ChevronRight, Download, Search } from 'lucide-react-native';
 
 import { BackButton } from '@/components/ui/BackButton';
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 
 import { supabase } from '@/lib/supabase';
@@ -48,17 +48,14 @@ export default function YscScreen() {
   const handleDownload = async (student: YscStudentRecord) => {
     setDownloading(true);
     try {
+      // Get session token if available; server validates it but we don't block guests
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        Alert.alert('Sign in required', 'Please sign in to download your certificate.');
-        return;
-      }
 
       const response = await fetch(`${WEB_URL}/api/ysc/generate-certificate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.access_token}`,
+          ...(session ? { Authorization: `Bearer ${session.access_token}` } : {}),
         },
         body: JSON.stringify({
           rollNo: student.rollNo,
@@ -69,10 +66,6 @@ export default function YscScreen() {
         }),
       });
 
-      if (response.status === 401) {
-        Alert.alert('Session expired', 'Please sign out and sign in again.');
-        return;
-      }
       if (!response.ok) {
         const err = await response.json().catch(() => null) as { error?: string } | null;
         throw new Error(err?.error ?? 'Failed to generate certificate');
@@ -88,7 +81,8 @@ export default function YscScreen() {
       const base64 = btoa(binary);
 
       const filename = `YSC-${student.certificateType}-${sanitize(student.name)}.pdf`;
-      const fileUri = `${FileSystem.cacheDirectory}${filename}`;
+      const cacheDir = FileSystem.cacheDirectory ?? '';
+      const fileUri = `${cacheDir}${filename}`;
       await FileSystem.writeAsStringAsync(fileUri, base64, {
         encoding: FileSystem.EncodingType.Base64,
       });
@@ -108,7 +102,7 @@ export default function YscScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -141,13 +135,13 @@ export default function YscScreen() {
           </View>
 
           {/* Search */}
-          <View className="rounded-2xl border-2 border-neutral-700 bg-neutral-800 p-5 mb-5">
+          <View className="rounded-2xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-5 mb-5">
             <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-500 mb-3">
               Enter your name
             </Text>
             <View className="flex-row gap-2">
               <TextInput
-                className="flex-1 rounded-xl border-2 border-neutral-600 px-4 py-3 text-base font-sans-medium text-neutral-100 bg-neutral-900"
+                className="flex-1 rounded-xl border-2 border-neutral-200 dark:border-neutral-600 px-4 py-3 text-base font-sans-medium text-neutral-900 dark:text-neutral-100 bg-white dark:bg-neutral-900"
                 placeholder="e.g. PARIDHI JHA"
                 placeholderTextColor={iconColors.empty}
                 value={query}
@@ -181,7 +175,7 @@ export default function YscScreen() {
 
           {/* Multiple matches — pick one */}
           {searched && matches.length > 1 && !selected && (
-            <View className="rounded-2xl border-2 border-neutral-700 bg-neutral-800 p-5 mb-5">
+            <View className="rounded-2xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-5 mb-5">
               <Text className="text-base font-display-extra text-neutral-900 dark:text-neutral-100 mb-3">
                 Multiple matches — pick your row
               </Text>
@@ -189,7 +183,7 @@ export default function YscScreen() {
                 <Pressable
                   key={`${m.rollNo}-${m.class}-${m.subject}-${i}`}
                   onPress={() => setSelected(m)}
-                  className="flex-row items-center justify-between rounded-xl border-2 border-neutral-600 px-4 py-3 mb-2"
+                  className="flex-row items-center justify-between rounded-xl border-2 border-neutral-200 dark:border-neutral-600 px-4 py-3 mb-2"
                 >
                   <View>
                     <Text className="font-display-extra text-neutral-900 dark:text-neutral-100">
@@ -207,7 +201,7 @@ export default function YscScreen() {
 
           {/* Certificate found */}
           {selected && (
-            <View className="rounded-2xl border-2 border-brand-accent bg-neutral-800 p-5">
+            <View className="rounded-2xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-5">
               <Text className="text-lg font-display-black text-neutral-900 dark:text-neutral-100 mb-4">
                 Certificate found
               </Text>
@@ -221,7 +215,7 @@ export default function YscScreen() {
                 ].map(({ label, value }) => (
                   <View
                     key={label}
-                    className="rounded-xl border border-neutral-700 bg-neutral-900 p-3"
+                    className="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 p-3"
                     style={{ minWidth: '45%', flexGrow: 1 }}
                   >
                     <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-500 mb-1">
@@ -235,7 +229,7 @@ export default function YscScreen() {
               </View>
 
               {/* Certificate type badge */}
-              <View className="rounded-xl border-2 border-brand-accent p-3 mb-5">
+              <View className="rounded-xl border-2 border-neutral-200 dark:border-neutral-700 p-3 mb-5">
                 <Text className="text-xs font-display-black uppercase tracking-wider text-neutral-500 mb-2">
                   Certificate type
                 </Text>
@@ -262,7 +256,7 @@ export default function YscScreen() {
                   <Pressable
                     onPress={() => setSelected(null)}
                     disabled={downloading}
-                    className="rounded-xl border-2 border-neutral-600 py-3 items-center"
+                    className="rounded-xl border-2 border-neutral-200 dark:border-neutral-600 py-3 items-center"
                   >
                     <Text className="font-display-extra text-neutral-700 dark:text-neutral-300">
                       Choose another

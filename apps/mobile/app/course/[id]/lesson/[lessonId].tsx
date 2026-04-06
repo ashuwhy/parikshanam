@@ -65,6 +65,15 @@ export default function LessonScreen() {
   return (
     <SafeAreaView className="flex-1 bg-neutral-950" edges={['top']}>
 
+      {/* Floating back button - overlays the hero */}
+      <View
+        className="absolute left-4 z-10"
+        style={{ top: 10 }}
+        pointerEvents="box-none"
+      >
+        <BackButton variant="dark" />
+      </View>
+
       {/* Video area - full width, dark background */}
       {hasVideo ? (
         <VideoPlayer videoId={lesson.video_storage_path!} onEnded={onVideoEnded} />
@@ -94,8 +103,7 @@ export default function LessonScreen() {
           showsVerticalScrollIndicator={false}
         >
           {/* Header row */}
-          <View className="flex-row items-center gap-3 px-4 pt-4 pb-3 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            <BackButton variant="light" />
+          <View className="flex-row items-center gap-3 px-5 pt-4 pb-3 border-b border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-900">
             <Text className="flex-1 text-base font-display-extra text-neutral-900 dark:text-neutral-100" numberOfLines={1}>
               {lesson.title}
             </Text>

@@ -100,13 +100,10 @@ function YoutubeLessonPlayer({
 
       {/* Black curtain hides YouTube chrome until video is playing */}
       {!ytReady && (
-        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center', zIndex: 5 }}>
-          <Pressable
-            onPress={() => setPlaying(true)}
-            className="w-16 h-16 rounded-full bg-white/10 items-center justify-center"
-          >
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center', zIndex: 5 }} pointerEvents="none">
+          <View className="w-16 h-16 rounded-full bg-white/10 items-center justify-center">
             <Play color="white" fill="white" size={28} style={{ marginLeft: 4 }} />
-          </Pressable>
+          </View>
         </View>
       )}
     </View>

@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -73,6 +73,9 @@ export default function TabLayout() {
   const activeTint = brand.primary;
   const inactiveTint = isDark ? darkColors.text.tertiary : colors.text.quaternary;
 
+  const tabHeight = Platform.OS === 'android' ? 100 : 60 + insets.bottom;
+  const tabPaddingBottom = Platform.OS === 'android' ? 12 : (insets.bottom || 10);
+
   return (
     <Tabs
       screenOptions={{
@@ -81,11 +84,11 @@ export default function TabLayout() {
         tabBarInactiveTintColor: inactiveTint,
         tabBarStyle: {
           backgroundColor: isDark ? darkColors.background.primary : colors.surface.card,
-          borderTopWidth: 1,
+          borderTopWidth: 0.2,
           borderTopColor: isDark ? darkColors.border.default : colors.border.default,
-          height: 60 + insets.bottom,
+          height: tabHeight,
           paddingTop: 8,
-          paddingBottom: insets.bottom || 10,
+          paddingBottom: tabPaddingBottom,
           paddingHorizontal: 8,
           elevation: 0,
           shadowOpacity: 0,

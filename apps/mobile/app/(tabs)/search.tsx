@@ -58,7 +58,7 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-950" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-ui-bg dark:bg-neutral-900" edges={['top']}>
       <View className="px-4 pt-2 pb-3 border-b border-neutral-800">
         <TextInput
           accessibilityLabel="Search courses"

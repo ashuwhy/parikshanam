@@ -49,7 +49,8 @@ export async function POST(request: Request) {
   try {
     const supabase = await createClient();
 
-    // Accept Bearer token from mobile app in addition to cookie-based auth
+    // Identify the user if possible (for analytics), but don't require auth —
+    // YSC certificate data is public (competition results) and this matches the web UI.
     const authHeader = request.headers.get("authorization");
     const bearerToken = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null;
 
@@ -57,9 +58,7 @@ export async function POST(request: Request) {
       ? await supabase.auth.getUser(bearerToken)
       : await supabase.auth.getUser();
 
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // user may be null for unauthenticated mobile/web requests — that's OK
 
     const body = (await request.json()) as Body;
     const rollNo = typeof body.rollNo === "string" ? body.rollNo : "";
@@ -124,13 +123,15 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(pdfBytes);
     const safe = sanitizeDownloadFilePart(row.name);
 
-    after(async () => {
-      await captureServerEvent(user.id, AnalyticsEvents.ysc_certificate_generated_server, {
-        certificate_type: certificateType,
-        roll_no: row.rollNo,
-        subject: row.subject,
+    if (user) {
+      after(async () => {
+        await captureServerEvent(user.id, AnalyticsEvents.ysc_certificate_generated_server, {
+          certificate_type: certificateType,
+          roll_no: row.rollNo,
+          subject: row.subject,
+        });
       });
-    });
+    }
 
     return new NextResponse(buffer, {
       status: 200,

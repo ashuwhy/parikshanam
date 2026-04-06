@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { BookOpen, Clock, Star } from "lucide-react";
+import { BookOpen, Clock } from "lucide-react";
 import { ShowcaseCourseLink } from "@/components/marketing/ShowcaseCourseLink";
+import { CourseCardThumbnail } from "@/components/marketing/CourseCardThumbnail";
 import { buttonProps } from "@/components/ui/buttonStyles";
 import { createClient } from "@/lib/supabase/server";
 import { formatPrice, classRange, discountPercent, olympiadLabel } from "@/lib/courseUtils";
@@ -30,39 +31,12 @@ function CourseCard({ course }: { course: Course }) {
       courseTitle={course.title}
       className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-white border border-[#E5E0D8] shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_12px_40px_-18px_rgba(27,58,110,0.09)] transition-[border-color,box-shadow] duration-200 ease-out hover:border-[#E8720C]/45 hover:shadow-[0_1px_0_rgba(255,255,255,0.95)_inset,0_22px_52px_-14px_rgba(232,114,12,0.15)]"
     >
-      {/* Thumbnail */}
-      <div
-        className="relative aspect-video flex items-center justify-center overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, rgba(232,114,12,0.12) 0%, rgba(27,58,110,0.08) 100%)",
-        }}
-      >
-        {course.thumbnail_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover transition-opacity duration-200 group-hover:opacity-95" />
-        ) : (
-          <BookOpen size={48} color="#E8720C" strokeWidth={1.5} className="opacity-95 group-hover:opacity-100 transition-opacity duration-200" />
-        )}
-
-        {label && (
-          <div
-            className="absolute top-3 left-3 px-3 py-1.5 rounded-[var(--radius-control-sm)] text-[11px] uppercase tracking-widest shadow-[0_2px_8px_rgba(0,0,0,0.15)] backdrop-blur-sm"
-            style={{ background: "rgba(27,58,110,0.95)", color: "white", fontFamily: "var(--font-nunito-var)", fontWeight: 900 }}
-          >
-            {label}
-          </div>
-        )}
-
-        {course.is_featured && (
-          <div
-            className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--radius-control-sm)] shadow-[0_2px_8px_rgba(232,114,12,0.25)]"
-            style={{ background: "#E8720C", fontFamily: "var(--font-nunito-var)" }}
-          >
-            <Star size={11} color="white" fill="white" strokeWidth={0} />
-            <span style={{ fontSize: 11, color: "white", fontWeight: 900 }}>Featured</span>
-          </div>
-        )}
-      </div>
+      <CourseCardThumbnail
+        videoId={course.intro_video_path}
+        thumbnailUrl={course.thumbnail_url}
+        label={label}
+        isFeatured={course.is_featured}
+      />
 
       {/* Body */}
       <div className="flex flex-col flex-1 p-6">
