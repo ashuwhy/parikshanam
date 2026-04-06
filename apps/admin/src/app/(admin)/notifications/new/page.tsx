@@ -97,10 +97,10 @@ export default function NewNotificationPage() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-6 bg-surface-elevated p-6 md:p-8 rounded-[var(--radius-card)] border border-ui-border order-2 lg:order-1"
+          className="space-y-6 bg-surface-elevated p-6 md:p-8 rounded-[var(--radius-card)] border border-ui-border"
         >
           {errorMsg && (
             <div className="p-4 bg-red-50 text-red-700 rounded-2xl text-sm font-bold border border-red-200">
@@ -251,52 +251,69 @@ export default function NewNotificationPage() {
           </button>
         </form>
 
-        <div className="order-1 lg:order-2">
-          <div className="lg:sticky lg:top-8">
-            <p className="text-[11px] uppercase tracking-widest text-text-muted font-black mb-3 text-center lg:text-left">
-              How it looks on a phone
-            </p>
-            <div className="bg-[#f2f2f7] rounded-[40px] w-full max-w-[320px] mx-auto lg:mx-0 lg:ml-auto border-[8px] border-white shadow-xl overflow-hidden relative min-h-[420px] lg:min-h-[560px]">
-              <div className="absolute top-0 inset-x-0 h-6 bg-transparent z-10 flex justify-center pointer-events-none">
-                <div className="w-32 h-6 bg-white rounded-b-3xl" />
+        <aside className="lg:sticky lg:top-8 w-full max-w-[340px] mx-auto lg:max-w-none lg:mx-0 lg:ml-auto">
+          <h2 className="text-[11px] uppercase tracking-widest text-text-muted font-black mb-4 text-center lg:text-left">
+            Preview on device
+          </h2>
+
+          {/* Device shell: light frame + screen + single notification card */}
+          <div className="rounded-[1.75rem] border border-neutral-200/90 bg-white p-2 shadow-[0_12px_40px_-12px_rgba(15,23,42,0.18)]">
+            <div className="overflow-hidden rounded-[1.35rem] bg-[#E8E8ED]">
+              <div className="flex justify-center pt-2.5 pb-1" aria-hidden>
+                <div className="h-[22px] w-[88px] rounded-full bg-black/10" />
               </div>
 
-              <div className="pt-16 px-4 pb-8">
-                <div className="bg-white/90 backdrop-blur-md rounded-3xl p-4 shadow-sm border border-white/80 max-w-full">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <Image
-                      src="/app-icon.png"
-                      alt=""
-                      width={36}
-                      height={36}
-                      className="size-9 rounded-lg shrink-0 shadow-sm"
-                    />
-                    <span className="text-xs font-bold text-neutral-800 uppercase tracking-widest">
-                      Parikshanam
-                    </span>
-                    <span className="text-[10px] text-neutral-500 ml-auto tabular-nums">now</span>
+              <div className="px-3 pb-5 pt-3">
+                <div
+                  role="img"
+                  aria-label="Push notification preview"
+                  className="rounded-[14px] bg-white p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] ring-1 ring-black/5"
+                >
+                  <div className="flex gap-3">
+                    <div className="relative size-11 shrink-0 overflow-hidden rounded-[12px] bg-white shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)]">
+                      <Image
+                        src="/app-icon.png"
+                        alt=""
+                        width={44}
+                        height={44}
+                        className="size-11 object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="font-[family-name:var(--font-nunito-var)] font-black text-[13px] uppercase tracking-wide text-neutral-900">
+                          Parikshanam
+                        </span>
+                        <time className="shrink-0 text-[11px] font-medium text-neutral-400 tabular-nums">
+                          now
+                        </time>
+                      </div>
+                      <p className="mt-1 font-bold text-[15px] leading-snug text-neutral-950">
+                        {title || 'Notification title'}
+                      </p>
+                      <p className="mt-1 text-[13px] leading-[1.45] text-neutral-600">
+                        {body || 'Your message appears here as you type…'}
+                      </p>
+                    </div>
                   </div>
-                  <h4 className="font-bold text-sm text-neutral-900 leading-tight mb-1">
-                    {title || 'Notification title'}
-                  </h4>
-                  <p className="text-sm text-neutral-600 leading-snug">
-                    {body || 'Your message appears here as you type…'}
-                  </p>
-                  {dataUrl?.trim() ? (
-                    <p className="mt-3 pt-3 border-t border-neutral-200/80 text-[11px] text-neutral-500 leading-snug">
-                      <span className="font-bold text-neutral-600">Tap opens: </span>
-                      <code className="text-[10px] bg-neutral-100 px-1.5 py-0.5 rounded text-neutral-700 break-all">
-                        {dataUrl.trim()}
-                      </code>
-                    </p>
-                  ) : null}
                 </div>
               </div>
-
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
             </div>
           </div>
-        </div>
+
+          {dataUrl?.trim() ? (
+            <p className="mt-4 text-center lg:text-left text-xs text-text-muted leading-relaxed">
+              <span className="font-semibold text-text-body">Tap opens: </span>
+              <code className="rounded bg-surface-subtle px-1.5 py-0.5 text-[11px] text-text-body break-all">
+                {dataUrl.trim()}
+              </code>
+            </p>
+          ) : (
+            <p className="mt-4 text-center lg:text-left text-xs text-text-muted">
+              Add an in-app path above to show where the app opens when tapped.
+            </p>
+          )}
+        </aside>
       </div>
     </div>
   )
