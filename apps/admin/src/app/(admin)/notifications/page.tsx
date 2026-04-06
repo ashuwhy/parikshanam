@@ -111,13 +111,13 @@ export default function NotificationsPage() {
   }, [])
 
   return (
-    <div className="space-y-6 animate-fade-in-up">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="animate-fade-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl md:text-3xl font-black text-brand-navy lowercase tracking-tight">
-            notifications.
+          <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-1 animate-fade-in-up">
+            Notifications
           </h1>
-          <p className="text-sm text-text-muted mt-1 font-bold">
+          <p className="text-text-muted text-sm font-medium animate-fade-in-up delay-1">
             Push notifications sent to users
           </p>
         </div>

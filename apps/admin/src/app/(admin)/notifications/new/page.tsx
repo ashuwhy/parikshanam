@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Send } from 'lucide-react'
 import Link from 'next/link'
+import { BackLink } from '@/components/BackLink'
 
 const notificationSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100),
@@ -79,16 +80,16 @@ export default function NewNotificationPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in-up pb-10">
-      <div>
-        <Link href="/notifications" className="inline-flex items-center text-sm font-bold text-text-muted hover:text-brand-navy mb-4 transition-colors">
-          <ArrowLeft size={16} className="mr-1" /> Back to notifications
-        </Link>
-        <h1 className="text-2xl md:text-3xl font-black text-brand-navy lowercase tracking-tight">
-          compose.
+    <div className="animate-fade-in pb-10">
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <BackLink href="/notifications">Notifications</BackLink>
+        </div>
+        <h1 className="text-2xl font-[family-name:var(--font-nunito-var)] font-black text-brand-navy mb-1 animate-fade-in-up">
+          Compose Notification
         </h1>
-        <p className="text-sm text-text-muted mt-1 font-bold">
-          Send a push notification to users' devices
+        <p className="text-text-muted text-sm font-medium animate-fade-in-up delay-1">
+          Send a push notification to users&apos; devices
         </p>
       </div>
 
