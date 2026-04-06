@@ -1,3 +1,6 @@
 # Supabase CLI - use this folder at the monorepo root (not apps/mobile).
 # https://supabase.com/docs/guides/cli/config
 project_id = "parikshanam"
+
+[functions.process-notifications]
+verify_jwt = false
