@@ -41,6 +41,7 @@ yarn-error.*
 /android
 parikshanam-28c51ecada9e.json
 parikshanamapp-firebase-adminsdk-fbsvc-89964fd70f.json
+google-services.json
 
 # Build artifacts
 *.apk

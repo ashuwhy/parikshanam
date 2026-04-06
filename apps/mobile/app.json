@@ -28,7 +28,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.parikshanam.app"
+      "package": "com.parikshanam.app",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
