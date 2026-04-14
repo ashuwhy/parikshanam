@@ -8,7 +8,7 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
 
   const [{ data: profile }, { data: emailRow }, { data: purchases }, { data: progress }] = await Promise.all([
     admin.from('profiles').select('*').eq('id', id).single(),
-    admin.from('admin_user_emails').select('email').eq('id', id).single(),
+    admin.from('user_emails').select('email').eq('id', id).single(),
     admin.from('purchases').select('*, course:courses(title)').eq('user_id', id).order('created_at', { ascending: false }),
     admin.from('user_progress').select('*, lesson:lessons(title), quiz:quizzes(title)').eq('user_id', id),
   ])
